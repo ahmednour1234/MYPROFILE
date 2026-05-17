@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520">
+<rect width="800" height="520" fill="url(#bg)"/>
+<circle cx="650" cy="80" r="150" fill="white" opacity=".18"/>
+<circle cx="120" cy="430" r="180" fill="white" opacity=".13"/>
+<rect x="80" y="90" width="640" height="340" rx="38" fill="white" opacity=".92"/>
+<rect x="116" y="130" width="568" height="58" rx="20" fill="#eef6ff"/>
+<circle cx="154" cy="159" r="10" fill="#ef4444"/><circle cx="184" cy="159" r="10" fill="#f59e0b"/><circle cx="214" cy="159" r="10" fill="#22c55e"/>
+<text x="400" y="285" text-anchor="middle" font-family="Inter,Arial" font-size="88" font-weight="900">🎤</text>
+<text x="400" y="354" text-anchor="middle" font-family="Inter,Arial" font-size="42" font-weight="900" fill="#0f172a">Event Platform</text>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="800" y2="520"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+</svg>

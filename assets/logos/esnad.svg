@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="180" viewBox="0 0 360 180">
+<rect width="360" height="180" rx="34" fill="#ffffff"/>
+<rect x="12" y="12" width="336" height="156" rx="28" fill="#f4f8ff" stroke="#dbe7ff"/>
+<circle cx="76" cy="90" r="42" fill="url(#g)"/>
+<text x="76" y="101" text-anchor="middle" font-family="Inter,Arial" font-size="28" font-weight="900" fill="white">ES</text>
+<text x="136" y="85" font-family="Inter,Arial" font-size="31" font-weight="900" fill="#0f172a">Esnad</text>
+<text x="137" y="116" font-family="Inter,Arial" font-size="16" font-weight="700" fill="#64748b">Business Systems</text>
+<defs><linearGradient id="g" x1="34" y1="48" x2="118" y2="132"><stop stop-color="#2563eb"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+</svg>

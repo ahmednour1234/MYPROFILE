@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmed Nour | Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#" class="brand">Ahmed <span>Nour</span></a>
+      <nav class="nav-links">
+        <a href="#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="#projects" data-en="Projects" data-ar="المشاريع">Projects</a>
+        <a href="#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language">
+          <span class="lang-icon">🌐</span>
+          <span id="langLabel">العربية</span>
+        </button>
+        <a href="#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section-pad">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow" data-en="Senior Backend Engineer &bull; ERP Architect &bull; Payment Integrations" data-ar="مهندس باكند أول &bull; مصمم أنظمة ERP &bull; تكاملات الدفع">Senior Backend Engineer &bull; ERP Architect &bull; Payment Integrations</div>
+          <h1 data-en="Building <span>Powerful Digital Systems</span> That Run Real Businesses" data-ar="بناء <span>أنظمة رقمية قوية</span> تشغّل الأعمال الحقيقية">Building <span>Powerful Digital Systems</span> That Run Real Businesses</h1>
+          <p data-en="I am Ahmed Nour, a Software Engineer based in Riyadh. I build ERP platforms, payment integrations, SAP/API connections, executive dashboards, automation workflows, and production-grade backend systems." data-ar="أنا أحمد نور، مهندس برمجيات مقيم في الرياض. أبني منصات ERP، وتكاملات الدفع، وروابط SAP/API، ولوحات تحكم تنفيذية، وسير عمل آلية، وأنظمة باكند احترافية للإنتاج.">I am Ahmed Nour, a Software Engineer based in Riyadh. I build ERP platforms, payment integrations, SAP/API connections, executive dashboards, automation workflows, and production-grade backend systems.</p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary" data-en="Explore Work" data-ar="استكشف الأعمال">Explore Work</a>
+            <a href="#capabilities" class="btn btn-soft" data-en="View Capabilities" data-ar="عرض الإمكانيات">View Capabilities</a>
+          </div>
+        </div>
+        <div class="hero-visual reveal">
+          <div class="glass-device">
+            <div class="device-top"><span></span><span></span><span></span></div>
+            <div class="device-body">
+              <div class="system-chip" data-en="&#9679; Production System" data-ar="&#9679; نظام إنتاجي">&#9679; Production System</div>
+              <h2 data-en="ERP &bull; Payments &bull; APIs &bull; Automation" data-ar="ERP &bull; مدفوعات &bull; واجهات برمجية &bull; أتمتة">ERP &bull; Payments &bull; APIs &bull; Automation</h2>
+              <p data-en="High-volume backend operations built for speed, accuracy, and scale." data-ar="عمليات باكند عالية الحجم مبنية للسرعة والدقة والتوسع.">High-volume backend operations built for speed, accuracy, and scale.</p>
+              <div class="mini-metrics">
+                <div><strong>500+</strong><small data-en="Orders / Day" data-ar="طلب / يوم">Orders / Day</small></div>
+                <div><strong>SAR 2M+</strong><small data-en="Monthly Payments" data-ar="مدفوعات شهرية">Monthly Payments</small></div>
+                <div><strong>10K+</strong><small data-en="Automations" data-ar="أتمتة">Automations</small></div>
+                <div><strong>7+</strong><small data-en="Countries" data-ar="دول">Countries</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad compact">
+      <div class="container">
+        <div class="metrics reveal">
+          <div class="metric-card">
+            <div class="metric-icon">📦</div>
+            <strong>500+</strong>
+            <span data-en="Daily Orders Processed" data-ar="طلب يومي معالج">Daily Orders Processed</span>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">💰</div>
+            <strong>SAR 2M+</strong>
+            <span data-en="Monthly Payments Handled" data-ar="مدفوعات شهرية مدارة">Monthly Payments Handled</span>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">⚡</div>
+            <strong>10K+</strong>
+            <span data-en="Automated Messages / Month" data-ar="رسالة آلية / شهر">Automated Messages / Month</span>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">🌍</div>
+            <strong>7+</strong>
+            <span data-en="Countries Experience" data-ar="دول بخبرة عملية">Countries Experience</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="capabilities" class="section-pad">
+      <div class="container">
+        <div class="section-title reveal">
+          <small data-en="Capabilities" data-ar="الإمكانيات">Capabilities</small>
+          <h2 data-en="What I Build" data-ar="ما الذي أبنيه">What I Build</h2>
+          <p data-en="Real engineering for real businesses - scalable backend, ERP architecture, financial systems, integrations, automation, and dashboards." data-ar="هندسة حقيقية لأعمال حقيقية - باكند قابل للتوسع، وبنية ERP، وأنظمة مالية، وتكاملات، وأتمتة، ولوحات تحكم.">Real engineering for real businesses - scalable backend, ERP architecture, financial systems, integrations, automation, and dashboards.</p>
+        </div>
+        <div class="capability-grid reveal">
+          <article class="cap-card">
+            <div class="cap-icon">🏢</div>
+            <h3 data-en="ERP Systems" data-ar="أنظمة ERP">ERP Systems</h3>
+            <p data-en="Finance, HR, inventory, sales, branches, reporting, invoicing, permissions, and workflows." data-ar="مالية، موارد بشرية، مخزون، مبيعات، فروع، تقارير، فواتير، صلاحيات، وسير العمل.">Finance, HR, inventory, sales, branches, reporting, invoicing, permissions, and workflows.</p>
+          </article>
+          <article class="cap-card">
+            <div class="cap-icon">💳</div>
+            <h3 data-en="Payment Integrations" data-ar="تكاملات الدفع">Payment Integrations</h3>
+            <p data-en="URWAY, Stripe, payment capture, refunds, webhooks, reconciliation, and transaction flows." data-ar="URWAY، Stripe، تحصيل المدفوعات، المبالغ المستردة، Webhooks، التسوية، وتدفقات المعاملات.">URWAY, Stripe, payment capture, refunds, webhooks, reconciliation, and transaction flows.</p>
+          </article>
+          <article class="cap-card">
+            <div class="cap-icon">🔌</div>
+            <h3 data-en="SAP &amp; APIs" data-ar="SAP وواجهات برمجية">SAP &amp; APIs</h3>
+            <p data-en="Connecting SAP ERP with logistics, payment gateways, internal tools, and third-party systems." data-ar="ربط SAP ERP بالخدمات اللوجستية وبوابات الدفع والأدوات الداخلية وأنظمة الطرف الثالث.">Connecting SAP ERP with logistics, payment gateways, internal tools, and third-party systems.</p>
+          </article>
+          <article class="cap-card">
+            <div class="cap-icon">⚡</div>
+            <h3 data-en="Automation Workflows" data-ar="سير العمل الآلي">Automation Workflows</h3>
+            <p data-en="WhatsApp/SMS notifications, operational reports, automated processes, and background jobs." data-ar="إشعارات واتساب/SMS، تقارير التشغيل، العمليات الآلية، والمهام الخلفية.">WhatsApp/SMS notifications, operational reports, automated processes, and background jobs.</p>
+          </article>
+          <article class="cap-card">
+            <div class="cap-icon">📊</div>
+            <h3 data-en="Executive Dashboards" data-ar="لوحات تحكم تنفيذية">Executive Dashboards</h3>
+            <p data-en="Real-time visibility for finance, operations, sales, inventory, branches, and performance." data-ar="رؤية فورية للمالية والعمليات والمبيعات والمخزون والفروع والأداء.">Real-time visibility for finance, operations, sales, inventory, branches, and performance.</p>
+          </article>
+          <article class="cap-card">
+            <div class="cap-icon">🚀</div>
+            <h3 data-en="Scalable Backend" data-ar="باكند قابل للتوسع">Scalable Backend</h3>
+            <p data-en="Laravel, Redis, PostgreSQL, queues, REST APIs, Docker, CI/CD, and high-performance architecture." data-ar="Laravel، Redis، PostgreSQL، قوائم الانتظار، REST APIs، Docker، CI/CD، وهندسة عالية الأداء.">Laravel, Redis, PostgreSQL, queues, REST APIs, Docker, CI/CD, and high-performance architecture.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section-pad tinted">
+      <div class="container">
+        <div class="section-title reveal">
+          <small data-en="Showcase" data-ar="معرض الأعمال">Showcase</small>
+          <h2 data-en="Project Power Showcase" data-ar="عرض أبرز المشاريع">Project Power Showcase</h2>
+          <p data-en="Enterprise systems, ERP platforms, dashboards, integrations, healthcare systems, and event platforms." data-ar="أنظمة مؤسسية، منصات ERP، لوحات تحكم، تكاملات، أنظمة رعاية صحية، ومنصات فعاليات.">Enterprise systems, ERP platforms, dashboards, integrations, healthcare systems, and event platforms.</p>
+        </div>
+        <div class="project-grid reveal">
+          <article class="project-card">
+            <div class="project-img-wrap"><img src="assets/projects/erp.svg" alt="ERP platform"></div>
+            <div class="project-body">
+              <h3 data-en="Novoo ERP Platform" data-ar="منصة Novoo ERP">Novoo ERP Platform</h3>
+              <p data-en="Inventory, accounting, branches, invoices, reports, permissions, and operations." data-ar="المخزون والمحاسبة والفروع والفواتير والتقارير والصلاحيات والعمليات.">Inventory, accounting, branches, invoices, reports, permissions, and operations.</p>
+              <div class="tags"><span>ERP</span><span data-en="Finance" data-ar="مالية">Finance</span><span data-en="Dashboard" data-ar="لوحة تحكم">Dashboard</span></div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-img-wrap"><img src="assets/projects/payments.svg" alt="Payment infrastructure"></div>
+            <div class="project-body">
+              <h3 data-en="Payment Infrastructure" data-ar="بنية الدفع التحتية">Payment Infrastructure</h3>
+              <p data-en="Gateway integrations, reconciliation pipelines, webhooks, refunds, and transaction handling." data-ar="تكاملات البوابة، خطوط التسوية، Webhooks، المبالغ المستردة، ومعالجة المعاملات.">Gateway integrations, reconciliation pipelines, webhooks, refunds, and transaction handling.</p>
+              <div class="tags"><span>Stripe</span><span>URWAY</span><span>Webhooks</span></div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-img-wrap"><img src="assets/projects/healthcare.svg" alt="Healthcare ERP"></div>
+            <div class="project-body">
+              <h3 data-en="Healthcare ERP" data-ar="نظام ERP الصحي">Healthcare ERP</h3>
+              <p data-en="Patient records, billing, appointments, reports, notifications, and clinic operations." data-ar="سجلات المرضى، الفواتير، المواعيد، التقارير، الإشعارات، وعمليات العيادة.">Patient records, billing, appointments, reports, notifications, and clinic operations.</p>
+              <div class="tags"><span data-en="Healthcare" data-ar="رعاية صحية">Healthcare</span><span data-en="Billing" data-ar="فوترة">Billing</span><span data-en="Scheduling" data-ar="جدولة">Scheduling</span></div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-img-wrap"><img src="assets/projects/events.svg" alt="Event platform"></div>
+            <div class="project-body">
+              <h3 data-en="Event Platforms" data-ar="منصات الفعاليات">Event Platforms</h3>
+              <p data-en="Speakers, sponsors, schedules, registration, tickets, and multilingual content management." data-ar="المتحدثون، الرعاة، الجداول الزمنية، التسجيل، التذاكر، وإدارة المحتوى متعدد اللغات.">Speakers, sponsors, schedules, registration, tickets, and multilingual content management.</p>
+              <div class="tags"><span data-en="Events" data-ar="فعاليات">Events</span><span>CMS</span><span>SEO</span></div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-img-wrap"><img src="assets/projects/automotive.svg" alt="Automotive system"></div>
+            <div class="project-body">
+              <h3 data-en="Automotive Systems" data-ar="أنظمة السيارات">Automotive Systems</h3>
+              <p data-en="Digital systems and websites for car businesses, services, and data management." data-ar="أنظمة رقمية ومواقع إلكترونية لمشاريع السيارات والخدمات وإدارة البيانات.">Digital systems and websites for car businesses, services, and data management.</p>
+              <div class="tags"><span data-en="Cars" data-ar="سيارات">Cars</span><span data-en="Business" data-ar="أعمال">Business</span><span data-en="Website" data-ar="موقع">Website</span></div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-img-wrap"><img src="assets/projects/corporate.svg" alt="Corporate system"></div>
+            <div class="project-body">
+              <h3 data-en="Corporate Platforms" data-ar="منصات الشركات">Corporate Platforms</h3>
+              <p data-en="CRM tools, dashboards, internal apps, APIs, employees, orders, clients, and reports." data-ar="أدوات CRM، لوحات تحكم، تطبيقات داخلية، APIs، موظفون، طلبات، عملاء، وتقارير.">CRM tools, dashboards, internal apps, APIs, employees, orders, clients, and reports.</p>
+              <div class="tags"><span>CRM</span><span>APIs</span><span data-en="Automation" data-ar="أتمتة">Automation</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="countries" class="section-pad tinted">
+      <div class="container">
+        <div class="section-title reveal">
+          <small data-en="Global Work" data-ar="عمل عالمي">Global Work</small>
+          <h2 data-en="Projects Across Multiple Markets" data-ar="مشاريع في أسواق متعددة">Projects Across Multiple Markets</h2>
+          <p data-en="Experience across Saudi Arabia, Egypt, UAE, Lebanon, United Kingdom, Oman, and Morocco." data-ar="خبرة في المملكة العربية السعودية، ومصر، والإمارات، ولبنان، والمملكة المتحدة، وعُمان، والمغرب.">Experience across Saudi Arabia, Egypt, UAE, Lebanon, United Kingdom, Oman, and Morocco.</p>
+        </div>
+        <div class="country-slider-wrap reveal">
+          <button class="slider-btn slider-prev" aria-label="Previous" id="sliderPrev">&#8592;</button>
+          <div class="country-slider-viewport">
+            <div class="country-slider-track" id="countryGrid">
+              <div class="country-skeleton"></div>
+              <div class="country-skeleton"></div>
+              <div class="country-skeleton"></div>
+              <div class="country-skeleton"></div>
+              <div class="country-skeleton"></div>
+              <div class="country-skeleton"></div>
+              <div class="country-skeleton"></div>
+              <div class="country-skeleton"></div>
+              <div class="country-skeleton"></div>
+            </div>
+          </div>
+          <button class="slider-btn slider-next" aria-label="Next" id="sliderNext">&#8594;</button>
+        </div>
+        <div class="slider-dots" id="sliderDots"></div>
+      </div>
+    </section>
+
+    <section id="stack" class="section-pad tinted">
+      <div class="container">
+        <div class="section-title reveal">
+          <small data-en="Tech Stack" data-ar="تقنيات العمل">Tech Stack</small>
+          <h2 data-en="Technology Power Stack" data-ar="منظومة التقنيات">Technology Power Stack</h2>
+          <p data-en="Modern technologies for scalable production systems." data-ar="تقنيات حديثة لأنظمة إنتاجية قابلة للتوسع.">Modern technologies for scalable production systems.</p>
+        </div>
+        <div class="tech-cloud reveal">
+          <span>Laravel</span><span>PHP 8</span><span>Python</span><span>.NET</span>
+          <span>MySQL</span><span>PostgreSQL</span><span>Redis</span><span>Docker</span>
+          <span>CI/CD</span><span>REST APIs</span><span>SAP ERP</span><span>Stripe</span>
+          <span>URWAY</span><span>Webhooks</span><span>Queues</span><span>Vue.js</span>
+          <span>Tailwind</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="container">
+        <div class="section-title reveal">
+          <small data-en="Clients &amp; Experience" data-ar="العملاء والخبرة">Clients &amp; Experience</small>
+          <h2 data-en="Brands, Companies &amp; Markets" data-ar="العلامات التجارية والشركات والأسواق">Brands, Companies &amp; Markets</h2>
+        </div>
+        <div class="client-grid reveal">
+          <div><img src="assets/logos/muntajat.svg" alt="Muntajat"></div>
+          <div><img src="assets/logos/raqimix.svg" alt="Raqimix"></div>
+          <div><img src="assets/logos/iqbrandx.svg" alt="IQBRANDX"></div>
+          <div><img src="assets/logos/smartvision.svg" alt="Smart Vision"></div>
+          <div><img src="assets/logos/alhayat.svg" alt="Alhayat Medical"></div>
+          <div><img src="assets/logos/esnad.svg" alt="Esnad"></div>
+          <div><img src="assets/logos/janan.svg" alt="Janan"></div>
+          <div><img src="assets/logos/american-university.svg" alt="American University"></div>
+          <div><img src="assets/logos/kippis.svg" alt="Kippis"></div>
+          <div><img src="assets/logos/jeddah-complex.svg" alt="Jeddah Complex"></div>
+          <div><img src="assets/logos/al-leithy.svg" alt="Al-Leithy Cars"></div>
+          <div><img src="assets/logos/cib.svg" alt="CIB"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section-pad cta-section">
+      <div class="cta-glow"></div>
+      <div class="container cta-inner reveal">
+        <div class="cta-badge" data-en="Available for Projects" data-ar="متاح للمشاريع">Available for Projects</div>
+        <h2 data-en="Let's Build Something Powerful" data-ar="لنبن شيئاً قوياً معاً">Let's Build Something Powerful</h2>
+        <p data-en="Need an ERP system, dashboard, payment integration, automation workflow, or enterprise business platform? Let's build it professionally." data-ar="تحتاج إلى نظام ERP، أو لوحة تحكم، أو تكامل دفع، أو سير عمل آلي، أو منصة أعمال مؤسسية؟ لنبنيها باحترافية.">Need an ERP system, dashboard, payment integration, automation workflow, or enterprise business platform? Let's build it professionally.</p>
+        <div class="hero-actions centered">
+          <a href="mailto:ahmednour5999@gmail.com" class="btn btn-primary" data-en="Email Me" data-ar="راسلني">Email Me</a>
+          <a href="https://wa.me/966575899784" class="btn btn-ghost" data-en="WhatsApp" data-ar="واتساب">WhatsApp</a>
+          <a href="https://github.com/ahmednour1234" class="btn btn-ghost">GitHub</a>
+          <a href="https://linkedin.com/in/ahmed-nour-698758242" class="btn btn-ghost">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+</html>
