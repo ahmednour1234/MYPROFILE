@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muntajat B2B/B2C Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--mn-gold:#d4a800;--mn-dark:#1e1840;--mn-blue:#3a6bb0;--mn-light:#fdf8f0;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0e0c24 0%,#1e1840 50%,#2a2060 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(212,168,0,.12) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(58,107,176,.12) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(212,168,0,.35);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#d4a800,#f0c420);display:flex;align-items:center;justify-content:center;color:#0e0c24;font-size:13px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#f0c420;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 460px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#f0c420;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.gold{background:rgba(212,168,0,.2);border-color:rgba(212,168,0,.5);color:#f0c420;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-gold{padding:11px 24px;border-radius:12px;background:linear-gradient(135deg,#d4a800,#f0c420);color:#0e0c24;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,168,0,.4);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:460px;border-radius:16px 16px 0 0;box-shadow:0 -16px 60px rgba(212,168,0,.2),0 -1px 0 rgba(212,168,0,.4);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;flex-wrap:wrap;}
+    .platform-pill{padding:10px 24px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:4px 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(212,168,0,.15);border-color:rgba(212,168,0,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(212,168,0,.12);color:#8a6a00;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(212,168,0,.1);color:#1e1840;font-size:12px;font-weight:700;}
+    .platform-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .platform-row:last-child{border-bottom:none;}
+    .pl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .pl-name{font-weight:700;color:var(--navy);}
+    .pl-tag{margin-left:auto;font-size:11px;color:var(--muted);font-weight:600;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Platform cards */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.b2b-card::before{background:linear-gradient(90deg,#d4a800,#f0c420);}
+    .component-card.b2c-card::before{background:linear-gradient(90deg,#3a6bb0,#6254e7);}
+    .component-card.wms-card::before{background:linear-gradient(90deg,#1e1840,#3a6bb0);}
+    .component-card.sap-card::before{background:linear-gradient(90deg,#059669,#34d399);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.g{background:rgba(212,168,0,.1);color:#8a6a00;}
+    .comp-tag.b{background:rgba(58,107,176,.1);color:#3a6bb0;}
+    .comp-tag.p{background:rgba(98,84,231,.1);color:#6254e7;}
+    .comp-tag.d{background:rgba(30,24,64,.1);color:#1e1840;}
+    .comp-tag.gr{background:rgba(5,150,105,.1);color:#059669;}
+    /* Payment gateway cards */
+    .payment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .pay-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .pay-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .pay-card.tamara::before{background:linear-gradient(90deg,#00c28e,#00a878);}
+    .pay-card.tabby::before{background:linear-gradient(90deg,#3dbf8f,#2ca57a);}
+    .pay-card.urway::before{background:linear-gradient(90deg,#d4a800,#f0c420);}
+    .pay-logo{font-size:26px;margin-bottom:8px;}
+    .pay-name{font-size:15px;font-weight:900;color:var(--navy);margin-bottom:4px;}
+    .pay-type{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:10px;}
+    .pay-tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;}
+    .pay-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;background:rgba(212,168,0,.08);color:#8a6a00;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#d4a800,#f0c420);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#0e0c24;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d4a800,#f0c420);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1e1840,#d4a800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #d4a800;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Client types */
+    .clients-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .client-card{background:white;border:1px solid var(--line);border-radius:12px;padding:16px 14px;text-align:center;box-shadow:var(--shadow);}
+    .client-ico{font-size:24px;margin-bottom:8px;}
+    .client-name{font-size:12.5px;font-weight:700;color:var(--navy);}
+    /* Brand chips */
+    .brands-row{display:flex;flex-wrap:wrap;gap:8px;}
+    .brand-chip{padding:5px 12px;border-radius:8px;font-size:11.5px;font-weight:700;background:rgba(212,168,0,.07);color:#1e1840;border:1px solid rgba(212,168,0,.2);}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#d4a800;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .components-grid{grid-template-columns:1fr;}
+      .payment-grid{grid-template-columns:1fr;}
+      .clients-grid{grid-template-columns:repeat(2,1fr);}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span data-en="Muntajat Platform" data-ar="منصة منتجات">Muntajat Platform</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">M</div>
+          <span><em>منتجات</em> &nbsp;— MUNTAJAT · SAUDI ARABIA · EST. 2005</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat b2b" data-en="B2B · B2C · WMS · SAP" data-ar="B2B · B2C · مخازن · SAP">B2B · B2C · WMS · SAP</span>
+            <h1 data-en="Muntajat <em>B2B/B2C</em> Platform" data-ar="منصة منتجات <em>B2B/B2C</em>">Muntajat <em>B2B/B2C</em> Platform</h1>
+            <p data-en="Full-stack multi-channel commerce platform for Saudi Arabia's leading pet products distributor — a B2B ordering portal for 500+ business clients, a B2C consumer store, a warehouse management system, full SAP ERP integration, and triple payment gateway support with Tamara, Tabby &amp; Urway." data-ar="منصة تجارة متعددة القنوات لأكبر موزع منتجات حيوانات أليفة في المملكة العربية السعودية — بوابة طلبات B2B لـ500+ عميل تجاري ومتجر B2C للمستهلك ونظام إدارة مخازن وتكامل SAP ERP كامل وثلاث بوابات دفع: تمارا وتابي وUrway.">Full-stack multi-channel commerce platform for Saudi Arabia's leading pet products distributor — B2B portal for 500+ business clients, B2C consumer store, warehouse management, full SAP ERP integration, and triple payment gateway: Tamara, Tabby &amp; Urway.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇸🇦 Saudi Arabia</span>
+              <span class="hero-badge gold">✓ Live — muntajat.sa</span>
+              <span class="hero-badge gold">📱 iOS &amp; Android</span>
+              <span class="hero-badge">75+ Brands</span>
+              <span class="hero-badge">12 Categories</span>
+              <span class="hero-badge">Est. 2005</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://muntajat.sa/en/" target="_blank" rel="noopener noreferrer" class="btn-gold" data-en="Visit Live Platform →" data-ar="زيارة المنصة →">Visit Live Platform →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/muntajat/muntajat-platform.png" alt="Muntajat B2B/B2C Platform" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🏢</span>
+              <div class="pp-text"><strong data-en="B2B Portal" data-ar="بوابة B2B">B2B Portal</strong><span>app.ppte.sa — Shareek</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🛒</span>
+              <div class="pp-text"><strong data-en="B2C Store" data-ar="متجر B2C">B2C Store</strong><span>Consumer E-Commerce</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Mobile App" data-ar="تطبيق الجوال">Mobile App</strong><span>Flutter — iOS &amp; Android</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🏭</span>
+              <div class="pp-text"><strong data-en="Warehouse WMS" data-ar="نظام المخازن">Warehouse WMS</strong><span>Inventory Management</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🔗</span>
+              <div class="pp-text"><strong data-en="SAP Integration" data-ar="تكامل SAP">SAP Integration</strong><span>ERP Sync</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Muntajat has been Saudi Arabia's leading pet products distributor since 2005 — supplying 75+ international brands across 12 categories to retail shops, veterinary clinics, supermarkets, government entities, and online marketplaces. All of their ordering, invoicing, and inventory was handled manually or through disconnected legacy systems." data-ar="منتجات هي الرائد في توزيع منتجات الحيوانات الأليفة في السعودية منذ 2005 — تزود 75+ علامة تجارية دولية عبر 12 فئة لمحلات التجزئة والعيادات البيطرية والسوبرماركت والجهات الحكومية والأسواق الإلكترونية. كان كل الطلب والفوترة والمخزون يُدار يدويًا أو عبر أنظمة قديمة منفصلة.">Muntajat has been Saudi Arabia's leading pet products distributor since 2005 — supplying 75+ international brands across 12 categories to retail shops, veterinary clinics, supermarkets, and government entities. All ordering, invoicing, and inventory was handled manually or through disconnected legacy systems.</p>
+              <p data-en="The solution: a unified multi-channel platform — a B2B ordering portal with Shareek loyalty programme, a consumer-facing B2C store, a Flutter mobile app for both iOS and Android, a full Warehouse Management System, and bidirectional SAP ERP integration — all tied together with three payment gateways: Tamara, Tabby, and Urway." data-ar="الحل: منصة متعددة القنوات — بوابة طلبات B2B مع برنامج ولاء شريك ومتجر B2C للمستهلك وتطبيق Flutter لنظامَي iOS وAndroid ونظام إدارة مخازن كامل وتكامل SAP ERP ثنائي الاتجاه — مرتبطة ببوابات الدفع الثلاث: تمارا وتابي وUrway.">The solution: a unified multi-channel platform — B2B portal with Shareek loyalty, B2C consumer store, Flutter mobile app (iOS &amp; Android), full Warehouse Management System, and bidirectional SAP ERP integration — with triple payment gateway: Tamara, Tabby, and Urway.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Platform Components" data-ar="مكونات المنصة">Platform Components</h2>
+              <div class="components-grid">
+                <div class="component-card b2b-card">
+                  <div class="comp-icon">🏢</div>
+                  <div class="comp-name" data-en="B2B Ordering Portal" data-ar="بوابة الطلبات B2B">B2B Ordering Portal</div>
+                  <div class="comp-sub">app.ppte.sa — Shareek Programme</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Laravel</span>
+                    <span class="comp-tag g">MySQL</span>
+                    <span class="comp-tag g">REST API</span>
+                    <span class="comp-tag g">Blade</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Business clients (retail, vets, supermarkets) place bulk orders, manage accounts, track deliveries, initiate returns, and redeem Shareek loyalty points for exclusive discounts and benefits." data-ar="العملاء التجاريون (التجزئة، البيطرة، السوبرماركت) يقدمون طلبات بالجملة ويديرون الحسابات ويتابعون التسليم ويبدأون المرتجعات ويستردون نقاط ولاء شريك لخصومات ومزايا حصرية.">Business clients place bulk orders, manage accounts, track deliveries, initiate returns, and redeem Shareek loyalty points for exclusive benefits.</p>
+                </div>
+                <div class="component-card b2c-card">
+                  <div class="comp-icon">🛒</div>
+                  <div class="comp-name" data-en="B2C Consumer Store" data-ar="متجر المستهلك B2C">B2C Consumer Store</div>
+                  <div class="comp-sub">muntajat.sa</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">Laravel</span>
+                    <span class="comp-tag b">Vue.js</span>
+                    <span class="comp-tag b">MySQL</span>
+                    <span class="comp-tag p">Arabic RTL</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Consumer-facing pet products store — browse 12 product categories, 75+ brands, cart, checkout with Tamara/Tabby BNPL or Urway card payment, order tracking, wishlists, and reviews." data-ar="متجر منتجات حيوانات أليفة للمستهلك — تصفح 12 فئة و75+ علامة تجارية وسلة تسوق ودفع عبر تمارا/تابي أو بطاقة Urway وتتبع الطلبات وقوائم الأمنيات والتقييمات.">Consumer store — browse 12 categories, 75+ brands, checkout with Tamara/Tabby BNPL or Urway card, order tracking, wishlists, reviews.</p>
+                </div>
+                <div class="component-card wms-card">
+                  <div class="comp-icon">🏭</div>
+                  <div class="comp-name" data-en="Warehouse Management (WMS)" data-ar="نظام إدارة المخازن WMS">Warehouse Management (WMS)</div>
+                  <div class="comp-sub" data-en="Inventory Control" data-ar="التحكم في المخزون">Inventory Control</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag d">Laravel</span>
+                    <span class="comp-tag d">MySQL</span>
+                    <span class="comp-tag d">Livewire</span>
+                    <span class="comp-tag d">Barcode</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Real-time inventory tracking across warehouse zones — inbound container logging, stock movements, pick-pack-ship workflows, low-stock alerts, barcode scanning, and per-SKU location mapping." data-ar="تتبع مخزون آني عبر مناطق المستودع — تسجيل الحاويات الواردة وتحركات المخزون وسير اختيار-تعبئة-شحن وتنبيهات نقص المخزون ومسح الباركود وتخطيط موقع كل SKU.">Real-time inventory across warehouse zones — inbound containers, stock movements, pick-pack-ship workflows, barcode scanning, and per-SKU location mapping.</p>
+                </div>
+                <div class="component-card sap-card">
+                  <div class="comp-icon">🔗</div>
+                  <div class="comp-name" data-en="SAP ERP Integration" data-ar="تكامل SAP ERP">SAP ERP Integration</div>
+                  <div class="comp-sub" data-en="Bidirectional Data Sync" data-ar="مزامنة بيانات ثنائية الاتجاه">Bidirectional Data Sync</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag gr">SAP API</span>
+                    <span class="comp-tag gr">Laravel</span>
+                    <span class="comp-tag gr">Queues</span>
+                    <span class="comp-tag gr">Webhooks</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Bidirectional sync between the platform and SAP — orders flow into SAP for financials and fulfilment, SAP pushes back inventory levels, pricing, and account credit limits in real time via REST webhooks and queue-based retry logic." data-ar="مزامنة ثنائية الاتجاه بين المنصة وSAP — الطلبات تتدفق إلى SAP للماليات والتنفيذ وSAP يعيد مستويات المخزون والتسعير وحدود ائتمان الحساب آنيًا عبر webhooks وآلية إعادة المحاولة.">Bidirectional SAP sync — orders flow into SAP for financials, SAP pushes back inventory levels, pricing, and credit limits via REST webhooks and queue-based retry logic.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Payment Gateways" data-ar="بوابات الدفع">Payment Gateways</h2>
+              <p data-en="Three payment gateways integrated to serve different customer needs — BNPL for B2C consumers wanting flexible payment, and a full card gateway for B2B invoices and one-time payments." data-ar="ثلاث بوابات دفع متكاملة لخدمة احتياجات مختلفة — BNPL للمستهلكين الراغبين في دفع مرن وبوابة بطاقات كاملة لفواتير B2B والمدفوعات الفردية.">Three payment gateways integrated — BNPL for B2C consumers and a full card gateway for B2B invoices and one-time payments.</p>
+              <div class="payment-grid">
+                <div class="pay-card tamara">
+                  <div class="pay-logo">🟢</div>
+                  <div class="pay-name">Tamara</div>
+                  <div class="pay-type" data-en="BNPL — Buy Now Pay Later" data-ar="BNPL — اشترِ الآن وادفع لاحقًا">BNPL — Buy Now Pay Later</div>
+                  <div class="pay-tags">
+                    <span class="pay-tag">Split in 3</span>
+                    <span class="pay-tag">Split in 4</span>
+                    <span class="pay-tag">Pay Later</span>
+                    <span class="pay-tag">KSA Market</span>
+                  </div>
+                  <p style="font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6;" data-en="Saudi Arabia's #1 BNPL — customers split purchases into 3 or 4 interest-free instalments. Fully integrated at checkout with instant eligibility check, automatic payment reminders, and refund handling." data-ar="الرائد في BNPL بالسعودية — العملاء يقسّمون المشتريات إلى 3 أو 4 أقساط بدون فائدة. متكامل بالكامل عند الدفع مع فحص أهلية فوري وتذكيرات دفع تلقائية ومعالجة المبالغ المستردة.">Saudi Arabia's #1 BNPL — split into 3–4 interest-free instalments. Instant eligibility, automatic reminders, refund handling.</p>
+                </div>
+                <div class="pay-card tabby">
+                  <div class="pay-logo">🔵</div>
+                  <div class="pay-name">Tabby</div>
+                  <div class="pay-type" data-en="BNPL — Flexible Payments" data-ar="BNPL — مدفوعات مرنة">BNPL — Flexible Payments</div>
+                  <div class="pay-tags">
+                    <span class="pay-tag">4 Instalments</span>
+                    <span class="pay-tag">0% Interest</span>
+                    <span class="pay-tag">UAE + KSA</span>
+                  </div>
+                  <p style="font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6;" data-en="Leading GCC BNPL provider — split purchases into 4 zero-interest monthly instalments. SDK integrated with custom UI, webhook-based payment confirmation, and dispute resolution flow." data-ar="الرائد في BNPL بدول الخليج — تقسيم المشتريات إلى 4 أقساط شهرية بدون فائدة. SDK متكامل مع واجهة مخصصة وتأكيد دفع بـwebhook وسير حل النزاعات.">Leading GCC BNPL — 4 zero-interest monthly instalments. SDK with custom UI, webhook confirmation, dispute resolution.</p>
+                </div>
+                <div class="pay-card urway">
+                  <div class="pay-logo">💳</div>
+                  <div class="pay-name">Urway</div>
+                  <div class="pay-type" data-en="Full Card Payment Gateway" data-ar="بوابة بطاقات كاملة">Full Card Payment Gateway</div>
+                  <div class="pay-tags">
+                    <span class="pay-tag">Visa / Mada</span>
+                    <span class="pay-tag">Mastercard</span>
+                    <span class="pay-tag">3D Secure</span>
+                    <span class="pay-tag">Recurring</span>
+                  </div>
+                  <p style="font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6;" data-en="Saudi-native payment gateway — Visa, Mada, Mastercard, Apple Pay. 3D Secure authentication, recurring billing for B2B subscriptions, refund management, and PCI-DSS compliant tokenized card storage." data-ar="بوابة دفع سعودية — فيزا وميدا وماستركارد وApple Pay. مصادقة 3D Secure وفوترة متكررة لاشتراكات B2B وإدارة المبالغ المستردة وتخزين بطاقة مُرمَّزة متوافق مع PCI-DSS.">Saudi-native gateway — Visa, Mada, Mastercard, Apple Pay. 3D Secure, recurring billing, PCI-DSS tokenized storage.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Client Types Served" data-ar="أنواع العملاء المخدومين">Client Types Served</h2>
+              <div class="clients-grid">
+                <div class="client-card"><div class="client-ico">🏪</div><div class="client-name" data-en="Retail Shops" data-ar="محلات التجزئة">Retail Shops</div></div>
+                <div class="client-card"><div class="client-ico">🏥</div><div class="client-name" data-en="Vets &amp; Clinics" data-ar="البيطريون والعيادات">Vets &amp; Clinics</div></div>
+                <div class="client-card"><div class="client-ico">🛒</div><div class="client-name" data-en="Supermarkets" data-ar="السوبرماركت">Supermarkets</div></div>
+                <div class="client-card"><div class="client-ico">🌐</div><div class="client-name" data-en="Online Marketplaces" data-ar="الأسواق الإلكترونية">Online Marketplaces</div></div>
+                <div class="client-card"><div class="client-ico">💻</div><div class="client-name" data-en="Online Shops" data-ar="المتاجر الإلكترونية">Online Shops</div></div>
+                <div class="client-card"><div class="client-ico">🏛️</div><div class="client-name" data-en="Government" data-ar="الجهات الحكومية">Government</div></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Shareek B2B Loyalty Programme" data-ar="برنامج ولاء شريك B2B">Shareek B2B Loyalty Programme</strong>
+                    <span data-en="Business clients earn Shareek points on every order — redeemable for discounts, priority shipping, and exclusive access to new product launches. Tier-based rewards: Bronze, Silver, Gold." data-ar="العملاء التجاريون يكسبون نقاط شريك عند كل طلب — قابلة للاسترداد بخصومات وشحن أولوية ووصول حصري لإطلاقات منتجات جديدة. مكافآت متدرجة: برونزية وفضية وذهبية.">Business clients earn Shareek points per order — redeemable for discounts, priority shipping, new product access. Bronze / Silver / Gold tiers.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Bidirectional SAP ERP Sync" data-ar="مزامنة SAP ERP ثنائية الاتجاه">Bidirectional SAP ERP Sync</strong>
+                    <span data-en="Platform orders automatically create SAP sales documents. SAP pushes back confirmed stock levels, invoice status, account credit limits, and approved pricing tiers — synced every 5 minutes via queued REST calls." data-ar="طلبات المنصة تنشئ مستندات مبيعات SAP تلقائيًا. SAP يعيد مستويات المخزون المؤكدة وحالة الفاتورة وحدود الائتمان والفئات السعرية المعتمدة — مزامنة كل 5 دقائق عبر استدعاءات REST في قوائم الانتظار.">Platform orders auto-create SAP sales documents. SAP returns confirmed stock, invoice status, credit limits, pricing — synced every 5 min via queued REST.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Warehouse Management — Full WMS" data-ar="إدارة المخازن — WMS كامل">Warehouse Management — Full WMS</strong>
+                    <span data-en="Inbound container logging, zone-based stock placement, pick lists, pack stations, shipping label generation, and real-time inventory dashboards. Supports barcode scanning and mobile warehouse staff app." data-ar="تسجيل حاويات واردة ووضع مخزون مناطقي وقوائم اختيار ومحطات تعبئة وإصدار ملصقات شحن ولوحات مخزون آنية. يدعم مسح الباركود وتطبيق موظفي المستودع على الجوال.">Inbound containers, zone-based stock, pick lists, pack stations, label generation, real-time dashboards, barcode scanning.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Triple Payment Gateway — BNPL + Card" data-ar="ثلاث بوابات دفع — BNPL + بطاقة">Triple Payment Gateway — BNPL + Card</strong>
+                    <span data-en="Tamara and Tabby BNPL for B2C consumers, Urway for debit/credit card and Mada. Each gateway has webhook-based confirmation, automatic refund flows, and unified transaction reporting across all three." data-ar="تمارا وتابي BNPL للمستهلكين وUrway للبطاقات وميدا. كل بوابة بتأكيد webhook وسير مبالغ مستردة تلقائي وتقرير معاملات موحد للثلاثة.">Tamara + Tabby BNPL for B2C, Urway for card/Mada. Webhook confirmation, automatic refunds, unified transaction reporting.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Flutter Mobile App — iOS &amp; Android" data-ar="تطبيق Flutter — iOS وAndroid">Flutter Mobile App — iOS &amp; Android</strong>
+                    <span data-en="Single Flutter codebase on App Store and Google Play — B2B order placement on the go, Shareek point balance, delivery tracking, push notification for order status, and returns initiation." data-ar="كودبيس Flutter واحد على App Store وGoogle Play — طلبات B2B من الجوال ورصيد نقاط شريك وتتبع التسليم وإشعارات حالة الطلب وبدء المرتجعات.">Single Flutter codebase on both stores — B2B orders on the go, Shareek balance, delivery tracking, push notifications, returns.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="75+ Brands — 12-Category Catalog" data-ar="75+ علامة — كتالوج 12 فئة">75+ Brands — 12-Category Catalog</strong>
+                    <span data-en="Smart product catalog — filterable by brand, category, species, and price. Advanced search with Arabic/English indexing, personalised product recommendations, and bundle/deal pricing for B2B bulk orders." data-ar="كتالوج منتجات ذكي — قابل للتصفية حسب العلامة التجارية والفئة والنوع والسعر. بحث متقدم بفهرسة عربية/إنجليزية وتوصيات منتجات مخصصة وتسعير حزم B2B.">Smart catalog — filter by brand, category, species, price. Arabic/English search, personalised recommendations, bundle pricing for B2B bulk.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="B2B Account Management &amp; Credit Limits" data-ar="إدارة حسابات B2B وحدود الائتمان">B2B Account Management &amp; Credit Limits</strong>
+                    <span data-en="Each B2B account has SAP-synced credit limits, overdue invoice alerts, statement of account downloads, delegated ordering (multiple users per account), and custom pricing tiers per agreement." data-ar="كل حساب B2B بحدود ائتمان مزامنة مع SAP وتنبيهات فواتير متأخرة وتنزيل كشف الحساب وتفويض طلبات (مستخدمون متعددون لكل حساب) وفئات تسعير مخصصة حسب الاتفاقية.">SAP-synced credit limits, overdue alerts, account statements, multi-user ordering per account, custom pricing per agreement.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Delivery Tracking &amp; Returns Management" data-ar="تتبع التسليم وإدارة المرتجعات">Delivery Tracking &amp; Returns Management</strong>
+                    <span data-en="Real-time delivery tracking via logistics partner API — customers and B2B clients see live shipment status. Easy returns: select items, reason, pickup scheduling, and automatic credit note or refund routing per payment method." data-ar="تتبع تسليم آني عبر API شريك الخدمات اللوجستية. مرتجعات سهلة: اختر المنتجات والسبب وجدولة الاستلام وتوجيه تلقائي لإشعار الائتمان أو الاسترداد.">Live delivery tracking via logistics API. Easy returns — item selection, reason, pickup scheduling, automatic credit note or refund.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Project Highlights" data-ar="أبرز المشروع">Project Highlights</h2>
+              <div class="results-grid">
+                <div class="result-card"><strong>B2B+B2C</strong><span data-en="Dual Commerce — One Platform" data-ar="تجارة مزدوجة — منصة واحدة">Dual Commerce Mode</span></div>
+                <div class="result-card"><strong>75+</strong><span data-en="International Pet Brands" data-ar="علامة تجارية دولية">International Brands</span></div>
+                <div class="result-card"><strong>12</strong><span data-en="Product Categories in Catalog" data-ar="فئة منتجات في الكتالوج">Product Categories</span></div>
+                <div class="result-card"><strong>3×</strong><span data-en="Payment Gateways — Tamara, Tabby, Urway" data-ar="بوابات دفع — تمارا وتابي وUrway">Payment Gateways</span></div>
+                <div class="result-card"><strong>SAP</strong><span data-en="Full ERP Integration — Bidirectional Sync" data-ar="تكامل ERP كامل — مزامنة ثنائية">Full ERP Sync</span></div>
+                <div class="result-card"><strong>WMS</strong><span data-en="Warehouse — Real-time Inventory" data-ar="مستودع — مخزون آني">Real-time WMS</span></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Product Categories" data-ar="فئات المنتجات">Product Categories</h2>
+              <div class="brands-row">
+                <span class="brand-chip">🍖 Food &amp; Supplements</span>
+                <span class="brand-chip">🪣 Litter &amp; Accessories</span>
+                <span class="brand-chip">🥣 Bowls &amp; Feeders</span>
+                <span class="brand-chip">🛋️ Furniture &amp; Scratchers</span>
+                <span class="brand-chip">🐾 Cages &amp; Carriers</span>
+                <span class="brand-chip">✂️ Grooming Tools</span>
+                <span class="brand-chip">🧼 Care &amp; Hygiene</span>
+                <span class="brand-chip">🎓 Training &amp; Behavior</span>
+                <span class="brand-chip">🧸 Toys &amp; Gifts</span>
+                <span class="brand-chip">💊 Medical Care</span>
+                <span class="brand-chip">🦮 Leashes &amp; Collars</span>
+                <span class="brand-chip">🩺 Medical Products</span>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="SAP bidirectional sync without data duplication or loss" data-ar="مزامنة SAP ثنائية الاتجاه بدون تكرار أو فقدان بيانات">SAP bidirectional sync without data duplication or loss</strong>
+                  <p data-en="SAP operates on a different transaction model from the Laravel platform — order creation, invoice confirmation, and stock adjustment all happen asynchronously. Solved with a queue-based middleware layer using Laravel Horizon: each SAP event triggers idempotent handlers that deduplicate by SAP document number, with dead-letter queues for failed retries and an admin reconciliation dashboard." data-ar="SAP يعمل بنموذج معاملات مختلف عن منصة Laravel — إنشاء الطلب وتأكيد الفاتورة وتسوية المخزون تتم بشكل غير متزامن. الحل: طبقة وسيطة قائمة على قوائع انتظار باستخدام Laravel Horizon مع معالجات إيدمبوتنت تُميِّز الازدواج برقم وثيقة SAP وقوائع طباعة للفشل ولوحة مصالحة للمشرف.">SAP and Laravel operate on different transaction models — solved with a Laravel Horizon queue-based middleware: idempotent handlers keyed by SAP document number, dead-letter queues for failed retries, admin reconciliation dashboard.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Multi-gateway payment with unified refund and reporting logic" data-ar="دفع متعدد البوابات مع منطق استرداد وتقارير موحد">Multi-gateway payment with unified refund and reporting logic</strong>
+                  <p data-en="Each payment gateway (Tamara, Tabby, Urway) has its own webhook format, refund API, and settlement timeline. Built a payment abstraction layer with a Gateway interface — each gateway implements the same contract. A unified transaction ledger stores normalized records from all three, enabling cross-gateway reporting and single-click partial refunds regardless of original payment method." data-ar="كل بوابة دفع لها تنسيق webhook خاص وAPI استرداد وجدول تسوية. بُنيت طبقة تجريد دفع بواجهة Gateway — كل بوابة تطبق نفس العقد. سجل معاملات موحد يخزن سجلات مُعيَّرة من الثلاثة لتقارير شاملة واسترداد جزئي بنقرة واحدة.">Each gateway has its own webhook, refund API, and settlement timeline — solved with a Gateway abstraction interface. Unified transaction ledger normalizes all three, enabling cross-gateway reports and single-click partial refunds.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Real-time inventory accuracy across WMS, B2B, and B2C simultaneously" data-ar="دقة المخزون الآنية عبر WMS وB2B وB2C معًا">Real-time inventory accuracy across WMS, B2B, and B2C simultaneously</strong>
+                  <p data-en="B2B bulk orders, B2C retail purchases, warehouse adjustments, and SAP stock updates all hit the same inventory pool concurrently. Implemented optimistic locking with version counters on product stock records, a reservation system that holds stock during checkout, and a nightly SAP stock reconciliation job that corrects any drift." data-ar="طلبات B2B بالجملة ومشتريات B2C وتسويات المستودع وتحديثات مخزون SAP تصل إلى نفس مجموعة المخزون في آنٍ واحد. الحل: قفل متفائل بعدادات إصدار على سجلات مخزون المنتجات ونظام حجز يحتفظ بالمخزون أثناء الدفع ومهمة مصالحة SAP ليلية تصحح أي انجراف.">B2B bulk, B2C retail, WMS adjustments, and SAP updates all compete for the same stock — solved with optimistic locking, a checkout reservation system, and nightly SAP reconciliation job.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-alhayat.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="→ السابق">← Previous</small>
+                <strong data-en="Al-Hayat Medical Platform" data-ar="منصة الحياة الطبية">Al-Hayat Medical Platform</strong>
+              </a>
+              <a href="index.html#contact" class="btn btn-primary" style="background:linear-gradient(135deg,#1e1840,#d4a800);color:white;" data-en="Build Your Commerce Platform" data-ar="ابنِ منصتك التجارية">Build Your Commerce Platform</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right">
+                <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+            </div>
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Details" data-ar="تفاصيل المشروع">Project Details</h4>
+              <div class="meta-row"><span class="meta-label" data-en="Status" data-ar="الحالة">Status</span><span class="status-live">✓ Live</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Type" data-ar="النوع">Type</span><span class="meta-val" data-en="B2B + B2C Platform" data-ar="منصة B2B + B2C">B2B + B2C Platform</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Market" data-ar="السوق">Market</span><span class="meta-val">🇸🇦 Saudi Arabia</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Founded" data-ar="التأسيس">Founded</span><span class="meta-val">2005</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Brands" data-ar="العلامات">Brands</span><span class="meta-val">75+ International</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="App" data-ar="التطبيق">App</span><span class="meta-val">iOS + Android</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="ERP" data-ar="ERP">ERP</span><span class="meta-val">SAP Integration</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Payments" data-ar="الدفع">Payments</span><span class="meta-val">Tamara · Tabby · Urway</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Role" data-ar="الدور">Role</span><span class="meta-val" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Website" data-ar="الموقع">Website</span><span class="meta-val"><a href="https://muntajat.sa/en/" target="_blank" rel="noopener noreferrer" style="color:#d4a800">muntajat.sa ↗</a></span></div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span><span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span><span class="tech-chip">Redis</span>
+                <span class="tech-chip">Flutter</span><span class="tech-chip">Dart</span>
+                <span class="tech-chip">Vue.js</span><span class="tech-chip">REST API</span>
+                <span class="tech-chip">SAP API</span><span class="tech-chip">Tamara SDK</span>
+                <span class="tech-chip">Tabby SDK</span><span class="tech-chip">Urway</span>
+                <span class="tech-chip">Laravel Horizon</span><span class="tech-chip">Firebase</span>
+                <span class="tech-chip">Arabic RTL</span><span class="tech-chip">Livewire</span>
+              </div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Platforms" data-ar="المنصات">Platforms</h4>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#d4a800"></span>
+                <span class="pl-name" data-en="B2B Portal" data-ar="بوابة B2B">B2B Portal</span>
+                <span class="pl-tag">Laravel</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#3a6bb0"></span>
+                <span class="pl-name" data-en="B2C Store" data-ar="متجر B2C">B2C Store</span>
+                <span class="pl-tag">Vue.js</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#6254e7"></span>
+                <span class="pl-name" data-en="Mobile App" data-ar="التطبيق">Mobile App</span>
+                <span class="pl-tag">Flutter</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#1e1840"></span>
+                <span class="pl-name" data-en="Warehouse WMS" data-ar="نظام المخازن">Warehouse WMS</span>
+                <span class="pl-tag">Livewire</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#059669"></span>
+                <span class="pl-name" data-en="SAP Integration" data-ar="تكامل SAP">SAP Integration</span>
+                <span class="pl-tag">Horizon</span>
+              </div>
+            </div>
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#0e0c24,#1e1840);border:none">
+              <h4 style="color:rgba(255,255,255,.45)" data-en="Need a B2B/B2C platform?" data-ar="تحتاج منصة B2B/B2C؟">Need a B2B/B2C platform?</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin:0 0 16px" data-en="I build full-stack B2B/B2C commerce platforms — SAP integration, BNPL gateways, WMS, loyalty programmes. Saudi market expertise." data-ar="أبني منصات تجارية B2B/B2C متكاملة — تكامل SAP وبوابات BNPL ونظام مخازن وبرامج ولاء. خبرة في السوق السعودي.">I build full-stack B2B/B2C platforms — SAP, BNPL gateways, WMS, loyalty programmes. Saudi market expertise.</p>
+              <a href="index.html#contact" class="btn-gold" style="display:block;text-align:center" data-en="Let's Talk →" data-ar="تحدّث معي →">Let's Talk →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'منصة منتجات B2B/B2C | أحمد نور' : 'Muntajat B2B/B2C Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active'); }); }
+    window.addEventListener('scroll', doReveal); doReveal();
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(30,24,64,0.1)' : '0 2px 30px rgba(30,24,64,0.05)';
+    });
+  </script>
+</body>
+</html>

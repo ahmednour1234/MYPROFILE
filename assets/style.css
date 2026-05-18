@@ -716,7 +716,7 @@ body {
 }
 .pcat.erp        { background:rgba(37,99,235,0.1);  color:#2563eb; }
 .pcat.payments   { background:rgba(124,58,237,0.1); color:#7c3aed; }
-.pcat.healthcare { background:rgba(5,150,105,0.1);  color:#059669; }
+.pcat.healthcare { background:rgba(17,116,166,0.1); color:#1174a6; }
 .pcat.events     { background:rgba(234,88,12,0.1);  color:#ea580c; }
 .pcat.crm        { background:rgba(79,70,229,0.1);  color:#4f46e5; }
 .pcat.automation { background:rgba(8,145,178,0.1);  color:#0891b2; }
@@ -724,6 +724,9 @@ body {
 .pcat.realestate  { background:rgba(180,120,0,0.12);  color:#92600a; }
 .pcat.ai          { background:rgba(16,185,129,0.1);   color:#059669; }
 .pcat.recruitment { background:rgba(27,62,122,0.1);   color:#1b3e7a; }
+.pcat.b2b         { background:rgba(212,168,0,0.12);  color:#8a6a00; }
+.pcat.enterprise  { background:rgba(253,71,13,0.1);   color:#c43500; }
+.pcat.mery        { background:rgba(22,163,74,0.1);   color:#15803d; }
 
 /* ── Numbered project cards (pv2) ── */
 .pv2-row {

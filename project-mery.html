@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mery — Multi-Vendor Recruitment Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{
+      --mr-green:#16a34a;--mr-dark:#052e16;--mr-mid:#054f31;
+      --mr-bright:#22c55e;--mr-light:#f0fdf4;--mr-pale:#dcfce7;
+    }
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#011f0d 0%,#052e16 50%,#054f31 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(22,163,74,.18) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(34,197,94,.1) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(22,163,74,.45);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#16a34a,#22c55e);display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:900;flex-shrink:0;font-family:'Tajawal',sans-serif;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#86efac;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 460px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#86efac;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.green{background:rgba(22,163,74,.2);border-color:rgba(22,163,74,.5);color:#86efac;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-green{padding:11px 24px;border-radius:12px;background:#16a34a;color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-green:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(22,163,74,.4);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:460px;border-radius:16px 16px 0 0;box-shadow:0 -16px 60px rgba(22,163,74,.25),0 -1px 0 rgba(22,163,74,.5);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:4px 5px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(22,163,74,.15);border-color:rgba(22,163,74,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(22,163,74,.1);color:#15803d;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(22,163,74,.08);color:#052e16;font-size:12px;font-weight:700;}
+    .platform-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .platform-row:last-child{border-bottom:none;}
+    .pl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .pl-name{font-weight:700;color:var(--navy);}
+    .pl-tag{margin-left:auto;font-size:11px;color:var(--muted);font-weight:600;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* System cards */
+    .components-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.vendor-card::before{background:linear-gradient(90deg,#16a34a,#22c55e);}
+    .component-card.app-card::before{background:linear-gradient(90deg,#054f31,#16a34a);}
+    .component-card.cv-card::before{background:linear-gradient(90deg,#15803d,#4ade80);}
+    .component-card.nafath-card::before{background:linear-gradient(90deg,#052e16,#16a34a);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.g{background:rgba(22,163,74,.1);color:#15803d;}
+    .comp-tag.d{background:rgba(5,46,22,.08);color:#052e16;}
+    /* Vendor audience grid */
+    .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .audience-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);}
+    .audience-card .aud-icon{font-size:30px;margin-bottom:12px;}
+    .audience-card h3{font-size:15px;font-weight:800;color:var(--navy);margin:0 0 10px;}
+    .audience-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;}
+    .audience-card ul li{font-size:13px;color:var(--muted);padding-left:20px;position:relative;line-height:1.5;}
+    .audience-card ul li::before{content:'✓';position:absolute;left:0;color:#16a34a;font-weight:700;font-size:12px;}
+    /* Workflow */
+    .workflow-list{display:flex;flex-direction:column;gap:10px;}
+    .workflow-step{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .step-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#22c55e);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:800;flex-shrink:0;}
+    .workflow-step strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+    .workflow-step span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:#16a34a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#16a34a,#22c55e);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#052e16,#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Nafath highlight */
+    .nafath-banner{display:flex;align-items:center;gap:20px;padding:20px 24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid rgba(22,163,74,.25);border-radius:var(--radius);box-shadow:var(--shadow);}
+    .nafath-icon{font-size:36px;flex-shrink:0;}
+    .nafath-text h4{font-size:14px;font-weight:800;color:#052e16;margin:0 0 4px;}
+    .nafath-text p{font-size:13px;color:#15803d;margin:0;line-height:1.6;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #16a34a;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* App store badges */
+    .store-badges{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;}
+    .store-badge{padding:10px 20px;background:white;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);text-decoration:none;transition:all .2s;}
+    .store-badge:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:rgba(22,163,74,.3);}
+    .store-badge .sb-icon{font-size:20px;}
+    .store-badge .sb-text strong{display:block;font-size:12px;font-weight:800;color:var(--navy);}
+    .store-badge .sb-text span{font-size:10.5px;color:var(--muted);}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#16a34a;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .components-grid{grid-template-columns:1fr;}
+      .audience-grid{grid-template-columns:1fr;}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span data-en="Mery Platform" data-ar="منصة ميري">Mery Platform</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">م</div>
+          <span><em>نظام ميري</em> &nbsp;— MERY AGENCY · SAUDI ARABIA</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat mery" data-en="Multi-Vendor · App · Nafath" data-ar="Multi-Vendor · تطبيق · نفاذ">Multi-Vendor · App · Nafath</span>
+            <h1 data-en="Mery <em>Multi-Vendor</em> Recruitment Platform" data-ar="ميري — منصة الاستقدام <em>متعددة البائعين</em>">Mery <em>Multi-Vendor</em> Recruitment Platform</h1>
+            <p data-en="A complete SaaS recruitment ecosystem connecting 500+ licensed recruitment offices with individuals across Saudi Arabia — CV library browsing, request management, real-time tracking, and seamless Nafath (نفاذ) identity verification. Delivered as a Laravel multi-vendor backend + Flutter iOS & Android mobile app." data-ar="منظومة SaaS استقدامية متكاملة تربط 500+ مكتب استقدام مرخص بالأفراد في أنحاء المملكة العربية السعودية — تصفح مكتبة سير ذاتية وإدارة طلبات وتتبع آني وتحقق هوية سلس عبر نفاذ. مُسلَّمة كخلفية Laravel متعددة البائعين + تطبيق Flutter لـiOS وAndroid.">A complete SaaS recruitment ecosystem connecting 500+ licensed recruitment offices with individuals across Saudi Arabia — CV library, request management, real-time tracking, and Nafath (نفاذ) identity verification. Delivered as a Laravel multi-vendor backend + Flutter iOS & Android app.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇸🇦 Saudi Arabia</span>
+              <span class="hero-badge green">✓ Live — mery.agency</span>
+              <span class="hero-badge green">🏢 500+ Offices</span>
+              <span class="hero-badge">📄 10K+ CVs</span>
+              <span class="hero-badge">⭐ 99% Satisfaction</span>
+              <span class="hero-badge">🛡️ Nafath SSO</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://mery.agency/" target="_blank" rel="noopener noreferrer" class="btn-green" data-en="Visit Live Site →" data-ar="زيارة الموقع →">Visit Live Site →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/mery/mery-platform.png" alt="Mery Recruitment Platform" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🏢</span>
+              <div class="pp-text"><strong data-en="Multi-Vendor Portal" data-ar="بوابة متعددة البائعين">Multi-Vendor Portal</strong><span>500+ Offices · Laravel</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="iOS & Android App" data-ar="تطبيق iOS وAndroid">iOS &amp; Android App</strong><span>Flutter · Users &amp; Offices</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📄</span>
+              <div class="pp-text"><strong data-en="CV Library" data-ar="مكتبة السير الذاتية">CV Library</strong><span>10K+ Profiles · Arabic-first</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🛡️</span>
+              <div class="pp-text"><strong data-en="Nafath SSO" data-ar="نفاذ — التحقق الوطني">Nafath SSO</strong><span>Saudi Digital Identity</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🔔</span>
+              <div class="pp-text"><strong data-en="Real-time Tracking" data-ar="تتبع آني">Real-time Tracking</strong><span>Push · SMS · In-app</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Mery (ميري) is a Saudi-focused multi-vendor SaaS platform that bridges the gap between licensed domestic recruitment offices and individuals seeking household or administrative workers. Recruitment offices in Saudi Arabia are government-licensed businesses — Mery provides each office its own fully isolated management environment within a shared infrastructure, making it a true multi-vendor (multi-tenant) system." data-ar="ميري منصة SaaS سعودية متعددة البائعين تجسّر الهوة بين مكاتب الاستقدام المحلية المرخصة والأفراد الباحثين عن عمالة منزلية أو إدارية. مكاتب الاستقدام في السعودية أعمال مرخصة حكومية — ميري تمنح كل مكتب بيئة إدارية معزولة كلياً ضمن بنية مشتركة مما يجعلها نظامًا متعدد البائعين (متعدد المستأجرين) حقيقيًا.">Mery (ميري) is a Saudi multi-vendor SaaS platform bridging licensed domestic recruitment offices with individuals seeking household or administrative workers. Each office gets its own fully isolated management environment within a shared infrastructure — a true multi-tenant system at scale.</p>
+              <p data-en="The platform was delivered as two tightly integrated products: (1) a Laravel-powered multi-vendor web backend accessible to recruitment offices — managing requests, CVs, stages, documents, finance, and team members; and (2) a Flutter mobile app for both individuals (submitting and tracking requests) and office staff (reviewing and processing on the go). Both products authenticate via Nafath (نفاذ), Saudi Arabia's national digital identity platform, ensuring verified real-identity access with zero friction." data-ar="المنصة سُلِّمت كمنتجين متكاملين: (1) خلفية ويب متعددة البائعين بـLaravel لمكاتب الاستقدام — تُدير الطلبات والسير الذاتية والمراحل والوثائق والماليات وأعضاء الفريق؛ و(2) تطبيق Flutter لكل من الأفراد (تقديم الطلبات وتتبعها) وموظفي المكاتب (المراجعة والمعالجة في أي مكان). كلا المنتجين يُحادِثان نفاذ للتحقق من الهوية الوطنية بدون احتكاك.">Delivered as two products: (1) Laravel multi-vendor backend for offices — requests, CVs, stages, documents, finance, team; and (2) Flutter mobile app for individuals and office staff. Both authenticate via Nafath (Saudi national identity) — real-identity verified, zero friction.</p>
+
+              <div class="nafath-banner">
+                <div class="nafath-icon">🛡️</div>
+                <div class="nafath-text">
+                  <h4 data-en="Nafath (نفاذ) Integration — Saudi National Digital Identity" data-ar="تكامل نفاذ — الهوية الرقمية الوطنية السعودية">Nafath (نفاذ) Integration — Saudi National Digital Identity</h4>
+                  <p data-en="Users and office staff authenticate using Nafath — Saudi Arabia's government digital identity platform. No username/password to remember, no fake accounts — every person on Mery is verified through their Saudi national ID via the Nafath SSO API." data-ar="المستخدمون وموظفو المكاتب يتحققون عبر نفاذ — منصة الهوية الرقمية الحكومية السعودية. لا اسم مستخدم أو كلمة مرور للتذكر ولا حسابات مزيفة — كل شخص في ميري موثق عبر هويته الوطنية السعودية بواسطة API نفاذ SSO.">Users and office staff authenticate via Nafath — Saudi Arabia's government digital identity platform. No username/password, no fake accounts — every person on Mery is verified through their Saudi national ID via the Nafath SSO API.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Who Is It For?" data-ar="لمن هو؟">Who Is It For?</h2>
+              <div class="audience-grid">
+                <div class="audience-card">
+                  <div class="aud-icon">👤</div>
+                  <h3 data-en="For Individuals (Customers)" data-ar="للأفراد (العملاء)">For Individuals (Customers)</h3>
+                  <ul>
+                    <li data-en="Submit recruitment requests electronically with ease" data-ar="تقديم طلبات الاستقدام إلكترونياً بسهولة">Submit recruitment requests electronically</li>
+                    <li data-en="Browse CV library — filter by nationality, skills, experience" data-ar="تصفح مكتبة السير الذاتية — تصفية بالجنسية والمهارات والخبرة">Browse CV library — filter by nationality, skills, experience</li>
+                    <li data-en="Track request status step-by-step in real time" data-ar="تتبع حالة الطلب خطوة بخطوة في الوقت الفعلي">Track request status step-by-step in real time</li>
+                    <li data-en="Receive instant push notifications at every stage" data-ar="استلام إشعارات فورية عند كل مرحلة">Receive instant push notifications at every stage</li>
+                    <li data-en="Authenticate securely via Nafath — no passwords" data-ar="التحقق بأمان عبر نفاذ — بدون كلمات مرور">Authenticate securely via Nafath — no passwords</li>
+                  </ul>
+                </div>
+                <div class="audience-card">
+                  <div class="aud-icon">🏢</div>
+                  <h3 data-en="For Recruitment Offices" data-ar="لمكاتب الاستقدام">For Recruitment Offices</h3>
+                  <ul>
+                    <li data-en="Manage all requests and documents in one workspace" data-ar="إدارة جميع الطلبات والوثائق في مكان واحد">Manage all requests and documents in one workspace</li>
+                    <li data-en="Add and manage CV library — worker profiles with photos" data-ar="إضافة وإدارة مكتبة السير الذاتية — ملفات العمال مع الصور">Add and manage CV library — worker profiles with photos</li>
+                    <li data-en="Track each request through all processing stages" data-ar="تتبع كل طلب عبر جميع مراحل المعالجة">Track each request through all processing stages</li>
+                    <li data-en="Team management with role-based permissions per staff member" data-ar="إدارة الفريق بصلاحيات مبنية على الدور لكل موظف">Team management with role-based permissions per staff</li>
+                    <li data-en="Detailed performance reports and client analytics" data-ar="تقارير أداء مفصلة وتحليلات العملاء">Detailed performance reports and client analytics</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card vendor-card">
+                  <div class="comp-icon">🏢</div>
+                  <div class="comp-name" data-en="Multi-Vendor Office Portal" data-ar="بوابة المكاتب متعددة البائعين">Multi-Vendor Office Portal</div>
+                  <div class="comp-sub">Laravel · Multi-tenant · Arabic RTL</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Laravel</span><span class="comp-tag g">PHP</span>
+                    <span class="comp-tag g">MySQL</span><span class="comp-tag g">Multi-tenant</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Each of the 500+ recruitment offices gets its own isolated workspace — request pipeline, CV library management, client database, financial records, team roles, and reporting dashboards. Offices are fully isolated from each other with row-level data scoping." data-ar="كل من 500+ مكتب استقدام يحصل على مساحة عمل معزولة — خط طلبات ومكتبة سير ذاتية وقاعدة عملاء وسجلات مالية وأدوار الفريق ولوحات تقارير. المكاتب معزولة كلياً عن بعضها بتحديد نطاق البيانات على مستوى الصف.">Each of 500+ offices gets its own isolated workspace — request pipeline, CV library, client database, finance, team roles, dashboards. Offices fully isolated with row-level data scoping.</p>
+                </div>
+                <div class="component-card app-card">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Flutter Mobile App — iOS & Android" data-ar="تطبيق Flutter — iOS وAndroid">Flutter Mobile App — iOS &amp; Android</div>
+                  <div class="comp-sub">Flutter · Dart · Firebase Push</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Flutter</span><span class="comp-tag g">Dart</span>
+                    <span class="comp-tag g">Firebase</span><span class="comp-tag g">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Single Flutter codebase delivering two distinct app experiences — one for individuals (browse CVs, submit requests, track status, receive notifications) and one for office staff (process requests, update stages, send notifications on the go). Available on App Store and Google Play." data-ar="قاعدة كود Flutter واحدة تُقدم تجربتين متمايزتين — واحدة للأفراد (تصفح السير الذاتية وتقديم الطلبات وتتبع الحالة واستلام الإشعارات) وواحدة لموظفي المكاتب (معالجة الطلبات وتحديث المراحل وإرسال الإشعارات في أي مكان). متاح على App Store وGoogle Play.">Single Flutter codebase — two distinct app experiences: individuals (browse CVs, requests, tracking) and office staff (process, update stages, notify on the go). App Store + Google Play.</p>
+                </div>
+                <div class="component-card cv-card">
+                  <div class="comp-icon">📄</div>
+                  <div class="comp-name" data-en="CV Library — Worker Profiles" data-ar="مكتبة السير الذاتية — ملفات العمال">CV Library — Worker Profiles</div>
+                  <div class="comp-sub" data-en="10K+ Profiles · Searchable · Arabic-first" data-ar="10K+ ملف · قابل للبحث · عربي-أولًا">10K+ Profiles · Searchable · Arabic-first</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Arabic RTL</span><span class="comp-tag g">Search</span>
+                    <span class="comp-tag g">Filters</span><span class="comp-tag g">Photos</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Offices upload worker CV profiles — nationality, skills, experience, photo, availability, and supporting documents. Individuals search and filter the library by nationality, job type, experience level, and office — then attach preferred CVs to their request." data-ar="المكاتب ترفع ملفات سير ذاتية للعمال — الجنسية والمهارات والخبرة والصورة والتوفر والوثائق. الأفراد يبحثون ويصفون المكتبة بالجنسية ونوع الوظيفة ومستوى الخبرة والمكتب — ثم يرفقون السير الذاتية المفضلة بطلبهم.">Offices upload worker CV profiles — nationality, skills, experience, photo, availability. Individuals search and filter by nationality, job type, experience — attach preferred CVs to their request.</p>
+                </div>
+                <div class="component-card nafath-card">
+                  <div class="comp-icon">🛡️</div>
+                  <div class="comp-name" data-en="Nafath SSO — Saudi National Identity" data-ar="نفاذ SSO — الهوية الوطنية السعودية">Nafath SSO — Saudi National Identity</div>
+                  <div class="comp-sub">Nafath API · NIC Verification · Zero-password</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag d">Nafath API</span><span class="comp-tag d">SSO</span>
+                    <span class="comp-tag d">NIC</span><span class="comp-tag d">JWT</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Authentication is handled entirely through the Saudi government's Nafath platform. Users scan a QR code or tap a notification in the Nafath app to verify their national identity card — returning a secure JWT to Mery. No username, no password, no unverified accounts — every user is a real, verified Saudi resident." data-ar="التحقق يتم كلياً عبر منصة نفاذ الحكومية السعودية. المستخدمون يمسحون رمز QR أو ينقرون إشعارًا في تطبيق نفاذ للتحقق من هويتهم الوطنية — مع إعادة JWT آمن لميري. لا اسم مستخدم ولا كلمة مرور ولا حسابات غير موثقة — كل مستخدم مقيم سعودي حقيقي موثق.">Auth via Nafath — users verify their national ID card via QR code or Nafath app notification, returning a secure JWT. No username, no password, no unverified accounts — every user is a verified Saudi resident.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Request Lifecycle — 5 Steps" data-ar="دورة حياة الطلب — 5 خطوات">Request Lifecycle — 5 Steps</h2>
+              <div class="workflow-list">
+                <div class="workflow-step">
+                  <div class="step-num">1</div>
+                  <div>
+                    <strong data-en="Individual Authenticates via Nafath & Browses CVs" data-ar="الفرد يتحقق عبر نفاذ ويتصفح السير الذاتية">Individual Authenticates via Nafath &amp; Browses CVs</strong>
+                    <span data-en="The user opens the Mery app, taps 'Login with Nafath', and verifies their Saudi national ID through the Nafath government app. Once verified, they browse the CV library — filtering by nationality, job type, or specific office — and shortlist preferred worker profiles." data-ar="المستخدم يفتح تطبيق ميري وينقر 'تسجيل الدخول بنفاذ' ويتحقق من هويته الوطنية عبر تطبيق نفاذ الحكوميي. بعد التحقق يتصفح مكتبة السير الذاتية — مع تصفية بالجنسية ونوع الوظيفة أو مكتب محدد — ويختصر قائمة ملفات العمال المفضلة.">User logs in via Nafath national ID verification, browses the CV library with filters (nationality, job type, office), and shortlists preferred worker profiles.</span>
+                  </div>
+                </div>
+                <div class="workflow-step">
+                  <div class="step-num">2</div>
+                  <div>
+                    <strong data-en="Submit Recruitment Request to Office" data-ar="تقديم طلب الاستقدام للمكتب">Submit Recruitment Request to Office</strong>
+                    <span data-en="The individual submits a formal request to their chosen recruitment office — attaching preferred CVs, specifying requirements (nationality, skills, experience, arrival timeline), and uploading any required documents. The request enters the office's queue instantly." data-ar="الفرد يُقدّم طلبًا رسميًا لمكتب الاستقدام المختار — مع إرفاق السير الذاتية المفضلة وتحديد المتطلبات (الجنسية والمهارات والخبرة والجدول الزمني) ورفع أي وثائق مطلوبة. الطلب يدخل قائمة انتظار المكتب فوراً.">Formal request submitted to chosen office — attaches preferred CVs, specifies requirements, uploads documents. Request enters the office queue instantly.</span>
+                  </div>
+                </div>
+                <div class="workflow-step">
+                  <div class="step-num">3</div>
+                  <div>
+                    <strong data-en="Office Reviews, Assigns, and Processes" data-ar="المكتب يراجع ويعيّن ويعالج">Office Reviews, Assigns, and Processes</strong>
+                    <span data-en="The office team reviews the request in their Mery dashboard or mobile app — verifying documents, confirming CV availability, assigning to a staff member, and moving the request through their internal processing stages. Each stage change triggers an instant push notification to the individual." data-ar="فريق المكتب يراجع الطلب في لوحة ميري أو تطبيقه — يتحقق من الوثائق ويؤكد توفر السير الذاتية ويعيّن لموظف ويحرك الطلب عبر مراحل المعالجة الداخلية. كل تغيير مرحلة يُشغّل إشعار push فوري للفرد.">Office reviews request, verifies documents, confirms CV availability, assigns to staff, moves through processing stages — each stage change triggers instant push notification to the individual.</span>
+                  </div>
+                </div>
+                <div class="workflow-step">
+                  <div class="step-num">4</div>
+                  <div>
+                    <strong data-en="Individual Tracks Status in Real Time" data-ar="الفرد يتتبع الحالة في الوقت الفعلي">Individual Tracks Status in Real Time</strong>
+                    <span data-en="In the Mery mobile app, the individual sees a live visual timeline of their request — which stage it's at, what documents are pending, and any messages from the office. SMS fallback ensures notifications reach users without push notification support." data-ar="في تطبيق ميري يرى الفرد جدولاً زمنياً بصرياً مباشراً لطلبه — أي مرحلة هو فيها وما الوثائق المعلقة وأي رسائل من المكتب. بديل SMS يضمن وصول الإشعارات للمستخدمين بدون دعم push.">Individual sees live visual timeline in the app — current stage, pending documents, office messages. SMS fallback ensures notifications reach all users.</span>
+                  </div>
+                </div>
+                <div class="workflow-step">
+                  <div class="step-num">5</div>
+                  <div>
+                    <strong data-en="Service Completion, Report & Rating" data-ar="إتمام الخدمة والتقرير والتقييم">Service Completion, Report &amp; Rating</strong>
+                    <span data-en="On completion, the office marks the request as fulfilled — the individual receives a final report summarising all stages, documents, and outcomes. The individual rates the office's service, contributing to the platform's office performance scoring visible to future clients." data-ar="عند الإتمام يضع المكتب علامة على الطلب كمُنجز — الفرد يستلم تقريرًا نهائيًا يلخص جميع المراحل والوثائق والنتائج. الفرد يُقيّم خدمة المكتب مما يساهم في نقاط أداء المكتب على المنصة المرئية للعملاء المستقبليين.">Office marks fulfilled — individual receives a final summary report. Individual rates the office's service, contributing to the platform's visible performance score for future clients.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Mobile App — Store Links" data-ar="تطبيق الجوال — روابط المتاجر">Mobile App — Store Links</h2>
+              <p data-en="The Mery Flutter app is live on both App Store and Google Play — a single codebase delivering fully Arabic-first RTL experiences for both individual users and office staff." data-ar="تطبيق Flutter ميري حي على App Store وGoogle Play — قاعدة كود واحدة تُقدم تجارب عربية-أولى RTL كاملة لكل من المستخدمين الأفراد وموظفي المكاتب.">The Mery Flutter app is live on both stores — single codebase, fully Arabic-first RTL for individual users and office staff.</p>
+              <div class="store-badges">
+                <a href="https://apps.apple.com/sa/app/meery-%D9%85%D9%8A%D8%B1%D9%8A/id6758953274" target="_blank" rel="noopener noreferrer" class="store-badge">
+                  <span class="sb-icon">🍎</span>
+                  <div class="sb-text"><strong data-en="App Store" data-ar="App Store">App Store</strong><span data-en="Download on iOS" data-ar="حمّل على iOS">Download on iOS</span></div>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.mery.apppp" target="_blank" rel="noopener noreferrer" class="store-badge">
+                  <span class="sb-icon">🤖</span>
+                  <div class="sb-text"><strong data-en="Google Play" data-ar="Google Play">Google Play</strong><span data-en="Download on Android" data-ar="حمّل على Android">Download on Android</span></div>
+                </a>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Multi-Vendor Architecture — 500+ Isolated Offices" data-ar="معمارية متعددة البائعين — 500+ مكتب معزول">Multi-Vendor Architecture — 500+ Isolated Offices</strong>
+                    <span data-en="Each recruitment office is a fully isolated tenant with its own data, users, CV library, and configuration — sharing the same Laravel backend and database but with row-level isolation ensuring zero data leakage between offices." data-ar="كل مكتب استقدام مستأجر معزول كلياً ببياناته ومستخدميه ومكتبة سيره الذاتية وإعداداته — يشترك في نفس خلفية Laravel وقاعدة البيانات لكن بعزل على مستوى الصف يضمن عدم تسرب البيانات بين المكاتب.">Each office is a fully isolated tenant — own data, users, CV library, config — sharing the Laravel backend with row-level isolation. Zero data leakage between offices.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Nafath SSO — Saudi Government Identity Verification" data-ar="نفاذ SSO — التحقق من الهوية الحكومية السعودية">Nafath SSO — Saudi Government Identity</strong>
+                    <span data-en="Full integration with the Saudi Nafath (نفاذ) national digital identity platform — every user on Mery is a real, verified Saudi resident with a national ID number. Eliminates fake accounts, reduces fraud risk, and meets Saudi government digital compliance requirements." data-ar="تكامل كامل مع منصة نفاذ الوطنية السعودية للهوية الرقمية — كل مستخدم في ميري مقيم سعودي حقيقي موثق برقم هوية وطنية. يزيل الحسابات المزيفة ويقلل مخاطر الاحتيال ويلبي متطلبات الامتثال الرقمي الحكومي السعودي.">Every user is a verified Saudi resident via national ID. Eliminates fake accounts, reduces fraud, meets Saudi government digital compliance requirements.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="CV Library — Browse, Filter, Attach to Request" data-ar="مكتبة السير الذاتية — تصفح وتصفية وإرفاق بالطلب">CV Library — Browse, Filter, Attach</strong>
+                    <span data-en="10K+ worker CV profiles searchable by nationality, job title, skills, and experience level. Individuals browse and select preferred profiles before submitting a request — offices manage and update their CV inventory in real time." data-ar="10K+ ملف سيرة ذاتية للعمال قابلة للبحث بالجنسية والمسمى الوظيفي والمهارات ومستوى الخبرة. الأفراد يتصفحون ويختارون ملفات مفضلة قبل تقديم الطلب — المكاتب تُدير وتُحدّث مخزون السير الذاتية آنيًا.">10K+ worker profiles searchable by nationality, job title, skills, experience. Individuals browse and attach preferred CVs before submitting — offices manage CV inventory in real time.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Flutter — Single Codebase for iOS & Android" data-ar="Flutter — قاعدة كود واحدة لـiOS وAndroid">Flutter — Single Codebase, iOS &amp; Android</strong>
+                    <span data-en="One Flutter codebase delivers pixel-perfect apps on both iOS and Android — two distinct user experiences (individual mode and office staff mode) from a single build. Full Arabic RTL layout, push notifications, and camera access for document scanning." data-ar="قاعدة كود Flutter واحدة تُقدم تطبيقات مثالية البكسل على iOS وAndroid — تجربتان مستخدم متمايزتان (وضع الفرد ووضع موظف المكتب) من بناء واحد. تخطيط RTL عربي كامل وإشعارات push والوصول للكاميرا لمسح الوثائق.">One Flutter build for iOS + Android — two distinct UX modes (individual / office staff). Full Arabic RTL, push notifications, camera for document scanning.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Real-time Tracking — Push, SMS & In-app" data-ar="تتبع آني — Push وSMS وداخل التطبيق">Real-time Tracking — Push, SMS &amp; In-app</strong>
+                    <span data-en="Every request stage change triggers multi-channel notifications — push via Firebase to the mobile app, SMS fallback for users without the app installed, and in-app notification centre with full history. Offices can send direct messages to clients within the platform." data-ar="كل تغيير مرحلة طلب يُشغّل إشعارات متعددة القنوات — push عبر Firebase للتطبيق وSMS احتياطي للمستخدمين بدون التطبيق ومركز إشعارات داخل التطبيق مع تاريخ كامل. المكاتب تستطيع إرسال رسائل مباشرة للعملاء داخل المنصة.">Every stage change triggers push (Firebase), SMS fallback, and in-app notification history. Offices can send direct messages to clients within the platform.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Office Team Management & Role-based Access" data-ar="إدارة فريق المكتب والوصول المبني على الدور">Office Team Management &amp; RBAC</strong>
+                    <span data-en="Each recruitment office can add multiple staff members with defined roles — admin, case manager, finance, or viewer. Role-based access control ensures staff only see and act on data relevant to their role, preventing internal data misuse." data-ar="كل مكتب استقدام يستطيع إضافة عدة موظفين بأدوار محددة — مسؤول ومدير حالة ومالية أو مشاهد. التحكم في الوصول المبني على الدور يضمن رؤية الموظفين فقط للبيانات ذات الصلة بدورهم مما يمنع سوء الاستخدام الداخلي للبيانات.">Each office adds staff with defined roles — admin, case manager, finance, viewer. RBAC ensures staff only see data relevant to their role, preventing internal data misuse.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Reports & Performance Analytics" data-ar="التقارير وتحليلات الأداء">Reports &amp; Performance Analytics</strong>
+                    <span data-en="Offices receive detailed operational reports — request volumes, processing times, stage bottlenecks, staff performance, and client satisfaction scores. The platform aggregates office ratings from customer reviews, creating a public performance ranking visible to potential clients." data-ar="المكاتب تستلم تقارير تشغيلية مفصلة — أحجام الطلبات وأوقات المعالجة وعنق الزجاجة في المراحل وأداء الموظفين ودرجات رضا العملاء. المنصة تجمع تقييمات المكاتب من مراجعات العملاء مما يُنشئ ترتيبًا عامًا للأداء مرئيًا للعملاء المحتملين.">Offices get operational reports — volumes, processing times, stage bottlenecks, staff performance, satisfaction scores. Platform aggregates ratings creating public performance ranking for potential clients.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Arabic-First — Full RTL System" data-ar="عربي-أولًا — نظام RTL كامل">Arabic-First — Full RTL System</strong>
+                    <span data-en="Both the web portal and the Flutter mobile app are built Arabic-first — all layouts, forms, notifications, and reports are right-to-left by default. English language support available for non-Arabic speaking office staff without any layout degradation." data-ar="كلٌّ من بوابة الويب وتطبيق Flutter مبنيان عربي-أولًا — جميع التخطيطات والنماذج والإشعارات والتقارير من اليمين لليسار بشكل افتراضي. دعم اللغة الإنجليزية متاح لموظفي المكاتب غير الناطقين بالعربية بدون أي تدهور في التخطيط.">Web portal + Flutter app both Arabic-first RTL — layouts, forms, notifications, reports all RTL by default. English available for non-Arabic office staff without layout degradation.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Project Highlights" data-ar="أبرز المشروع">Project Highlights</h2>
+              <div class="results-grid">
+                <div class="result-card"><strong>500+</strong><span data-en="Recruitment Offices — Active Vendors" data-ar="مكتب استقدام — بائعون نشطون">Recruitment Offices</span></div>
+                <div class="result-card"><strong>10K+</strong><span data-en="CV Profiles in the Library" data-ar="ملف سيرة ذاتية في المكتبة">CV Profiles</span></div>
+                <div class="result-card"><strong>99%</strong><span data-en="Customer Satisfaction Rate" data-ar="معدل رضا العملاء">Satisfaction Rate</span></div>
+                <div class="result-card"><strong>Nafath</strong><span data-en="Saudi Gov. Identity — Zero Passwords" data-ar="هوية حكومية سعودية — بدون كلمات مرور">Saudi Gov. SSO</span></div>
+                <div class="result-card"><strong>Flutter</strong><span data-en="iOS + Android — Single Codebase" data-ar="iOS + Android — قاعدة كود واحدة">iOS + Android</span></div>
+                <div class="result-card"><strong>24/7</strong><span data-en="Support — Always Available" data-ar="دعم — متاح دائماً">Support Available</span></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Multi-tenant isolation for 500+ offices at scale without dedicated databases" data-ar="عزل متعدد المستأجرين لـ500+ مكتب على نطاق واسع بدون قواعد بيانات مخصصة">Multi-tenant isolation for 500+ offices at scale without dedicated databases</strong>
+                  <p data-en="Providing strong data isolation between hundreds of competing recruitment offices while sharing a single database required a robust row-level security design. Every query in the Laravel application is automatically scoped by the authenticated office's tenant ID using a global query scope — preventing any possibility of cross-tenant data exposure even if application-level bugs occur. Office onboarding generates isolated configuration with zero downtime." data-ar="توفير عزل قوي للبيانات بين مئات مكاتب الاستقدام المتنافسة مع مشاركة قاعدة بيانات واحدة طلب تصميم أمان على مستوى الصف. كل استعلام في تطبيق Laravel يُحدَّد نطاقه تلقائياً بمعرف المستأجر للمكتب الموثق باستخدام نطاق استعلام عالمي — يمنع أي احتمال لكشف البيانات العابر للمستأجرين حتى في حالة وجود أخطاء على مستوى التطبيق. إعداد المكتب الجديد يُنشئ تكوينًا معزولًا بدون توقف.">Strong data isolation between competing offices sharing one database — achieved via row-level security with global query scopes in Laravel. Every query auto-scoped by tenant ID, preventing cross-tenant exposure even under application-level bugs. New office onboarding generates isolated config with zero downtime.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Nafath SSO integration — handling async national ID verification flow" data-ar="تكامل Nafath SSO — التعامل مع تدفق التحقق غير المتزامن للهوية الوطنية">Nafath SSO integration — handling async national ID verification flow</strong>
+                  <p data-en="Nafath authentication is an asynchronous flow — the user initiates login on Mery, a request is sent to Nafath's servers, the user then approves on their separate Nafath government app, and Nafath calls back Mery with a verification token. Implementing this OAuth-like async callback flow in Flutter required a deep linking approach: the app listens for the Nafath callback URL, processes the returned token, and resumes the user session — all within a 60-second timeout window with graceful error handling for expired or rejected verifications." data-ar="تحقق نفاذ تدفق غير متزامن — المستخدم يبدأ تسجيل الدخول في ميري ويُرسَل طلب لخوادم نفاذ والمستخدم يوافق في تطبيق نفاذ الحكومي المنفصل ثم يتصل نفاذ بميري بتوكن تحقق. تنفيذ تدفق callback غير المتزامن هذا في Flutter طلب نهج deep linking: التطبيق يستمع لـURL callback نفاذ ويعالج التوكن المعاد ويستأنف جلسة المستخدم — كل ذلك ضمن نافذة مهلة 60 ثانية مع معالجة رشيقة للأخطاء لأوقات التحقق المنتهية أو المرفوضة.">Nafath auth is async — user initiates on Mery, approves on separate Nafath gov app, Nafath callbacks Mery with verification token. Implemented via Flutter deep linking: app listens for Nafath callback URL, processes returned token, resumes session — all within 60-second timeout with graceful handling for expired/rejected verifications.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Flutter single codebase — two distinct UX modes sharing one app binary" data-ar="Flutter قاعدة كود واحدة — وضعا UX متمايزان يشتركان في ثنائي تطبيق واحد">Flutter single codebase — two distinct UX modes sharing one app binary</strong>
+                  <p data-en="The Mery Flutter app serves two very different user types — individuals navigating a consumer-friendly CV browsing and request tracking UX, and office staff managing operational workflows with a dashboard-like interface. Rather than building two separate apps (doubling maintenance cost), the app detects the user type from the Nafath-authenticated JWT and conditionally renders completely different navigation trees, screens, and feature sets — sharing only common components like notifications, auth, and API clients." data-ar="تطبيق Flutter ميري يخدم نوعين مختلفين تمامًا من المستخدمين — أفراد يتنقلون في UX ودي للمستهلك لتصفح السير الذاتية وتتبع الطلبات وموظفو مكاتب يُديرون سير عمل تشغيلية بواجهة شبيهة بلوحة القيادة. بدلًا من بناء تطبيقين منفصلين يكشف التطبيق نوع المستخدم من JWT الموثق بنفاذ ويُصيَّر شجرات تنقل وشاشات ومجموعات ميزات مختلفة كلياً بشكل مشروط — مع مشاركة المكونات المشتركة فقط مثل الإشعارات والمصادقة وعملاء API.">App serves two very different user types from one binary — detected from the Nafath JWT, conditionally rendering completely different navigation trees and feature sets. Shared only common components: notifications, auth, API clients. Single codebase cuts maintenance cost by 50%.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-alemteyaz.html" class="proj-nav-link">
+                <small data-en="← Related" data-ar="→ ذو صلة">← Related</small>
+                <strong data-en="Almteyaz Recruitment System" data-ar="نظام الامتياز للاستقدام">Almteyaz Recruitment</strong>
+              </a>
+              <a href="index.html#contact" class="btn-green" data-en="Build Your Recruitment Platform" data-ar="ابنِ منصة استقدامك">Build Your Recruitment Platform</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right">
+                <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+            </div>
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Details" data-ar="تفاصيل المشروع">Project Details</h4>
+              <div class="meta-row"><span class="meta-label" data-en="Status" data-ar="الحالة">Status</span><span class="status-live">✓ Live</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Type" data-ar="النوع">Type</span><span class="meta-val" data-en="Multi-Vendor SaaS" data-ar="SaaS متعدد البائعين">Multi-Vendor SaaS</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Market" data-ar="السوق">Market</span><span class="meta-val">🇸🇦 Saudi Arabia</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Offices" data-ar="المكاتب">Offices</span><span class="meta-val">500+</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="CV Library" data-ar="مكتبة السير">CV Library</span><span class="meta-val">10K+</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Auth" data-ar="التحقق">Auth</span><span class="meta-val">Nafath SSO</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Mobile" data-ar="الجوال">Mobile</span><span class="meta-val">Flutter (iOS + Android)</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Backend" data-ar="الخلفية">Backend</span><span class="meta-val">Laravel · PHP</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Role" data-ar="الدور">Role</span><span class="meta-val" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Website" data-ar="الموقع">Website</span><span class="meta-val"><a href="https://mery.agency/" target="_blank" rel="noopener noreferrer" style="color:#16a34a">mery.agency ↗</a></span></div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span><span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span><span class="tech-chip">Redis</span>
+                <span class="tech-chip">Flutter</span><span class="tech-chip">Dart</span>
+                <span class="tech-chip">Firebase</span><span class="tech-chip">REST API</span>
+                <span class="tech-chip">Nafath API</span><span class="tech-chip">SSO</span>
+                <span class="tech-chip">JWT Auth</span><span class="tech-chip">Arabic RTL</span>
+                <span class="tech-chip">WhatsApp API</span><span class="tech-chip">SMS</span>
+              </div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Platforms" data-ar="المنصات">Platforms</h4>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#16a34a"></span>
+                <span class="pl-name" data-en="Multi-Vendor Portal" data-ar="بوابة متعددة البائعين">Multi-Vendor Portal</span>
+                <span class="pl-tag">Laravel</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#22c55e"></span>
+                <span class="pl-name" data-en="iOS App" data-ar="تطبيق iOS">iOS App</span>
+                <span class="pl-tag">Flutter</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#15803d"></span>
+                <span class="pl-name" data-en="Android App" data-ar="تطبيق Android">Android App</span>
+                <span class="pl-tag">Flutter</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#052e16"></span>
+                <span class="pl-name" data-en="Nafath SSO" data-ar="نفاذ SSO">Nafath SSO</span>
+                <span class="pl-tag">Gov. API</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#4ade80"></span>
+                <span class="pl-name" data-en="CV Library" data-ar="مكتبة السير">CV Library</span>
+                <span class="pl-tag">10K+</span>
+              </div>
+            </div>
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#011f0d,#052e16);border:none">
+              <h4 style="color:rgba(255,255,255,.45)" data-en="Need a multi-vendor recruitment platform?" data-ar="تحتاج منصة استقدام متعددة البائعين؟">Need a multi-vendor recruitment platform?</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin:0 0 16px" data-en="I build multi-vendor SaaS platforms with government identity integrations like Nafath. Flutter mobile + Laravel backend, Arabic-first." data-ar="أبني منصات SaaS متعددة البائعين مع تكاملات الهوية الحكومية كنفاذ. Flutter + Laravel، عربي-أولًا.">I build multi-vendor SaaS platforms with government identity integrations like Nafath. Flutter mobile + Laravel backend, Arabic-first.</p>
+              <a href="index.html#contact" class="btn-green" style="display:block;text-align:center" data-en="Let's Talk →" data-ar="تحدّث معي →">Let's Talk →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'ميري — منصة الاستقدام متعددة البائعين | أحمد نور' : 'Mery — Multi-Vendor Recruitment Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active'); }); }
+    window.addEventListener('scroll', doReveal); doReveal();
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(5,46,22,0.1)' : '0 2px 30px rgba(5,46,22,0.05)';
+    });
+  </script>
+</body>
+</html>

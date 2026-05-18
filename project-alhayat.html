@@ -10,39 +10,39 @@
   <link rel="stylesheet" href="assets/style.css" />
   <style>
     canvas#webgl{display:none;}.bg-orb{display:none;}
-    :root{--ah-green:#0d9463;--ah-dark:#0a3d2e;--ah-light:#f0fdf9;}
+    :root{--ah-green:#1174a6;--ah-dark:#0a2d45;--ah-light:#f0fdf9;}
     /* Hero */
-    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#062718 0%,#0a3d2e 50%,#0d4d37 100%);color:white;position:relative;overflow:hidden;}
-    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(13,150,99,.18) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(13,150,99,.1) 0%,transparent 60%);}
-    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(13,150,99,.4);margin-bottom:20px;}
-    .brand-mark{width:30px;height:30px;border-radius:7px;background:#0d9463;display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:900;flex-shrink:0;}
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#051e33 0%,#0a2d45 50%,#0a3d6b 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(17,116,166,.18) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(17,116,166,.1) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(17,116,166,.4);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:#1174a6;display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:900;flex-shrink:0;}
     .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
-    .brand-badge em{font-style:normal;color:#6ee7b7;}
+    .brand-badge em{font-style:normal;color:#93d5f0;}
     .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
     .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
     .proj-hero-layout{display:grid;grid-template-columns:1fr 460px;gap:48px;align-items:end;position:relative;}
     .proj-hero-info{padding-bottom:52px;}
     .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;}
     .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
-    .proj-hero-info h1 em{font-style:normal;color:#6ee7b7;}
+    .proj-hero-info h1 em{font-style:normal;color:#93d5f0;}
     .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
     .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
     .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
-    .hero-badge.green{background:rgba(13,150,99,.2);border-color:rgba(13,150,99,.5);color:#6ee7b7;}
+    .hero-badge.green{background:rgba(17,116,166,.2);border-color:rgba(17,116,166,.5);color:#93d5f0;}
     .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
-    .btn-green{padding:11px 24px;border-radius:12px;background:#0d9463;color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
-    .btn-green:hover{background:#059669;transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,150,99,.4);}
+    .btn-green{padding:11px 24px;border-radius:12px;background:#1174a6;color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-green:hover{background:#1174a6;transform:translateY(-2px);box-shadow:0 8px 24px rgba(17,116,166,.4);}
     .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
     .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
     .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
-    .proj-hero-visual img{width:100%;max-width:460px;border-radius:16px 16px 0 0;box-shadow:0 -16px 60px rgba(13,150,99,.25),0 -1px 0 rgba(13,150,99,.5);display:block;}
+    .proj-hero-visual img{width:100%;max-width:460px;border-radius:16px 16px 0 0;box-shadow:0 -16px 60px rgba(17,116,166,.25),0 -1px 0 rgba(17,116,166,.5);display:block;}
     .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
     .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;}
     .platform-pill{padding:10px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 6px;}
     .platform-pill .pp-icon{font-size:20px;}
     .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
     .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
-    .platform-pill.active{background:rgba(13,150,99,.15);border-color:rgba(13,150,99,.4);}
+    .platform-pill.active{background:rgba(17,116,166,.15);border-color:rgba(17,116,166,.4);}
     /* Body */
     .proj-detail-body{padding:64px 0 80px;}
     .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
@@ -54,9 +54,9 @@
     .meta-row:last-child{border-bottom:none;padding-bottom:0;}
     .meta-label{color:var(--muted);font-weight:600;}
     .meta-val{font-weight:700;color:var(--navy);}
-    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,150,99,.1);color:#059669;font-size:11.5px;font-weight:700;}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(17,116,166,.1);color:#1174a6;font-size:11.5px;font-weight:700;}
     .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
-    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(13,150,99,.08);color:#0a3d2e;font-size:12px;font-weight:700;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(17,116,166,.08);color:#0a2d45;font-size:12px;font-weight:700;}
     .platform-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
     .platform-row:last-child{border-bottom:none;}
     .pl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
@@ -71,33 +71,33 @@
     .components-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
     .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
     .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
-    .component-card.website::before{background:linear-gradient(90deg,#0d9463,#10b981);}
+    .component-card.website::before{background:linear-gradient(90deg,#1174a6,#1bbde4);}
     .component-card.app::before{background:linear-gradient(90deg,#2563eb,#7c3aed);}
-    .component-card.system::before{background:linear-gradient(90deg,#0a3d2e,#0d9463);}
+    .component-card.system::before{background:linear-gradient(90deg,#0a2d45,#1174a6);}
     .comp-icon{font-size:28px;margin-bottom:10px;}
     .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
     .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
     .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
     .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
-    .comp-tag.g{background:rgba(13,150,99,.1);color:#059669;}
+    .comp-tag.g{background:rgba(17,116,166,.1);color:#1174a6;}
     .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
     .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
-    .comp-tag.d{background:rgba(10,61,46,.1);color:#0a3d2e;}
+    .comp-tag.d{background:rgba(10,45,69,.1);color:#0a2d45;}
     /* Features */
     .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
     .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
-    .feat-check{width:22px;height:22px;border-radius:6px;background:#0d9463;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:#1174a6;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
     .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
     .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
     /* Results */
     .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
     .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
-    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d9463,#10b981);}
-    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#0a3d2e,#0d9463);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1174a6,#1bbde4);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#0a2d45,#1174a6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
     .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
     /* Challenges */
     .challenge-list{display:flex;flex-direction:column;gap:12px;}
-    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #0d9463;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #1174a6;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
     .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
     .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
     /* Specialties */
@@ -107,13 +107,13 @@
     .spec-card .spec-name{font-size:12px;font-weight:700;color:var(--navy);}
     /* Insurance */
     .insurance-row{display:flex;flex-wrap:wrap;gap:8px;}
-    .ins-chip{padding:5px 12px;border-radius:8px;font-size:11.5px;font-weight:700;background:rgba(13,150,99,.06);color:#0a3d2e;border:1px solid rgba(13,150,99,.15);}
+    .ins-chip{padding:5px 12px;border-radius:8px;font-size:11.5px;font-weight:700;background:rgba(17,116,166,.06);color:#0a2d45;border:1px solid rgba(17,116,166,.15);}
     /* Nav footer */
     .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
     .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
     .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
     .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
-    .proj-nav-link:hover strong{color:#0d9463;}
+    .proj-nav-link:hover strong{color:#1174a6;}
     @media(max-width:960px){.proj-hero-layout{grid-template-columns:1fr;}.proj-hero-visual{display:none;}.detail-layout{grid-template-columns:1fr;}.detail-sidebar{order:-1;}.features-grid{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}.components-grid{grid-template-columns:1fr;}.specialty-grid{grid-template-columns:repeat(2,1fr);}.platform-inner{flex-direction:column;align-items:stretch;gap:8px;}.platform-pill{margin:0;}}
   </style>
 </head>
@@ -368,7 +368,7 @@
                 <small data-en="← Previous" data-ar="→ السابق">← Previous</small>
                 <strong data-en="Almteyaz Management System" data-ar="نظام الامتياز للإدارة">Almteyaz Management System</strong>
               </a>
-              <a href="index.html#contact" class="btn btn-primary" style="background:linear-gradient(135deg,#0a3d2e,#0d9463);" data-en="Build Your Medical Platform" data-ar="ابنِ منصتك الطبية">Build Your Medical Platform</a>
+              <a href="index.html#contact" class="btn btn-primary" style="background:linear-gradient(135deg,#0a2d45,#1174a6);" data-en="Build Your Medical Platform" data-ar="ابنِ منصتك الطبية">Build Your Medical Platform</a>
               <a href="projects.html" class="proj-nav-link" style="text-align:right">
                 <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
                 <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
@@ -386,7 +386,7 @@
               <div class="meta-row"><span class="meta-label" data-en="Insurance" data-ar="التأمين">Insurance</span><span class="meta-val">24+ Companies</span></div>
               <div class="meta-row"><span class="meta-label" data-en="App" data-ar="التطبيق">App</span><span class="meta-val">iOS + Android</span></div>
               <div class="meta-row"><span class="meta-label" data-en="Role" data-ar="الدور">Role</span><span class="meta-val" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span></div>
-              <div class="meta-row"><span class="meta-label" data-en="Website" data-ar="الموقع">Website</span><span class="meta-val"><a href="https://alhayat.sa" target="_blank" rel="noopener noreferrer" style="color:#0d9463">alhayat.sa ↗</a></span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Website" data-ar="الموقع">Website</span><span class="meta-val"><a href="https://alhayat.sa" target="_blank" rel="noopener noreferrer" style="color:#1174a6">alhayat.sa ↗</a></span></div>
             </div>
             <div class="sidebar-card">
               <h4 data-en="Tech Stack" data-ar="التقنيات">Tech Stack</h4>
@@ -402,7 +402,7 @@
             <div class="sidebar-card">
               <h4 data-en="Platforms" data-ar="المنصات">Platforms</h4>
               <div class="platform-row">
-                <span class="pl-dot" style="background:#0d9463"></span>
+                <span class="pl-dot" style="background:#1174a6"></span>
                 <span class="pl-name" data-en="Booking Website" data-ar="موقع الحجوزات">Booking Website</span>
                 <span class="pl-tag">Laravel</span>
               </div>
@@ -417,12 +417,12 @@
                 <span class="pl-tag">Flutter</span>
               </div>
               <div class="platform-row">
-                <span class="pl-dot" style="background:#0a3d2e"></span>
+                <span class="pl-dot" style="background:#0a2d45"></span>
                 <span class="pl-name" data-en="Management System" data-ar="نظام الإدارة">Management System</span>
                 <span class="pl-tag">Livewire</span>
               </div>
             </div>
-            <div class="sidebar-card" style="background:linear-gradient(135deg,#062718,#0a3d2e);border:none">
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#051e33,#0a2d45);border:none">
               <h4 style="color:rgba(255,255,255,.45)" data-en="Need a healthcare platform?" data-ar="تحتاج منصة رعاية صحية؟">Need a healthcare platform?</h4>
               <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin:0 0 16px" data-en="I build full-stack medical platforms — booking systems, Flutter apps, clinic management. Arabic-first, Saudi market expertise." data-ar="أبني منصات طبية متكاملة — أنظمة حجز وتطبيقات Flutter وإدارة عيادات. عربي-أولًا وخبرة في السوق السعودي.">I build full medical platforms — booking, Flutter apps, clinic management. Arabic-first, Saudi expertise.</p>
               <a href="index.html#contact" class="btn-green" style="display:block;text-align:center" data-en="Let's Talk →" data-ar="تحدّث معي →">Let's Talk →</a>
@@ -470,7 +470,7 @@
     const header = document.querySelector('.site-header');
     window.addEventListener('scroll', () => {
       header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
-      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(10,61,46,0.1)' : '0 2px 30px rgba(10,61,46,0.05)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(10,45,69,0.1)' : '0 2px 30px rgba(10,45,69,0.05)';
     });
   </script>
 </body>

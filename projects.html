@@ -239,6 +239,9 @@
           <button class="pf-btn" data-filter="events" data-en="Events" data-ar="فعاليات">Events</button>
           <button class="pf-btn" data-filter="crm" data-en="CRM" data-ar="CRM">CRM</button>
           <button class="pf-btn" data-filter="automation" data-en="Automation" data-ar="أتمتة">Automation</button>
+          <button class="pf-btn" data-filter="ai" data-en="AI / ML" data-ar="ذكاء اصطناعي">AI / ML</button>
+          <button class="pf-btn" data-filter="realestate" data-en="Real Estate" data-ar="عقارات">Real Estate</button>
+          <button class="pf-btn" data-filter="recruitment" data-en="Recruitment" data-ar="استقدام">Recruitment</button>
         </div>
 
         <!-- ── ERP ── -->
@@ -246,20 +249,52 @@
           <div class="cat-heading">
             <span class="pcat erp" data-en="ERP" data-ar="ERP">ERP</span>
             <h2 data-en="Enterprise Resource Planning" data-ar="تخطيط موارد المؤسسات">Enterprise Resource Planning</h2>
-            <span class="cat-count" data-en="12 Projects" data-ar="١٢ مشروع">12 Projects</span>
+            <span class="cat-count" data-en="14 Projects" data-ar="١٤ مشروع">14 Projects</span>
           </div>
           <div class="cat-grid">
             <article class="cat-card" data-category="erp">
               <div class="cat-card-top">
-                <div class="cat-card-icon erp-bg"><img src="assets/capability-icons-svg/erp-system.svg" alt=""></div>
-                <span class="pcat erp">ERP</span>
+                <span class="pcat enterprise" data-en="ERP · Sales Force" data-ar="ERP · مناديب">ERP · Sales Force</span>
               </div>
-              <h3 data-en="Novoo ERP Platform" data-ar="منصة Novoo ERP">Novoo ERP Platform</h3>
-              <p data-en="Inventory, multi-branch accounting, invoicing, HR, role-based permissions, and executive dashboards." data-ar="المخزون، المحاسبة متعددة الفروع، الفوترة، الموارد البشرية، الصلاحيات، ولوحات التحكم التنفيذية.">Inventory, multi-branch accounting, invoicing, HR, role-based permissions, and executive dashboards.</p>
-              <div class="tags"><span>Laravel</span><span>MySQL</span><span>Vue.js</span><span>Redis</span></div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/alwatania/alwatania-platform.png" alt="Al Watania Poultry ERP">
+              </div>
+              <h3 data-en="Al Watania Poultry — ERP &amp; Sales Force" data-ar="دواجن الوطنية — ERP ونظام المناديب">Al Watania Poultry — ERP &amp; Sales Force</h3>
+              <p data-en="Full enterprise Java ERP + real-time field sales-force (نظام المناديب) for the Middle East's largest poultry producer — 1M+ chickens/day, 150+ products." data-ar="ERP Java مؤسسي كامل + نظام مناديب ميداني آني لأكبر شركة دواجن في الشرق الأوسط — 1M+ دجاجة يوميًا، 150+ منتج.">Full enterprise Java ERP + real-time field sales-force (نظام المناديب) for the Middle East's largest poultry producer — 1M+ chickens/day, 150+ products.</p>
+              <div class="tags"><span>Java</span><span>Spring Boot</span><span>Next.js</span><span>Android</span></div>
               <div class="cat-card-meta">
                 <span class="cat-country">🇸🇦 Saudi Arabia</span>
-                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+                <a href="project-alwatania.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="erp">
+              <div class="cat-card-top">
+                <span class="pcat b2b" data-en="B2B · B2C · WMS" data-ar="B2B · B2C · مخازن">B2B · B2C · WMS</span>
+              </div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/muntajat/muntajat-platform.png" alt="Muntajat B2B/B2C Platform">
+              </div>
+              <h3 data-en="Muntajat B2B/B2C Platform" data-ar="منصة منتجات B2B/B2C">Muntajat B2B/B2C Platform</h3>
+              <p data-en="Full-stack B2B/B2C pet products platform — WMS, SAP integration & triple payment gateway (Tamara, Tabby, Urway) for Saudi Arabia's leading pet supplier." data-ar="منصة B2B/B2C متكاملة لمنتجات الحيوانات الأليفة — WMS وتكامل SAP وثلاث بوابات دفع (تمارا وتابي وUrway) لأكبر موزع في السعودية.">Full-stack B2B/B2C pet products platform — WMS, SAP integration & triple payment gateway (Tamara, Tabby, Urway) for Saudi Arabia's leading pet supplier.</p>
+              <div class="tags"><span>Laravel</span><span>Flutter</span><span>SAP</span><span>Tamara</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project-muntajat.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="erp">
+              <div class="cat-card-top">
+                <span class="pcat erp" data-en="ERP · SaaS" data-ar="ERP · سحابي">ERP · SaaS</span>
+              </div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/novoo/novoo-dashboard.png" alt="Novoo ERP Dashboard">
+              </div>
+              <h3 data-en="Novoo ERP — Accounting &amp; HR Platform" data-ar="Novoo ERP — منصة محاسبة وموارد بشرية">Novoo ERP — Accounting &amp; HR Platform</h3>
+              <p data-en="Integrated SaaS ERP for Saudi wholesale &amp; distribution — accounting, chart of accounts, POS, purchasing, warehouse, HR payroll, and financial reporting." data-ar="نظام ERP سحابي متكامل لشركات الجملة والتوزيع — محاسبة كاملة وشجرة حسابات ونقاط بيع ومشتريات ومخزون وموارد بشرية وتقارير مالية.">Integrated SaaS ERP for Saudi wholesale &amp; distribution — accounting, chart of accounts, POS, purchasing, warehouse, HR payroll, and financial reporting.</p>
+              <div class="tags"><span>Laravel</span><span>MySQL</span><span>SaaS</span><span>Vue.js</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project-novoo.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
               </div>
             </article>
             <article class="cat-card" data-category="erp">
@@ -385,9 +420,24 @@
           <div class="cat-heading">
             <span class="pcat healthcare" data-en="Healthcare" data-ar="صحة">Healthcare</span>
             <h2 data-en="Healthcare & Medical Systems" data-ar="الأنظمة الصحية والطبية">Healthcare & Medical Systems</h2>
-            <span class="cat-count" data-en="5 Projects" data-ar="٥ مشاريع">5 Projects</span>
+            <span class="cat-count" data-en="6 Projects" data-ar="٦ مشاريع">6 Projects</span>
           </div>
           <div class="cat-grid">
+            <article class="cat-card" data-category="healthcare">
+              <div class="cat-card-top">
+                <span class="pcat healthcare" data-en="Healthcare" data-ar="رعاية صحية">Healthcare</span>
+              </div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/alhayat/alhayat-dashboard.png" alt="Al-Hayat Medical Platform">
+              </div>
+              <h3 data-en="Al-Hayat Medical Platform" data-ar="منصة الحياة الطبية">Al-Hayat Medical Platform</h3>
+              <p data-en="Full-stack medical platform — booking website, Flutter iOS/Android app &amp; internal management system for 5 Riyadh branches with 24+ insurance integrations." data-ar="منصة طبية متكاملة — موقع حجوزات وتطبيق Flutter لنظامَي iOS وAndroid ونظام إدارة داخلي لـ5 فروع في الرياض مع 24+ تأمين.">Full-stack medical platform — booking website, Flutter iOS/Android app &amp; internal management system for 5 Riyadh branches with 24+ insurance integrations.</p>
+              <div class="tags"><span>Flutter</span><span>Laravel</span><span>MySQL</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project-alhayat.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
             <article class="cat-card" data-category="healthcare">
               <div class="cat-card-top">
                 <div class="cat-card-icon health-bg"><img src="assets/projects/healthcare.svg" alt=""></div>
@@ -588,6 +638,114 @@
               <div class="cat-card-meta">
                 <span class="cat-country">🇸🇦 Saudi Arabia</span>
                 <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ── Recruitment ── -->
+        <div class="cat-section reveal" data-cat-section="recruitment">
+          <div class="cat-heading">
+            <span class="pcat recruitment" data-en="Recruitment" data-ar="استقدام">Recruitment</span>
+            <h2 data-en="Recruitment & HR Systems" data-ar="أنظمة الاستقدام والموارد البشرية">Recruitment &amp; HR Systems</h2>
+            <span class="cat-count" data-en="3 Projects" data-ar="٣ مشاريع">3 Projects</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="recruitment">
+              <div class="cat-card-top">
+                <span class="pcat mery" data-en="Multi-Vendor · Nafath" data-ar="Multi-Vendor · نفاذ">Multi-Vendor · Nafath</span>
+              </div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/mery/mery-platform.png" alt="نظام ميري">
+              </div>
+              <h3 data-en="Mery — Multi-Vendor Recruitment Platform" data-ar="ميري — منصة استقدام متعددة البائعين">Mery — Multi-Vendor Recruitment Platform</h3>
+              <p data-en="SaaS platform connecting 500+ recruitment offices with individuals — CV library, request management, real-time tracking, iOS &amp; Android app, and Nafath identity integration." data-ar="منصة SaaS تربط 500+ مكتب استقدام بالأفراد — مكتبة سير ذاتية وإدارة طلبات وتتبع آني وتطبيق iOS وAndroid وتكامل نفاذ.">SaaS platform connecting 500+ recruitment offices with individuals — CV library, request management, real-time tracking, iOS &amp; Android app, and Nafath identity integration.</p>
+              <div class="tags"><span>Flutter</span><span>Laravel</span><span>Nafath</span><span>Multi-Vendor</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project-mery.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="recruitment">
+              <div class="cat-card-top">
+                <span class="pcat recruitment" data-en="Recruitment SaaS" data-ar="نظام استقدام">Recruitment SaaS</span>
+              </div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/alemteyaz/alemteyaz-hero.png" alt="Almteyaz Recruitment System">
+              </div>
+              <h3 data-en="Almteyaz Recruitment System" data-ar="نظام الامتياز للاستقدام">Almteyaz Recruitment System</h3>
+              <p data-en="Full recruitment contract management — 13 contract stages, housing contracts, HR, finance module, complaints, WhatsApp integration &amp; 3-branch management across Saudi Arabia." data-ar="نظام إدارة عقود استقدام متكامل — 13 مرحلة للعقد وعقود الإيجار وموارد بشرية ومالية وشكاوى وتكامل واتساب وإدارة 3 فروع في السعودية.">Full recruitment contract management — 13 contract stages, housing contracts, HR, finance module, complaints, WhatsApp integration &amp; 3-branch management across Saudi Arabia.</p>
+              <div class="tags"><span>Laravel</span><span>MySQL</span><span>Multi-Branch</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project-alemteyaz.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="recruitment">
+              <div class="cat-card-top">
+                <span class="pcat recruitment" data-en="Recruitment" data-ar="استقدام">Recruitment</span>
+              </div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/alemteyaz/alemteyaz-website.png" alt="Al-Emteyaz Recruitment Website">
+              </div>
+              <h3 data-en="Al-Emteyaz Recruitment Website" data-ar="موقع الامتياز للاستقدام">Al-Emteyaz Recruitment Website</h3>
+              <p data-en="Public-facing bilingual Saudi recruitment website — CV library, application submission, application tracking, services showcase, WhatsApp integration &amp; full Arabic RTL." data-ar="موقع استقدام سعودي ثنائي اللغة — مكتبة سير ذاتية وتقديم طلبات وتتبع الطلبات وعرض الخدمات وتكامل واتساب وعربي RTL كامل.">Public-facing bilingual Saudi recruitment website — CV library, application submission, tracking, services showcase, WhatsApp &amp; full Arabic RTL.</p>
+              <div class="tags"><span>Laravel</span><span>PHP</span><span>Arabic RTL</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project-alemteyaz-website.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ── Real Estate ── -->
+        <div class="cat-section reveal" data-cat-section="realestate">
+          <div class="cat-heading">
+            <span class="pcat realestate" data-en="Real Estate" data-ar="عقارات">Real Estate</span>
+            <h2 data-en="Real Estate & Appraisal Platforms" data-ar="منصات العقارات والتقييم">Real Estate &amp; Appraisal Platforms</h2>
+            <span class="cat-count" data-en="1 Project" data-ar="مشروع">1 Project</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="realestate">
+              <div class="cat-card-top">
+                <span class="pcat realestate" data-en="Real Estate" data-ar="عقارات">Real Estate</span>
+              </div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/esnad/esnad-dashboard.png" alt="Esnad Real Estate Evaluation System">
+              </div>
+              <h3 data-en="Esnad Real Estate Evaluation System" data-ar="نظام إسناد للتقييم العقاري">Esnad Real Estate Evaluation System</h3>
+              <p data-en="Full real estate appraisal platform for Saudi Arabia — managing banks, clients, evaluators, transactions, reports, and multi-role access across all appraisal stages." data-ar="منصة تقييم عقاري شاملة بالمملكة العربية السعودية — تُدير البنوك والعملاء والمقيّمين والمعاملات والتقارير مع صلاحيات متعددة لجميع مراحل التقييم.">Full real estate appraisal platform for Saudi Arabia — managing banks, clients, evaluators, transactions, reports, and multi-role access across all appraisal stages.</p>
+              <div class="tags"><span>Laravel</span><span>PHP</span><span>MySQL</span><span>Docker</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ── AI / ML ── -->
+        <div class="cat-section reveal" data-cat-section="ai">
+          <div class="cat-heading">
+            <span class="pcat ai" data-en="AI / ML" data-ar="ذكاء اصطناعي">AI / ML</span>
+            <h2 data-en="AI & Machine Learning Systems" data-ar="أنظمة الذكاء الاصطناعي والتعلم الآلي">AI &amp; Machine Learning Systems</h2>
+            <span class="cat-count" data-en="1 Project" data-ar="مشروع">1 Project</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="ai">
+              <div class="cat-card-top">
+                <span class="pcat ai" data-en="AI / ML" data-ar="ذكاء اصطناعي">AI / ML</span>
+              </div>
+              <div class="cat-card-screen">
+                <img src="assets/projects/qimta/qimta-hero.png" alt="Qimta BOQ AI Pricing Platform">
+              </div>
+              <h3 data-en="Qimta — BOQ AI Pricing Engine" data-ar="قمتة — محرك التسعير الذكي للكميات">Qimta — BOQ AI Pricing Engine</h3>
+              <p data-en="B2B construction pricing platform for Saudi Arabia &amp; GCC — AI model extracts quantities, matches products, and self-trains on 19,699+ verified specs using RAG + web scraping." data-ar="منصة تسعير إنشائية B2B للسعودية ودول الخليج — نموذج ذكاء اصطناعي يستخرج الكميات ويطابق المنتجات ويُدرِّب نفسه على 19,699+ مواصفة موثقة باستخدام RAG وجمع البيانات.">B2B construction pricing platform for Saudi Arabia &amp; GCC — AI model extracts quantities, matches products, and self-trains on 19,699+ verified specs using RAG + web scraping.</p>
+              <div class="tags"><span>Python</span><span>PostgreSQL</span><span>RAG</span><span>Scraping</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project-qimta.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
               </div>
             </article>
           </div>

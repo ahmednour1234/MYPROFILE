@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Al Watania Poultry — ERP &amp; Sales Force | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--aw-red:#fd470d;--aw-dark:#1a0500;--aw-green:#2d8c1a;--aw-light:#fff8f5;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0e0200 0%,#1a0500 50%,#2d0c00 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(253,71,13,.15) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(45,140,26,.1) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(253,71,13,.4);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#fd470d,#ff6a35);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#ff8c6a;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 460px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#ff8c6a;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.red{background:rgba(253,71,13,.2);border-color:rgba(253,71,13,.5);color:#ff8c6a;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-red{padding:11px 24px;border-radius:12px;background:#fd470d;color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-red:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(253,71,13,.4);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:460px;border-radius:16px 16px 0 0;box-shadow:0 -16px 60px rgba(253,71,13,.25),0 -1px 0 rgba(253,71,13,.5);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;}
+    .platform-pill{padding:10px 24px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:4px 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(253,71,13,.15);border-color:rgba(253,71,13,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(253,71,13,.1);color:#c43500;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(253,71,13,.08);color:#1a0500;font-size:12px;font-weight:700;}
+    .platform-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .platform-row:last-child{border-bottom:none;}
+    .pl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .pl-name{font-weight:700;color:var(--navy);}
+    .pl-tag{margin-left:auto;font-size:11px;color:var(--muted);font-weight:600;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* System cards */
+    .components-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.erp-card::before{background:linear-gradient(90deg,#fd470d,#ff6a35);}
+    .component-card.mandoob-card::before{background:linear-gradient(90deg,#2d8c1a,#4ade80);}
+    .component-card.nextjs-card::before{background:linear-gradient(90deg,#1a0500,#fd470d);}
+    .component-card.java-card::before{background:linear-gradient(90deg,#b45309,#f59e0b);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.r{background:rgba(253,71,13,.1);color:#c43500;}
+    .comp-tag.g{background:rgba(45,140,26,.1);color:#2d8c1a;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.o{background:rgba(180,83,9,.1);color:#b45309;}
+    /* ERP module grid */
+    .modules-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .module-card{background:white;border:1px solid var(--line);border-radius:12px;padding:14px 12px;text-align:center;box-shadow:var(--shadow);}
+    .mod-ico{font-size:22px;margin-bottom:7px;}
+    .mod-name{font-size:12px;font-weight:700;color:var(--navy);line-height:1.3;}
+    /* Mandoob workflow */
+    .workflow-list{display:flex;flex-direction:column;gap:10px;}
+    .workflow-step{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .step-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#fd470d,#ff6a35);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:800;flex-shrink:0;}
+    .workflow-step strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+    .workflow-step span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:#fd470d;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#fd470d,#ff6a35);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a0500,#fd470d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #fd470d;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#fd470d;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .components-grid{grid-template-columns:1fr;}
+      .modules-grid{grid-template-columns:repeat(2,1fr);}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span data-en="Al Watania Poultry" data-ar="دواجن الوطنية">Al Watania Poultry</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">و</div>
+          <span><em>دواجن الوطنية</em> &nbsp;— AL WATANIA POULTRY · SAUDI ARABIA</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat enterprise" data-en="ERP · Field Sales Force" data-ar="ERP · نظام المناديب">ERP · Field Sales Force</span>
+            <h1 data-en="Al Watania Poultry <em>ERP</em> &amp; Sales Force" data-ar="دواجن الوطنية <em>ERP</em> ونظام المناديب">Al Watania Poultry <em>ERP</em> &amp; Sales Force</h1>
+            <p data-en="End-to-end enterprise digital transformation for the Middle East's largest poultry producer — a full Java-powered ERP covering production, inventory, finance and HR, paired with a Next.js web portal and a real-time field sales-force system (نظام المناديب) tracking hundreds of reps across Saudi Arabia." data-ar="تحول رقمي متكامل لأكبر منشأة دواجن في الشرق الأوسط — ERP بـJava يغطي الإنتاج والمخزون والماليات والموارد البشرية مقترن ببوابة Next.js ونظام مناديب ميداني آني يتابع مئات المناديب في أرجاء المملكة.">End-to-end enterprise digital transformation for the Middle East's largest poultry producer — a full Java-powered ERP covering production, inventory, finance and HR, paired with a Next.js web portal and a real-time field sales-force system (نظام المناديب) tracking hundreds of reps across Saudi Arabia.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇸🇦 Saudi Arabia</span>
+              <span class="hero-badge red">✓ Live — alwatania.sa</span>
+              <span class="hero-badge red">🏭 Largest Poultry in Middle East</span>
+              <span class="hero-badge">1M+ Chickens/Day</span>
+              <span class="hero-badge">150+ Products</span>
+              <span class="hero-badge">42+ Years</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://alwatania.sa/en/" target="_blank" rel="noopener noreferrer" class="btn-red" data-en="Visit Live Site →" data-ar="زيارة الموقع →">Visit Live Site →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar System" data-ar="ابنِ نظامًا مماثلًا">Build Similar System</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/alwatania/alwatania-platform.png" alt="Al Watania Poultry ERP System" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🏭</span>
+              <div class="pp-text"><strong data-en="Enterprise ERP" data-ar="ERP المؤسسي">Enterprise ERP</strong><span>Java · Spring Boot</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🗺️</span>
+              <div class="pp-text"><strong data-en="Sales Force System" data-ar="نظام المناديب">Sales Force System</strong><span>نظام المناديب — Real-time</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Web Portal" data-ar="البوابة الإلكترونية">Web Portal</strong><span>Next.js — SSR</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Mandoob Mobile App" data-ar="تطبيق المندوب">Mandoob Mobile App</strong><span>Field Reps — Android</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Al Watania Poultry is the largest poultry facility in the Middle East and one of the largest in the world — producing over 1,000,000 chickens and 1,500,000 eggs per day across 150+ product lines. With 42+ years of operation, their scale demanded an enterprise-grade system to replace fragmented manual processes across production, sales, distribution, and finance." data-ar="دواجن الوطنية هي أكبر منشأة دواجن في الشرق الأوسط وإحدى أكبر شركات الدواجن في العالم — تنتج 1,000,000+ دجاجة و1,500,000 بيضة يوميًا عبر 150+ خط منتجات. مع 42+ سنة من التشغيل طلب حجمها نظامًا على مستوى المؤسسات يحل محل العمليات اليدوية المتفرقة في الإنتاج والمبيعات والتوزيع والماليات.">Al Watania Poultry is the largest poultry facility in the Middle East — producing 1,000,000+ chickens and 1,500,000 eggs per day across 150+ product lines. With 42+ years of operation, their scale demanded an enterprise-grade system to replace fragmented manual processes.</p>
+              <p data-en="The engagement covered two major systems: (1) a full Java + Spring Boot ERP with modules for production planning, cold-chain inventory, financial accounting, HR, and sales management — accessible via a Next.js web portal; and (2) نظام المناديب — a complete field sales-force management platform tracking rep routes, client visits, orders, cash collection, and real-time KPIs for hundreds of field representatives across the Kingdom." data-ar="شمل العمل منظومتين رئيسيتين: (1) ERP Java + Spring Boot كامل بوحدات تخطيط إنتاج ومخزون سلسلة تبريد ومحاسبة مالية وموارد بشرية وإدارة مبيعات — من خلال بوابة Next.js؛ و(2) نظام المناديب — منصة إدارة مناديب ميدانية متكاملة تتتبع مسارات المناديب وزيارات العملاء والطلبات وتحصيل النقد ومؤشرات الأداء الآنية لمئات المناديب في أرجاء المملكة.">Two major systems: (1) full Java + Spring Boot ERP — production, cold-chain inventory, finance, HR, sales — via Next.js portal; and (2) نظام المناديب — complete field sales-force platform tracking rep routes, client visits, orders, cash collection, and real-time KPIs across the Kingdom.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card erp-card">
+                  <div class="comp-icon">🏭</div>
+                  <div class="comp-name" data-en="Enterprise ERP — Java Backend" data-ar="ERP المؤسسي — خلفية Java">Enterprise ERP — Java Backend</div>
+                  <div class="comp-sub">Spring Boot · MySQL · REST API</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Java</span>
+                    <span class="comp-tag r">Spring Boot</span>
+                    <span class="comp-tag r">MySQL</span>
+                    <span class="comp-tag r">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Core ERP engine covering production planning, cold-chain inventory, purchase orders, financial accounting, payroll, and enterprise reporting — all served via a secure REST API consumed by the Next.js frontend and mobile apps." data-ar="محرك ERP الأساسي يغطي تخطيط الإنتاج ومخزون سلسلة التبريد وأوامر الشراء والمحاسبة المالية وكشوف الرواتب وتقارير المؤسسة — كلها عبر REST API آمن تستهلكه واجهة Next.js وتطبيقات الجوال.">Core ERP — production planning, cold-chain inventory, purchase orders, financial accounting, payroll, enterprise reporting — served via REST API to the Next.js frontend.</p>
+                </div>
+                <div class="component-card mandoob-card">
+                  <div class="comp-icon">🗺️</div>
+                  <div class="comp-name" data-en="نظام المناديب — Field Sales Force" data-ar="نظام المناديب — القوة البيعية الميدانية">نظام المناديب — Field Sales Force</div>
+                  <div class="comp-sub" data-en="Real-time rep tracking &amp; order management" data-ar="تتبع آني للمناديب وإدارة الطلبات">Real-time rep tracking &amp; order management</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Java</span>
+                    <span class="comp-tag g">Next.js</span>
+                    <span class="comp-tag g">GPS API</span>
+                    <span class="comp-tag g">Android</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Complete field sales management — daily route planning, GPS-tracked client visits, order capture offline or online, cash and cheque collection, returns, and live performance dashboards for regional managers." data-ar="إدارة مبيعات ميدانية كاملة — تخطيط مسارات يومية وزيارات عملاء بتتبع GPS وتسجيل طلبات أوفلاين أو أونلاين وتحصيل نقدي وشيكات ومرتجعات ولوحات أداء مباشرة لمديري المنطقة.">Complete field sales — route planning, GPS-tracked visits, online/offline order capture, cash &amp; cheque collection, returns, live KPI dashboards for regional managers.</p>
+                </div>
+                <div class="component-card nextjs-card">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Next.js Web Portal" data-ar="بوابة Next.js الإلكترونية">Next.js Web Portal</div>
+                  <div class="comp-sub">Server-Side Rendering · Arabic RTL</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Next.js</span>
+                    <span class="comp-tag r">React</span>
+                    <span class="comp-tag r">TypeScript</span>
+                    <span class="comp-tag r">Arabic RTL</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Server-side rendered management portal — ERP dashboards, production reports, sales analytics, HR self-service, and the regional managers' sales-force command centre. Full Arabic-first RTL with instant English switch." data-ar="بوابة إدارة مصيّرة من الخادم — لوحات ERP وتقارير الإنتاج وتحليلات المبيعات والخدمة الذاتية لـHR ومركز أوامر المناديب لمديري المنطقة. عربي-أولًا RTL مع تبديل إنجليزي فوري.">SSR management portal — ERP dashboards, production reports, sales analytics, HR self-service, and regional managers' sales-force command centre. Arabic-first RTL.</p>
+                </div>
+                <div class="component-card java-card">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Mandoob Android App" data-ar="تطبيق المندوب Android">Mandoob Android App</div>
+                  <div class="comp-sub" data-en="Offline-capable field operations" data-ar="عمليات ميدانية بدون إنترنت">Offline-capable field operations</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag o">Java</span>
+                    <span class="comp-tag o">Android</span>
+                    <span class="comp-tag o">SQLite</span>
+                    <span class="comp-tag o">GPS</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Native Java Android app for field reps — offline-first order capture with SQLite local storage, GPS check-in at each client, route sheet display, barcode scanning, and automatic background sync when connectivity is restored." data-ar="تطبيق Android أصلي بـJava للمناديب — تسجيل طلبات أوفلاين-أولًا بـSQLite المحلي وتسجيل GPS عند كل عميل وعرض ورقة المسار ومسح الباركود ومزامنة خلفية تلقائية عند استعادة الاتصال.">Native Java Android app — offline-first SQLite order capture, GPS check-in per client, route sheet, barcode scanning, automatic background sync on reconnection.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="ERP Modules" data-ar="وحدات ERP">ERP Modules</h2>
+              <div class="modules-grid">
+                <div class="module-card"><div class="mod-ico">🐔</div><div class="mod-name" data-en="Production Planning" data-ar="تخطيط الإنتاج">Production Planning</div></div>
+                <div class="module-card"><div class="mod-ico">❄️</div><div class="mod-name" data-en="Cold-Chain Inventory" data-ar="مخزون سلسلة التبريد">Cold-Chain Inventory</div></div>
+                <div class="module-card"><div class="mod-ico">📦</div><div class="mod-name" data-en="Purchase Orders" data-ar="أوامر الشراء">Purchase Orders</div></div>
+                <div class="module-card"><div class="mod-ico">🚚</div><div class="mod-name" data-en="Distribution &amp; Logistics" data-ar="التوزيع واللوجستيات">Distribution &amp; Logistics</div></div>
+                <div class="module-card"><div class="mod-ico">💰</div><div class="mod-name" data-en="Financial Accounting" data-ar="المحاسبة المالية">Financial Accounting</div></div>
+                <div class="module-card"><div class="mod-ico">👥</div><div class="mod-name" data-en="HR &amp; Payroll" data-ar="الموارد البشرية والرواتب">HR &amp; Payroll</div></div>
+                <div class="module-card"><div class="mod-ico">📊</div><div class="mod-name" data-en="Sales Management" data-ar="إدارة المبيعات">Sales Management</div></div>
+                <div class="module-card"><div class="mod-ico">📈</div><div class="mod-name" data-en="Executive Reports" data-ar="تقارير الإدارة العليا">Executive Reports</div></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Mandoob Daily Workflow" data-ar="سير عمل المندوب اليومي">Mandoob Daily Workflow</h2>
+              <div class="workflow-list">
+                <div class="workflow-step">
+                  <div class="step-num">1</div>
+                  <div>
+                    <strong data-en="Morning Route Assignment" data-ar="تعيين مسار الصباح">Morning Route Assignment</strong>
+                    <span data-en="Regional manager assigns each mandoob a daily route with ordered client visits — generated automatically based on geography, visit frequency rules, and pending orders. The Android app downloads the route for offline use." data-ar="مدير المنطقة يعيّن لكل مندوب مسارًا يوميًا بزيارات عملاء مرتبة — يُنشأ تلقائيًا بناءً على الجغرافيا وقواعد تكرار الزيارات والطلبات المعلقة. تطبيق Android يحمّل المسار للاستخدام أوفلاين.">Regional manager assigns daily route with ordered visits — auto-generated by geography, frequency rules, pending orders. App downloads route offline.</span>
+                  </div>
+                </div>
+                <div class="workflow-step">
+                  <div class="step-num">2</div>
+                  <div>
+                    <strong data-en="GPS Check-in at Each Client" data-ar="تسجيل GPS عند كل عميل">GPS Check-in at Each Client</strong>
+                    <span data-en="On arrival, the mandoob checks in with GPS coordinates — the system records visit time, location, and flags any deviations from the planned route. Geofencing alerts the manager if a rep marks a visit without being at the location." data-ar="عند الوصول يسجّل المندوب إحداثيات GPS — النظام يسجّل وقت الزيارة والموقع ويُنبّه لأي انحرافات عن المسار المخطط. السياج الجغرافي يُنبّه المدير إذا سجّل مندوب زيارة بدون وجوده في الموقع.">GPS check-in on arrival — visit time and location logged. Geofencing alerts manager if rep marks visit without being at the location.</span>
+                  </div>
+                </div>
+                <div class="workflow-step">
+                  <div class="step-num">3</div>
+                  <div>
+                    <strong data-en="Order Capture — Online or Offline" data-ar="تسجيل الطلبات — أونلاين أو أوفلاين">Order Capture — Online or Offline</strong>
+                    <span data-en="Mandoob browses the product catalogue with live ERP pricing and stock availability, creates an order for the client, and captures it — synced instantly if online, or queued in SQLite for sync on next connection. Supports barcode scanning for product selection." data-ar="المندوب يتصفح كتالوج المنتجات بأسعار ERP المباشرة وتوفر المخزون ويُنشئ طلبًا للعميل — مزامنة فورية إذا أونلاين أو في قائمة انتظار SQLite للمزامنة عند الاتصال التالي. يدعم مسح الباركود لاختيار المنتجات.">Browse catalogue with live ERP pricing and stock, create order — instant sync if online or SQLite queue if offline. Barcode scanning supported.</span>
+                  </div>
+                </div>
+                <div class="workflow-step">
+                  <div class="step-num">4</div>
+                  <div>
+                    <strong data-en="Cash &amp; Cheque Collection" data-ar="تحصيل النقد والشيكات">Cash &amp; Cheque Collection</strong>
+                    <span data-en="Mandoob records cash payments and cheque details directly in the app — cheque number, date, bank, amount. All collections sync to ERP finance module in real time, with automatic reconciliation against outstanding invoices per client." data-ar="المندوب يسجّل المدفوعات النقدية وبيانات الشيكات في التطبيق مباشرةً — رقم الشيك والتاريخ والبنك والمبلغ. كل التحصيلات تُزامن مع وحدة مالية ERP آنيًا مع تسوية تلقائية مقابل الفواتير المستحقة لكل عميل.">Record cash and cheque details in app — syncs to ERP finance module in real time, automatic reconciliation against outstanding invoices.</span>
+                  </div>
+                </div>
+                <div class="workflow-step">
+                  <div class="step-num">5</div>
+                  <div>
+                    <strong data-en="End-of-Day Report &amp; Manager Review" data-ar="تقرير نهاية اليوم ومراجعة المدير">End-of-Day Report &amp; Manager Review</strong>
+                    <span data-en="At day's end the app generates a summary: visits completed vs. planned, orders placed, collections, missed clients. Regional manager reviews in the Next.js portal — with map replay of the rep's GPS trail and any exception flags." data-ar="في نهاية اليوم يُنشئ التطبيق ملخصًا: الزيارات المنجزة مقابل المخططة والطلبات والتحصيلات والعملاء الفائتون. مدير المنطقة يراجع في بوابة Next.js — مع إعادة تشغيل خريطة مسار GPS للمندوب وأي استثناءات.">End-of-day summary: visits done vs. planned, orders, collections, missed clients. Manager reviews in Next.js portal with GPS trail map replay and exception flags.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Offline-First Android App" data-ar="تطبيق Android أوفلاين-أولًا">Offline-First Android App</strong>
+                    <span data-en="Field reps in areas with poor connectivity can still capture all orders, visits, and collections — SQLite stores data locally and syncs to the Java backend automatically when connection is restored." data-ar="المناديب في مناطق ضعيفة الاتصال يمكنهم تسجيل كل الطلبات والزيارات والتحصيلات — SQLite يخزن البيانات محليًا ويزامن مع خلفية Java تلقائيًا عند استعادة الاتصال.">Reps in poor coverage areas still capture all data — SQLite local storage syncs to Java backend automatically on reconnect.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Live Production Dashboard" data-ar="لوحة الإنتاج المباشرة">Live Production Dashboard</strong>
+                    <span data-en="Next.js portal shows real-time production throughput — chickens processed per hour, cold-storage levels per product, line efficiency, and deviation alerts when output falls below target." data-ar="بوابة Next.js تُظهر إنتاجية آنية — دجاج مُعالَج في الساعة ومستويات التبريد لكل منتج وكفاءة الخط وتنبيهات انحراف عند انخفاض الإنتاج عن الهدف.">Real-time production throughput — chickens/hour, cold-storage levels, line efficiency, deviation alerts when output falls below target.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Cold-Chain Inventory — FEFO &amp; Zone Control" data-ar="مخزون سلسلة التبريد — FEFO وتحكم المناطق">Cold-Chain Inventory — FEFO &amp; Zone Control</strong>
+                    <span data-en="Inventory follows FEFO (First Expired, First Out) rules enforced by the ERP — each batch has a production date, shelf-life, and cold-zone assignment. Automated alerts for batches approaching expiry before dispatch." data-ar="المخزون يتبع قواعد FEFO يُطبّقها ERP — كل دفعة بتاريخ إنتاج وعمر افتراضي وتعيين منطقة تبريد. تنبيهات تلقائية للدفعات المقتربة من الانتهاء قبل الإرسال.">FEFO inventory rules enforced by ERP — each batch has production date, shelf-life, zone assignment. Auto-alerts for batches nearing expiry before dispatch.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Rep Performance KPIs &amp; Targets" data-ar="مؤشرات أداء المناديب والأهداف">Rep Performance KPIs &amp; Targets</strong>
+                    <span data-en="Each mandoob has monthly sales targets per product category, visit frequency targets per client tier, and collection rate KPIs — tracked live in the Next.js portal with historical trend charts and manager drill-downs per rep." data-ar="كل مندوب لديه أهداف مبيعات شهرية لكل فئة منتجات وأهداف تكرار زيارات لكل فئة عملاء ومؤشرات معدل تحصيل — مُتابَعة مباشرةً في بوابة Next.js بمخططات اتجاه تاريخية وتعمق المدير لكل مندوب.">Monthly targets per product category, visit frequency targets per client tier, collection KPIs — tracked live with historical charts and per-rep manager drill-downs.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Financial Module — Invoicing &amp; Reconciliation" data-ar="الوحدة المالية — الفوترة والتسوية">Financial Module — Invoicing &amp; Reconciliation</strong>
+                    <span data-en="ERP auto-generates sales invoices on order confirmation, posts to accounts receivable, and reconciles against collections from the mandoob app. Overdue alerts and aging reports generated automatically per client." data-ar="ERP يُنشئ فواتير مبيعات تلقائيًا عند تأكيد الطلب ويرحّل للذمم المدينة ويُسوّي مقابل تحصيلات تطبيق المندوب. تنبيهات تأخير وتقارير تقادم تُنشأ تلقائيًا لكل عميل.">Auto-generates invoices on order confirmation, posts to receivables, reconciles against mandoob app collections. Overdue alerts and aging reports per client.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Arabic-First — Full Bilingual RTL" data-ar="عربي-أولًا — ثنائي اللغة كامل RTL">Arabic-First — Full Bilingual RTL</strong>
+                    <span data-en="Both the Next.js portal and the Android app are built Arabic-first with complete RTL layout. All reports, forms, and dashboards switch seamlessly between Arabic and English — including right-to-left PDF report generation." data-ar="بوابة Next.js وتطبيق Android كلاهما مبنيان عربي-أولًا بـRTL كامل. كل التقارير والنماذج ولوحات القيادة تتبدل بسلاسة بين العربية والإنجليزية — بما في ذلك إنشاء تقارير PDF من اليمين لليسار.">Both Next.js portal and Android app Arabic-first RTL — reports, forms, dashboards switch seamlessly AR/EN, including RTL PDF generation.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Role-Based Access — ERP &amp; Mandoob" data-ar="صلاحيات مبنية على الدور — ERP والمناديب">Role-Based Access — ERP &amp; Mandoob</strong>
+                    <span data-en="Granular RBAC: ERP roles include production supervisor, warehouse manager, finance controller, HR manager, and executive viewer. Mandoob system roles: field rep, zone manager, national sales director — each with scoped data visibility." data-ar="RBAC دقيق: أدوار ERP تشمل مشرف الإنتاج ومدير المستودع ومراقب الماليات ومدير HR والمشاهد التنفيذي. أدوار نظام المناديب: مندوب ميداني ومدير منطقة ومدير مبيعات وطني — كل دور برؤية بيانات محددة النطاق.">Granular RBAC — ERP roles: production, warehouse, finance, HR, executive. Mandoob roles: field rep, zone manager, national director — each with scoped data.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Distribution Route Optimisation" data-ar="تحسين مسارات التوزيع">Distribution Route Optimisation</strong>
+                    <span data-en="ERP logistics module generates optimised delivery routes for the distribution fleet — factoring in client delivery windows, vehicle capacity, cold-chain requirements, and traffic data. Routes exported to driver apps automatically." data-ar="وحدة اللوجستيات في ERP تُنشئ مسارات توصيل مُحسَّنة للأسطول — تأخذ في الاعتبار نوافذ تسليم العملاء وطاقة السيارة ومتطلبات سلسلة التبريد وبيانات حركة المرور. المسارات تُصدَّر لتطبيقات السائق تلقائيًا.">Optimised delivery routes factoring client windows, vehicle capacity, cold-chain requirements, and traffic — auto-exported to driver apps.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Project Highlights" data-ar="أبرز المشروع">Project Highlights</h2>
+              <div class="results-grid">
+                <div class="result-card"><strong>2</strong><span data-en="Major Systems — ERP + Sales Force" data-ar="منظومتان رئيسيتان — ERP + مناديب">Major Systems Built</span></div>
+                <div class="result-card"><strong>8</strong><span data-en="ERP Modules — Production to Finance" data-ar="وحدات ERP — من الإنتاج للماليات">ERP Modules</span></div>
+                <div class="result-card"><strong>1M+</strong><span data-en="Chickens/Day — Scale of Operations" data-ar="دجاجة يوميًا — حجم العمليات">Chickens / Day</span></div>
+                <div class="result-card"><strong>Java</strong><span data-en="Spring Boot — Enterprise Backend" data-ar="Spring Boot — خلفية المؤسسة">Spring Boot Backend</span></div>
+                <div class="result-card"><strong>Next.js</strong><span data-en="SSR Portal — Arabic-First RTL" data-ar="بوابة SSR — عربي-أولًا RTL">SSR Web Portal</span></div>
+                <div class="result-card"><strong>RTL</strong><span data-en="Arabic-First — Both Systems" data-ar="عربي-أولًا — كلا النظامين">Arabic-First RTL</span></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Offline sync consistency for hundreds of reps across Saudi Arabia" data-ar="اتساق المزامنة أوفلاين لمئات المناديب في أرجاء السعودية">Offline sync consistency for hundreds of reps across Saudi Arabia</strong>
+                  <p data-en="With reps operating in remote areas, network connectivity is unreliable. The Android app uses a local SQLite database as the source of truth during offline periods. On reconnection, a conflict-resolution engine runs: server wins for pricing and stock updates, client wins for new orders and visits not yet seen by the server — with full audit trail for any resolved conflicts." data-ar="مع عمل المناديب في مناطق نائية الاتصال غير موثوق. تطبيق Android يستخدم SQLite المحلي كمصدر حقيقة في فترات الأوفلاين. عند الاتصال يُشغَّل محرك حل التعارضات: الخادم يفوز بتحديثات الأسعار والمخزون والعميل يفوز بالطلبات الجديدة والزيارات غير المرئية بعد — مع سجل تدقيق كامل لأي تعارضات محلولة.">SQLite local source-of-truth during offline periods. On reconnect, conflict engine: server wins for pricing/stock, client wins for new orders/visits — full audit trail for all resolved conflicts.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Java ERP performance at 1M+ production-event scale" data-ar="أداء Java ERP بحجم 1M+ حدث إنتاجي">Java ERP performance at 1M+ production-event scale</strong>
+                  <p data-en="Processing 1,000,000+ chicken-production events per day through the ERP — each with inventory, FEFO batch tracking, and financial impact — required careful Spring Batch job design. Bulk ingestion uses batch INSERT with MySQL partitioned tables per production shift, with async event processing via a message queue to decouple production from financial posting and prevent lock contention." data-ar="معالجة 1,000,000+ حدث إنتاج دجاج يوميًا عبر ERP — كل منه بتأثير مخزون وتتبع دفعة FEFO ومالي — طلب تصميم Spring Batch دقيقًا. الاستيعاب بالجملة يستخدم INSERT بالجملة مع جداول MySQL مقسّمة حسب وردية الإنتاج ومعالجة أحداث غير متزامنة عبر قائمة رسائل للفصل بين الإنتاج والترحيل المالي ومنع تنافس الأقفال.">1M+ events/day via Spring Batch — bulk INSERT with MySQL partitioned tables per production shift, async event queue decoupling production from financial posting, preventing lock contention.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Next.js SSR with Arabic RTL — dynamic locale switching without re-render" data-ar="Next.js SSR مع Arabic RTL — تبديل locale ديناميكي بدون إعادة رسم">Next.js SSR with Arabic RTL — dynamic locale switching without re-render</strong>
+                  <p data-en="The portal needed to serve Arabic-first SSR pages (for internal staff) while supporting instant English switching without a full page reload. Implemented i18n routing with Next.js built-in i18n, RTL CSS variables that swap on locale change, and a direction context provider that updates the HTML dir attribute client-side — preserving component state across locale switches." data-ar="البوابة احتاجت تقديم صفحات SSR عربية-أولًا (للموظفين الداخليين) مع دعم تبديل إنجليزي فوري بدون إعادة تحميل صفحة كاملة. الحل: توجيه i18n بـi18n المدمج في Next.js ومتغيرات CSS لـRTL تتبدل عند تغيير اللغة ومزود سياق الاتجاه يُحدّث خاصية dir في HTML من جانب العميل — مع الحفاظ على حالة المكونات عبر تبديلات اللغة.">i18n routing with Next.js built-in i18n, RTL CSS variables swapping on locale change, direction context provider updating HTML dir client-side — preserving component state across locale switches.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-muntajat.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="→ السابق">← Previous</small>
+                <strong data-en="Muntajat B2B/B2C Platform" data-ar="منصة منتجات B2B/B2C">Muntajat B2B/B2C Platform</strong>
+              </a>
+              <a href="index.html#contact" class="btn btn-primary" style="background:linear-gradient(135deg,#1a0500,#fd470d);color:white;" data-en="Build Your Enterprise System" data-ar="ابنِ نظامك المؤسسي">Build Your Enterprise System</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right">
+                <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+            </div>
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Details" data-ar="تفاصيل المشروع">Project Details</h4>
+              <div class="meta-row"><span class="meta-label" data-en="Status" data-ar="الحالة">Status</span><span class="status-live">✓ Live</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Type" data-ar="النوع">Type</span><span class="meta-val" data-en="ERP + Sales Force" data-ar="ERP + نظام مناديب">ERP + Sales Force</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Market" data-ar="السوق">Market</span><span class="meta-val">🇸🇦 Saudi Arabia</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Scale" data-ar="الحجم">Scale</span><span class="meta-val">1M+ Chickens/Day</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Products" data-ar="المنتجات">Products</span><span class="meta-val">150+</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="ERP Backend" data-ar="خلفية ERP">ERP Backend</span><span class="meta-val">Java · Spring Boot</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Frontend" data-ar="الواجهة الأمامية">Frontend</span><span class="meta-val">Next.js SSR</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Mobile" data-ar="الجوال">Mobile</span><span class="meta-val">Android (Java)</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Role" data-ar="الدور">Role</span><span class="meta-val" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Website" data-ar="الموقع">Website</span><span class="meta-val"><a href="https://alwatania.sa/en/" target="_blank" rel="noopener noreferrer" style="color:#fd470d">alwatania.sa ↗</a></span></div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Java</span><span class="tech-chip">Spring Boot</span>
+                <span class="tech-chip">Spring Batch</span><span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Next.js</span><span class="tech-chip">React</span>
+                <span class="tech-chip">TypeScript</span><span class="tech-chip">Android</span>
+                <span class="tech-chip">SQLite</span><span class="tech-chip">REST API</span>
+                <span class="tech-chip">GPS API</span><span class="tech-chip">Arabic RTL</span>
+                <span class="tech-chip">JWT Auth</span><span class="tech-chip">Redis</span>
+              </div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Systems" data-ar="المنظومات">Systems</h4>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#fd470d"></span>
+                <span class="pl-name" data-en="Enterprise ERP" data-ar="ERP المؤسسي">Enterprise ERP</span>
+                <span class="pl-tag">Java</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#2d8c1a"></span>
+                <span class="pl-name" data-en="نظام المناديب" data-ar="نظام المناديب">نظام المناديب</span>
+                <span class="pl-tag">Next.js</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#1a0500"></span>
+                <span class="pl-name" data-en="Web Portal" data-ar="البوابة الإلكترونية">Web Portal</span>
+                <span class="pl-tag">Next.js SSR</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#b45309"></span>
+                <span class="pl-name" data-en="Mandoob App" data-ar="تطبيق المندوب">Mandoob App</span>
+                <span class="pl-tag">Android</span>
+              </div>
+            </div>
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#0e0200,#1a0500);border:none">
+              <h4 style="color:rgba(255,255,255,.45)" data-en="Need an ERP or sales force system?" data-ar="تحتاج ERP أو نظام مناديب؟">Need an ERP or sales force system?</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin:0 0 16px" data-en="I build enterprise Java ERP systems and real-time field sales-force platforms. Arabic-first, Saudi market expertise, offline-capable mobile." data-ar="أبني أنظمة Java ERP المؤسسية ومنصات المناديب الميدانية الآنية. عربي-أولًا وخبرة في السوق السعودي وجوال يعمل أوفلاين.">I build enterprise Java ERP systems and real-time field sales-force platforms. Arabic-first, Saudi market expertise.</p>
+              <a href="index.html#contact" class="btn-red" style="display:block;text-align:center" data-en="Let's Talk →" data-ar="تحدّث معي →">Let's Talk →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'دواجن الوطنية — ERP ونظام المناديب | أحمد نور' : 'Al Watania Poultry — ERP & Sales Force | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active'); }); }
+    window.addEventListener('scroll', doReveal); doReveal();
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(26,5,0,0.1)' : '0 2px 30px rgba(26,5,0,0.05)';
+    });
+  </script>
+</body>
+</html>
