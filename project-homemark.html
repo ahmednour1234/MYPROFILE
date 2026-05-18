@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Mark — Furniture Wholesale Shopping App | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--hm-teal:#0d9488;--hm-dark:#00201e;--hm-gold:#d97706;--hm-light:#ccfbf1;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#001a18 0%,#00201e 50%,#003d36 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(13,148,136,.22) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(217,119,6,.10) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(13,148,136,.4);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#0d9488,#0f766e);display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#5eead4;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(13,148,136,.18);color:#5eead4;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#5eead4;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.teal{background:rgba(13,148,136,.2);border-color:rgba(13,148,136,.5);color:#5eead4;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-teal{padding:11px 24px;border-radius:12px;background:linear-gradient(135deg,#0d9488,#0f766e);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-teal:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,148,136,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:260px;border-radius:24px 24px 0 0;box-shadow:0 -16px 60px rgba(13,148,136,.3),0 -1px 0 rgba(13,148,136,.5);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;}
+    .platform-pill{padding:10px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(13,148,136,.15);border-color:rgba(13,148,136,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(13,148,136,.09);color:#00201e;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Component cards */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.app::before{background:linear-gradient(90deg,#0d9488,#d97706);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#0f766e,#0d9488);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.g{background:rgba(16,185,129,.1);color:#059669;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    /* Category cards */
+    .cat-items-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .cat-item-card{background:white;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow);}
+    .cat-item-card .ci-ico{font-size:24px;margin-bottom:6px;}
+    .cat-item-card .ci-name{font-size:12px;font-weight:700;color:var(--navy);}
+    .cat-item-card .ci-sub{font-size:10.5px;color:var(--muted);margin-top:2px;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#0d9488,#0f766e);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d9488,#d97706);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#00201e,#0d9488);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenge list */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #0d9488;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#0d9488;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .components-grid{grid-template-columns:1fr;}
+      .cat-items-grid{grid-template-columns:repeat(2,1fr);}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Home Mark</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">H</div>
+          <span><em>Home Mark</em> &nbsp;— FURNITURE WHOLESALE SHOPPING APP · LEBANON</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">E-Commerce · Furniture · Mobile</span>
+            <h1 data-en="Home Mark — <em>Furniture Wholesale</em> Shopping App" data-ar="Home Mark — تطبيق تسوق <em>أثاث بالجملة</em>">Home Mark — <em>Furniture Wholesale</em> Shopping App</h1>
+            <p data-en="A full-stack furniture wholesale shopping platform built for Lebanon — a mobile app that gives customers seamless access to all kinds of indoor and outdoor furniture, paired with an admin dashboard for managing the product catalog, orders, and customers." data-ar="منصة تسوق أثاث بالجملة متكاملة مبنية للبنان — تطبيق موبايل يمنح العملاء وصولاً سلساً لجميع أنواع الأثاث الداخلي والخارجي، مع لوحة تحكم إدارية لإدارة كتالوج المنتجات والطلبات والعملاء.">A full-stack furniture wholesale shopping platform built for Lebanon — a mobile app giving customers seamless access to all kinds of indoor and outdoor furniture, paired with a complete admin dashboard for managing the product catalog, orders, and customers.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇱🇧 Lebanon</span>
+              <span class="hero-badge teal">✓ Live on Google Play</span>
+              <span class="hero-badge teal">🛋️ Indoor &amp; Outdoor</span>
+              <span class="hero-badge">📦 Wholesale</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://play.google.com/store/apps/details?id=com.home.mark" target="_blank" rel="noopener noreferrer" class="btn-teal" data-en="View on Google Play →" data-ar="عرض على Google Play →">View on Google Play →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar App" data-ar="ابنِ تطبيقاً مماثلاً">Build Similar App</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/homemark/homemark-hero.jpg" alt="Home Mark App Screenshot" loading="eager" onerror="this.style.display='none'" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Customer Mobile App" data-ar="تطبيق العملاء">Customer Mobile App</strong><span data-en="iOS &amp; Android — Browse &amp; Order" data-ar="iOS وAndroid — تصفح واطلب">iOS &amp; Android — Browse &amp; Order</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Products, Orders &amp; Customers" data-ar="المنتجات والطلبات والعملاء">Products, Orders &amp; Customers</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Home Mark is a furniture wholesale shopping application developed by Syscom Technologies for the Lebanese market. The platform connects furniture buyers directly with wholesale suppliers — covering all categories of indoor and outdoor furniture in a single, easy-to-use mobile app." data-ar="Home Mark هو تطبيق تسوق أثاث بالجملة طورته Syscom Technologies للسوق اللبناني. تربط المنصة مشتري الأثاث مباشرة بالموردين بالجملة — تغطي جميع فئات الأثاث الداخلي والخارجي في تطبيق موبايل واحد سهل الاستخدام.">Home Mark is a furniture wholesale shopping application developed by Syscom Technologies for the Lebanese market. The platform connects furniture buyers directly with wholesale suppliers — covering all categories of indoor and outdoor furniture in a single, easy-to-use mobile app.</p>
+              <p data-en="Customers browse a rich product catalog organized by category, view detailed product specifications and photos, and place wholesale orders with ease. On the operations side, the admin dashboard gives the Home Mark team full control over the product catalog, incoming orders, and customer database — ensuring the shopping experience stays smooth and up-to-date." data-ar="يتصفح العملاء كتالوج منتجات غنيًا منظمًا حسب الفئة، ويطلعون على مواصفات المنتجات التفصيلية والصور، ويضعون طلبات الجملة بسهولة. على جانب العمليات، تمنح لوحة التحكم الإدارية فريق Home Mark السيطرة الكاملة على كتالوج المنتجات والطلبات الواردة وقاعدة بيانات العملاء — مما يضمن بقاء تجربة التسوق سلسة ومحدثة.">Customers browse a rich product catalog organized by category, view detailed product specs and photos, and place wholesale orders easily. The admin dashboard gives the team full control over the catalog, orders, and customer database.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="The Two Platforms" data-ar="المنصتان">The Two Platforms</h2>
+              <div class="components-grid">
+                <div class="component-card app">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Customer Mobile App" data-ar="تطبيق العملاء">Customer Mobile App</div>
+                  <div class="comp-sub">iOS &amp; Android</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag t">Flutter</span>
+                    <span class="comp-tag t">Dart</span>
+                    <span class="comp-tag g">REST API</span>
+                    <span class="comp-tag b">Firebase</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full product catalog browsing by category, detailed product pages with photos and specs, wholesale cart and order placement, order history, and push notification updates." data-ar="تصفح كتالوج المنتجات الكامل حسب الفئة، صفحات تفصيلية للمنتجات بالصور والمواصفات، سلة الجملة وتقديم الطلبات، سجل الطلبات، وتحديثات الإشعارات الفورية.">Full product catalog browsing by category, detailed product pages with photos and specs, wholesale cart and order placement, order history, and push notifications.</p>
+                </div>
+                <div class="component-card dashboard">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Store Management Panel" data-ar="لوحة إدارة المتجر">Store Management Panel</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag t">Laravel</span>
+                    <span class="comp-tag t">MySQL</span>
+                    <span class="comp-tag t">RBAC</span>
+                    <span class="comp-tag g">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Product catalog management (add, edit, delete, categorize), order processing and status updates, customer management, inventory tracking, and sales reporting." data-ar="إدارة كتالوج المنتجات (إضافة وتعديل وحذف وتصنيف)، معالجة الطلبات وتحديث الحالة، إدارة العملاء، تتبع المخزون، وتقارير المبيعات.">Product catalog management, order processing and status updates, customer management, inventory tracking, and sales reporting.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Furniture Categories" data-ar="فئات الأثاث">Furniture Categories</h2>
+              <div class="cat-items-grid">
+                <div class="cat-item-card"><div class="ci-ico">🛋️</div><div class="ci-name" data-en="Living Room" data-ar="غرفة المعيشة">Living Room</div><div class="ci-sub" data-en="Sofas, tables, shelves" data-ar="أرائك وطاولات ورفوف">Sofas, tables, shelves</div></div>
+                <div class="cat-item-card"><div class="ci-ico">🛏️</div><div class="ci-name" data-en="Bedroom" data-ar="غرفة النوم">Bedroom</div><div class="ci-sub" data-en="Beds, wardrobes, dressers" data-ar="أسرة وخزائن وتسريحات">Beds, wardrobes, dressers</div></div>
+                <div class="cat-item-card"><div class="ci-ico">🍽️</div><div class="ci-name" data-en="Dining Room" data-ar="غرفة الطعام">Dining Room</div><div class="ci-sub" data-en="Tables, chairs, cabinets" data-ar="طاولات وكراسي وخزائن">Tables, chairs, cabinets</div></div>
+                <div class="cat-item-card"><div class="ci-ico">🏢</div><div class="ci-name" data-en="Office" data-ar="المكتب">Office</div><div class="ci-sub" data-en="Desks, chairs, storage" data-ar="مكاتب وكراسي وتخزين">Desks, chairs, storage</div></div>
+                <div class="cat-item-card"><div class="ci-ico">🌿</div><div class="ci-name" data-en="Outdoor" data-ar="خارجي">Outdoor</div><div class="ci-sub" data-en="Garden sets, loungers" data-ar="مجموعات حدائق وكراسي استلقاء">Garden sets, loungers</div></div>
+                <div class="cat-item-card"><div class="ci-ico">🛁</div><div class="ci-name" data-en="Bathroom" data-ar="الحمام">Bathroom</div><div class="ci-sub" data-en="Vanities, cabinets" data-ar="وحدات غسيل وخزائن">Vanities, cabinets</div></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Full Wholesale Catalog" data-ar="كتالوج جملة كامل">Full Wholesale Catalog</strong>
+                    <span data-en="Browse every indoor and outdoor furniture category in one place — from living room sofas to garden sets — with all wholesale items organized for fast discovery." data-ar="تصفح كل فئة أثاث داخلي وخارجي في مكان واحد — من أرائك غرفة المعيشة إلى مجموعات الحدائق — مع تنظيم جميع عناصر الجملة لاكتشاف سريع.">Browse every indoor and outdoor furniture category in one place — from living room sofas to garden sets — with all wholesale items organized for fast discovery.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Detailed Product Pages" data-ar="صفحات تفصيلية للمنتجات">Detailed Product Pages</strong>
+                    <span data-en="Every product comes with high-quality photos, full specifications, materials, dimensions, and wholesale pricing — giving buyers all the information they need before placing an order." data-ar="يأتي كل منتج مع صور عالية الجودة ومواصفات كاملة ومواد وأبعاد وأسعار الجملة — مما يمنح المشترين جميع المعلومات التي يحتاجونها قبل تقديم طلب.">Every product has high-quality photos, full specifications, materials, dimensions, and wholesale pricing — so buyers have everything they need before ordering.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Smooth Wholesale Ordering" data-ar="طلب جملة سلس">Smooth Wholesale Ordering</strong>
+                    <span data-en="Add items to cart, specify quantities, review the order summary, and submit — the entire wholesale purchase flow is streamlined for speed and ease, built for B2B buyers who know what they need." data-ar="أضف عناصر للسلة وحدد الكميات وراجع ملخص الطلب وقدمه — تدفق الشراء بالجملة بأكمله مبسط للسرعة والسهولة، مبني لمشتري B2B الذين يعرفون ما يحتاجونه.">Add items to cart, set quantities, review, and submit — the entire wholesale purchase flow is streamlined for speed, built for buyers who know what they want.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Order Management &amp; Tracking" data-ar="إدارة الطلبات وتتبعها">Order Management &amp; Tracking</strong>
+                    <span data-en="Customers can view their full order history, track the status of active orders, and receive push notifications when their order is confirmed, processed, or shipped." data-ar="يمكن للعملاء عرض سجل طلباتهم الكامل وتتبع حالة الطلبات النشطة وتلقي إشعارات فورية عند تأكيد طلبهم أو معالجته أو شحنه.">Customers view their full order history, track active order status, and receive push notifications when their order is confirmed, processed, or shipped.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Category-Based Navigation" data-ar="تصفح قائم على الفئات">Category-Based Navigation</strong>
+                    <span data-en="The app's intuitive category structure lets buyers jump straight to the furniture type they need — living room, bedroom, dining, outdoor, office, bathroom — without scrolling through the entire catalog." data-ar="تتيح بنية الفئات البديهية للتطبيق للمشترين الانتقال مباشرة إلى نوع الأثاث الذي يحتاجونه — معيشة ونوم وطعام وخارجي ومكتب وحمام — دون التمرير عبر الكتالوج بأكمله.">Intuitive category structure lets buyers jump straight to the furniture type they need — without scrolling through the entire catalog.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Bilingual Support" data-ar="دعم ثنائي اللغة">Bilingual Support</strong>
+                    <span data-en="The app supports both Arabic and English — serving Lebanon's diverse buyer base with a fully localized shopping experience in their preferred language, including RTL layout for Arabic." data-ar="يدعم التطبيق العربية والإنجليزية — يخدم قاعدة المشترين المتنوعة في لبنان بتجربة تسوق محلية كاملة بلغتهم المفضلة، بما في ذلك تخطيط RTL للعربية.">Supports Arabic and English — serving Lebanon's diverse buyer base with a fully localized experience including RTL layout for Arabic.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="On Google Play Store" data-ar="على متجر Google Play">On Google Play Store</span>
+                </div>
+                <div class="result-card">
+                  <strong>2</strong>
+                  <span data-en="Platforms — App &amp; Dashboard" data-ar="منصتان — تطبيق ولوحة تحكم">Platforms — App &amp; Dashboard</span>
+                </div>
+                <div class="result-card">
+                  <strong>6+</strong>
+                  <span data-en="Furniture Categories" data-ar="فئات أثاث">Furniture Categories</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Large Catalog Performance" data-ar="أداء الكتالوج الكبير">Large Catalog Performance</strong>
+                  <p data-en="A furniture wholesale catalog can contain hundreds of products across dozens of categories — each with multiple high-resolution photos and detailed specifications. Delivering a fast, smooth browsing experience on mobile required efficient pagination, lazy image loading, and smart caching to keep the app responsive even for large category listings." data-ar="يمكن أن يحتوي كتالوج أثاث الجملة على مئات المنتجات عبر عشرات الفئات — كل منها مع صور متعددة عالية الدقة ومواصفات مفصلة. تقديم تجربة تصفح سريعة وسلسة على الموبايل تطلب ترقيمًا فعالًا للصفحات وتحميلًا كسولًا للصور وتخزينًا مؤقتًا ذكيًا للحفاظ على استجابة التطبيق حتى لقوائم الفئات الكبيرة.">A wholesale catalog can contain hundreds of products with multiple high-res photos each. Delivering a fast mobile experience required efficient pagination, lazy image loading, and smart caching to stay responsive across large category listings.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Wholesale Quantity &amp; Pricing Logic" data-ar="منطق الكمية والتسعير بالجملة">Wholesale Quantity &amp; Pricing Logic</strong>
+                  <p data-en="Wholesale ordering introduces complexity around minimum order quantities, bulk pricing tiers, and item availability. The app needed to accurately enforce wholesale rules — ensuring buyers only see valid quantities, correct pricing based on order volume, and up-to-date stock availability — all without friction in the checkout flow." data-ar="يُدخل الطلب بالجملة تعقيدات حول الحد الأدنى لكميات الطلب وشرائح تسعير الكميات الكبيرة وتوافر العناصر. كان التطبيق بحاجة إلى تطبيق قواعد الجملة بدقة — ضمان رؤية المشترين فقط للكميات الصالحة والتسعير الصحيح بناءً على حجم الطلب وتوافر المخزون المحدث — كل ذلك دون احتكاك في تدفق الدفع.">Wholesale ordering involves minimum quantities, bulk pricing tiers, and stock availability. The system needed to accurately enforce wholesale rules — correct quantities, volume-based pricing, and real-time availability — without friction at checkout.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Bilingual RTL &amp; LTR Layout" data-ar="تخطيط ثنائي الاتجاه RTL وLTR">Bilingual RTL &amp; LTR Layout</strong>
+                  <p data-en="Serving both Arabic and English speakers in Lebanon required building the app with full RTL (right-to-left) layout support for Arabic and LTR for English — ensuring every screen, navigation element, product card, and form renders correctly and naturally in both languages without layout breaks or text overflow issues." data-ar="خدمة المتحدثين بالعربية والإنجليزية في لبنان تطلبت بناء التطبيق مع دعم كامل لتخطيط RTL (يمين لليسار) للعربية وLTR للإنجليزية — ضمان عرض كل شاشة وعنصر تنقل وبطاقة منتج ونموذج بشكل صحيح وطبيعي بكلتا اللغتين دون انقطاعات في التخطيط أو مشاكل في تجاوز النص.">Supporting Arabic and English in Lebanon required full RTL/LTR layout implementation — ensuring every screen, card, and form renders correctly and naturally in both languages without layout breaks.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-boneless.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Boneless™ Restaurant App" data-ar="تطبيق مطعم Boneless™">Boneless™ Restaurant App</strong>
+              </a>
+              <a href="index.html#contact" class="btn-teal" data-en="Build Similar App →" data-ar="ابنِ تطبيقاً مماثلاً →">Build Similar App →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Home Mark</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Developer" data-ar="المطور">Developer</span>
+                <span class="meta-val">Syscom Technologies</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇱🇧 Lebanon</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Furniture · E-Commerce" data-ar="أثاث · تجارة إلكترونية">Furniture · E-Commerce</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Platforms" data-ar="المنصات">Platforms</span>
+                <span class="meta-val">2</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Updated" data-ar="آخر تحديث">Updated</span>
+                <span class="meta-val">Jul 2025</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Firebase FCM</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://play.google.com/store/apps/details?id=com.home.mark" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(135deg,#0d9488,#0f766e);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="📱 View on Google Play" data-ar="📱 عرض على Google Play">📱 View on Google Play</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(13,148,136,.07);color:#0d9488;border:1px solid rgba(13,148,136,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language switcher
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'Home Mark — تطبيق تسوق أثاث بالجملة | أحمد نور'
+        : 'Home Mark — Furniture Wholesale Shopping App | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
