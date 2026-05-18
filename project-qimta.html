@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qimta BOQ AI Pricing Engine | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl { display:none; }
+    .bg-orb { display:none; }
+
+    /* ── Project Hero (green tinted for Qimta brand) ── */
+    .proj-detail-hero {
+      padding: 110px 0 0;
+      background: linear-gradient(160deg, #061a0e 0%, #0d2d1a 60%, #061a0e 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-detail-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(5,150,105,0.22) 0%, transparent 70%);
+    }
+    .hero-breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 28px; position: relative;
+    }
+    .hero-breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    .hero-breadcrumb a:hover { color: white; }
+
+    .proj-hero-layout {
+      display: grid; grid-template-columns: 1fr 420px; gap: 48px; align-items: end; position: relative;
+    }
+    .proj-hero-info { padding-bottom: 48px; }
+    .proj-hero-info .pcat { font-size: 12px; margin-bottom: 16px; display: inline-block; }
+    .proj-hero-info h1 {
+      font-size: clamp(28px, 3.5vw, 46px); font-weight: 900; letter-spacing: -1.5px;
+      color: white; margin: 0 0 16px; line-height: 1.15;
+    }
+    .proj-hero-info > p {
+      font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.8; max-width: 520px; margin: 0 0 28px;
+    }
+    .proj-hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-badge {
+      padding: 6px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); font-size: 12.5px; font-weight: 600;
+    }
+    .hero-badge.green { background: rgba(5,150,105,0.25); border-color: rgba(5,150,105,0.4); color: #6ee7b7; }
+    .proj-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-white {
+      padding: 11px 24px; border-radius: 12px; background: white; color: var(--navy);
+      font-size: 13.5px; font-weight: 800; text-decoration: none; transition: all 0.22s; display: inline-block;
+    }
+    .btn-white:hover { background: #d1fae5; transform: translateY(-2px); }
+    .btn-ghost-white {
+      padding: 11px 24px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.3);
+      color: white; font-size: 13.5px; font-weight: 700; text-decoration: none; transition: all 0.22s; display: inline-block;
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
+    .proj-hero-visual {
+      display: flex; align-items: flex-end; justify-content: center;
+    }
+    .proj-hero-visual img {
+      width: 100%; max-width: 420px; border-radius: 20px 20px 0 0;
+      box-shadow: 0 -20px 80px rgba(5,150,105,0.3); display: block;
+    }
+
+    /* AI model highlight strip */
+    .ai-highlight-strip {
+      background: linear-gradient(90deg, rgba(5,150,105,0.15), rgba(5,150,105,0.05));
+      border: 1px solid rgba(5,150,105,0.2);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .ai-strip-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(5,150,105,0.15); border: 1px solid rgba(5,150,105,0.3);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 22px;
+    }
+    .ai-strip-text strong { display: block; font-size: 15px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .ai-strip-text p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* ── Detail Body ── */
+    .proj-detail-body { padding: 64px 0 80px; }
+    .detail-layout { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: start; }
+
+    .detail-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-card {
+      background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+    }
+    .sidebar-card h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin: 0 0 16px; }
+    .meta-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+    .meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .meta-row .meta-label { color: var(--muted); font-weight: 600; }
+    .meta-row .meta-val { font-weight: 700; color: var(--navy); }
+    .status-live { padding: 4px 10px; border-radius: 999px; background: rgba(5,150,105,0.1); color: #059669; font-size: 12px; font-weight: 700; }
+
+    .tech-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech-chip { padding: 5px 11px; border-radius: 8px; background: rgba(5,150,105,0.08); color: #059669; font-size: 12px; font-weight: 700; }
+
+    .detail-main { display: flex; flex-direction: column; gap: 40px; }
+    .detail-section h2 {
+      font-size: 20px; font-weight: 800; color: var(--navy); letter-spacing: -0.4px; margin: 0 0 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .detail-section h2::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .detail-section p { color: var(--muted); font-size: 14px; line-height: 1.85; margin: 0 0 12px; }
+
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 12px; padding: 16px;
+      background: white; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    .feat-dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg,#059669,#34d399); flex-shrink: 0; margin-top: 5px; }
+    .feature-item strong { display: block; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .feature-item span { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+    .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .result-card {
+      background: white; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 22px 18px; text-align: center; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .result-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,#059669,#34d399); }
+    .result-card strong {
+      display: block; font-size: 28px; font-weight: 900; letter-spacing: -1px;
+      background: linear-gradient(135deg,#059669,#34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px;
+    }
+    .result-card span { font-size: 12.5px; color: var(--muted); font-weight: 600; line-height: 1.4; display: block; }
+
+    .challenge-list { display: flex; flex-direction: column; gap: 14px; }
+    .challenge-item {
+      padding: 18px 20px; background: white; border: 1px solid var(--line);
+      border-left: 3px solid #059669; border-radius: 0 var(--radius) var(--radius) 0; box-shadow: var(--shadow);
+    }
+    .challenge-item strong { display: block; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+    .challenge-item p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* Architecture flow */
+    .arch-flow {
+      display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+      background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);
+    }
+    .arch-step {
+      flex: 1; min-width: 130px; text-align: center; padding: 16px 10px;
+      position: relative;
+    }
+    .arch-step:not(:last-child)::after {
+      content: '→'; position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+      font-size: 18px; font-weight: 700; color: #059669;
+    }
+    .arch-icon {
+      width: 48px; height: 48px; border-radius: 12px; background: rgba(5,150,105,0.1);
+      border: 1px solid rgba(5,150,105,0.2); display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 10px; font-size: 22px;
+    }
+    .arch-step strong { display: block; font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .arch-step span { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+    .proj-nav-footer {
+      margin-top: 16px; padding-top: 40px; border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .proj-nav-link { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .proj-nav-link small { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .proj-nav-link strong { font-size: 15px; font-weight: 800; color: var(--navy); transition: color 0.2s; }
+    .proj-nav-link:hover strong { color: #059669; }
+    .proj-nav-center { display: flex; gap: 12px; }
+
+    @media (max-width: 900px) {
+      .proj-hero-layout { grid-template-columns: 1fr; }
+      .proj-hero-visual { display: none; }
+      .detail-layout { grid-template-columns: 1fr; }
+      .detail-sidebar { order: -1; }
+      .features-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr 1fr; }
+      .arch-flow { flex-direction: column; }
+      .arch-step::after { display: none; }
+    }
+    @media (max-width: 560px) {
+      .results-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" />
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:#059669">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language">
+          <span class="lang-icon">🌐</span>
+          <span id="langLabel">العربية</span>
+        </button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Dark Green Hero ── -->
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a>
+          <span>›</span>
+          <span data-en="Qimta AI Pricing Engine" data-ar="محرك تسعير Qimta الذكي">Qimta AI Pricing Engine</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat ai" data-en="AI / ML Platform" data-ar="منصة ذكاء اصطناعي">AI / ML Platform</span>
+            <h1 data-en="Qimta — BOQ AI Pricing Engine" data-ar="قمتة — محرك الذكاء الاصطناعي لتسعير الكميات">Qimta — BOQ AI Pricing Engine</h1>
+            <p data-en="B2B construction pricing platform for Saudi Arabia & GCC — an AI model powered by RAG extracts BOQ line quantities, matches 19,699+ verified products from manufacturer specs, and continuously self-trains through web scraping pipelines to stay current with market pricing." data-ar="منصة تسعير إنشائية B2B للمملكة العربية السعودية ودول الخليج — نموذج ذكاء اصطناعي مدعوم بـ RAG يستخرج كميات بنود الكميات، ويطابق 19,699+ منتج موثق من مواصفات المصنّعين، ويُدرِّب نفسه باستمرار عبر خطوط جمع البيانات ليواكب أسعار السوق.">B2B construction pricing platform for Saudi Arabia & GCC — an AI model powered by RAG extracts BOQ line quantities, matches 19,699+ verified products from manufacturer specs, and continuously self-trains through web scraping pipelines to stay current with market pricing.</p>
+            <div class="proj-hero-badges">
+              <span class="hero-badge">🇸🇦 Saudi Arabia & GCC</span>
+              <span class="hero-badge green">🤖 Self-Training AI Model</span>
+              <span class="hero-badge" data-en="✓ Live in Production" data-ar="✓ منتج ومُشغَّل">✓ Live in Production</span>
+              <span class="hero-badge" data-en="2024 – 2025" data-ar="٢٠٢٤ – ٢٠٢٥">2024 – 2025</span>
+            </div>
+            <div class="proj-hero-actions">
+              <a href="https://qimta.com" target="_blank" rel="noopener" class="btn-white" data-en="Visit Qimta.com →" data-ar="زيارة Qimta.com →">Visit Qimta.com →</a>
+              <a href="projects.html" class="btn-ghost-white" data-en="← All Projects" data-ar="→ جميع المشاريع">← All Projects</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/qimta/qimta-hero.png" alt="Qimta BOQ AI Pricing Platform" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Detail Body ── -->
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+
+          <!-- Main Content -->
+          <div class="detail-main reveal">
+
+            <!-- AI model highlight -->
+            <div class="ai-highlight-strip">
+              <div class="ai-strip-icon">🧠</div>
+              <div class="ai-strip-text">
+                <strong data-en="Self-Training AI Model — No Manual Updates Needed" data-ar="نموذج ذكاء اصطناعي يُدرِّب نفسه — بدون تحديثات يدوية">Self-Training AI Model — No Manual Updates Needed</strong>
+                <p data-en="The RAG model continuously scrapes manufacturer websites, catalogs, and price databases to update its knowledge base automatically — keeping pricing accuracy above 99.9% without human intervention." data-ar="يقوم نموذج RAG بجمع البيانات تلقائيًا من مواقع المصنّعين والكتالوجات وقواعد بيانات الأسعار لتحديث قاعدة معرفته باستمرار — مما يُبقي دقة التسعير فوق 99.9% دون تدخل بشري.">The RAG model continuously scrapes manufacturer websites, catalogs, and price databases to update its knowledge base automatically — keeping pricing accuracy above 99.9% without human intervention.</p>
+              </div>
+            </div>
+
+            <!-- Overview -->
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة على المشروع">Project Overview</h2>
+              <p data-en="Qimta is a B2B SaaS platform that solves one of the biggest bottlenecks in construction procurement: pricing every BOQ (Bill of Quantities) line accurately and instantly. Traditional pricing requires days of manual research across supplier catalogs — Qimta's AI does it in under 60 seconds." data-ar="Qimta هي منصة SaaS للأعمال تحل أحد أكبر العوائق في المشتريات الإنشائية: تسعير كل بند في قائمة الكميات (BOQ) بدقة وفورية. يستغرق التسعير التقليدي أيامًا من البحث اليدوي عبر كتالوجات الموردين — ويُنجزها الذكاء الاصطناعي في Qimta في أقل من 60 ثانية.">Qimta is a B2B SaaS platform that solves one of the biggest bottlenecks in construction procurement: pricing every BOQ (Bill of Quantities) line accurately and instantly. Traditional pricing requires days of manual research across supplier catalogs — Qimta's AI does it in under 60 seconds.</p>
+              <p data-en="I contributed to the backend data pipeline and AI model infrastructure — building web scraping modules, data normalization pipelines, and PostgreSQL schemas for storing and querying the product knowledge base that powers the RAG engine." data-ar="أسهمت في بنية خط بيانات الواجهة الخلفية ونموذج الذكاء الاصطناعي — ببناء وحدات جمع البيانات من الويب، وخطوط تطبيع البيانات، وهياكل PostgreSQL لتخزين قاعدة معرفة المنتجات والاستعلام منها التي تُشغِّل محرك RAG.">I contributed to the backend data pipeline and AI model infrastructure — building web scraping modules, data normalization pipelines, and PostgreSQL schemas for storing and querying the product knowledge base that powers the RAG engine.</p>
+            </div>
+
+            <!-- AI Architecture Flow -->
+            <div class="detail-section">
+              <h2 data-en="AI Pipeline Architecture" data-ar="بنية خط الذكاء الاصطناعي">AI Pipeline Architecture</h2>
+              <div class="arch-flow">
+                <div class="arch-step">
+                  <div class="arch-icon">🕷️</div>
+                  <strong data-en="Web Scraper" data-ar="جمع البيانات">Web Scraper</strong>
+                  <span data-en="Python scrapers collect specs & prices from manufacturer sites" data-ar="جامعات Python تجمع المواصفات والأسعار من مواقع المصنّعين">Python scrapers collect specs & prices from manufacturer sites</span>
+                </div>
+                <div class="arch-step">
+                  <div class="arch-icon">🔄</div>
+                  <strong data-en="Normalize & Store" data-ar="تطبيع وتخزين">Normalize & Store</strong>
+                  <span data-en="Data cleaned, structured, and indexed in PostgreSQL vector DB" data-ar="تنظيف البيانات وهيكلتها وفهرستها في قاعدة بيانات PostgreSQL">Data cleaned, structured, and indexed in PostgreSQL vector DB</span>
+                </div>
+                <div class="arch-step">
+                  <div class="arch-icon">🧠</div>
+                  <strong data-en="RAG Engine" data-ar="محرك RAG">RAG Engine</strong>
+                  <span data-en="AI retrieves most relevant products for each BOQ line item" data-ar="يسترجع الذكاء الاصطناعي أكثر المنتجات ملاءمة لكل بند">AI retrieves most relevant products for each BOQ line item</span>
+                </div>
+                <div class="arch-step">
+                  <div class="arch-icon">💰</div>
+                  <strong data-en="Instant Pricing" data-ar="تسعير فوري">Instant Pricing</strong>
+                  <span data-en="BOQ priced in &lt;60 seconds with 99.9% accuracy" data-ar="تسعير الكميات في أقل من 60 ثانية بدقة 99.9%">BOQ priced in &lt;60 seconds with 99.9% accuracy</span>
+                </div>
+                <div class="arch-step">
+                  <div class="arch-icon">🔁</div>
+                  <strong data-en="Self-Update" data-ar="تحديث ذاتي">Self-Update</strong>
+                  <span data-en="Scraper re-runs on schedule to keep knowledge base current" data-ar="يُعاد تشغيل الجامع بجدول زمني للحفاظ على حداثة قاعدة البيانات">Scraper re-runs on schedule to keep knowledge base current</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="detail-section">
+              <h2 data-en="Key Features & Contributions" data-ar="الميزات الرئيسية والمساهمات">Key Features & Contributions</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Web Scraping Infrastructure" data-ar="بنية جمع البيانات">Web Scraping Infrastructure</strong>
+                    <span data-en="Built Python scrapers targeting manufacturer product pages, catalogs, and spec sheets — handling pagination, dynamic JS content, and anti-scraping measures." data-ar="بناء جامعات Python تستهدف صفحات منتجات المصنّعين والكتالوجات وأوراق المواصفات — مع التعامل مع التصفح وMحتوى JS الديناميكي وإجراءات مكافحة الجمع.">Built Python scrapers targeting manufacturer product pages, catalogs, and spec sheets — handling pagination, dynamic JS content, and anti-scraping measures.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="RAG Model Integration" data-ar="تكامل نموذج RAG">RAG Model Integration</strong>
+                    <span data-en="Retrieval-Augmented Generation pipeline connecting the vector knowledge base to LLM for accurate BOQ line matching with manufacturer-verified specs." data-ar="خط RAG يربط قاعدة المعرفة المتجهية بنموذج اللغة الكبير لمطابقة دقيقة لبنود الكميات بمواصفات موثقة من المصنّعين.">Retrieval-Augmented Generation pipeline connecting the vector knowledge base to LLM for accurate BOQ line matching with manufacturer-verified specs.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="PostgreSQL Knowledge Base" data-ar="قاعدة معرفة PostgreSQL">PostgreSQL Knowledge Base</strong>
+                    <span data-en="Designed relational + vector schemas for 19,699+ products with full-text search, category indexing, and version tracking for spec changes." data-ar="تصميم هياكل علائقية ومتجهية لـ 19,699+ منتج مع بحث نصي كامل وفهرسة الفئات وتتبع الإصدارات لتغييرات المواصفات.">Designed relational + vector schemas for 19,699+ products with full-text search, category indexing, and version tracking for spec changes.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Data Normalization Pipeline" data-ar="خط تطبيع البيانات">Data Normalization Pipeline</strong>
+                    <span data-en="Python ETL pipeline that cleans, deduplicates, and standardizes scraped product data into a consistent schema for AI consumption." data-ar="خط ETL بـ Python يُنظِّف ويُزيل التكرارات ويوحِّد بيانات المنتجات المجمعة في مخطط منسق لاستهلاك الذكاء الاصطناعي.">Python ETL pipeline that cleans, deduplicates, and standardizes scraped product data into a consistent schema for AI consumption.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Scheduled Self-Training" data-ar="التدريب الذاتي المجدوَل">Scheduled Self-Training</strong>
+                    <span data-en="Cron-based scheduler re-triggers scraping and model reindexing automatically — ensuring the AI always reflects the latest manufacturer pricing without manual updates." data-ar="جدولة Cron تُعيد تشغيل جمع البيانات وإعادة فهرسة النموذج تلقائيًا — لضمان توافق الذكاء الاصطناعي دائمًا مع أحدث أسعار المصنّعين.">Cron-based scheduler re-triggers scraping and model reindexing automatically — ensuring the AI always reflects the latest manufacturer pricing without manual updates.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="BOQ Dashboard & Quote Management" data-ar="لوحة الكميات وإدارة العروض">BOQ Dashboard & Quote Management</strong>
+                    <span data-en="User dashboard for uploading BOQ files, reviewing AI-generated pricing, tracking quote statuses, and managing construction projects." data-ar="لوحة تحكم للمستخدم لرفع ملفات الكميات ومراجعة التسعير المُولَّد بالذكاء الاصطناعي وتتبع حالات العروض وإدارة المشاريع الإنشائية.">User dashboard for uploading BOQ files, reviewing AI-generated pricing, tracking quote statuses, and managing construction projects.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Multi-Brand Product Matching" data-ar="مطابقة المنتجات متعددة الماركات">Multi-Brand Product Matching</strong>
+                    <span data-en="AI cross-references specifications across multiple brands to find the best-matching product for each BOQ line — not just the cheapest, but the most spec-accurate." data-ar="يُقاطع الذكاء الاصطناعي المواصفات عبر ماركات متعددة للعثور على المنتج الأنسب لكل بند — ليس الأرخص فحسب، بل الأدق في المواصفات.">AI cross-references specifications across multiple brands to find the best-matching product for each BOQ line — not just the cheapest, but the most spec-accurate.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Export & Reporting" data-ar="التصدير والتقارير">Export & Reporting</strong>
+                    <span data-en="Priced BOQs exported to Excel/PDF with full product details, brand references, unit prices, and totals — ready for procurement teams." data-ar="تصدير الكميات المُسعَّرة إلى Excel/PDF مع تفاصيل المنتج الكاملة والمراجع الماركاتية والأسعار الوحدية والإجماليات — جاهزة لفرق الشراء.">Priced BOQs exported to Excel/PDF with full product details, brand references, unit prices, and totals — ready for procurement teams.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Results -->
+            <div class="detail-section">
+              <h2 data-en="Results & Scale" data-ar="النتائج والحجم">Results & Scale</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>19,699+</strong>
+                  <span data-en="Verified Products in Knowledge Base" data-ar="منتج موثق في قاعدة المعرفة">Verified Products in Knowledge Base</span>
+                </div>
+                <div class="result-card">
+                  <strong>1B+</strong>
+                  <span data-en="Manufacturer Technical Specs Indexed" data-ar="مواصفة فنية من المصنّعين مفهرسة">Manufacturer Tech Specs Indexed</span>
+                </div>
+                <div class="result-card">
+                  <strong>&lt;60s</strong>
+                  <span data-en="Full BOQ Priced by AI" data-ar="تسعير كامل للكميات بالذكاء الاصطناعي">Full BOQ Priced by AI</span>
+                </div>
+                <div class="result-card">
+                  <strong>99.9%</strong>
+                  <span data-en="Pricing Accuracy Rate" data-ar="معدل دقة التسعير">Pricing Accuracy Rate</span>
+                </div>
+                <div class="result-card">
+                  <strong>RAG</strong>
+                  <span data-en="Self-Training AI Architecture" data-ar="بنية ذكاء اصطناعي يدرِّب نفسه">Self-Training AI Architecture</span>
+                </div>
+                <div class="result-card">
+                  <strong>GCC</strong>
+                  <span data-en="Saudi Arabia + Gulf Countries" data-ar="السعودية ودول الخليج">Saudi Arabia + Gulf Countries</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Challenges -->
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Scraping dynamic manufacturer websites at scale" data-ar="جمع البيانات من مواقع المصنّعين الديناميكية على نطاق واسع">Scraping dynamic manufacturer websites at scale</strong>
+                  <p data-en="Many manufacturers use JavaScript-heavy product catalogs, rate limiting, and anti-bot measures. Solved with headless browser scraping (Playwright/Selenium), rotating proxies, and respectful rate-limiting with exponential backoff." data-ar="كثير من المصنّعين يستخدمون كتالوجات منتجات ثقيلة بـ JavaScript مع تحديد المعدل وإجراءات مكافحة البوت. تم الحل بجمع البيانات عبر متصفح بلا رأس (Playwright/Selenium) مع تدوير البروكسي وتحديد معدل مدروس مع التراجع الأسي.">Many manufacturers use JavaScript-heavy product catalogs, rate limiting, and anti-bot measures. Solved with headless browser scraping (Playwright/Selenium), rotating proxies, and respectful rate-limiting with exponential backoff.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Data quality and deduplication across sources" data-ar="جودة البيانات وإزالة التكرار عبر المصادر">Data quality and deduplication across sources</strong>
+                  <p data-en="Same product scraped from multiple sources often had inconsistent naming, unit differences, and spec variations. Built a fuzzy matching + embedding similarity pipeline to deduplicate and canonicalize product records before storage." data-ar="المنتج نفسه المجموع من مصادر متعددة كان غالبًا بتسمية غير متسقة واختلافات في الوحدات والمواصفات. بناء خط مطابقة غير دقيقة + تشابه التضمين لإزالة التكرار وتوحيد سجلات المنتجات قبل التخزين.">Same product scraped from multiple sources often had inconsistent naming, unit differences, and spec variations. Built a fuzzy matching + embedding similarity pipeline to deduplicate and canonicalize product records before storage.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Keeping the model current without full retraining" data-ar="إبقاء النموذج محدثًا دون إعادة تدريب كاملة">Keeping the model current without full retraining</strong>
+                  <p data-en="Full model retraining on every price update would be prohibitively expensive. Solved using RAG architecture — the retrieval layer updates its vector index incrementally on new/changed products, while the LLM component remains static, giving fresh pricing without retraining costs." data-ar="إعادة تدريب النموذج كليًا عند كل تحديث للأسعار ستكون باهظة التكلفة. تم الحل باستخدام بنية RAG — تقوم طبقة الاسترجاع بتحديث فهرسها المتجهي بشكل تدريجي عند المنتجات الجديدة أو المعدّلة، بينما يبقى مكوّن LLM ثابتًا، مما يوفر تسعيرًا حديثًا دون تكاليف إعادة التدريب.">Full model retraining on every price update would be prohibitively expensive. Solved using RAG architecture — the retrieval layer updates its vector index incrementally on new/changed products, while the LLM component remains static, giving fresh pricing without retraining costs.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="proj-nav-footer">
+              <a href="project.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="→ السابق">← Previous</small>
+                <strong data-en="Esnad Real Estate System" data-ar="نظام إسناد العقاري">Esnad Real Estate System</strong>
+              </a>
+              <div class="proj-nav-center">
+                <a href="index.html#contact" class="btn btn-primary" data-en="Build AI System" data-ar="ابنِ نظام ذكاء اصطناعي">Build AI System</a>
+              </div>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Sidebar -->
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Details" data-ar="تفاصيل المشروع">Project Details</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live">✓ Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Category" data-ar="الفئة">Category</span>
+                <span class="meta-val" data-en="AI / ML SaaS" data-ar="ذكاء اصطناعي SaaS">AI / ML SaaS</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Market" data-ar="السوق">Market</span>
+                <span class="meta-val">🇸🇦 KSA + GCC</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Timeline" data-ar="المدة">Timeline</span>
+                <span class="meta-val" data-en="2024 – 2025" data-ar="٢٠٢٤ – ٢٠٢٥">2024 – 2025</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Role" data-ar="الدور">Role</span>
+                <span class="meta-val" data-en="Backend & AI Pipeline" data-ar="خلفية ونماذج الذكاء">Backend & AI Pipeline</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Platform" data-ar="المنصة">Platform</span>
+                <span class="meta-val">qimta.com</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Python</span>
+                <span class="tech-chip">PostgreSQL</span>
+                <span class="tech-chip">RAG</span>
+                <span class="tech-chip">Web Scraping</span>
+                <span class="tech-chip">Playwright</span>
+                <span class="tech-chip">pgvector</span>
+                <span class="tech-chip">ETL Pipeline</span>
+                <span class="tech-chip">Cron Jobs</span>
+                <span class="tech-chip">LLM</span>
+                <span class="tech-chip">REST API</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="What I Built" data-ar="ما بنيته">What I Built</h4>
+              <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🕷️ Web Scraping Modules" data-ar="🕷️ وحدات جمع البيانات">🕷️ Web Scraping Modules</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🔄 ETL Data Pipeline" data-ar="🔄 خط ETL للبيانات">🔄 ETL Data Pipeline</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🗄️ PostgreSQL + pgvector Schema" data-ar="🗄️ هيكل PostgreSQL + pgvector">🗄️ PostgreSQL + pgvector Schema</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🧠 RAG Retrieval Integration" data-ar="🧠 تكامل استرجاع RAG">🧠 RAG Retrieval Integration</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🔁 Scheduled Self-Training Pipeline" data-ar="🔁 خط التدريب الذاتي المجدوَل">🔁 Scheduled Self-Training Pipeline</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0;" data-en="📊 Product Knowledge Base" data-ar="📊 قاعدة معرفة المنتجات">📊 Product Knowledge Base</div>
+              </div>
+            </div>
+
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7); border-color:rgba(5,150,105,0.2);">
+              <h4 data-en="Need an AI data system?" data-ar="تحتاج نظام بيانات ذكاء اصطناعي؟">Need an AI data system?</h4>
+              <p style="font-size:13px; color:var(--muted); line-height:1.7; margin:0 0 16px;" data-en="I can build AI-powered pipelines, RAG models, web scrapers, and self-updating knowledge bases for your product or industry." data-ar="أستطيع بناء خطوط مدعومة بالذكاء الاصطناعي ونماذج RAG وجامعات الويب وقواعد المعرفة المُحدِّثة ذاتيًا لمنتجك أو صناعتك.">I can build AI-powered pipelines, RAG models, web scrapers, and self-updating knowledge bases for your product or industry.</p>
+              <a href="index.html#contact" class="btn btn-primary" style="width:100%; text-align:center; display:block; background:linear-gradient(135deg,#059669,#34d399);" data-en="Get in Touch" data-ar="تواصل معي">Get in Touch</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'قمتة — محرك الذكاء الاصطناعي لتسعير الكميات | أحمد نور' : 'Qimta BOQ AI Pricing Engine | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() {
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', doReveal);
+    doReveal();
+
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.96)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(5,150,105,0.1)' : '0 2px 30px rgba(5,150,105,0.05)';
+    });
+  </script>
+</body>
+</html>

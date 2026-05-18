@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="none"/>
+  <g filter="url(#s)">
+    <rect x="112" y="104" width="210" height="288" rx="40" fill="url(#phone)" stroke="#A9C7FF" stroke-width="8"/>
+    <rect x="154" y="150" width="126" height="18" rx="9" fill="#C7DBFF"/>
+    <rect x="154" y="196" width="126" height="58" rx="16" fill="#EEF5FF" stroke="#BFDBFE" stroke-width="5"/>
+    <rect x="154" y="278" width="126" height="58" rx="16" fill="#EEF5FF" stroke="#BFDBFE" stroke-width="5"/>
+    <rect x="246" y="214" width="180" height="112" rx="22" fill="url(#card)"/>
+    <rect x="274" y="242" width="38" height="27" rx="6" fill="#BFDBFE"/>
+    <path d="M279 294h38M337 294h48" stroke="#DBEAFE" stroke-width="9" stroke-linecap="round"/>
+    <path d="M117 327l64 35 64-35v-82l-64-35-64 35v82z" fill="#ECFEFF" stroke="#38BDF8" stroke-width="8"/>
+    <path d="M154 286l21 21 39-48" stroke="#22C55E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <defs>
+    <linearGradient id="phone" x1="112" y1="104" x2="330" y2="392"><stop stop-color="#fff"/><stop offset="1" stop-color="#DFECFF"/></linearGradient>
+    <linearGradient id="card" x1="246" y1="214" x2="426" y2="326"><stop stop-color="#38BDF8"/><stop offset="1" stop-color="#2563EB"/></linearGradient>
+    <filter id="s" x="72" y="64" width="394" height="368" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="20" stdDeviation="22" flood-color="#2563EB" flood-opacity=".22"/></filter>
+  </defs>
+</svg>

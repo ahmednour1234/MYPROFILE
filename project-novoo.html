@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Novoo ERP — Accounting & HR Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl { display:none; }
+    .bg-orb { display:none; }
+
+    /* ── Hero — deep navy with gold accent ── */
+    .proj-detail-hero {
+      padding: 110px 0 0;
+      background: linear-gradient(160deg, #0a1628 0%, #111e3a 55%, #0a1628 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-detail-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 70% at 75% 40%, rgba(245,197,24,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 20% 80%, rgba(37,99,235,0.15) 0%, transparent 70%);
+    }
+
+    /* Floating brand badge */
+    .novoo-brand-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 16px; border-radius: 12px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(245,197,24,0.3);
+      margin-bottom: 20px;
+    }
+    .novoo-logo-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #f5c518; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900; color: #0a1628; flex-shrink: 0;
+    }
+    .novoo-brand-badge span { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.9); }
+    .novoo-brand-badge em { font-style: normal; color: #f5c518; font-weight: 900; }
+
+    .hero-breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 22px; position: relative;
+    }
+    .hero-breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    .hero-breadcrumb a:hover { color: white; }
+
+    .proj-hero-layout {
+      display: grid; grid-template-columns: 1fr 440px; gap: 48px; align-items: end; position: relative;
+    }
+    .proj-hero-info { padding-bottom: 48px; }
+    .proj-hero-info .pcat { font-size: 12px; margin-bottom: 14px; display: inline-block; }
+    .proj-hero-info h1 {
+      font-size: clamp(26px, 3.2vw, 44px); font-weight: 900; letter-spacing: -1.5px;
+      color: white; margin: 0 0 16px; line-height: 1.15;
+    }
+    .proj-hero-info h1 em { font-style: normal; color: #f5c518; }
+    .proj-hero-info > p {
+      font-size: 15px; color: rgba(255,255,255,0.68); line-height: 1.8; max-width: 500px; margin: 0 0 26px;
+    }
+    .proj-hero-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-badge {
+      padding: 6px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 600;
+    }
+    .hero-badge.gold { background: rgba(245,197,24,0.18); border-color: rgba(245,197,24,0.4); color: #fde68a; }
+    .proj-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-gold {
+      padding: 11px 24px; border-radius: 12px; background: #f5c518; color: #0a1628;
+      font-size: 13.5px; font-weight: 900; text-decoration: none; transition: all 0.22s; display: inline-block;
+    }
+    .btn-gold:hover { background: #fde68a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,197,24,0.35); }
+    .btn-ghost-white {
+      padding: 11px 24px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.25);
+      color: white; font-size: 13.5px; font-weight: 700; text-decoration: none; transition: all 0.22s; display: inline-block;
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.45); }
+
+    .proj-hero-visual { display: flex; align-items: flex-end; justify-content: center; }
+    .proj-hero-visual img {
+      width: 100%; max-width: 440px; border-radius: 20px 20px 0 0;
+      box-shadow: 0 -20px 80px rgba(245,197,24,0.18), 0 -2px 0 rgba(245,197,24,0.3);
+      display: block;
+    }
+
+    /* ── Modules Strip ── */
+    .modules-strip {
+      background: rgba(255,255,255,0.04);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 18px 0;
+      position: relative;
+    }
+    .modules-strip-inner { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .mod-pill {
+      padding: 6px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.75); font-size: 12px; font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .mod-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: #f5c518; }
+
+    /* ── Detail Body ── */
+    .proj-detail-body { padding: 64px 0 80px; }
+    .detail-layout { display: grid; grid-template-columns: 1fr 310px; gap: 48px; align-items: start; }
+
+    /* Sidebar */
+    .detail-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+    .sidebar-card h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--muted); margin: 0 0 16px; }
+    .meta-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+    .meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .meta-label { color: var(--muted); font-weight: 600; }
+    .meta-val { font-weight: 700; color: var(--navy); text-align: right; }
+    .status-live { padding: 3px 10px; border-radius: 999px; background: rgba(5,150,105,0.1); color: #059669; font-size: 11.5px; font-weight: 700; }
+    .tech-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech-chip { padding: 5px 11px; border-radius: 8px; background: rgba(37,99,235,0.07); color: var(--blue); font-size: 12px; font-weight: 700; }
+
+    /* Main content */
+    .detail-main { display: flex; flex-direction: column; gap: 44px; }
+    .detail-section h2 {
+      font-size: 19px; font-weight: 800; color: var(--navy); letter-spacing: -0.4px; margin: 0 0 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .detail-section h2::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .detail-section p { color: var(--muted); font-size: 14px; line-height: 1.85; margin: 0 0 12px; }
+
+    /* Accounting chart of accounts visualization */
+    .coa-visual {
+      background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+    }
+    .coa-tree { display: flex; flex-direction: column; gap: 6px; }
+    .coa-branch { display: flex; flex-direction: column; gap: 4px; }
+    .coa-root {
+      padding: 10px 14px; border-radius: 10px;
+      background: linear-gradient(90deg, #1a2c5e, #2563eb); color: white;
+      font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 8px;
+    }
+    .coa-children { display: flex; gap: 8px; flex-wrap: wrap; padding: 4px 0 4px 20px; }
+    .coa-leaf {
+      padding: 6px 12px; border-radius: 8px; background: rgba(37,99,235,0.07);
+      border: 1px solid rgba(37,99,235,0.12); color: var(--blue);
+      font-size: 11.5px; font-weight: 600;
+    }
+
+    /* Modules grid */
+    .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .module-card {
+      background: white; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 18px; box-shadow: var(--shadow); transition: all 0.25s;
+    }
+    .module-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(37,99,235,0.2); }
+    .module-icon {
+      width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center;
+      justify-content: center; font-size: 20px; margin-bottom: 12px;
+    }
+    .module-icon.navy { background: linear-gradient(135deg,#1a2c5e,#2563eb); }
+    .module-icon.gold { background: linear-gradient(135deg,#d97706,#f5c518); }
+    .module-icon.green { background: linear-gradient(135deg,#059669,#34d399); }
+    .module-icon.purple { background: linear-gradient(135deg,#7c3aed,#a78bfa); }
+    .module-icon.red { background: linear-gradient(135deg,#dc2626,#f87171); }
+    .module-icon.cyan { background: linear-gradient(135deg,#0891b2,#67e8f9); }
+    .module-card h4 { font-size: 13.5px; font-weight: 800; color: var(--navy); margin: 0 0 6px; }
+    .module-card p { font-size: 12px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    /* Features list */
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px;
+      background: white; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow);
+    }
+    .feat-check {
+      width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg,#1a2c5e,#2563eb);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 11px; color: white; font-weight: 700; margin-top: 1px;
+    }
+    .feature-item strong { display: block; font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+    .feature-item span { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* Results */
+    .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .result-card {
+      background: white; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 20px 16px; text-align: center; box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .result-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,#1a2c5e,#f5c518); }
+    .result-card strong {
+      display: block; font-size: 26px; font-weight: 900; letter-spacing: -1px;
+      background: linear-gradient(135deg,#1a2c5e,#2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px;
+    }
+    .result-card span { font-size: 12px; color: var(--muted); font-weight: 600; line-height: 1.4; display: block; }
+
+    /* Compliance highlight */
+    .compliance-banner {
+      background: linear-gradient(135deg, #1a2c5e 0%, #1e3a6e 100%);
+      border-radius: var(--radius); padding: 24px 28px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .compliance-icon { font-size: 36px; flex-shrink: 0; }
+    .compliance-text strong { display: block; font-size: 16px; font-weight: 900; color: #f5c518; margin-bottom: 6px; }
+    .compliance-text p { font-size: 13.5px; color: rgba(255,255,255,0.75); line-height: 1.7; margin: 0; }
+
+    /* Challenges */
+    .challenge-list { display: flex; flex-direction: column; gap: 12px; }
+    .challenge-item {
+      padding: 16px 20px; background: white; border: 1px solid var(--line);
+      border-left: 3px solid #1a2c5e; border-radius: 0 var(--radius) var(--radius) 0; box-shadow: var(--shadow);
+    }
+    .challenge-item strong { display: block; font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .challenge-item p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* Nav */
+    .proj-nav-footer {
+      margin-top: 16px; padding-top: 36px; border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .proj-nav-link { display: flex; flex-direction: column; gap: 4px; text-decoration: none; }
+    .proj-nav-link small { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .proj-nav-link strong { font-size: 14px; font-weight: 800; color: var(--navy); transition: color 0.2s; }
+    .proj-nav-link:hover strong { color: var(--blue); }
+
+    @media (max-width: 960px) {
+      .proj-hero-layout { grid-template-columns: 1fr; }
+      .proj-hero-visual { display: none; }
+      .detail-layout { grid-template-columns: 1fr; }
+      .detail-sidebar { order: -1; }
+      .modules-grid { grid-template-columns: 1fr 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .modules-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" />
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language">
+          <span class="lang-icon">🌐</span>
+          <span id="langLabel">العربية</span>
+        </button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Hero ── -->
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a>
+          <span>›</span>
+          <span>Novoo ERP</span>
+        </div>
+
+        <div class="novoo-brand-badge">
+          <div class="novoo-logo-circle">N</div>
+          <span><em>Novoo</em> ERP &nbsp;— نظام محاسبي وإداري متكامل</span>
+        </div>
+
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat erp" data-en="ERP · SaaS" data-ar="نظام ERP سحابي">ERP · SaaS</span>
+            <h1 data-en="Novoo ERP — <em>Accounting</em> & HR Platform" data-ar="Novoo ERP — منصة <em>المحاسبة</em> والموارد البشرية">Novoo ERP — <em>Accounting</em> & HR Platform</h1>
+            <p data-en="A fully integrated SaaS ERP system designed specifically for Saudi wholesale and distribution companies — covering accounting, chart of accounts (شجرة محاسبة), POS, purchasing, warehouse management, full HR & payroll, and real-time financial reporting — all in one unified platform compliant with ZATCA and Saudi regulations." data-ar="نظام ERP سحابي متكامل مصمم خصيصًا لشركات الجملة والتوزيع في السوق السعودي — يغطي المحاسبة الكاملة وشجرة الحسابات ونقاط البيع والمشتريات وإدارة المخزون والموارد البشرية والرواتب والتقارير المالية الآنية — كل ذلك في منصة واحدة متوافقة مع هيئة الزكاة والضريبة والجمارك.">A fully integrated SaaS ERP system designed specifically for Saudi wholesale and distribution companies — covering accounting, chart of accounts (شجرة محاسبة), POS, purchasing, warehouse management, full HR & payroll, and real-time financial reporting — all in one unified platform compliant with ZATCA and Saudi regulations.</p>
+            <div class="proj-hero-badges">
+              <span class="hero-badge">🇸🇦 Saudi Arabia</span>
+              <span class="hero-badge gold">✓ ZATCA Compliant</span>
+              <span class="hero-badge" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span>
+              <span class="hero-badge" data-en="2024 – 2025" data-ar="٢٠٢٤ – ٢٠٢٥">2024 – 2025</span>
+            </div>
+            <div class="proj-hero-actions">
+              <a href="index.html#contact" class="btn-gold" data-en="Build Similar System →" data-ar="ابنِ نظامًا مشابهًا →">Build Similar System →</a>
+              <a href="projects.html" class="btn-ghost-white" data-en="← All Projects" data-ar="→ جميع المشاريع">← All Projects</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/novoo/novoo-dashboard.png" alt="Novoo ERP Dashboard — Accounting & HR System" loading="eager" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Modules pill strip -->
+      <div class="modules-strip">
+        <div class="container">
+          <div class="modules-strip-inner">
+            <div class="mod-pill"><span class="dot"></span> <span data-en="Financial Accounting" data-ar="المحاسبة المالية">Financial Accounting</span></div>
+            <div class="mod-pill"><span class="dot"></span> <span data-en="Chart of Accounts" data-ar="شجرة الحسابات">Chart of Accounts</span></div>
+            <div class="mod-pill"><span class="dot"></span> <span data-en="POS System" data-ar="نظام نقاط البيع">POS System</span></div>
+            <div class="mod-pill"><span class="dot"></span> <span data-en="Purchasing" data-ar="المشتريات">Purchasing</span></div>
+            <div class="mod-pill"><span class="dot"></span> <span data-en="Warehouse" data-ar="المخزون">Warehouse</span></div>
+            <div class="mod-pill"><span class="dot"></span> <span data-en="HR & Payroll" data-ar="الموارد البشرية والرواتب">HR & Payroll</span></div>
+            <div class="mod-pill"><span class="dot"></span> <span data-en="Sales Reports" data-ar="تقارير المبيعات">Sales Reports</span></div>
+            <div class="mod-pill"><span class="dot"></span> <span data-en="ZATCA Compliant" data-ar="متوافق مع هيئة الزكاة">ZATCA Compliant</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Detail Body ── -->
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+
+          <!-- Main Content -->
+          <div class="detail-main reveal">
+
+            <!-- Overview -->
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة على المشروع">Project Overview</h2>
+              <p data-en="Novoo ERP is a purpose-built SaaS platform for Saudi wholesale and distribution companies — addressing the gap in the market for an Arabic-first, ZATCA-compliant ERP that covers everything from daily sales transactions to full accounting, payroll, and supply chain in one system." data-ar="Novoo ERP هو منصة SaaS مُصممة هادفةً لشركات الجملة والتوزيع السعودية — لسد الفجوة في السوق لنظام ERP عربي أولاً ومتوافق مع هيئة الزكاة والضريبة، يغطي كل شيء من معاملات البيع اليومية إلى المحاسبة الكاملة والرواتب وسلسلة التوريد في نظام واحد.">Novoo ERP is a purpose-built SaaS platform for Saudi wholesale and distribution companies — addressing the gap in the market for an Arabic-first, ZATCA-compliant ERP that covers everything from daily sales transactions to full accounting, payroll, and supply chain in one system.</p>
+              <p data-en="I worked on the development of the platform's backend system and multiple modules — building the financial accounting engine, chart of accounts tree, HR & payroll module, and report generation system using Laravel, MySQL, and a Vue.js-powered front-end." data-ar="عملت على تطوير نظام الواجهة الخلفية للمنصة ووحدات متعددة — ببناء محرك المحاسبة المالية وشجرة الحسابات ووحدة الموارد البشرية والرواتب ونظام إنشاء التقارير باستخدام Laravel وMySQL وواجهة أمامية مدعومة بـ Vue.js.">I worked on the development of the platform's backend system and multiple modules — building the financial accounting engine, chart of accounts tree, HR & payroll module, and report generation system using Laravel, MySQL, and a Vue.js-powered front-end.</p>
+            </div>
+
+            <!-- Chart of Accounts -->
+            <div class="detail-section">
+              <h2 data-en="Chart of Accounts — شجرة الحسابات" data-ar="شجرة الحسابات — Chart of Accounts">Chart of Accounts — شجرة الحسابات</h2>
+              <p data-en="Novoo's accounting core includes a fully structured hierarchical chart of accounts following Saudi accounting standards — enabling companies to track every financial transaction under the correct account category." data-ar="يتضمن نواة المحاسبة في Novoo شجرة حسابات هرمية متكاملة وفق معايير المحاسبة السعودية — تُمكِّن الشركات من تتبع كل معاملة مالية تحت فئة الحساب الصحيحة.">Novoo's accounting core includes a fully structured hierarchical chart of accounts following Saudi accounting standards — enabling companies to track every financial transaction under the correct account category.</p>
+              <div class="coa-visual">
+                <div class="coa-tree">
+                  <div class="coa-branch">
+                    <div class="coa-root">📊 <span data-en="1 — Assets (الأصول)" data-ar="1 — الأصول">1 — Assets (الأصول)</span></div>
+                    <div class="coa-children">
+                      <span class="coa-leaf" data-en="1.1 Cash & Bank" data-ar="1.1 النقدية والبنوك">1.1 Cash & Bank</span>
+                      <span class="coa-leaf" data-en="1.2 Receivables" data-ar="1.2 الذمم المدينة">1.2 Receivables</span>
+                      <span class="coa-leaf" data-en="1.3 Inventory" data-ar="1.3 المخزون">1.3 Inventory</span>
+                      <span class="coa-leaf" data-en="1.4 Fixed Assets" data-ar="1.4 الأصول الثابتة">1.4 Fixed Assets</span>
+                    </div>
+                  </div>
+                  <div class="coa-branch">
+                    <div class="coa-root">📋 <span data-en="2 — Liabilities (الخصوم)" data-ar="2 — الخصوم">2 — Liabilities (الخصوم)</span></div>
+                    <div class="coa-children">
+                      <span class="coa-leaf" data-en="2.1 Payables" data-ar="2.1 الذمم الدائنة">2.1 Payables</span>
+                      <span class="coa-leaf" data-en="2.2 VAT Payable" data-ar="2.2 ضريبة القيمة المضافة">2.2 VAT Payable</span>
+                      <span class="coa-leaf" data-en="2.3 Salaries Payable" data-ar="2.3 الرواتب المستحقة">2.3 Salaries Payable</span>
+                    </div>
+                  </div>
+                  <div class="coa-branch">
+                    <div class="coa-root">💰 <span data-en="4 — Revenue (الإيرادات)" data-ar="4 — الإيرادات">4 — Revenue (الإيرادات)</span></div>
+                    <div class="coa-children">
+                      <span class="coa-leaf" data-en="4.1 Sales Revenue" data-ar="4.1 إيرادات المبيعات">4.1 Sales Revenue</span>
+                      <span class="coa-leaf" data-en="4.2 Cash Sales" data-ar="4.2 مبيعات نقدية">4.2 Cash Sales</span>
+                      <span class="coa-leaf" data-en="4.3 Deferred Sales" data-ar="4.3 مبيعات آجلة">4.3 Deferred Sales</span>
+                    </div>
+                  </div>
+                  <div class="coa-branch">
+                    <div class="coa-root">📉 <span data-en="5 — Expenses (المصاريف)" data-ar="5 — المصاريف">5 — Expenses (المصاريف)</span></div>
+                    <div class="coa-children">
+                      <span class="coa-leaf" data-en="5.1 Salaries & HR" data-ar="5.1 الرواتب والموارد البشرية">5.1 Salaries & HR</span>
+                      <span class="coa-leaf" data-en="5.2 Cost of Goods" data-ar="5.2 تكلفة البضاعة">5.2 Cost of Goods</span>
+                      <span class="coa-leaf" data-en="5.3 Operations" data-ar="5.3 المصاريف التشغيلية">5.3 Operations</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- System Modules -->
+            <div class="detail-section">
+              <h2 data-en="System Modules" data-ar="وحدات النظام">System Modules</h2>
+              <div class="modules-grid">
+                <div class="module-card">
+                  <div class="module-icon navy">📊</div>
+                  <h4 data-en="Financial Accounting" data-ar="المحاسبة المالية">Financial Accounting</h4>
+                  <p data-en="Double-entry accounting engine, journal entries, trial balance, income statement, and balance sheet — all auto-generated from transactions." data-ar="محرك محاسبة قيد مزدوج، قيود يومية، ميزان مراجعة، قائمة الدخل والميزانية — تُنشأ جميعها تلقائيًا من المعاملات.">Double-entry accounting engine, journal entries, trial balance, income statement, and balance sheet — all auto-generated from transactions.</p>
+                </div>
+                <div class="module-card">
+                  <div class="module-icon gold">🛒</div>
+                  <h4 data-en="POS — Point of Sale" data-ar="نظام نقاط البيع">POS — Point of Sale</h4>
+                  <p data-en="Fast cash and deferred sales with barcode scanning, receipt printing, shift management, drawer reconciliation, and real-time inventory sync." data-ar="مبيعات نقدية وآجلة سريعة مع مسح الباركود وطباعة الإيصالات وإدارة المناوبات ومطابقة الدرج ومزامنة المخزون الآنية.">Fast cash and deferred sales with barcode scanning, receipt printing, shift management, drawer reconciliation, and real-time inventory sync.</p>
+                </div>
+                <div class="module-card">
+                  <div class="module-icon green">👥</div>
+                  <h4 data-en="HR & Payroll" data-ar="الموارد البشرية والرواتب">HR & Payroll</h4>
+                  <p data-en="Employee records, attendance tracking, leave management, salary structure, deductions, and automated monthly payroll generation with payslips." data-ar="سجلات الموظفين وتتبع الحضور وإدارة الإجازات وهيكل الراتب والخصومات وإنشاء الرواتب الشهرية التلقائي مع كشوف الرواتب.">Employee records, attendance tracking, leave management, salary structure, deductions, and automated monthly payroll generation with payslips.</p>
+                </div>
+                <div class="module-card">
+                  <div class="module-icon purple">📋</div>
+                  <h4 data-en="Purchasing System" data-ar="نظام المشتريات">Purchasing System</h4>
+                  <p data-en="Purchase orders, supplier management, GRN (goods received notes), purchase invoices, returns, and AP management linked to accounting." data-ar="أوامر الشراء وإدارة الموردين وإيصالات استلام البضاعة وفواتير الشراء والمرتجعات وإدارة الذمم المرتبطة بالمحاسبة.">Purchase orders, supplier management, GRN (goods received notes), purchase invoices, returns, and AP management linked to accounting.</p>
+                </div>
+                <div class="module-card">
+                  <div class="module-icon red">🏭</div>
+                  <h4 data-en="Warehouse & Inventory" data-ar="المخزون وإدارة المستودع">Warehouse & Inventory</h4>
+                  <p data-en="Multi-warehouse support, stock movement tracking, low-stock alerts, item transfers, expiry tracking, and FIFO/LIFO costing methods." data-ar="دعم متعدد المستودعات وتتبع حركة المخزون وتنبيهات النقص وتحويل الأصناف وتتبع انتهاء الصلاحية وطرق التكلفة FIFO/LIFO.">Multi-warehouse support, stock movement tracking, low-stock alerts, item transfers, expiry tracking, and FIFO/LIFO costing methods.</p>
+                </div>
+                <div class="module-card">
+                  <div class="module-icon cyan">📈</div>
+                  <h4 data-en="Reports & Analytics" data-ar="التقارير والتحليلات">Reports & Analytics</h4>
+                  <p data-en="Sales performance charts, payroll difference reports, accounts receivable aging, profit & loss, tax reports, and custom report builder." data-ar="مخططات أداء المبيعات وتقارير فروق الرواتب وتقادم الذمم المدينة والأرباح والخسائر والتقارير الضريبية وأداة إنشاء تقارير مخصصة.">Sales performance charts, payroll difference reports, accounts receivable aging, profit & loss, tax reports, and custom report builder.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Multi-Branch Support" data-ar="دعم متعدد الفروع">Multi-Branch Support</strong>
+                    <span data-en="Manage multiple branches with consolidated or per-branch reporting and inventory." data-ar="إدارة فروع متعددة مع تقارير ومخزون موحد أو لكل فرع.">Manage multiple branches with consolidated or per-branch reporting and inventory.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Sales Representative Tracking" data-ar="تتبع المندوبين">Sales Representative Tracking</strong>
+                    <span data-en="Track sales per rep, commissions, collections, and daily visit routes." data-ar="تتبع المبيعات لكل مندوب والعمولات والتحصيلات ومسارات الزيارات اليومية.">Track sales per rep, commissions, collections, and daily visit routes.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="100% Arabic RTL Interface" data-ar="واجهة عربية RTL كاملة">100% Arabic RTL Interface</strong>
+                    <span data-en="Fully right-to-left Arabic UI with Tajawal font — designed for Saudi users from the ground up." data-ar="واجهة عربية من اليمين لليسار بالكامل مع خط Tajawal — مصممة للمستخدمين السعوديين من البداية.">Fully right-to-left Arabic UI with Tajawal font — designed for Saudi users from the ground up.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="ZATCA VAT & Zakat Compliance" data-ar="توافق هيئة الزكاة والضريبة">ZATCA VAT & Zakat Compliance</strong>
+                    <span data-en="E-invoicing, QR codes on receipts, VAT calculations, and Zakat reporting aligned with ZATCA requirements." data-ar="فوترة إلكترونية ورموز QR على الإيصالات وحسابات ضريبة القيمة المضافة وتقارير الزكاة متوافقة مع متطلبات هيئة الزكاة.">E-invoicing, QR codes on receipts, VAT calculations, and Zakat reporting aligned with ZATCA requirements.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="SaaS Multi-Tenant Architecture" data-ar="بنية SaaS متعددة المستأجرين">SaaS Multi-Tenant Architecture</strong>
+                    <span data-en="Each company gets a fully isolated tenant with its own database, settings, and branding." data-ar="كل شركة تحصل على مستأجر معزول بالكامل بقاعدة بياناته الخاصة وإعداداته وعلامته التجارية.">Each company gets a fully isolated tenant with its own database, settings, and branding.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Role-Based Access Control" data-ar="تحكم في الوصول المعتمد على الأدوار">Role-Based Access Control</strong>
+                    <span data-en="Admin, accountant, cashier, warehouse, HR — each with configurable permissions per module and action." data-ar="مدير ومحاسب وأمين صندوق ومخزن وموارد بشرية — كل منهم بصلاحيات قابلة للتهيئة لكل وحدة وإجراء.">Admin, accountant, cashier, warehouse, HR — each with configurable permissions per module and action.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Real-Time Dashboard" data-ar="لوحة تحكم آنية">Real-Time Dashboard</strong>
+                    <span data-en="Live KPIs: total sales, cash vs. deferred, returns, collections, net profit — filterable by day/week/month/year." data-ar="مؤشرات أداء آنية: إجمالي المبيعات، نقدية مقابل آجلة، المرتجعات، التحصيلات، صافي الربح — قابلة للفلترة حسب اليوم/الأسبوع/الشهر/السنة.">Live KPIs: total sales, cash vs. deferred, returns, collections, net profit — filterable by day/week/month/year.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Supplier & Customer Ledger" data-ar="دفتر أستاذ الموردين والعملاء">Supplier & Customer Ledger</strong>
+                    <span data-en="Full account statement, aging analysis, credit limits, outstanding balances, and payment history per supplier or customer." data-ar="كشف حساب كامل وتحليل التقادم والحدود الائتمانية والأرصدة المستحقة وسجل الدفعات لكل مورد أو عميل.">Full account statement, aging analysis, credit limits, outstanding balances, and payment history per supplier or customer.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ZATCA Compliance Banner -->
+            <div class="compliance-banner">
+              <div class="compliance-icon">🏛️</div>
+              <div class="compliance-text">
+                <strong data-en="ZATCA Compliant — هيئة الزكاء والضريبة والجمارك" data-ar="متوافق مع هيئة الزكاة والضريبة والجمارك">ZATCA Compliant — هيئة الزكاة والضريبة والجمارك</strong>
+                <p data-en="Novoo ERP meets all ZATCA requirements including Phase 2 e-invoicing (FATOORA), QR code generation on all VAT invoices, proper VAT calculation (15%), and Zakat reporting — ensuring Saudi companies stay fully compliant without additional tools." data-ar="يُلبِّي Novoo ERP جميع متطلبات هيئة الزكاة والضريبة، بما يشمل الفوترة الإلكترونية من المرحلة الثانية (فاتورة)، وإنشاء رموز QR على جميع الفواتير الضريبية، وحساب ضريبة القيمة المضافة الصحيح (15%)، وتقارير الزكاة — مما يضمن امتثال الشركات السعودية بالكامل دون أدوات إضافية.">Novoo ERP meets all ZATCA requirements including Phase 2 e-invoicing (FATOORA), QR code generation on all VAT invoices, proper VAT calculation (15%), and Zakat reporting — ensuring Saudi companies stay fully compliant without additional tools.</p>
+              </div>
+            </div>
+
+            <!-- Results -->
+            <div class="detail-section">
+              <h2 data-en="Platform Scale" data-ar="حجم المنصة">Platform Scale</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>8+</strong>
+                  <span data-en="Fully Integrated Modules" data-ar="وحدة متكاملة بالكامل">Fully Integrated Modules</span>
+                </div>
+                <div class="result-card">
+                  <strong>100%</strong>
+                  <span data-en="Arabic RTL Interface" data-ar="واجهة عربية RTL">Arabic RTL Interface</span>
+                </div>
+                <div class="result-card">
+                  <strong>SaaS</strong>
+                  <span data-en="Multi-Tenant Cloud Platform" data-ar="منصة سحابية متعددة المستأجرين">Multi-Tenant Cloud Platform</span>
+                </div>
+                <div class="result-card">
+                  <strong>ZATCA</strong>
+                  <span data-en="Phase 2 E-Invoicing Ready" data-ar="جاهز للفوترة الإلكترونية المرحلة 2">Phase 2 E-Invoicing Ready</span>
+                </div>
+                <div class="result-card">
+                  <strong>5+</strong>
+                  <span data-en="User Roles & Permissions" data-ar="أدوار وصلاحيات للمستخدمين">User Roles & Permissions</span>
+                </div>
+                <div class="result-card">
+                  <strong>🇸🇦</strong>
+                  <span data-en="Saudi Market Focused" data-ar="مُركَّز على السوق السعودي">Saudi Market Focused</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Challenges -->
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Building a correct double-entry accounting engine from scratch" data-ar="بناء محرك محاسبة قيد مزدوج صحيح من الصفر">Building a correct double-entry accounting engine from scratch</strong>
+                  <p data-en="Every transaction must automatically create balanced journal entries across the chart of accounts. Built a transaction-to-journal mapper with strict debit/credit validation, rollback support, and audit trails for every accounting event." data-ar="يجب أن تُنشئ كل معاملة تلقائيًا قيودًا يومية متوازنة عبر شجرة الحسابات. بناء مُوجِّه معاملة-إلى-قيد مع تحقق صارم من الدائن/المدين ودعم التراجع ومسارات التدقيق لكل حدث محاسبي.">Every transaction must automatically create balanced journal entries across the chart of accounts. Built a transaction-to-journal mapper with strict debit/credit validation, rollback support, and audit trails for every accounting event.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="SaaS multi-tenancy with full data isolation" data-ar="تعدد مستأجري SaaS مع عزل كامل للبيانات">SaaS multi-tenancy with full data isolation</strong>
+                  <p data-en="Each company's data must be completely isolated. Implemented a database-per-tenant architecture with dynamic connection switching in Laravel — ensuring no data leakage between tenants even under concurrent requests." data-ar="يجب أن تكون بيانات كل شركة معزولة تمامًا. تم تطبيق بنية قاعدة بيانات لكل مستأجر مع تبديل الاتصال الديناميكي في Laravel — لضمان عدم تسرب البيانات بين المستأجرين حتى في ظل الطلبات المتزامنة.">Each company's data must be completely isolated. Implemented a database-per-tenant architecture with dynamic connection switching in Laravel — ensuring no data leakage between tenants even under concurrent requests.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="ZATCA Phase 2 e-invoicing integration" data-ar="تكامل الفوترة الإلكترونية من المرحلة 2 لهيئة الزكاة">ZATCA Phase 2 e-invoicing integration</strong>
+                  <p data-en="Generating ZATCA-compliant XML invoices with UBL 2.1 schema, cryptographic signing, QR code embedding, and submission to the FATOORA portal — with retry queues for failed submissions and full compliance audit logging." data-ar="إنشاء فواتير XML متوافقة مع هيئة الزكاة بمخطط UBL 2.1 والتوقيع التشفيري وتضمين رمز QR والتقديم على بوابة فاتورة — مع قوائم انتظار الإعادة للتقديمات الفاشلة وسجل التدقيق الكامل للامتثال.">Generating ZATCA-compliant XML invoices with UBL 2.1 schema, cryptographic signing, QR code embedding, and submission to the FATOORA portal — with retry queues for failed submissions and full compliance audit logging.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="proj-nav-footer">
+              <a href="project-qimta.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="→ السابق">← Previous</small>
+                <strong data-en="Qimta AI Pricing Engine" data-ar="محرك Qimta الذكي للتسعير">Qimta AI Pricing Engine</strong>
+              </a>
+              <a href="index.html#contact" class="btn btn-primary" data-en="Build Your ERP" data-ar="ابنِ ERP خاصك">Build Your ERP</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Sidebar -->
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Details" data-ar="تفاصيل المشروع">Project Details</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live">✓ Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Category" data-ar="الفئة">Category</span>
+                <span class="meta-val">ERP · SaaS</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Market" data-ar="السوق">Market</span>
+                <span class="meta-val">🇸🇦 Saudi Arabia</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Timeline" data-ar="المدة">Timeline</span>
+                <span class="meta-val">2024 – 2025</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Role" data-ar="الدور">Role</span>
+                <span class="meta-val" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Novoo Technology</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Vue.js</span>
+                <span class="tech-chip">PHP 8</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">SaaS</span>
+                <span class="tech-chip">ZATCA</span>
+                <span class="tech-chip">Docker</span>
+                <span class="tech-chip">Redis</span>
+                <span class="tech-chip">RTL/Arabic</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Modules Built" data-ar="الوحدات المبنية">Modules Built</h4>
+              <div style="display:flex; flex-direction:column; gap:7px;">
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="📊 Financial Accounting Engine" data-ar="📊 محرك المحاسبة المالية">📊 Financial Accounting Engine</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🌳 Chart of Accounts (شجرة محاسبة)" data-ar="🌳 شجرة الحسابات">🌳 Chart of Accounts (شجرة محاسبة)</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="👥 HR & Payroll Module" data-ar="👥 وحدة الموارد البشرية والرواتب">👥 HR & Payroll Module</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🛒 POS & Sales System" data-ar="🛒 نظام نقاط البيع والمبيعات">🛒 POS & Sales System</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🏭 Warehouse Management" data-ar="🏭 إدارة المخزون">🏭 Warehouse Management</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="📈 Reports & Analytics" data-ar="📈 التقارير والتحليلات">📈 Reports & Analytics</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0;" data-en="🏛️ ZATCA E-Invoicing" data-ar="🏛️ الفوترة الإلكترونية ZATCA">🏛️ ZATCA E-Invoicing</div>
+              </div>
+            </div>
+
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#0a1628,#111e3a); border:none;">
+              <h4 style="color:rgba(255,255,255,0.6);" data-en="Need an ERP system?" data-ar="تحتاج نظام ERP؟">Need an ERP system?</h4>
+              <p style="font-size:13px; color:rgba(255,255,255,0.55); line-height:1.7; margin:0 0 16px;" data-en="I build custom ERP platforms with accounting, HR, POS, and warehouse — tailored for your industry and ZATCA-compliant from day one." data-ar="أبني منصات ERP مخصصة تشمل المحاسبة والموارد البشرية ونقاط البيع والمخزون — مُصمَّمة لقطاعك ومتوافقة مع هيئة الزكاة منذ اليوم الأول.">I build custom ERP platforms with accounting, HR, POS, and warehouse — tailored for your industry and ZATCA-compliant from day one.</p>
+              <a href="index.html#contact" class="btn-gold" style="display:block; text-align:center;" data-en="Discuss Your ERP →" data-ar="ناقش نظام ERP الخاص بك →">Discuss Your ERP →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'Novoo ERP — منصة المحاسبة والموارد البشرية | أحمد نور'
+        : 'Novoo ERP — Accounting & HR Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() {
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', doReveal);
+    doReveal();
+
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(37,99,235,0.1)' : '0 2px 30px rgba(37,99,235,0.05)';
+    });
+  </script>
+</body>
+</html>

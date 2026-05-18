@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="none"/>
+  <g filter="url(#s)">
+    <circle cx="205" cy="178" r="58" fill="url(#g1)" stroke="#8CB7FF" stroke-width="8"/>
+    <circle cx="325" cy="198" r="48" fill="url(#g2)" stroke="#A78BFA" stroke-width="8"/>
+    <path d="M106 391c10-82 57-125 111-125s101 43 111 125H106z" fill="url(#g1)" stroke="#8CB7FF" stroke-width="8"/>
+    <path d="M265 391c8-63 44-96 87-96s78 33 86 96H265z" fill="url(#g2)" stroke="#A78BFA" stroke-width="8"/>
+    <path d="M174 348h87M309 350h64" stroke="#fff" stroke-opacity=".65" stroke-width="13" stroke-linecap="round"/>
+  </g>
+  <defs><linearGradient id="g1" x1="106" y1="119" x2="328" y2="391"><stop stop-color="#7DD3FC"/><stop offset="1" stop-color="#2563EB"/></linearGradient><linearGradient id="g2" x1="265" y1="151" x2="438" y2="391"><stop stop-color="#DDD6FE"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient><filter id="s" x="66" y="79" width="412" height="352" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#2563EB" flood-opacity=".22"/></filter></defs>
+</svg>

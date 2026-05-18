@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="none"/>
+  <g filter="url(#s)">
+    <rect x="104" y="120" width="304" height="214" rx="34" fill="url(#g)" stroke="#9FC2FF" stroke-width="8"/>
+    <rect x="134" y="156" width="92" height="22" rx="11" fill="#2563EB"/>
+    <rect x="134" y="205" width="74" height="84" rx="16" fill="#DBEAFE"/>
+    <rect x="230" y="188" width="54" height="101" rx="16" fill="#93C5FD"/>
+    <rect x="306" y="226" width="54" height="63" rx="16" fill="#38BDF8"/>
+    <path d="M134 311h226" stroke="#BFDBFE" stroke-width="9" stroke-linecap="round"/>
+    <path d="M256 334v49" stroke="#2563EB" stroke-width="13" stroke-linecap="round"/>
+    <rect x="186" y="383" width="140" height="22" rx="11" fill="#2563EB"/>
+    <circle cx="346" cy="169" r="28" fill="#E0F2FE" stroke="#38BDF8" stroke-width="7"/>
+    <path d="M346 169l14-17" stroke="#2563EB" stroke-width="9" stroke-linecap="round"/>
+  </g>
+  <defs><linearGradient id="g" x1="104" y1="120" x2="408" y2="334"><stop stop-color="#fff"/><stop offset="1" stop-color="#E4EFFF"/></linearGradient><filter id="s" x="64" y="80" width="384" height="365" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="20" stdDeviation="22" flood-color="#2563EB" flood-opacity=".2"/></filter></defs>
+</svg>

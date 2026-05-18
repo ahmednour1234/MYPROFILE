@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
-<rect width="180" height="180" rx="42" fill="#fff"/>
-<rect x="20" y="30" width="140" height="120" rx="26" fill="#f8fbff" stroke="#dbe7ff"/>
-<g transform="translate(34 45) scale(.62)"><rect x="0" y="0" width="180" height="40" fill="#ce1126"/><rect x="0" y="40" width="180" height="40" fill="#fff"/><rect x="0" y="80" width="180" height="40" fill="#000"/></g>
-<text x="90" y="162" text-anchor="middle" font-family="Inter,Arial" font-weight="900" font-size="17" fill="#0f172a">Egypt</text>
-</svg>

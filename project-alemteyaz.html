@@ -1,0 +1,472 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Almteyaz Recruitment System | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl { display:none; }
+    .bg-orb { display:none; }
+    :root { --am-green:#22c55e; --am-dark:#1a1a2e; }
+    .proj-detail-hero { padding:110px 0 0; background:linear-gradient(150deg,#0f0f1e 0%,#1a1a2e 50%,#0f1a30 100%); color:white; position:relative; overflow:hidden; }
+    .proj-detail-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 55% 70% at 70% 40%,rgba(34,197,94,.12) 0%,transparent 60%),radial-gradient(ellipse 35% 55% at 5% 85%,rgba(37,99,235,.15) 0%,transparent 55%); }
+    .brand-badge { display:inline-flex; align-items:center; gap:10px; padding:7px 16px; border-radius:12px; background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.3); margin-bottom:20px; }
+    .brand-icon { width:30px; height:30px; border-radius:8px; background:var(--am-green); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+    .brand-badge span { font-size:13px; font-weight:700; color:rgba(255,255,255,.85); }
+    .brand-badge em { font-style:normal; color:var(--am-green); }
+    .hero-breadcrumb { display:flex; align-items:center; gap:8px; font-size:13px; color:rgba(255,255,255,.4); margin-bottom:22px; }
+    .hero-breadcrumb a { color:rgba(255,255,255,.65); text-decoration:none; font-weight:600; }
+    .proj-hero-layout { display:grid; grid-template-columns:1fr 500px; gap:48px; align-items:end; position:relative; }
+    .proj-hero-info { padding-bottom:52px; }
+    .proj-hero-info .pcat { font-size:12px; margin-bottom:14px; display:inline-block; }
+    .proj-hero-info h1 { font-size:clamp(26px,3vw,42px); font-weight:900; letter-spacing:-1.4px; color:white; margin:0 0 16px; line-height:1.15; }
+    .proj-hero-info h1 em { font-style:normal; color:var(--am-green); }
+    .proj-hero-info > p { font-size:15px; color:rgba(255,255,255,.65); line-height:1.8; max-width:480px; margin:0 0 26px; }
+    .proj-hero-badges { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:30px; }
+    .hero-badge { padding:6px 14px; border-radius:999px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); color:rgba(255,255,255,.8); font-size:12px; font-weight:600; }
+    .hero-badge.green { background:rgba(34,197,94,.15); border-color:rgba(34,197,94,.35); color:#86efac; }
+    .proj-hero-actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-green { padding:11px 24px; border-radius:12px; background:var(--am-green); color:white; font-size:13.5px; font-weight:900; text-decoration:none; transition:all .22s; display:inline-block; }
+    .btn-green:hover { background:#16a34a; transform:translateY(-2px); box-shadow:0 8px 24px rgba(34,197,94,.35); }
+    .btn-ghost-white { padding:11px 24px; border-radius:12px; border:1.5px solid rgba(255,255,255,.2); color:white; font-size:13.5px; font-weight:700; text-decoration:none; transition:all .22s; display:inline-block; }
+    .btn-ghost-white:hover { background:rgba(255,255,255,.08); }
+    .proj-hero-visual { display:flex; align-items:flex-end; justify-content:center; }
+    .proj-hero-visual img { width:100%; max-width:500px; border-radius:16px 16px 0 0; box-shadow:0 -16px 60px rgba(34,197,94,.15),0 -1px 0 rgba(34,197,94,.3); display:block; }
+    .modules-strip { background:rgba(255,255,255,.04); border-top:1px solid rgba(255,255,255,.07); padding:14px 0; }
+    .modules-strip-inner { display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center; }
+    .mod-pill { padding:5px 14px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09); color:rgba(255,255,255,.7); font-size:12px; font-weight:600; display:flex; align-items:center; gap:6px; }
+    .mod-pill .dot { width:6px; height:6px; border-radius:50%; background:var(--am-green); }
+    .proj-detail-body { padding:64px 0 80px; }
+    .detail-layout { display:grid; grid-template-columns:1fr 310px; gap:48px; align-items:start; }
+    .detail-sidebar { display:flex; flex-direction:column; gap:20px; }
+    .sidebar-card { background:white; border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); }
+    .sidebar-card h4 { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.7px; color:var(--muted); margin:0 0 16px; }
+    .meta-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--line); font-size:13px; }
+    .meta-row:last-child { border-bottom:none; padding-bottom:0; }
+    .meta-label { color:var(--muted); font-weight:600; }
+    .meta-val { font-weight:700; color:var(--navy); text-align:right; }
+    .status-live { padding:3px 10px; border-radius:999px; background:rgba(34,197,94,.12); color:#16a34a; font-size:11.5px; font-weight:700; }
+    .tech-list { display:flex; flex-wrap:wrap; gap:8px; }
+    .tech-chip { padding:5px 11px; border-radius:8px; background:rgba(26,26,46,.07); color:var(--am-dark); font-size:12px; font-weight:700; }
+    .detail-main { display:flex; flex-direction:column; gap:44px; }
+    .detail-section h2 { font-size:19px; font-weight:800; color:var(--navy); letter-spacing:-.4px; margin:0 0 18px; display:flex; align-items:center; gap:10px; }
+    .detail-section h2::after { content:''; flex:1; height:1px; background:var(--line); }
+    .detail-section p { color:var(--muted); font-size:14px; line-height:1.85; margin:0 0 12px; }
+    .branches-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .branch-card { background:white; border:1px solid var(--line); border-radius:var(--radius); padding:20px 16px; text-align:center; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+    .branch-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--am-green); }
+    .branch-icon { font-size:28px; margin-bottom:10px; }
+    .branch-name { font-size:16px; font-weight:900; color:var(--navy); margin-bottom:3px; }
+    .branch-name-ar { font-size:13px; color:var(--muted); font-weight:600; margin-bottom:8px; }
+    .branch-tag { display:inline-block; padding:3px 10px; border-radius:999px; background:rgba(34,197,94,.1); color:#16a34a; font-size:11px; font-weight:700; }
+    .pipeline-wrap { background:white; border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); }
+    .pipeline { display:flex; flex-direction:column; gap:6px; }
+    .stage-row { display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:10px; border:1px solid var(--line); }
+    .stage-num-badge { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:900; flex-shrink:0; }
+    .stage-name { font-size:13px; font-weight:700; color:var(--navy); flex:1; }
+    .stage-name-ar { font-size:11.5px; color:var(--muted); }
+    .stage-count { font-size:14px; font-weight:900; padding:2px 10px; border-radius:999px; flex-shrink:0; }
+    .modules-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .module-card { display:flex; align-items:flex-start; gap:12px; padding:16px; background:white; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); }
+    .mod-icon-box { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .mod-green { background:rgba(34,197,94,.12); } .mod-blue { background:rgba(37,99,235,.1); } .mod-purple { background:rgba(124,58,237,.1); } .mod-orange { background:rgba(234,88,12,.1); } .mod-teal { background:rgba(8,145,178,.1); } .mod-red { background:rgba(220,38,38,.1); }
+    .module-card strong { display:block; font-size:13.5px; font-weight:800; color:var(--navy); margin-bottom:3px; }
+    .module-card span { font-size:12px; color:var(--muted); line-height:1.6; display:block; }
+    .results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .result-card { background:white; border:1px solid var(--line); border-radius:var(--radius); padding:20px 16px; text-align:center; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+    .result-card::before { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--am-dark),var(--am-green)); }
+    .result-card strong { display:block; font-size:26px; font-weight:900; letter-spacing:-1px; background:linear-gradient(135deg,var(--am-dark),#22c55e); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:6px; }
+    .result-card span { font-size:12px; color:var(--muted); font-weight:600; line-height:1.4; display:block; }
+    .challenge-list { display:flex; flex-direction:column; gap:12px; }
+    .challenge-item { padding:16px 20px; background:white; border:1px solid var(--line); border-left:3px solid var(--am-green); border-radius:0 var(--radius) var(--radius) 0; box-shadow:var(--shadow); }
+    .challenge-item strong { display:block; font-size:13.5px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+    .challenge-item p { font-size:13px; color:var(--muted); margin:0; line-height:1.7; }
+    .proj-nav-footer { margin-top:16px; padding-top:36px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .proj-nav-link { display:flex; flex-direction:column; gap:4px; text-decoration:none; }
+    .proj-nav-link small { font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+    .proj-nav-link strong { font-size:14px; font-weight:800; color:var(--navy); transition:color .2s; }
+    .proj-nav-link:hover strong { color:var(--am-green); }
+    .dash-mock { background:#1a1a2e; border-radius:14px; padding:14px; overflow:hidden; }
+    .dash-mock-bar { display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+    .dm-stat { flex:1; min-width:70px; border-radius:10px; padding:9px 10px; text-align:center; }
+    .dm-stat strong { display:block; font-size:18px; font-weight:900; }
+    .dm-stat span { font-size:10px; display:block; margin-top:2px; opacity:.75; }
+    .dm-blue{background:rgba(37,99,235,.2);color:#60a5fa;} .dm-green{background:rgba(34,197,94,.2);color:#86efac;} .dm-yellow{background:rgba(234,179,8,.2);color:#fde047;} .dm-purple{background:rgba(124,58,237,.2);color:#c084fc;} .dm-teal{background:rgba(8,145,178,.2);color:#67e8f9;} .dm-orange{background:rgba(234,88,12,.2);color:#fdba74;}
+    @media(max-width:960px){.proj-hero-layout{grid-template-columns:1fr;}.proj-hero-visual{display:none;}.detail-layout{grid-template-columns:1fr;}.detail-sidebar{order:-1;}.modules-grid{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}.branches-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span data-en="Almteyaz Recruitment System" data-ar="نظام الامتياز للاستقدام">Almteyaz Recruitment System</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-icon">🏢</div>
+          <span><em>نظام الامتياز</em> &nbsp;— مكتب الاستقدام · لوحة تحكم مبسطة وسهلة</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat recruitment" data-en="Recruitment SaaS · Management System" data-ar="نظام إدارة استقدام · SaaS">Recruitment SaaS · Management System</span>
+            <h1 data-en="Almteyaz <em>Recruitment</em> System" data-ar="نظام الامتياز <em>للاستقدام</em>">Almteyaz <em>Recruitment</em> System</h1>
+            <p data-en="A complete end-to-end recruitment contract management platform for one of Saudi Arabia's leading recruitment companies — with 3 branches across Riyadh, Arar, and Hafr Al-Batin. Manages the full contract lifecycle, housing contracts, HR, finance, complaints, WhatsApp integration and real-time branch reporting." data-ar="منصة إدارة عقود استقدام متكاملة لإحدى شركات الاستقدام الرائدة في السعودية — بـ 3 فروع في الرياض وعرعر وحفر الباطن. تُدير دورة حياة العقد بالكامل، وعقود الإيجار، والموارد البشرية، والمالية، والشكاوى، وتكامل واتساب، وتقارير الفروع الآنية.">A complete end-to-end recruitment contract management platform for one of Saudi Arabia's leading recruitment companies — with 3 branches across Riyadh, Arar, and Hafr Al-Batin. Manages the full contract lifecycle, housing contracts, HR, finance, complaints, WhatsApp integration and real-time branch reporting.</p>
+            <div class="proj-hero-badges">
+              <span class="hero-badge">🇸🇦 3 Saudi Branches</span>
+              <span class="hero-badge green">✓ Live System</span>
+              <span class="hero-badge" data-en="259 Active Contracts" data-ar="259 عقد نشط">259 Active Contracts</span>
+              <span class="hero-badge" data-en="13 Contract Stages" data-ar="13 مرحلة عقد">13 Contract Stages</span>
+              <span class="hero-badge" data-en="WhatsApp Integrated" data-ar="تكامل واتساب">WhatsApp Integrated</span>
+            </div>
+            <div class="proj-hero-actions">
+              <a href="index.html#contact" class="btn-green" data-en="Build Similar System →" data-ar="ابنِ نظاماً مماثلاً →">Build Similar System →</a>
+              <a href="projects.html" class="btn-ghost-white" data-en="← All Projects" data-ar="→ جميع المشاريع">← All Projects</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/alemteyaz/alemteyaz-hero.png" alt="Almteyaz Recruitment System Dashboard" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="modules-strip">
+        <div class="container">
+          <div class="modules-strip-inner">
+            <div class="mod-pill"><span class="dot"></span><span data-en="Recruitment Contracts" data-ar="عقود الاستقدام">Recruitment Contracts</span></div>
+            <div class="mod-pill"><span class="dot"></span><span data-en="Housing Contracts" data-ar="عقود الإيجار">Housing Contracts</span></div>
+            <div class="mod-pill"><span class="dot"></span><span data-en="Human Resources" data-ar="الموارد البشرية">Human Resources</span></div>
+            <div class="mod-pill"><span class="dot"></span><span data-en="Finance" data-ar="المالية">Finance</span></div>
+            <div class="mod-pill"><span class="dot"></span><span data-en="Complaints" data-ar="الشكاوى">Complaints</span></div>
+            <div class="mod-pill"><span class="dot"></span><span data-en="Branch Management" data-ar="إدارة الفروع">Branch Management</span></div>
+            <div class="mod-pill"><span class="dot"></span><span data-en="WhatsApp Integration" data-ar="تكامل واتساب">WhatsApp Integration</span></div>
+            <div class="mod-pill"><span class="dot"></span><span data-en="Reports & Analytics" data-ar="التقارير والتحليلات">Reports & Analytics</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="System Overview" data-ar="نظرة عامة على النظام">System Overview</h2>
+              <p data-en="Almteyaz Recruitment System is a purpose-built SaaS management platform for a Saudi recruitment company operating 3 branches — Riyadh (headquarters), Arar, and Hafr Al-Batin. The system replaces manual paper-based workflows with a unified digital platform that tracks every recruitment contract from initial intake all the way through visa issuance, flight booking, arrival, and post-delivery warranty." data-ar="نظام الامتياز للاستقدام منصة إدارة SaaS مُصمَّمة خصيصًا لشركة استقدام سعودية تدير 3 فروع — الرياض (المقر الرئيسي)، وعرعر، وحفر الباطن. يستبدل النظام سير العمل الورقية اليدوية بمنصة رقمية موحدة تتابع كل عقد استقدام من الاستقبال الأولي وصولًا لإصدار التأشيرة وحجز التذاكر والوصول وضمان ما بعد التسليم.">Almteyaz Recruitment System is a purpose-built SaaS management platform for a Saudi recruitment company operating 3 branches — Riyadh (headquarters), Arar, and Hafr Al-Batin. The system replaces manual paper-based workflows with a unified digital platform that tracks every recruitment contract from initial intake all the way through visa issuance, flight booking, arrival, and post-delivery warranty.</p>
+              <p data-en="Beyond recruitment contracts, the platform also manages housing/accommodation contracts for workers, HR operations, a simplified finance module for easy financial tracking (not full accounting), a complaints and oversight module, and cross-branch analytics — all from a clean RTL Arabic dashboard." data-ar="إلى جانب عقود الاستقدام، تُدير المنصة أيضًا عقود إيجار المساكن للعمال وعمليات الموارد البشرية ووحدة مالية مُبسَّطة للتتبع المالي السهل (ليس محاسبة متكاملة) ووحدة شكاوى ورقابة وتحليلات الفروع — كل ذلك من لوحة تحكم عربية RTL أنيقة.">Beyond recruitment contracts, the platform also manages housing/accommodation contracts for workers, HR operations, a simplified finance module for easy financial tracking (not full accounting), a complaints and oversight module, and cross-branch analytics — all from a clean RTL Arabic dashboard.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="3 Saudi Branches" data-ar="3 فروع في السعودية">3 Saudi Branches</h2>
+              <div class="branches-grid">
+                <div class="branch-card">
+                  <div class="branch-icon">🏙️</div>
+                  <div class="branch-name" data-en="Riyadh" data-ar="الرياض">Riyadh</div>
+                  <div class="branch-name-ar">المقر الرئيسي</div>
+                  <div class="branch-tag" data-en="Headquarters" data-ar="المقر الرئيسي">Headquarters</div>
+                </div>
+                <div class="branch-card">
+                  <div class="branch-icon">🏜️</div>
+                  <div class="branch-name" data-en="Arar" data-ar="عرعر">Arar</div>
+                  <div class="branch-name-ar">الحدود الشمالية</div>
+                  <div class="branch-tag" data-en="Northern Border" data-ar="الحدود الشمالية">Northern Border</div>
+                </div>
+                <div class="branch-card">
+                  <div class="branch-icon">🛢️</div>
+                  <div class="branch-name" data-en="Hafr Al-Batin" data-ar="حفر الباطن">Hafr Al-Batin</div>
+                  <div class="branch-name-ar">المنطقة الشرقية</div>
+                  <div class="branch-tag" data-en="Eastern Region" data-ar="المنطقة الشرقية">Eastern Region</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Contract Lifecycle — 13 Stages" data-ar="دورة حياة العقد — 13 مرحلة">Contract Lifecycle — 13 Stages</h2>
+              <p data-en="Every recruitment contract is tracked through a precise 13-stage pipeline — from initial registration to final delivery and post-delivery warranty. Each stage triggers role-based notifications and updates the contract status in real time across all branches." data-ar="يُتابع كل عقد استقدام عبر خط أنابيب دقيق من 13 مرحلة — من التسجيل الأولي إلى التسليم النهائي وضمان ما بعد التسليم. كل مرحلة تُطلق إشعارات حسب الدور وتُحدِّث حالة العقد في الوقت الحقيقي عبر جميع الفروع.">Every recruitment contract is tracked through a precise 13-stage pipeline — from initial registration to final delivery and post-delivery warranty. Each stage triggers role-based notifications and updates the contract status in real time across all branches.</p>
+              <div class="pipeline-wrap">
+                <div class="pipeline">
+                  <div class="stage-row" style="background:rgba(37,99,235,.04)">
+                    <div class="stage-num-badge" style="background:rgba(37,99,235,.15);color:#2563eb">1</div>
+                    <div style="flex:1"><div class="stage-name" data-en="New Contract" data-ar="عقد جديد">New Contract</div><div class="stage-name-ar">جديد</div></div>
+                    <div class="stage-count" style="background:rgba(37,99,235,.12);color:#2563eb">120</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(234,179,8,.04)">
+                    <div class="stage-num-badge" style="background:rgba(234,179,8,.15);color:#ca8a04">2</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Awaiting External Office Approval" data-ar="بانتظار موافقة المكتب الخارجي">Awaiting External Office Approval</div><div class="stage-name-ar">بانتظار موافقة المكتب الخارجي</div></div>
+                    <div class="stage-count" style="background:rgba(234,179,8,.12);color:#ca8a04">12</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(34,197,94,.04)">
+                    <div class="stage-num-badge" style="background:rgba(34,197,94,.15);color:#16a34a">3</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Contract Accepted by External Office" data-ar="قبول العقد من المكتب الخارجي">Contract Accepted by External Office</div><div class="stage-name-ar">قبول العقد من المكتب الخارجي</div></div>
+                    <div class="stage-count" style="background:rgba(34,197,94,.12);color:#16a34a">6</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(234,88,12,.04)">
+                    <div class="stage-num-badge" style="background:rgba(234,88,12,.15);color:#ea580c">4</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Awaiting Ministry of Labor Approval" data-ar="انتظار الموافقة — وزارة العمل">Awaiting Ministry of Labor Approval</div><div class="stage-name-ar">انتظار الموافقة</div></div>
+                    <div class="stage-count" style="background:rgba(234,88,12,.12);color:#ea580c">1</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(124,58,237,.04)">
+                    <div class="stage-num-badge" style="background:rgba(124,58,237,.15);color:#7c3aed">5</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Contract Accepted by Ministry of Labor" data-ar="قبول العقد من وزارة العمل">Contract Accepted by Ministry of Labor</div><div class="stage-name-ar">قبول العقد من وزارة العمل</div></div>
+                    <div class="stage-count" style="background:rgba(124,58,237,.12);color:#7c3aed">2</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(8,145,178,.04)">
+                    <div class="stage-num-badge" style="background:rgba(8,145,178,.15);color:#0891b2">6</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Visa Sent to Saudi Embassy" data-ar="إرسال التأشيرة إلى السفارة السعودية">Visa Sent to Saudi Embassy</div><div class="stage-name-ar">إرسال التأشيرة إلى السفارة السعودية</div></div>
+                    <div class="stage-count" style="background:rgba(8,145,178,.12);color:#0891b2">27</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(37,99,235,.04)">
+                    <div class="stage-num-badge" style="background:rgba(37,99,235,.15);color:#2563eb">7</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Visa Issued" data-ar="إصدار التأشيرة">Visa Issued</div><div class="stage-name-ar">إصدار التأشيرة</div></div>
+                    <div class="stage-count" style="background:rgba(37,99,235,.12);color:#2563eb">5</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(234,179,8,.04)">
+                    <div class="stage-num-badge" style="background:rgba(234,179,8,.15);color:#ca8a04">8</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Awaiting Flight Ticket Booking" data-ar="انتظار حجز تذكرة الطيران">Awaiting Flight Ticket Booking</div><div class="stage-name-ar">انتظار حجز تذكرة الطيران</div></div>
+                    <div class="stage-count" style="background:rgba(234,179,8,.12);color:#ca8a04">6</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(8,145,178,.04)">
+                    <div class="stage-num-badge" style="background:rgba(8,145,178,.15);color:#0891b2">9</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Arrival Date Scheduled" data-ar="معاد الوصول">Arrival Date Scheduled</div><div class="stage-name-ar">معاد الوصول</div></div>
+                    <div class="stage-count" style="background:rgba(8,145,178,.12);color:#0891b2">11</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(34,197,94,.06)">
+                    <div class="stage-num-badge" style="background:rgba(34,197,94,.2);color:#16a34a;font-size:14px">✓</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Delivered / Received" data-ar="تم الاستلام">Delivered / Received</div><div class="stage-name-ar">تم الاستلام</div></div>
+                    <div class="stage-count" style="background:rgba(34,197,94,.15);color:#16a34a;font-size:16px;font-weight:900">64</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(234,88,12,.04)">
+                    <div class="stage-num-badge" style="background:rgba(234,88,12,.15);color:#ea580c">W</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Returned During Warranty Period" data-ar="رجع خلال فترة الضمان">Returned During Warranty Period</div><div class="stage-name-ar">رجع خلال فترة الضمان</div></div>
+                    <div class="stage-count" style="background:rgba(234,88,12,.12);color:#ea580c">1</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(219,39,119,.04)">
+                    <div class="stage-num-badge" style="background:rgba(219,39,119,.15);color:#db2777">T</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Travel Permit Issued" data-ar="تصريح سفر">Travel Permit Issued</div><div class="stage-name-ar">تصريح سفر بعد تم التقرير</div></div>
+                    <div class="stage-count" style="background:rgba(219,39,119,.12);color:#db2777">2</div>
+                  </div>
+                  <div class="stage-row" style="background:rgba(220,38,38,.04)">
+                    <div class="stage-num-badge" style="background:rgba(220,38,38,.12);color:#dc2626">!</div>
+                    <div style="flex:1"><div class="stage-name" data-en="Runaway / Escape" data-ar="هروب">Runaway / Escape</div><div class="stage-name-ar">هروب</div></div>
+                    <div class="stage-count" style="background:rgba(220,38,38,.12);color:#dc2626">0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Modules" data-ar="وحدات النظام">System Modules</h2>
+              <div class="modules-grid">
+                <div class="module-card">
+                  <div class="mod-icon-box mod-green">📄</div>
+                  <div>
+                    <strong data-en="Recruitment Contracts" data-ar="عقود الاستقدام">Recruitment Contracts</strong>
+                    <span data-en="Full 13-stage lifecycle — from new contract through external office, Ministry of Labor, visa, flight, arrival, delivery and warranty. Split by department: Recruitment, Coordination, Customer Service." data-ar="دورة حياة كاملة من 13 مرحلة — من عقد جديد عبر المكتب الخارجي ووزارة العمل والتأشيرة والطيران والوصول والتسليم والضمان. مُقسَّمة حسب القسم: الاستقدام والتنسيق وخدمة العملاء.">Full 13-stage lifecycle — from new contract through external office, Ministry of Labor, visa, flight, arrival, delivery and warranty. Split by department: Recruitment, Coordination, Customer Service.</span>
+                  </div>
+                </div>
+                <div class="module-card">
+                  <div class="mod-icon-box mod-blue">🏠</div>
+                  <div>
+                    <strong data-en="Housing Contracts (إيجار)" data-ar="عقود الإيجار">Housing Contracts (إيجار)</strong>
+                    <span data-en="Manage accommodation contracts for workers — housing assignments, rental periods, payments, and occupancy status across all branches." data-ar="إدارة عقود مساكن العمال — تعيينات السكن وفترات الإيجار والمدفوعات وحالة الإشغال عبر جميع الفروع.">Manage accommodation contracts for workers — housing assignments, rental periods, payments, and occupancy status across all branches.</span>
+                  </div>
+                </div>
+                <div class="module-card">
+                  <div class="mod-icon-box mod-purple">👥</div>
+                  <div>
+                    <strong data-en="Human Resources" data-ar="الموارد البشرية">Human Resources</strong>
+                    <span data-en="Manage company staff across all 3 branches — attendance, roles, permissions, and employee records for the recruitment company's own team." data-ar="إدارة موظفي الشركة عبر الفروع الـ 3 — الحضور والأدوار والصلاحيات وسجلات موظفي فريق شركة الاستقدام.">Manage company staff across all 3 branches — attendance, roles, permissions, and employee records for the recruitment company's own team.</span>
+                  </div>
+                </div>
+                <div class="module-card">
+                  <div class="mod-icon-box mod-orange">💰</div>
+                  <div>
+                    <strong data-en="Finance Module (not full accounting)" data-ar="المالية (ليس محاسبة كاملة)">Finance Module (not full accounting)</strong>
+                    <span data-en="Simplified financial tracking — payments in/out, contract fees, pending balances. Easy-to-use without complex accounting workflows. Financial visibility without double-entry bookkeeping." data-ar="تتبع مالي مبسط — مدفوعات صادرة/واردة ورسوم عقود وأرصدة معلقة. سهل الاستخدام بدون سير عمل محاسبية معقدة. رؤية مالية بدون قيد مزدوج.">Simplified financial tracking — payments in/out, contract fees, pending balances. Easy-to-use without complex accounting workflows. Financial visibility without double-entry bookkeeping.</span>
+                  </div>
+                </div>
+                <div class="module-card">
+                  <div class="mod-icon-box mod-red">⚠️</div>
+                  <div>
+                    <strong data-en="Complaints & Oversight" data-ar="الشكاوى والرقابة">Complaints & Oversight</strong>
+                    <span data-en="Log, track, and resolve complaints from employers and workers — full audit trail, escalation paths, and resolution status per branch." data-ar="تسجيل وتتبع وحل شكاوى أصحاب العمل والعمال — مسار تدقيق كامل ومسارات تصعيد وتتبع حالة الحل لكل فرع.">Log, track, and resolve complaints from employers and workers — full audit trail, escalation paths, and resolution status per branch.</span>
+                  </div>
+                </div>
+                <div class="module-card">
+                  <div class="mod-icon-box mod-teal">🏪</div>
+                  <div>
+                    <strong data-en="Branch Management & Analytics" data-ar="إدارة الفروع والتحليلات">Branch Management & Analytics</strong>
+                    <span data-en="Multi-branch filtering dashboard — compare contract volume and performance across Riyadh, Arar, and Hafr Al-Batin with monthly trend charts and date-range reports." data-ar="لوحة تصفية متعددة الفروع — مقارنة حجم العقود والأداء عبر الرياض وعرعر وحفر الباطن مع مخططات الاتجاه الشهري وتقارير نطاق التاريخ.">Multi-branch filtering dashboard — compare contract volume and performance across Riyadh, Arar, and Hafr Al-Batin with monthly trend charts and date-range reports.</span>
+                  </div>
+                </div>
+                <div class="module-card">
+                  <div class="mod-icon-box mod-green">📱</div>
+                  <div>
+                    <strong data-en="WhatsApp Integration" data-ar="تكامل واتساب">WhatsApp Integration</strong>
+                    <span data-en="Automated WhatsApp notifications at key contract stages — visa updates, arrival confirmations, and complaint acknowledgements sent directly to employers." data-ar="إشعارات واتساب آلية في المراحل الرئيسية للعقد — تحديثات التأشيرة وتأكيدات الوصول والإقرار بالشكاوى لأصحاب العمل.">Automated WhatsApp notifications at key contract stages — visa updates, arrival confirmations, and complaint acknowledgements sent directly to employers.</span>
+                  </div>
+                </div>
+                <div class="module-card">
+                  <div class="mod-icon-box mod-blue">📊</div>
+                  <div>
+                    <strong data-en="Reports & Date-Range Filtering" data-ar="التقارير وتصفية التواريخ">Reports & Date-Range Filtering</strong>
+                    <span data-en="Flexible reporting with date-range pickers and branch filters — monthly contract movement charts, branch comparison charts, and data summaries." data-ar="تقارير مرنة مع منتقيات نطاق التاريخ وتصفية الفروع — مخططات حركة العقود الشهرية ومخططات مقارنة الفروع وملخصات البيانات.">Flexible reporting with date-range pickers and branch filters — monthly contract movement charts, branch comparison charts, and data summaries.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System at a Glance" data-ar="النظام في لمحة">System at a Glance</h2>
+              <div class="results-grid">
+                <div class="result-card"><strong>259</strong><span data-en="Active Recruitment Contracts" data-ar="عقد استقدام نشط">Active Recruitment Contracts</span></div>
+                <div class="result-card"><strong>13</strong><span data-en="Contract Lifecycle Stages" data-ar="مرحلة في دورة حياة العقد">Contract Lifecycle Stages</span></div>
+                <div class="result-card"><strong>3</strong><span data-en="Saudi Branches — Riyadh · Arar · Hafr Al-Batin" data-ar="فروع سعودية — الرياض · عرعر · حفر الباطن">Saudi Branches</span></div>
+                <div class="result-card"><strong>6</strong><span data-en="Core Modules — Contracts, HR, Housing, Finance, Complaints, Branches" data-ar="وحدات رئيسية — عقود، موارد بشرية، إيجار، مالية، شكاوى، فروع">Core Modules</span></div>
+                <div class="result-card"><strong>WA</strong><span data-en="WhatsApp Automated Notifications" data-ar="إشعارات واتساب آلية">WhatsApp Automated Notifications</span></div>
+                <div class="result-card"><strong>RTL</strong><span data-en="Full Arabic RTL Dashboard" data-ar="لوحة تحكم عربية RTL كاملة">Full Arabic RTL Dashboard</span></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Multi-branch real-time data with cross-branch filtering" data-ar="بيانات آنية متعددة الفروع مع تصفية عبر الفروع">Multi-branch real-time data with cross-branch filtering</strong>
+                  <p data-en="The system needed to serve 3 branches simultaneously while allowing head office to view aggregated or per-branch data with date-range filtering. Solved with a branch-scoped data model, global vs. branch-level permissions, and an efficient query architecture." data-ar="احتاج النظام لخدمة 3 فروع في آنٍ واحد مع السماح للمقر الرئيسي بعرض البيانات الإجمالية أو لكل فرع مع تصفية نطاق التاريخ. تم الحل بنموذج بيانات بنطاق الفرع وصلاحيات عالمية مقابل صلاحيات مستوى الفرع وبنية استعلام فعّالة.">The system needed to serve 3 branches simultaneously while allowing head office to view aggregated or per-branch data with date-range filtering. Solved with a branch-scoped data model, global vs. branch-level permissions, and an efficient query architecture.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Complex 13-stage contract lifecycle with role-based transitions" data-ar="دورة حياة عقد معقدة من 13 مرحلة مع انتقالات حسب الدور">Complex 13-stage contract lifecycle with role-based transitions</strong>
+                  <p data-en="Each contract stage has different responsible roles, required documents, and allowed transitions — not every user can move a contract to every stage. Designed a flexible state-machine where each transition is validated server-side and logged to a full audit trail." data-ar="كل مرحلة عقد لها أدوار مسؤولة ووثائق مطلوبة وانتقالات مسموحة مختلفة. صُمِّم نهج آلة حالة مرن يُتحقق من كل انتقال من جهة الخادم ويُسجَّل في مسار تدقيق كامل.">Each contract stage has different responsible roles, required documents, and allowed transitions — not every user can move a contract to every stage. Designed a flexible state-machine where each transition is validated server-side and logged to a full audit trail.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Powerful finance module without overwhelming complexity" data-ar="وحدة مالية قوية دون تعقيد مُرهِق">Powerful finance module without overwhelming complexity</strong>
+                  <p data-en="The client needed financial visibility — payments in/out, contract fees, pending balances — but explicitly did not want a full chart-of-accounts accounting system. Designed a streamlined transaction-based finance module with easy data entry, clear summaries per contract and branch, without double-entry bookkeeping complexity." data-ar="احتاج العميل لرؤية مالية — مدفوعات ورسوم عقود وأرصدة معلقة — لكنه لم يرد نظام محاسبة قائمة حسابات كاملة. صُمِّمت وحدة مالية مبسطة قائمة على المعاملات مع إدخال بيانات سهل وملخصات واضحة لكل عقد وفرع.">The client needed financial visibility — payments in/out, contract fees, pending balances — but explicitly did not want a full chart-of-accounts accounting system. Designed a streamlined transaction-based finance module with easy data entry, clear summaries per contract and branch, without double-entry bookkeeping complexity.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-novoo.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="→ السابق">← Previous</small>
+                <strong data-en="Novoo ERP Platform" data-ar="منصة Novoo ERP">Novoo ERP Platform</strong>
+              </a>
+              <a href="index.html#contact" class="btn btn-primary" style="background:linear-gradient(135deg,#1a1a2e,#22c55e);" data-en="Build Your System" data-ar="ابنِ نظامك">Build Your System</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right">
+                <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+            </div>
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="System Details" data-ar="تفاصيل النظام">System Details</h4>
+              <div class="meta-row"><span class="meta-label" data-en="Status" data-ar="الحالة">Status</span><span class="status-live">✓ Live</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Type" data-ar="النوع">Type</span><span class="meta-val" data-en="SaaS · Management System" data-ar="SaaS · نظام إدارة">SaaS · Management System</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Branches" data-ar="الفروع">Branches</span><span class="meta-val" data-en="Riyadh · Arar · Hafr Al-Batin" data-ar="الرياض · عرعر · حفر الباطن">Riyadh · Arar · Hafr Al-Batin</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Active Contracts" data-ar="العقود النشطة">Active Contracts</span><span class="meta-val">259</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Contract Stages" data-ar="مراحل العقد">Contract Stages</span><span class="meta-val">13</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Role" data-ar="الدور">Role</span><span class="meta-val" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Market" data-ar="السوق">Market</span><span class="meta-val">🇸🇦 Saudi Arabia</span></div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span><span class="tech-chip">PHP</span><span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Livewire</span><span class="tech-chip">Chart.js</span><span class="tech-chip">Arabic RTL</span>
+                <span class="tech-chip">WhatsApp API</span><span class="tech-chip">Multi-Branch</span>
+                <span class="tech-chip">Role-Based Access</span><span class="tech-chip">State Machine</span>
+              </div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Live Stats" data-ar="إحصائيات مباشرة">Live Stats</h4>
+              <div class="dash-mock">
+                <div class="dash-mock-bar">
+                  <div class="dm-stat dm-blue"><strong>259</strong><span data-en="Total" data-ar="إجمالي">Total</span></div>
+                  <div class="dm-stat dm-green"><strong>64</strong><span data-en="Delivered" data-ar="مُسلَّم">Delivered</span></div>
+                  <div class="dm-stat dm-yellow"><strong>120</strong><span data-en="New" data-ar="جديد">New</span></div>
+                </div>
+                <div class="dash-mock-bar">
+                  <div class="dm-stat dm-teal"><strong>242</strong><span data-en="Coordination" data-ar="تنسيق">Coordination</span></div>
+                  <div class="dm-stat dm-purple"><strong>13</strong><span data-en="Customer Svc" data-ar="خدمة عملاء">Cust. Svc</span></div>
+                  <div class="dm-stat dm-orange"><strong>4</strong><span data-en="Direct" data-ar="مباشر">Direct</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#0f0f1e,#1a1a2e);border:none">
+              <h4 style="color:rgba(255,255,255,.5)" data-en="Need a recruitment management system?" data-ar="تحتاج نظام إدارة استقدام؟">Need a recruitment management system?</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin:0 0 16px" data-en="I build custom contract lifecycle management systems for recruitment companies — multi-branch, WhatsApp integration, finance modules, complaints tracking." data-ar="أبني أنظمة إدارة دورة حياة عقود مخصصة لشركات الاستقدام — متعددة الفروع وتكامل واتساب ووحدات مالية وتتبع الشكاوى.">I build custom contract lifecycle management systems for recruitment companies — multi-branch, WhatsApp integration, finance modules, complaints tracking.</p>
+              <a href="index.html#contact" class="btn-green" style="display:block;text-align:center" data-en="Let's Talk →" data-ar="تحدّث معي →">Let's Talk →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'نظام الامتياز للاستقدام | أحمد نور' : 'Almteyaz Recruitment System | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active'); }); }
+    window.addEventListener('scroll', doReveal); doReveal();
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(26,26,46,0.1)' : '0 2px 30px rgba(26,26,46,0.05)';
+    });
+  </script>
+</body>
+</html>

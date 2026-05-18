@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="96" fill="none"/>
+  <g filter="url(#s)">
+    <path d="M220 90h72c18 0 32 14 32 32v61h66c18 0 32 14 32 32v82c0 18-14 32-32 32h-66v61c0 18-14 32-32 32h-72c-18 0-32-14-32-32v-61h-66c-18 0-32-14-32-32v-82c0-18 14-32 32-32h66v-61c0-18 14-32 32-32z" fill="url(#g)" stroke="#8CB7FF" stroke-width="9"/>
+    <path d="M256 137v238M137 256h238" stroke="#fff" stroke-opacity=".55" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="122" cy="122" r="32" fill="#E0F2FE" stroke="#38BDF8" stroke-width="8"/>
+    <circle cx="390" cy="122" r="32" fill="#EFF6FF" stroke="#2563EB" stroke-width="8"/>
+    <circle cx="122" cy="390" r="32" fill="#EFF6FF" stroke="#2563EB" stroke-width="8"/>
+    <circle cx="390" cy="390" r="32" fill="#E0F2FE" stroke="#38BDF8" stroke-width="8"/>
+    <path d="M145 145l58 58M367 145l-58 58M145 367l58-58M367 367l-58-58" stroke="#2563EB" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <defs><linearGradient id="g" x1="96" y1="96" x2="416" y2="416"><stop stop-color="#7DD3FC"/><stop offset=".55" stop-color="#6366F1"/><stop offset="1" stop-color="#A78BFA"/></linearGradient><filter id="s" x="50" y="50" width="412" height="412" filterUnits="userSpaceOnUse"><feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#6366F1" flood-opacity=".25"/></filter></defs>
+</svg>

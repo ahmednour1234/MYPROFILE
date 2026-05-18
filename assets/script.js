@@ -230,3 +230,26 @@ window.addEventListener('scroll', () => {
     link.style.color = link.getAttribute('href') === '#' + current ? 'var(--blue)' : '';
   });
 });
+
+// ===== PROJECTS FILTER =====
+(function () {
+  const filters = document.getElementById('projFilters');
+  if (!filters) return;
+  filters.addEventListener('click', e => {
+    const btn = e.target.closest('.pf-btn');
+    if (!btn) return;
+    filters.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.proj-compact-card, .proj-hero-card').forEach(card => {
+      const cat = card.dataset.category || '';
+      card.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+    });
+    // re-layout compact grid when hero cards hidden
+    const heroRow = document.querySelector('.proj-hero-row');
+    if (heroRow) {
+      const visibleHero = [...heroRow.querySelectorAll('.proj-hero-card')].some(c => c.style.display !== 'none');
+      heroRow.style.display = visibleHero ? '' : 'none';
+    }
+  });
+})();

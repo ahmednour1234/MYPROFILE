@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Al-Emteyaz Recruitment Website | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--aw-blue:#1b3e7a;--aw-gold:#c9a227;}
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0e2456 0%,#1b3e7a 50%,#0e2456 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 75% 45%,rgba(201,162,39,.14) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(44,90,180,.2) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(201,162,39,.35);margin-bottom:20px;}
+    .brand-check{width:28px;height:28px;border-radius:6px;background:white;display:flex;align-items:center;justify-content:center;color:var(--aw-gold);font-size:14px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:var(--aw-gold);}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 460px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:var(--aw-gold);}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .proj-hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.gold{background:rgba(201,162,39,.18);border-color:rgba(201,162,39,.4);color:#f5e09a;}
+    .proj-hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-gold{padding:11px 24px;border-radius:12px;background:var(--aw-gold);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-gold:hover{background:#d4ae38;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,162,39,.4);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:460px;border-radius:16px 16px 0 0;box-shadow:0 -16px 60px rgba(201,162,39,.2),0 -1px 0 rgba(201,162,39,.4);display:block;}
+    .pages-strip{background:rgba(255,255,255,.05);border-top:1px solid rgba(255,255,255,.08);padding:16px 0;}
+    .pages-strip-inner{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;}
+    .page-pill{padding:5px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.75);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;}
+    .page-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--aw-gold);}
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(5,150,105,.1);color:#059669;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(27,62,122,.08);color:var(--aw-blue);font-size:12px;font-weight:700;}
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    .flow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+    .flow-steps::before{content:'';position:absolute;top:26px;left:14%;right:14%;height:2px;background:linear-gradient(90deg,var(--aw-blue),var(--aw-gold));}
+    .flow-step{text-align:center;padding:0 8px;position:relative;z-index:1;}
+    .flow-num{width:50px;height:50px;border-radius:50%;background:white;border:2.5px solid var(--aw-blue);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:var(--aw-blue);margin:0 auto 12px;box-shadow:0 4px 16px rgba(27,62,122,.18);}
+    .flow-step:last-child .flow-num{border-color:var(--aw-gold);color:var(--aw-gold);}
+    .flow-step strong{display:block;font-size:12.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .flow-step span{font-size:11px;color:var(--muted);line-height:1.5;display:block;}
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:var(--aw-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--aw-blue),var(--aw-gold));}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,var(--aw-blue),#2a5298);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid var(--aw-blue);border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:var(--aw-blue);}
+    .pages-list{display:flex;flex-direction:column;gap:0;}
+    .page-row{font-size:13px;color:var(--muted);padding:7px 0;border-bottom:1px solid var(--line);}
+    .page-row:last-child{border-bottom:none;}
+    @media(max-width:960px){.proj-hero-layout{grid-template-columns:1fr;}.proj-hero-visual{display:none;}.detail-layout{grid-template-columns:1fr;}.detail-sidebar{order:-1;}.features-grid{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}.flow-steps{grid-template-columns:1fr 1fr;}.flow-steps::before{display:none;}}
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span data-en="Al-Emteyaz Website" data-ar="موقع الامتياز">Al-Emteyaz Website</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-check">✔</div>
+          <span><em>شركة الامتياز للاستقدام</em> &nbsp;— ALMTEYAZ RECRUITMENT COMPANY</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat recruitment" data-en="Recruitment · Public Website" data-ar="استقدام · موقع عام">Recruitment · Public Website</span>
+            <h1 data-en="Al-Emteyaz <em>Recruitment</em> Website" data-ar="موقع الامتياز <em>للاستقدام</em>">Al-Emteyaz <em>Recruitment</em> Website</h1>
+            <p data-en="The public-facing bilingual website for Almteyaz Recruitment Company — enabling Saudi employers to browse a live CV library, submit recruitment requests online, and track their application status — without needing to register an account." data-ar="الموقع العام ثنائي اللغة لشركة الامتياز للاستقدام — يُمكِّن أصحاب العمل السعوديين من تصفح مكتبة السير الذاتية الحية وتقديم طلبات الاستقدام إلكترونيًا وتتبع حالة طلبهم — دون الحاجة لتسجيل حساب.">The public-facing bilingual website for Almteyaz Recruitment Company — enabling Saudi employers to browse a live CV library, submit recruitment requests online, and track their application status — without needing to register an account.</p>
+            <div class="proj-hero-badges">
+              <span class="hero-badge">🇸🇦 Saudi Arabia</span>
+              <span class="hero-badge gold">✓ Live Website</span>
+              <span class="hero-badge" data-en="Arabic + English" data-ar="عربي + إنجليزي">Arabic + English</span>
+              <span class="hero-badge" data-en="WhatsApp CTA" data-ar="واتساب CTA">WhatsApp CTA</span>
+              <span class="hero-badge" data-en="No Login Tracking" data-ar="تتبع بدون تسجيل">No Login Tracking</span>
+            </div>
+            <div class="proj-hero-actions">
+              <a href="index.html#contact" class="btn-gold" data-en="Build Similar Website →" data-ar="ابنِ موقعاً مماثلاً →">Build Similar Website →</a>
+              <a href="projects.html" class="btn-ghost-white" data-en="← All Projects" data-ar="→ جميع المشاريع">← All Projects</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/alemteyaz/alemteyaz-website.png" alt="Al-Emteyaz Recruitment Website" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="pages-strip">
+        <div class="container">
+          <div class="pages-strip-inner">
+            <div class="page-pill"><span class="dot"></span><span data-en="Homepage" data-ar="الرئيسية">Homepage</span></div>
+            <div class="page-pill"><span class="dot"></span><span data-en="CV Library" data-ar="مكتبة السير الذاتية">CV Library</span></div>
+            <div class="page-pill"><span class="dot"></span><span data-en="Submit Application" data-ar="تقديم طلب">Submit Application</span></div>
+            <div class="page-pill"><span class="dot"></span><span data-en="Track Your Request" data-ar="تتبع طلبك">Track Your Request</span></div>
+            <div class="page-pill"><span class="dot"></span><span data-en="Services" data-ar="الخدمات">Services</span></div>
+            <div class="page-pill"><span class="dot"></span><span data-en="About Us" data-ar="من نحن">About Us</span></div>
+            <div class="page-pill"><span class="dot"></span><span data-en="WhatsApp CTA" data-ar="تواصل واتساب">WhatsApp CTA</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="This is the public-facing website for Almteyaz Recruitment Company — separate from the internal management system. It serves Saudi employers looking for domestic workers, providing them a clean bilingual experience to browse available candidates, submit their recruitment request, and track it by a unique code — all without creating an account." data-ar="هذا هو الموقع العام لشركة الامتياز للاستقدام — منفصل عن نظام الإدارة الداخلي. يخدم أصحاب العمل السعوديين الباحثين عن عمالة منزلية، ويمنحهم تجربة ثنائية اللغة نظيفة لتصفح المرشحين المتاحين وتقديم طلب استقدامهم وتتبعه برمز فريد — كل ذلك دون إنشاء حساب.">This is the public-facing website for Almteyaz Recruitment Company — separate from the internal management system. It serves Saudi employers looking for domestic workers, providing them a clean bilingual experience to browse available candidates, submit their recruitment request, and track it by a unique code — all without creating an account.</p>
+              <p data-en="The site is built with a mobile-first bilingual approach in blue (#1b3e7a) and gold (#c9a227) brand colors — full Arabic RTL with Tajawal font, English LTR with a single toggle, fixed WhatsApp button throughout, and SEO-optimized for Saudi Arabic search." data-ar="الموقع مبني بنهج ثنائي اللغة وأولوية الجوّال بألوان العلامة التجارية الأزرق (#1b3e7a) والذهبي (#c9a227) — عربي RTL كامل بخط Tajawal وإنجليزي LTR بمفتاح واحد وزر واتساب ثابت في كل مكان وSEO محسَّن للبحث العربي السعودي.">The site is built with a mobile-first bilingual approach in blue (#1b3e7a) and gold (#c9a227) brand colors — full Arabic RTL with Tajawal font, English LTR with a single toggle, fixed WhatsApp button throughout, and SEO-optimized for Saudi Arabic search.</p>
+              <p style="background:rgba(27,62,122,.05);border:1px solid rgba(27,62,122,.15);border-radius:10px;padding:12px 16px;font-size:13px;color:#1b3e7a;font-weight:600;" data-en="🔗 Note: This is the public website. The internal management system (13-stage contract lifecycle, multi-branch, finance, HR) is a separate project — see card 04." data-ar="🔗 ملاحظة: هذا هو الموقع العام. نظام الإدارة الداخلي (13 مرحلة، متعدد الفروع، مالية، موارد بشرية) مشروع منفصل — انظر البطاقة 04.">🔗 Note: This is the public website. The internal management system (13-stage contract lifecycle, multi-branch, finance, HR) is a separate project — see card 04.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Employer Journey" data-ar="رحلة صاحب العمل">Employer Journey</h2>
+              <div class="flow-steps">
+                <div class="flow-step">
+                  <div class="flow-num">1</div>
+                  <strong data-en="Browse CVs" data-ar="تصفح السير">Browse CVs</strong>
+                  <span data-en="Filter by nationality, skill, experience & availability" data-ar="فلترة حسب الجنسية والمهارة والخبرة والتوفر">Filter by nationality, skill & availability</span>
+                </div>
+                <div class="flow-step">
+                  <div class="flow-num">2</div>
+                  <strong data-en="Submit Request" data-ar="تقديم الطلب">Submit Request</strong>
+                  <span data-en="Fill the recruitment request form — no account needed" data-ar="تعبئة نموذج الطلب — بدون حساب">Fill form — no account needed</span>
+                </div>
+                <div class="flow-step">
+                  <div class="flow-num">3</div>
+                  <strong data-en="Get Tracking Code" data-ar="احصل على رمز التتبع">Get Tracking Code</strong>
+                  <span data-en="Unique code sent — use it on the tracking page anytime" data-ar="رمز فريد يُرسَل — استخدمه في صفحة التتبع متى شئت">Unique code to check anytime</span>
+                </div>
+                <div class="flow-step">
+                  <div class="flow-num">✓</div>
+                  <strong data-en="Track & Receive" data-ar="تتبع واستلم">Track & Receive</strong>
+                  <span data-en="Company processes & delivers — WhatsApp confirmation" data-ar="الشركة تعالج وتسلّم — تأكيد واتساب">Company processes — WhatsApp confirm</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Website Features" data-ar="ميزات الموقع">Website Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Fully Bilingual Arabic / English" data-ar="ثنائية اللغة عربي / إنجليزي">Fully Bilingual Arabic / English</strong>
+                    <span data-en="Full RTL Arabic (Tajawal) and LTR English with one-click toggle — layout, fonts, and all text switch instantly." data-ar="عربي RTL كامل (Tajawal) وإنجليزي LTR مع تبديل بنقرة — التخطيط والخطوط وكل النصوص تتحول فورًا.">Full RTL Arabic and LTR English with one-click language toggle.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Live CV Library — أحدث السير الذاتية" data-ar="مكتبة السير الذاتية الحية">Live CV Library</strong>
+                    <span data-en="Filterable candidate cards — nationality, role, experience, availability. Admin can add/update CVs from the management system in real time." data-ar="بطاقات مرشحين قابلة للفلترة — جنسية ودور وخبرة وتوفر. الأدمن يضيف/يحدث من نظام الإدارة آنيًا.">Filterable candidates — managed live from the admin system.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Online Recruitment Request Form" data-ar="نموذج طلب الاستقدام الإلكتروني">Online Recruitment Request Form</strong>
+                    <span data-en="Structured Arabic-first form — employer details, required position, candidate preferences. Feeds directly into the internal management system." data-ar="نموذج عربي منظم — تفاصيل صاحب العمل والمنصب المطلوب وتفضيلات المرشح. يُغذي نظام الإدارة الداخلي مباشرة.">Structured form that feeds directly into the management system.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="No-Login Application Tracking" data-ar="تتبع الطلب بدون تسجيل دخول">No-Login Application Tracking</strong>
+                    <span data-en="Unique alphanumeric tracking code per submission — employers check live status (received / processing / completed) without an account." data-ar="رمز تتبع فريد لكل طلب — يتحقق أصحاب العمل من الحالة الآنية (مستلم / قيد المعالجة / مكتمل) بدون حساب.">Unique tracking code — check status without creating an account.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="WhatsApp Integration" data-ar="تكامل واتساب">WhatsApp Integration</strong>
+                    <span data-en="Floating WhatsApp CTA visible on every page — one tap opens a pre-filled message to the company's WhatsApp Business number." data-ar="زر واتساب عائم مرئي في كل صفحة — نقرة واحدة تفتح رسالة مُملَّأة مسبقًا لرقم الشركة.">Floating CTA on every page — one tap to WhatsApp Business.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Mobile-First Responsive" data-ar="متجاوب مع أولوية للجوّال">Mobile-First Responsive</strong>
+                    <span data-en="Optimized for Saudi mobile users — fast load, thumb-friendly navigation, prominent WhatsApp and application CTAs on all screen sizes." data-ar="مُحسَّن للمستخدمين السعوديين على الجوّال — تحميل سريع وتصفح ملائم للإبهام وأزرار واتساب والطلب بارزة.">Fast, thumb-friendly, prominent CTAs on all screen sizes.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Services & About Pages" data-ar="صفحات الخدمات ومن نحن">Services &amp; About Pages</strong>
+                    <span data-en="Full service catalog page and company about page — bilingual, SEO-optimized, with professional imagery consistent with the blue/gold brand." data-ar="صفحة كتالوج خدمات كاملة وصفحة تعريفية بالشركة — ثنائية اللغة ومحسَّنة للـSEO مع صور احترافية.">Full bilingual service catalog and company profile pages.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Arabic SEO Optimization" data-ar="تحسين محركات البحث بالعربية">Arabic SEO Optimization</strong>
+                    <span data-en="Proper Arabic meta tags, Open Graph, canonical URLs, and sitemap for Google Saudi search ranking — targeting recruitment-related Arabic keywords." data-ar="علامات meta عربية صحيحة وOpen Graph وروابط canonical وخريطة موقع لتصنيف Google السعودي — باستهداف الكلمات المفتاحية العربية المرتبطة بالاستقدام.">Arabic meta, Open Graph, sitemap for Saudi Google rankings.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Project Highlights" data-ar="أبرز المشروع">Project Highlights</h2>
+              <div class="results-grid">
+                <div class="result-card"><strong>AR+EN</strong><span data-en="Fully Bilingual — RTL Arabic + LTR English" data-ar="ثنائي اللغة — عربي RTL + إنجليزي LTR">Fully Bilingual Platform</span></div>
+                <div class="result-card"><strong>0</strong><span data-en="Login Required to Track Applications" data-ar="تسجيل دخول لتتبع الطلبات">Login Req. to Track</span></div>
+                <div class="result-card"><strong>WA</strong><span data-en="WhatsApp Business Integration on Every Page" data-ar="واتساب للأعمال في كل صفحة">WhatsApp on Every Page</span></div>
+                <div class="result-card"><strong>100%</strong><span data-en="Mobile Responsive — Saudi Mobile-First" data-ar="متجاوب — أولوية الجوّال السعودي">Mobile Responsive</span></div>
+                <div class="result-card"><strong>🇸🇦</strong><span data-en="Saudi Recruitment Market" data-ar="سوق الاستقدام السعودي">Saudi Market</span></div>
+                <div class="result-card"><strong>RTL</strong><span data-en="Full Arabic RTL — Tajawal Font" data-ar="عربي RTL كامل — خط Tajawal">Full Arabic RTL</span></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Seamless bilingual switching — RTL/LTR without page reload" data-ar="تبديل لغوي سلس — RTL/LTR بدون إعادة تحميل">Seamless bilingual switching — RTL/LTR without page reload</strong>
+                  <p data-en="Every layout, font, direction, and text must flip between Arabic RTL (Tajawal) and English LTR (Inter) in real time. Implemented via data-ar/data-en attributes with JS DOM traversal, CSS direction switching, and font-family swapping — no flicker, no layout shift." data-ar="كل تخطيط وخط واتجاه ونص يجب أن ينقلب بين عربي RTL (Tajawal) وإنجليزي LTR (Inter) في الوقت الحقيقي. مُنفَّذ عبر خصائص data-ar/data-en مع JS DOM traversal وتبديل اتجاه CSS واستبدال font-family — بدون وميض أو انزياح تخطيط.">Every layout direction, font, and text flips between Arabic RTL and English LTR in real time — via data attributes, JS DOM traversal, CSS direction switching, and font swapping with no flicker.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Application tracking without user accounts" data-ar="تتبع الطلبات بدون حسابات مستخدمين">Application tracking without user accounts</strong>
+                  <p data-en="Employers needed to check their application status without registering. Solved with a unique alphanumeric tracking code generated per submission — employers enter it on the public tracking page to see the live status (fed from the internal management system)." data-ar="احتاج أصحاب العمل لتتبع حالة طلبهم بدون تسجيل. تم الحل برمز تتبع رقمي-حرفي فريد لكل تقديم — يدخله صاحب العمل في صفحة التتبع العامة لرؤية الحالة الآنية (مُغذَّاة من نظام الإدارة الداخلي).">Employers track status without registering — unique alphanumeric code per submission, entered on the public tracking page, fed live from the internal management system.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="CV library connected to the internal management system" data-ar="مكتبة السير مرتبطة بنظام الإدارة الداخلي">CV library connected to the internal management system</strong>
+                  <p data-en="The public CV library displays candidates managed in the internal system — updates made by admin in the dashboard (add CV, change availability) reflect instantly on the public website, keeping both systems in sync without duplicating data." data-ar="مكتبة السير الذاتية العامة تعرض مرشحين يُديرهم النظام الداخلي — التحديثات التي يُجريها الأدمن في اللوحة (إضافة سيرة، تغيير التوفر) تنعكس فورًا على الموقع العام مع إبقاء النظامين متزامنَين بدون تكرار البيانات.">The public CV library is connected to the management system — admin updates (add CV, toggle availability) reflect instantly on the site without duplicating data.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-alemteyaz.html" class="proj-nav-link">
+                <small data-en="← Related" data-ar="→ ذو صلة">← Related</small>
+                <strong data-en="Almteyaz Management System" data-ar="نظام الامتياز للإدارة">Almteyaz Management System</strong>
+              </a>
+              <a href="index.html#contact" class="btn btn-primary" style="background:linear-gradient(135deg,#1b3e7a,#2a5298);" data-en="Build Your Website" data-ar="ابنِ موقعك">Build Your Website</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right">
+                <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+            </div>
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Details" data-ar="تفاصيل المشروع">Project Details</h4>
+              <div class="meta-row"><span class="meta-label" data-en="Status" data-ar="الحالة">Status</span><span class="status-live">✓ Live</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Type" data-ar="النوع">Type</span><span class="meta-val" data-en="Public Website" data-ar="موقع عام">Public Website</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Market" data-ar="السوق">Market</span><span class="meta-val">🇸🇦 Saudi Arabia</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Languages" data-ar="اللغات">Languages</span><span class="meta-val">Arabic + English</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Role" data-ar="الدور">Role</span><span class="meta-val" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Client" data-ar="العميل">Client</span><span class="meta-val" data-en="Almteyaz Recruitment" data-ar="الامتياز للاستقدام">Almteyaz Recruitment</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Related" data-ar="ذو صلة">Related</span><span class="meta-val"><a href="project-alemteyaz.html" style="color:var(--aw-blue)">Management System →</a></span></div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span><span class="tech-chip">PHP</span><span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Blade</span><span class="tech-chip">Arabic RTL</span><span class="tech-chip">Bilingual</span>
+                <span class="tech-chip">WhatsApp API</span><span class="tech-chip">SEO</span><span class="tech-chip">Mobile-First</span>
+              </div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Pages Built" data-ar="الصفحات المبنية">Pages Built</h4>
+              <div class="pages-list">
+                <div class="page-row" data-en="🏠 Homepage + Hero Section" data-ar="🏠 الرئيسية + قسم Hero">🏠 Homepage + Hero Section</div>
+                <div class="page-row" data-en="📋 CV Library — أحدث السير الذاتية" data-ar="📋 مكتبة السير الذاتية">📋 CV Library — أحدث السير الذاتية</div>
+                <div class="page-row" data-en="📝 Recruitment Request Form" data-ar="📝 نموذج طلب الاستقدام">📝 Recruitment Request Form</div>
+                <div class="page-row" data-en="🔍 Application Tracker (no login)" data-ar="🔍 تتبع الطلب (بدون تسجيل)">🔍 Application Tracker (no login)</div>
+                <div class="page-row" data-en="⚙️ Services Page" data-ar="⚙️ صفحة الخدمات">⚙️ Services Page</div>
+                <div class="page-row" data-en="ℹ️ About Us" data-ar="ℹ️ من نحن">ℹ️ About Us</div>
+              </div>
+            </div>
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#0e2456,#1b3e7a);border:none">
+              <h4 style="color:rgba(255,255,255,.5)" data-en="Need a bilingual recruitment website?" data-ar="تحتاج موقع استقدام ثنائي اللغة؟">Need a bilingual recruitment website?</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin:0 0 16px" data-en="I build Arabic-first bilingual websites for recruitment and staffing companies — CV libraries, application forms, tracking systems, WhatsApp integration." data-ar="أبني مواقع عربية-أولًا ثنائية اللغة لشركات الاستقدام والتوظيف — مكتبات سير وبيانات طلبات وأنظمة تتبع وتكامل واتساب.">I build Arabic-first bilingual websites for recruitment companies — CV libraries, application forms, tracking, WhatsApp.</p>
+              <a href="index.html#contact" class="btn-gold" style="display:block;text-align:center" data-en="Let's Talk →" data-ar="تحدّث معي →">Let's Talk →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'موقع الامتياز للاستقدام | أحمد نور' : 'Al-Emteyaz Recruitment Website | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active'); }); }
+    window.addEventListener('scroll', doReveal); doReveal();
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(27,62,122,0.1)' : '0 2px 30px rgba(27,62,122,0.05)';
+    });
+  </script>
+</body>
+</html>

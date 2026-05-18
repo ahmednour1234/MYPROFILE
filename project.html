@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Esnad Real Estate Evaluation System | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl { display:none; }
+    .bg-orb { display:none; }
+
+    /* ── Project Hero ── */
+    .proj-detail-hero {
+      padding: 110px 0 0;
+      background: linear-gradient(160deg, #0d1526 0%, #1a2744 60%, #0f1e3a 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-detail-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(37,99,235,0.18) 0%, transparent 70%);
+    }
+    .hero-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .hero-breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    .hero-breadcrumb a:hover { color: white; }
+
+    .proj-hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: end;
+      position: relative;
+    }
+    .proj-hero-info { padding-bottom: 48px; }
+    .proj-hero-info .pcat { font-size: 12px; margin-bottom: 16px; display: inline-block; }
+    .proj-hero-info h1 {
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      color: white;
+      margin: 0 0 16px;
+      line-height: 1.15;
+    }
+    .proj-hero-info > p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      max-width: 520px;
+      margin: 0 0 28px;
+    }
+    .proj-hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .hero-badge {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+      font-size: 12.5px;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+    .proj-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-white {
+      padding: 11px 24px;
+      border-radius: 12px;
+      background: white;
+      color: var(--navy);
+      font-size: 13.5px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.22s;
+      display: inline-block;
+    }
+    .btn-white:hover { background: #eef3ff; transform: translateY(-2px); }
+    .btn-ghost-white {
+      padding: 11px 24px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: white;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.22s;
+      display: inline-block;
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
+    /* Mock image panel */
+    .proj-hero-visual {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .proj-hero-visual img {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -20px 80px rgba(37,99,235,0.25);
+      display: block;
+    }
+
+    /* ── Detail Body ── */
+    .proj-detail-body { padding: 64px 0 80px; }
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Sidebar */
+    .detail-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .sidebar-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13.5px;
+    }
+    .meta-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .meta-row .meta-label { color: var(--muted); font-weight: 600; }
+    .meta-row .meta-val { font-weight: 700; color: var(--navy); }
+    .status-live {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(5,150,105,0.1);
+      color: #059669;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Tech stack in sidebar */
+    .tech-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech-chip {
+      padding: 5px 11px;
+      border-radius: 8px;
+      background: rgba(37,99,235,0.07);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Main content area */
+    .detail-main { display: flex; flex-direction: column; gap: 40px; }
+    .detail-section h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.4px;
+      margin: 0 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .detail-section h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    .detail-section p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.85;
+      margin: 0 0 12px;
+    }
+
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .feat-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--grad);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .feature-item strong { display: block; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .feature-item span { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+    /* Results metrics */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .result-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .result-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--grad);
+    }
+    .result-card strong {
+      display: block;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .result-card span { font-size: 12.5px; color: var(--muted); font-weight: 600; line-height: 1.4; display: block; }
+
+    /* Challenges */
+    .challenge-list { display: flex; flex-direction: column; gap: 14px; }
+    .challenge-item {
+      padding: 18px 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      box-shadow: var(--shadow);
+    }
+    .challenge-item strong { display: block; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+    .challenge-item p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* Nav footer */
+    .proj-nav-footer {
+      margin-top: 16px;
+      padding-top: 40px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .proj-nav-link {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .proj-nav-link small { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .proj-nav-link strong { font-size: 15px; font-weight: 800; color: var(--navy); transition: color 0.2s; }
+    .proj-nav-link:hover strong { color: var(--blue); }
+    .proj-nav-center { display: flex; gap: 12px; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .proj-hero-layout { grid-template-columns: 1fr; }
+      .proj-hero-visual { display: none; }
+      .detail-layout { grid-template-columns: 1fr; }
+      .detail-sidebar { order: -1; }
+      .features-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .results-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" />
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language">
+          <span class="lang-icon">🌐</span>
+          <span id="langLabel">العربية</span>
+        </button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Dark Hero ── -->
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a>
+          <span>›</span>
+          <span data-en="Esnad Real Estate System" data-ar="نظام إسناد العقاري">Esnad Real Estate System</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat realestate" data-en="Real Estate Tech" data-ar="تقنية عقارية">Real Estate Tech</span>
+            <h1 data-en="Esnad Real Estate Evaluation System" data-ar="نظام إسناد للتقييم العقاري">Esnad Real Estate Evaluation System</h1>
+            <p data-en="Full-featured real estate appraisal platform operating across Saudi Arabia — managing banks, clients, evaluators, appraisal transactions, form workflows, multi-role access control, and automated reporting for all stages of the evaluation process." data-ar="منصة تقييم عقاري متكاملة تعمل عبر المملكة العربية السعودية — تُدير البنوك والعملاء والمقيّمين ومعاملات التقييم وسير نماذج العمل والتحكم في الوصول متعدد الأدوار والتقارير الآلية لجميع مراحل عملية التقييم.">Full-featured real estate appraisal platform operating across Saudi Arabia — managing banks, clients, evaluators, appraisal transactions, form workflows, multi-role access control, and automated reporting for all stages of the evaluation process.</p>
+            <div class="proj-hero-badges">
+              <span class="hero-badge">🇸🇦 Saudi Arabia</span>
+              <span class="hero-badge" data-en="✓ Live in Production" data-ar="✓ منتج ومُشغَّل">✓ Live in Production</span>
+              <span class="hero-badge" data-en="2024 – 2025" data-ar="٢٠٢٤ – ٢٠٢٥">2024 – 2025</span>
+              <span class="hero-badge" data-en="Full-Stack Developer & Support" data-ar="مطوّر ودعم متكامل">Full-Stack Developer & Support</span>
+            </div>
+            <div class="proj-hero-actions">
+              <a href="index.html#contact" class="btn-white" data-en="Build Similar System" data-ar="ابنِ نظاماً مشابهاً">Build Similar System</a>
+              <a href="projects.html" class="btn-ghost-white" data-en="← All Projects" data-ar="→ جميع المشاريع">← All Projects</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/esnad/esnad-dashboard.png" alt="Esnad Real Estate Evaluation Dashboard" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Detail Body ── -->
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+
+          <!-- Main Content -->
+          <div class="detail-main reveal">
+
+            <!-- Overview -->
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة على المشروع">Project Overview</h2>
+              <p data-en="Esnad is a government-grade real estate appraisal management system used across Saudi Arabia by major banks (SNB, SABB, BSF, ANB, Alinma Bank and 15+ others) to manage the full lifecycle of property valuation requests — from client submission through evaluator assignment, field inspection, report generation, and final delivery." data-ar="إسناد هو نظام إدارة تقييم عقاري على مستوى حكومي يُستخدم عبر المملكة العربية السعودية من قِبَل كبرى البنوك (SNB وSABB وBSF وANB ومصرف الإنماء و١٥+ أخرى) لإدارة دورة حياة كاملة لطلبات تقييم العقارات — من تقديم العميل حتى إسناد المقيّم والمعاينة الميدانية وإنتاج التقارير والتسليم النهائي.">Esnad is a government-grade real estate appraisal management system used across Saudi Arabia by major banks (SNB, SABB, BSF, ANB, Alinma Bank and 15+ others) to manage the full lifecycle of property valuation requests — from client submission through evaluator assignment, field inspection, report generation, and final delivery.</p>
+              <p data-en="I worked as a developer and technical support engineer on the Esnad platform — building custom interfaces, new workflow modules, dashboard enhancements, and data forms, while maintaining uptime and resolving production issues across live bank integrations." data-ar="عملت كمطوّر ومهندس دعم فني على منصة إسناد — ببناء واجهات مخصصة، وحدات سير عمل جديدة، تحسينات لوحة التحكم، ونماذج البيانات، مع الحفاظ على التشغيل وحل مشكلات الإنتاج عبر تكاملات البنوك الحية.">I worked as a developer and technical support engineer on the Esnad platform — building custom interfaces, new workflow modules, dashboard enhancements, and data forms, while maintaining uptime and resolving production issues across live bank integrations.</p>
+            </div>
+
+            <!-- Key Features -->
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Bank & Client Management" data-ar="إدارة البنوك والعملاء">Bank & Client Management</strong>
+                    <span data-en="Complete profiles for 15+ major Saudi banks and their clients, with transaction history, status tracking, and priority queuing." data-ar="ملفات كاملة لأكثر من ١٥ بنكًا سعوديًا كبيرًا وعملائهم، مع تاريخ المعاملات وتتبع الحالة وقوائم الأولويات.">Complete profiles for 15+ major Saudi banks and their clients, with transaction history, status tracking, and priority queuing.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Appraisal Transaction Lifecycle" data-ar="دورة حياة معاملة التقييم">Appraisal Transaction Lifecycle</strong>
+                    <span data-en="End-to-end transaction management: new request → evaluator assignment → field visit → report drafting → review → client delivery." data-ar="إدارة المعاملات من البداية للنهاية: طلب جديد → إسناد المقيّم → زيارة ميدانية → صياغة التقرير → مراجعة → تسليم للعميل.">End-to-end transaction management: new request → evaluator assignment → field visit → report drafting → review → client delivery.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Multi-Role Access System" data-ar="نظام الوصول متعدد الأدوار">Multi-Role Access System</strong>
+                    <span data-en="Separate portals and dashboards for Admins, Evaluators, Bank Staff, and Clients — each with scoped permissions and workflows." data-ar="بوابات ولوحات تحكم منفصلة للمسؤولين والمقيّمين وموظفي البنوك والعملاء — كل منها بصلاحيات وسير عمل محددة.">Separate portals and dashboards for Admins, Evaluators, Bank Staff, and Clients — each with scoped permissions and workflows.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Dynamic Appraisal Forms" data-ar="نماذج التقييم الديناميكية">Dynamic Appraisal Forms</strong>
+                    <span data-en="Configurable property assessment forms for residential, commercial, and industrial types with field validation and photo uploads." data-ar="نماذج تقييم عقاري قابلة للتهيئة للأنواع السكنية والتجارية والصناعية مع التحقق الميداني ورفع الصور.">Configurable property assessment forms for residential, commercial, and industrial types with field validation and photo uploads.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Performance & SLA Tracking" data-ar="تتبع الأداء ومستوى الخدمة">Performance & SLA Tracking</strong>
+                    <span data-en="Weekly completion rate dashboards per evaluator with SLA breach alerts, overdue flags, and productivity analytics." data-ar="لوحات معدل الإنجاز الأسبوعي لكل مقيّم مع تنبيهات تجاوز مستوى الخدمة والتأخيرات وتحليلات الإنتاجية.">Weekly completion rate dashboards per evaluator with SLA breach alerts, overdue flags, and productivity analytics.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Automated Reports & PDF Export" data-ar="تقارير آلية وتصدير PDF">Automated Reports & PDF Export</strong>
+                    <span data-en="Auto-generated appraisal reports in standardized PDF format, branded per bank, with QR verification codes." data-ar="تقارير تقييم مُولَّدة تلقائيًا بصيغة PDF موحدة، مُوسَّمة لكل بنك، مع رموز QR للتحقق.">Auto-generated appraisal reports in standardized PDF format, branded per bank, with QR verification codes.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Custom Interface Development" data-ar="تطوير واجهات مخصصة">Custom Interface Development</strong>
+                    <span data-en="Built new modules and UI enhancements using HTML, CSS, Laravel (Blade templates), with full RTL Arabic support." data-ar="بناء وحدات جديدة وتحسينات واجهة المستخدم باستخدام HTML وCSS وLaravel (قوالب Blade)، مع دعم كامل للعربية RTL.">Built new modules and UI enhancements using HTML, CSS, Laravel (Blade templates), with full RTL Arabic support.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-dot"></div>
+                  <div>
+                    <strong data-en="Live Production Support" data-ar="دعم الإنتاج المباشر">Live Production Support</strong>
+                    <span data-en="Technical support for live bank integrations — bug fixes, data corrections, deployment patches, and 24/7 issue resolution." data-ar="دعم فني لتكاملات البنوك الحية — إصلاح الأخطاء وتصحيح البيانات ونشر التحديثات وحل المشكلات على مدار الساعة.">Technical support for live bank integrations — bug fixes, data corrections, deployment patches, and 24/7 issue resolution.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Results -->
+            <div class="detail-section">
+              <h2 data-en="Results & Impact" data-ar="النتائج والأثر">Results & Impact</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>15+</strong>
+                  <span data-en="Major Saudi Banks Integrated" data-ar="بنك سعودي كبير مُدمَج">Major Saudi Banks Integrated</span>
+                </div>
+                <div class="result-card">
+                  <strong>1,000+</strong>
+                  <span data-en="Monthly Appraisal Transactions" data-ar="معاملة تقييم شهرية">Monthly Appraisal Transactions</span>
+                </div>
+                <div class="result-card">
+                  <strong>4</strong>
+                  <span data-en="User Roles — Admin, Evaluator, Bank, Client" data-ar="أدوار — مسؤول، مقيّم، بنك، عميل">User Roles Supported</span>
+                </div>
+                <div class="result-card">
+                  <strong>100%</strong>
+                  <span data-en="RTL Arabic Interface" data-ar="واجهة عربية RTL">RTL Arabic Interface</span>
+                </div>
+                <div class="result-card">
+                  <strong>Docker</strong>
+                  <span data-en="Containerized Deployment" data-ar="نشر مُحاوَي">Containerized Deployment</span>
+                </div>
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="Active in Production — Saudi Arabia" data-ar="نشط في الإنتاج — المملكة العربية السعودية">Active in Production — Saudi Arabia</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Challenges -->
+            <div class="detail-section">
+              <h2 data-en="Challenges & Solutions" data-ar="التحديات والحلول">Challenges & Solutions</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Complex multi-bank workflow customization" data-ar="تخصيص سير العمل متعدد البنوك">Complex multi-bank workflow customization</strong>
+                  <p data-en="Each bank had slightly different appraisal rules and form requirements. Solved by building a flexible workflow engine with configurable rules per bank, without duplicating core logic." data-ar="لكل بنك قواعد تقييم ومتطلبات نماذج مختلفة قليلًا. تم الحل ببناء محرك سير عمل مرن بقواعد قابلة للتهيئة لكل بنك، دون تكرار المنطق الأساسي.">Each bank had slightly different appraisal rules and form requirements. Solved by building a flexible workflow engine with configurable rules per bank, without duplicating core logic.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Real-time production support with zero downtime" data-ar="دعم إنتاج فوري بدون توقف">Real-time production support with zero downtime</strong>
+                  <p data-en="With 15+ banks active simultaneously, any issue needed sub-hour resolution. Established rapid hotfix deployment pipeline using Docker and environment-specific rollback strategies." data-ar="مع ١٥+ بنك نشطًا في وقت واحد، احتاجت أي مشكلة إلى حل في أقل من ساعة. أنشأت خط نشر تصحيحات سريع باستخدام Docker واستراتيجيات التراجع الخاصة بكل بيئة.">With 15+ banks active simultaneously, any issue needed sub-hour resolution. Established rapid hotfix deployment pipeline using Docker and environment-specific rollback strategies.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Full RTL Arabic UI with consistent UX across all roles" data-ar="واجهة عربية RTL كاملة مع تجربة مستخدم متسقة">Full RTL Arabic UI with consistent UX</strong>
+                  <p data-en="Maintaining pixel-perfect RTL layouts for admin, evaluator, and bank portals while adding new features required systematic CSS overrides and component-level testing across browsers." data-ar="الحفاظ على تخطيطات RTL مثالية لبوابات المسؤول والمقيّم والبنك أثناء إضافة ميزات جديدة تطلّب تجاوزات CSS منهجية واختبار على مستوى المكونات عبر المتصفحات.">Maintaining pixel-perfect RTL layouts for admin, evaluator, and bank portals while adding new features required systematic CSS overrides and component-level testing across browsers.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="proj-nav-footer">
+              <a href="projects.html" class="proj-nav-link">
+                <small data-en="← Back" data-ar="→ رجوع">← Back</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+              <div class="proj-nav-center">
+                <a href="index.html#contact" class="btn btn-primary" data-en="Start Similar Project" data-ar="ابدأ مشروعاً مشابهاً">Start Similar Project</a>
+              </div>
+              <a href="project-qimta.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="Next →" data-ar="التالي ←">Next →</small>
+                <strong data-en="Qimta AI Pricing Engine" data-ar="محرك تسعير Qimta الذكي">Qimta AI Pricing Engine</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Sidebar -->
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Details" data-ar="تفاصيل المشروع">Project Details</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="✓ Live" data-ar="✓ منتج">✓ Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Category" data-ar="الفئة">Category</span>
+                <span class="meta-val" data-en="Real Estate Tech" data-ar="تقنية عقارية">Real Estate Tech</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇸🇦 Saudi Arabia</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Timeline" data-ar="المدة">Timeline</span>
+                <span class="meta-val" data-en="2024 – 2025" data-ar="٢٠٢٤ – ٢٠٢٥">2024 – 2025</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Role" data-ar="الدور">Role</span>
+                <span class="meta-val" data-en="Developer & Tech Support" data-ar="مطوّر ودعم فني">Developer & Tech Support</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Esnad — KSA</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Docker</span>
+                <span class="tech-chip">HTML / CSS</span>
+                <span class="tech-chip">Blade</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RTL / Arabic</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Modules Built" data-ar="الوحدات المبنية">Modules Built</h4>
+              <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="🏦 Bank & Client Portal" data-ar="🏦 بوابة البنوك والعملاء">🏦 Bank & Client Portal</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="📋 Appraisal Transaction Workflow" data-ar="📋 سير معاملة التقييم">📋 Appraisal Transaction Workflow</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="👤 Evaluator Management" data-ar="👤 إدارة المقيّمين">👤 Evaluator Management</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="📝 Dynamic Appraisal Forms" data-ar="📝 نماذج التقييم الديناميكية">📝 Dynamic Appraisal Forms</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="📊 SLA & Performance Dashboard" data-ar="📊 لوحة الأداء ومستوى الخدمة">📊 SLA & Performance Dashboard</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0; border-bottom:1px solid var(--line);" data-en="📄 PDF Report Generator" data-ar="📄 مولّد التقارير PDF">📄 PDF Report Generator</div>
+                <div style="font-size:13px; color:var(--muted); padding:6px 0;" data-en="🔐 Role-Based Access Control" data-ar="🔐 التحكم في الوصول بالأدوار">🔐 Role-Based Access Control</div>
+              </div>
+            </div>
+
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#f0f5ff,#e8eeff); border-color:rgba(37,99,235,0.15);">
+              <h4 data-en="Need a similar system?" data-ar="تحتاج نظاماً مشابهاً؟">Need a similar system?</h4>
+              <p style="font-size:13px; color:var(--muted); line-height:1.7; margin:0 0 16px;" data-en="Need a real estate evaluation system, a multi-bank platform, or a custom workflow management tool? Let's build it." data-ar="هل تحتاج نظام تقييم عقاري، أو منصة متعددة البنوك، أو أداة إدارة سير عمل مخصصة؟ لنبنيه معًا.">Need a real estate evaluation system, a multi-bank platform, or a custom workflow management tool? Let's build it.</p>
+              <a href="index.html#contact" class="btn btn-primary" style="width:100%; text-align:center; display:block;" data-en="Get in Touch" data-ar="تواصل معي">Get in Touch</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== LANGUAGE SWITCHER =====
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'نظام إسناد للتقييم العقاري | أحمد نور' : 'Esnad Real Estate Evaluation System | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // ===== SCROLL REVEAL =====
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() {
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', doReveal);
+    doReveal();
+
+    // ===== HEADER SCROLL =====
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.96)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(37,99,235,0.1)' : '0 2px 30px rgba(37,99,235,0.05)';
+    });
+  </script>
+</body>
+</html>

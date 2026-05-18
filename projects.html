@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Projects | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    /* ── Page-level overrides ── */
+    canvas#webgl { display:none; }
+    .bg-orb { display:none; }
+
+    .page-hero {
+      padding: 120px 0 60px;
+      background: linear-gradient(135deg, #f0f5ff 0%, #eef0ff 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .page-hero .breadcrumb {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .page-hero .breadcrumb a { color: var(--blue); text-decoration: none; font-weight: 600; }
+    .page-hero .breadcrumb a:hover { text-decoration: underline; }
+    .page-hero h1 {
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      color: var(--navy);
+      margin: 0 0 12px;
+    }
+    .page-hero h1 span { background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .page-hero p { font-size: 15px; color: var(--muted); max-width: 560px; line-height: 1.75; }
+
+    .catalog-wrap { padding: 56px 0 80px; }
+
+    /* Stats bar */
+    .proj-stats-bar {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+      padding: 20px 28px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .pstat { display: flex; flex-direction: column; gap: 2px; }
+    .pstat strong { font-size: 22px; font-weight: 900; color: var(--navy); letter-spacing: -0.5px; }
+    .pstat span { font-size: 12px; color: var(--muted); font-weight: 600; }
+
+    /* Category sections */
+    .cat-section { margin-bottom: 52px; }
+    .cat-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .cat-heading h2 { font-size: 17px; font-weight: 800; color: var(--navy); margin: 0; }
+    .cat-count {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      background: rgba(0,0,0,0.04);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* Project catalog card */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      counter-reset: cat-proj-num;
+    }
+    .cat-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: all 0.35s;
+      position: relative;
+      padding: 0;
+      counter-increment: cat-proj-num;
+    }
+    .cat-card:hover { transform: translateY(-7px); box-shadow: var(--shadow-lg); border-color: rgba(37,99,235,0.22); }
+
+    .cat-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 20px 12px;
+    }
+    /* number badge */
+    .cat-card-top::before {
+      content: "0" counter(cat-proj-num);
+      width: 34px; min-width: 34px; height: 34px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      font-size: 12px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cat-card-icon { display: none; }
+
+    /* screen area: colored gradient strip using top-border accent */
+    .cat-card-screen {
+      margin: 0 20px 12px;
+      height: 140px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f0f5ff 0%, #e8eeff 100%);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--line);
+    }
+    .cat-card-screen img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 16px;
+    }
+
+    .cat-card h3 { font-size: 15px; font-weight: 800; color: var(--navy); margin: 0 0 5px; letter-spacing: -0.2px; padding: 0 20px; }
+    .cat-card p { color: var(--muted); font-size: 12.5px; line-height: 1.7; margin: 0 0 10px; flex: 1; padding: 0 20px; }
+    .cat-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: auto;
+      padding: 12px 20px;
+      border-top: 1px solid var(--line);
+    }
+    .cat-country { font-size: 12px; color: var(--muted); font-weight: 600; }
+    .cat-view-link {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+      transition: gap 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .cat-view-link:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .proj-stats-bar { gap: 20px; }
+      .cat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" />
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="index.html#projects" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language">
+          <span class="lang-icon">🌐</span>
+          <span id="langLabel">العربية</span>
+        </button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Hero -->
+    <div class="page-hero">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+          <span>›</span>
+          <span data-en="All Projects" data-ar="جميع المشاريع">All Projects</span>
+        </div>
+        <h1 data-en="<span>40+</span> Delivered Projects" data-ar="<span>+٤٠</span> مشروع مُسلَّم"><span>40+</span> Delivered Projects</h1>
+        <p data-en="Enterprise ERP systems, payment gateways, healthcare platforms, event management, CRM tools, and automation workflows — all built for real businesses across 9 countries." data-ar="أنظمة ERP مؤسسية، بوابات دفع، منصات صحية، إدارة الفعاليات، أدوات CRM، وسير عمل آلية — كلها مبنية لأعمال حقيقية في ٩ دول.">Enterprise ERP systems, payment gateways, healthcare platforms, event management, CRM tools, and automation workflows — all built for real businesses across 9 countries.</p>
+      </div>
+    </div>
+
+    <div class="catalog-wrap">
+      <div class="container">
+
+        <!-- Stats Bar -->
+        <div class="proj-stats-bar reveal">
+          <div class="pstat">
+            <strong data-en="40+" data-ar="+٤٠">40+</strong>
+            <span data-en="Projects Delivered" data-ar="مشروع مسلّم">Projects Delivered</span>
+          </div>
+          <div class="pstat">
+            <strong data-en="9" data-ar="٩">9</strong>
+            <span data-en="Countries" data-ar="دول">Countries</span>
+          </div>
+          <div class="pstat">
+            <strong data-en="7" data-ar="٧">7</strong>
+            <span data-en="Categories" data-ar="فئات">Categories</span>
+          </div>
+          <div class="pstat">
+            <strong data-en="300+/mo" data-ar="+٣٠٠/شهر">300+/mo</strong>
+            <span data-en="Automated Tasks" data-ar="مهمة مؤتمتة">Automated Tasks</span>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="proj-filters reveal" id="projFiltersFull">
+          <button class="pf-btn active" data-filter="all" data-en="All" data-ar="الكل">All</button>
+          <button class="pf-btn" data-filter="erp" data-en="ERP" data-ar="ERP">ERP</button>
+          <button class="pf-btn" data-filter="payments" data-en="Payments" data-ar="مدفوعات">Payments</button>
+          <button class="pf-btn" data-filter="healthcare" data-en="Healthcare" data-ar="صحة">Healthcare</button>
+          <button class="pf-btn" data-filter="events" data-en="Events" data-ar="فعاليات">Events</button>
+          <button class="pf-btn" data-filter="crm" data-en="CRM" data-ar="CRM">CRM</button>
+          <button class="pf-btn" data-filter="automation" data-en="Automation" data-ar="أتمتة">Automation</button>
+        </div>
+
+        <!-- ── ERP ── -->
+        <div class="cat-section reveal" data-cat-section="erp">
+          <div class="cat-heading">
+            <span class="pcat erp" data-en="ERP" data-ar="ERP">ERP</span>
+            <h2 data-en="Enterprise Resource Planning" data-ar="تخطيط موارد المؤسسات">Enterprise Resource Planning</h2>
+            <span class="cat-count" data-en="12 Projects" data-ar="١٢ مشروع">12 Projects</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="erp">
+              <div class="cat-card-top">
+                <div class="cat-card-icon erp-bg"><img src="assets/capability-icons-svg/erp-system.svg" alt=""></div>
+                <span class="pcat erp">ERP</span>
+              </div>
+              <h3 data-en="Novoo ERP Platform" data-ar="منصة Novoo ERP">Novoo ERP Platform</h3>
+              <p data-en="Inventory, multi-branch accounting, invoicing, HR, role-based permissions, and executive dashboards." data-ar="المخزون، المحاسبة متعددة الفروع، الفوترة، الموارد البشرية، الصلاحيات، ولوحات التحكم التنفيذية.">Inventory, multi-branch accounting, invoicing, HR, role-based permissions, and executive dashboards.</p>
+              <div class="tags"><span>Laravel</span><span>MySQL</span><span>Vue.js</span><span>Redis</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="erp">
+              <div class="cat-card-top">
+                <div class="cat-card-icon erp-bg"><img src="assets/capability-icons-svg/sap-api.svg" alt=""></div>
+                <span class="pcat erp">ERP</span>
+              </div>
+              <h3 data-en="SAP ERP Integration System" data-ar="نظام تكامل SAP ERP">SAP ERP Integration System</h3>
+              <p data-en="Custom connectors, data pipelines, and real-time synchronization between SAP and web platforms." data-ar="موصلات مخصصة وخطوط بيانات ومزامنة فورية بين SAP والمنصات الإلكترونية.">Custom connectors, data pipelines, and real-time synchronization between SAP and web platforms.</p>
+              <div class="tags"><span>SAP</span><span>.NET</span><span>REST API</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="erp">
+              <div class="cat-card-top">
+                <div class="cat-card-icon erp-bg"><img src="assets/capability-icons-svg/erp-system.svg" alt=""></div>
+                <span class="pcat erp">ERP</span>
+              </div>
+              <h3 data-en="Retail Chain ERP" data-ar="ERP سلاسل التجزئة">Retail Chain ERP</h3>
+              <p data-en="POS integration, warehouse, stock replenishment, supplier management, and financial reporting for retail chains." data-ar="تكامل نقطة البيع، المستودع، إعادة التخزين، إدارة الموردين، والتقارير المالية لسلاسل التجزئة.">POS integration, warehouse, stock replenishment, supplier management, and financial reporting for retail chains.</p>
+              <div class="tags"><span>Laravel</span><span>MySQL</span><span>Docker</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇦🇪 UAE</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="erp">
+              <div class="cat-card-top">
+                <div class="cat-card-icon erp-bg"><img src="assets/capability-icons-svg/executive-dashboard.svg" alt=""></div>
+                <span class="pcat erp">ERP</span>
+              </div>
+              <h3 data-en="Manufacturing Operations ERP" data-ar="ERP العمليات التصنيعية">Manufacturing Operations ERP</h3>
+              <p data-en="Production planning, BOM management, quality control, costing, and delivery tracking for factories." data-ar="تخطيط الإنتاج، إدارة قائمة المواد، مراقبة الجودة، التكلفة، وتتبع التسليم للمصانع.">Production planning, BOM management, quality control, costing, and delivery tracking for factories.</p>
+              <div class="tags"><span>PHP 8</span><span>PostgreSQL</span><span>Redis</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="erp">
+              <div class="cat-card-top">
+                <div class="cat-card-icon erp-bg"><img src="assets/capability-icons-svg/erp-system.svg" alt=""></div>
+                <span class="pcat erp">ERP</span>
+              </div>
+              <h3 data-en="School Management System" data-ar="نظام إدارة المدارس">School Management System</h3>
+              <p data-en="Student enrollment, grades, attendance, fee collection, timetables, parent portal, and staff management." data-ar="تسجيل الطلاب، الدرجات، الحضور، تحصيل الرسوم، جداول الدراسة، بوابة الأهل، وإدارة الموظفين.">Student enrollment, grades, attendance, fee collection, timetables, parent portal, and staff management.</p>
+              <div class="tags"><span>Laravel</span><span>MySQL</span><span>Vue.js</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇱🇧 Lebanon</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="erp">
+              <div class="cat-card-top">
+                <div class="cat-card-icon erp-bg"><img src="assets/capability-icons-svg/executive-dashboard.svg" alt=""></div>
+                <span class="pcat erp">ERP</span>
+              </div>
+              <h3 data-en="Property Management ERP" data-ar="ERP إدارة العقارات">Property Management ERP</h3>
+              <p data-en="Unit management, lease contracts, maintenance requests, rent collection, and owner/tenant portals." data-ar="إدارة الوحدات، عقود الإيجار، طلبات الصيانة، تحصيل الإيجار، وبوابات المالك والمستأجر.">Unit management, lease contracts, maintenance requests, rent collection, and owner/tenant portals.</p>
+              <div class="tags"><span>Laravel</span><span>PostgreSQL</span><span>API</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇦🇪 UAE</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ── Payments ── -->
+        <div class="cat-section reveal" data-cat-section="payments">
+          <div class="cat-heading">
+            <span class="pcat payments" data-en="Payments" data-ar="مدفوعات">Payments</span>
+            <h2 data-en="Payment Systems & Gateways" data-ar="أنظمة وبوابات الدفع">Payment Systems & Gateways</h2>
+            <span class="cat-count" data-en="6 Projects" data-ar="٦ مشاريع">6 Projects</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="payments">
+              <div class="cat-card-top">
+                <div class="cat-card-icon pay-bg"><img src="assets/capability-icons-svg/payment-integration.svg" alt=""></div>
+                <span class="pcat payments">Payments</span>
+              </div>
+              <h3 data-en="Multi-Gateway Payment Infrastructure" data-ar="بنية الدفع متعددة البوابات">Multi-Gateway Payment Infrastructure</h3>
+              <p data-en="Stripe, URWAY, and Moyasar integrations with reconciliation pipelines, webhooks, and automated refunds." data-ar="تكامل Stripe وURWAY وMoyasar مع خطوط التسوية والـ Webhooks والمبالغ المستردة.">Stripe, URWAY, and Moyasar integrations with reconciliation pipelines, webhooks, and automated refunds.</p>
+              <div class="tags"><span>Stripe</span><span>URWAY</span><span>Webhooks</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🌍 Multi-country</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="payments">
+              <div class="cat-card-top">
+                <div class="cat-card-icon pay-bg"><img src="assets/capability-icons-svg/payment-integration.svg" alt=""></div>
+                <span class="pcat payments">Payments</span>
+              </div>
+              <h3 data-en="Subscription Billing Platform" data-ar="منصة الفوترة بالاشتراك">Subscription Billing Platform</h3>
+              <p data-en="Recurring billing, trial periods, plan upgrades, dunning management, and revenue dashboards." data-ar="الفوترة الدورية، فترات التجربة، ترقية الخطط، إدارة التحصيل، ولوحات الإيرادات.">Recurring billing, trial periods, plan upgrades, dunning management, and revenue dashboards.</p>
+              <div class="tags"><span>Stripe</span><span>Laravel</span><span>Queues</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇦🇪 UAE</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="payments">
+              <div class="cat-card-top">
+                <div class="cat-card-icon pay-bg"><img src="assets/capability-icons-svg/payment-integration.svg" alt=""></div>
+                <span class="pcat payments">Payments</span>
+              </div>
+              <h3 data-en="Financial Reconciliation System" data-ar="نظام التسوية المالية">Financial Reconciliation System</h3>
+              <p data-en="Automated matching of bank statements with transactions, exception handling, and audit trails." data-ar="المطابقة التلقائية لكشوف الحساب مع المعاملات ومعالجة الاستثناءات ومسارات التدقيق.">Automated matching of bank statements with transactions, exception handling, and audit trails.</p>
+              <div class="tags"><span>Python</span><span>MySQL</span><span>Celery</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ── Healthcare ── -->
+        <div class="cat-section reveal" data-cat-section="healthcare">
+          <div class="cat-heading">
+            <span class="pcat healthcare" data-en="Healthcare" data-ar="صحة">Healthcare</span>
+            <h2 data-en="Healthcare & Medical Systems" data-ar="الأنظمة الصحية والطبية">Healthcare & Medical Systems</h2>
+            <span class="cat-count" data-en="5 Projects" data-ar="٥ مشاريع">5 Projects</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="healthcare">
+              <div class="cat-card-top">
+                <div class="cat-card-icon health-bg"><img src="assets/projects/healthcare.svg" alt=""></div>
+                <span class="pcat healthcare">Healthcare</span>
+              </div>
+              <h3 data-en="Healthcare ERP System" data-ar="نظام ERP الصحي">Healthcare ERP System</h3>
+              <p data-en="Patient records, billing, appointment scheduling, pharmacy, lab results, and clinic operations." data-ar="سجلات المرضى، الفواتير، جدولة المواعيد، الصيدلية، نتائج المختبرات، وعمليات العيادة.">Patient records, billing, appointment scheduling, pharmacy, lab results, and clinic operations.</p>
+              <div class="tags"><span>PHP 8</span><span>PostgreSQL</span><span>Docker</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇪🇬 Egypt</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="healthcare">
+              <div class="cat-card-top">
+                <div class="cat-card-icon health-bg"><img src="assets/projects/healthcare.svg" alt=""></div>
+                <span class="pcat healthcare">Healthcare</span>
+              </div>
+              <h3 data-en="Clinic Booking & Telemedicine" data-ar="حجز العيادات والطب عن بُعد">Clinic Booking & Telemedicine</h3>
+              <p data-en="Online appointment booking, video consultations, e-prescriptions, and patient health records portal." data-ar="حجز المواعيد عبر الإنترنت، الاستشارات بالفيديو، الوصفات الإلكترونية، وبوابة السجلات الصحية.">Online appointment booking, video consultations, e-prescriptions, and patient health records portal.</p>
+              <div class="tags"><span>Laravel</span><span>WebRTC</span><span>MySQL</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="healthcare">
+              <div class="cat-card-top">
+                <div class="cat-card-icon health-bg"><img src="assets/projects/healthcare.svg" alt=""></div>
+                <span class="pcat healthcare">Healthcare</span>
+              </div>
+              <h3 data-en="Pharmacy Management System" data-ar="نظام إدارة الصيدلية">Pharmacy Management System</h3>
+              <p data-en="Drug inventory, expiry tracking, supplier orders, insurance billing, and dispensing workflow." data-ar="مخزون الأدوية، تتبع انتهاء الصلاحية، طلبات الموردين، الفواتير التأمينية، وسير العمل في الصرف.">Drug inventory, expiry tracking, supplier orders, insurance billing, and dispensing workflow.</p>
+              <div class="tags"><span>PHP</span><span>MySQL</span><span>REST API</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇴🇲 Oman</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ── Events ── -->
+        <div class="cat-section reveal" data-cat-section="events">
+          <div class="cat-heading">
+            <span class="pcat events" data-en="Events" data-ar="فعاليات">Events</span>
+            <h2 data-en="Event & Conference Platforms" data-ar="منصات الفعاليات والمؤتمرات">Event & Conference Platforms</h2>
+            <span class="cat-count" data-en="5 Projects" data-ar="٥ مشاريع">5 Projects</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="events">
+              <div class="cat-card-top">
+                <div class="cat-card-icon events-bg"><img src="assets/capability-icons-svg/event-platform.svg" alt=""></div>
+                <span class="pcat events">Events</span>
+              </div>
+              <h3 data-en="Full Event Management Platform" data-ar="منصة إدارة الفعاليات الكاملة">Full Event Management Platform</h3>
+              <p data-en="Speakers, sponsors, agenda, ticketing, registration, and multilingual content with SEO optimization." data-ar="المتحدثون، الرعاة، الأجندة، التذاكر، التسجيل، والمحتوى متعدد اللغات مع تحسين SEO.">Speakers, sponsors, agenda, ticketing, registration, and multilingual content with SEO optimization.</p>
+              <div class="tags"><span>Laravel</span><span>SEO</span><span>i18n</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="events">
+              <div class="cat-card-top">
+                <div class="cat-card-icon events-bg"><img src="assets/capability-icons-svg/event-platform.svg" alt=""></div>
+                <span class="pcat events">Events</span>
+              </div>
+              <h3 data-en="Conference Registration System" data-ar="نظام تسجيل المؤتمرات">Conference Registration System</h3>
+              <p data-en="Attendee registration, badge printing, session check-in, networking tools, and post-event reporting." data-ar="تسجيل الحضور، طباعة الشارات، تسجيل الدخول للجلسات، أدوات التواصل، والتقارير ما بعد الفعالية.">Attendee registration, badge printing, session check-in, networking tools, and post-event reporting.</p>
+              <div class="tags"><span>PHP</span><span>MySQL</span><span>PDF</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇪🇬 Egypt</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="events">
+              <div class="cat-card-top">
+                <div class="cat-card-icon events-bg"><img src="assets/capability-icons-svg/event-platform.svg" alt=""></div>
+                <span class="pcat events">Events</span>
+              </div>
+              <h3 data-en="Virtual Event Platform" data-ar="منصة الفعاليات الافتراضية">Virtual Event Platform</h3>
+              <p data-en="Live streaming integration, virtual booths, Q&A sessions, polls, and audience engagement tools." data-ar="تكامل البث المباشر، الأجنحة الافتراضية، جلسات الأسئلة، الاستطلاعات، وأدوات تفاعل الجمهور.">Live streaming integration, virtual booths, Q&A sessions, polls, and audience engagement tools.</p>
+              <div class="tags"><span>Laravel</span><span>WebSockets</span><span>Redis</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇬🇧 UK</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ── CRM ── -->
+        <div class="cat-section reveal" data-cat-section="crm">
+          <div class="cat-heading">
+            <span class="pcat crm" data-en="CRM" data-ar="CRM">CRM</span>
+            <h2 data-en="CRM & Business Platforms" data-ar="منصات CRM والأعمال">CRM & Business Platforms</h2>
+            <span class="cat-count" data-en="8 Projects" data-ar="٨ مشاريع">8 Projects</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="crm">
+              <div class="cat-card-top">
+                <div class="cat-card-icon crm-bg"><img src="assets/capability-icons-svg/crm-customers.svg" alt=""></div>
+                <span class="pcat crm">CRM</span>
+              </div>
+              <h3 data-en="Corporate CRM Platform" data-ar="منصة CRM للشركات">Corporate CRM Platform</h3>
+              <p data-en="Client management, employee portals, dashboards, API integrations, orders, and sales pipeline." data-ar="إدارة العملاء، بوابات الموظفين، لوحات التحكم، تكاملات API، الطلبات، وخط سير المبيعات.">Client management, employee portals, dashboards, API integrations, orders, and sales pipeline.</p>
+              <div class="tags"><span>Laravel</span><span>Vue.js</span><span>REST API</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="crm">
+              <div class="cat-card-top">
+                <div class="cat-card-icon automotive-bg"><img src="assets/projects/automotive.svg" alt=""></div>
+                <span class="pcat automotive">Automotive</span>
+              </div>
+              <h3 data-en="Automotive Dealership Platform" data-ar="منصة وكالة السيارات">Automotive Dealership Platform</h3>
+              <p data-en="Vehicle inventory, showroom management, customer leads, service scheduling, and digital catalog." data-ar="مخزون السيارات، إدارة الصالة، خيوط العملاء، جدولة الخدمة، والكتالوج الرقمي.">Vehicle inventory, showroom management, customer leads, service scheduling, and digital catalog.</p>
+              <div class="tags"><span>Laravel</span><span>MySQL</span><span>Vue.js</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="crm">
+              <div class="cat-card-top">
+                <div class="cat-card-icon crm-bg"><img src="assets/capability-icons-svg/crm-customers.svg" alt=""></div>
+                <span class="pcat crm">CRM</span>
+              </div>
+              <h3 data-en="Real Estate CRM & Portal" data-ar="CRM وبوابة العقارات">Real Estate CRM & Portal</h3>
+              <p data-en="Property listings, lead tracking, agent dashboards, viewing schedules, and document management." data-ar="قوائم العقارات، تتبع الخيوط، لوحات الوكلاء، جداول المعاينة، وإدارة المستندات.">Property listings, lead tracking, agent dashboards, viewing schedules, and document management.</p>
+              <div class="tags"><span>Laravel</span><span>PostgreSQL</span><span>API</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇦🇪 UAE</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="crm">
+              <div class="cat-card-top">
+                <div class="cat-card-icon crm-bg"><img src="assets/capability-icons-svg/crm-customers.svg" alt=""></div>
+                <span class="pcat crm">CRM</span>
+              </div>
+              <h3 data-en="Logistics & Delivery CRM" data-ar="CRM اللوجستيات والتوصيل">Logistics & Delivery CRM</h3>
+              <p data-en="Driver management, order dispatch, real-time tracking, customer notifications, and performance analytics." data-ar="إدارة السائقين، توزيع الطلبات، التتبع الفوري، إشعارات العملاء، وتحليلات الأداء.">Driver management, order dispatch, real-time tracking, customer notifications, and performance analytics.</p>
+              <div class="tags"><span>Laravel</span><span>WebSockets</span><span>Maps API</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇲🇦 Morocco</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ── Automation ── -->
+        <div class="cat-section reveal" data-cat-section="automation">
+          <div class="cat-heading">
+            <span class="pcat automation" data-en="Automation" data-ar="أتمتة">Automation</span>
+            <h2 data-en="Automation & Workflow Systems" data-ar="أنظمة الأتمتة وسير العمل">Automation & Workflow Systems</h2>
+            <span class="cat-count" data-en="6 Projects" data-ar="٦ مشاريع">6 Projects</span>
+          </div>
+          <div class="cat-grid">
+            <article class="cat-card" data-category="automation">
+              <div class="cat-card-top">
+                <div class="cat-card-icon auto-bg"><img src="assets/capability-icons-svg/n8n-automation.svg" alt=""></div>
+                <span class="pcat automation">Automation</span>
+              </div>
+              <h3 data-en="n8n Workflow Automation Suite" data-ar="منظومة أتمتة n8n">n8n Workflow Automation Suite</h3>
+              <p data-en="300+ automated tasks/month — data sync, alerts, report pipelines, and multi-system integrations." data-ar="300+ مهمة مؤتمتة شهرياً — مزامنة البيانات، التنبيهات، خطوط التقارير، وتكاملات متعددة.">300+ automated tasks/month — data sync, alerts, report pipelines, and multi-system integrations.</p>
+              <div class="tags"><span>n8n</span><span>Python</span><span>Webhooks</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🌍 Multi-country</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="automation">
+              <div class="cat-card-top">
+                <div class="cat-card-icon auto-bg"><img src="assets/capability-icons-svg/workflow-automation.svg" alt=""></div>
+                <span class="pcat automation">Automation</span>
+              </div>
+              <h3 data-en="Business Process Automation" data-ar="أتمتة العمليات التجارية">Business Process Automation</h3>
+              <p data-en="Approval workflows, document generation, email automation, and cross-department data routing." data-ar="سير عمل الموافقة، توليد المستندات، أتمتة البريد الإلكتروني، وتوجيه البيانات بين الأقسام.">Approval workflows, document generation, email automation, and cross-department data routing.</p>
+              <div class="tags"><span>Laravel</span><span>Queues</span><span>Redis</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+            <article class="cat-card" data-category="automation">
+              <div class="cat-card-top">
+                <div class="cat-card-icon auto-bg"><img src="assets/capability-icons-svg/scalable-cloud.svg" alt=""></div>
+                <span class="pcat automation">Automation</span>
+              </div>
+              <h3 data-en="Data Pipeline & Reporting System" data-ar="نظام خطوط البيانات والتقارير">Data Pipeline & Reporting System</h3>
+              <p data-en="Automated ETL pipelines, scheduled reports, data visualization dashboards, and export tools." data-ar="خطوط ETL المؤتمتة، التقارير المجدولة، لوحات تصور البيانات، وأدوات التصدير.">Automated ETL pipelines, scheduled reports, data visualization dashboards, and export tools.</p>
+              <div class="tags"><span>Python</span><span>Celery</span><span>PostgreSQL</span></div>
+              <div class="cat-card-meta">
+                <span class="cat-country">🇸🇦 Saudi Arabia</span>
+                <a href="project.html" class="cat-view-link" data-en="View →" data-ar="عرض →">View →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="proj-cta reveal" style="margin-top:16px;">
+          <a href="index.html#contact" class="btn btn-primary" data-en="Start a Project with Me" data-ar="ابدأ مشروعاً معي">Start a Project with Me</a>
+          <a href="index.html" class="btn btn-outline" data-en="← Back to Portfolio" data-ar="→ العودة للمعرض">← Back to Portfolio</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== INJECT SCREEN AREAS =====
+    document.querySelectorAll('.cat-card').forEach(card => {
+      const iconImg = card.querySelector('.cat-card-icon img');
+      if (!iconImg) return;
+      const screen = document.createElement('div');
+      screen.className = 'cat-card-screen';
+      const img = document.createElement('img');
+      img.src = iconImg.src;
+      img.alt = '';
+      screen.appendChild(img);
+      const catCardTop = card.querySelector('.cat-card-top');
+      catCardTop.insertAdjacentElement('afterend', screen);
+    });
+
+    // ===== LANGUAGE SWITCHER =====
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'جميع المشاريع | أحمد نور' : 'All Projects | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // ===== SCROLL REVEAL =====
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() {
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', doReveal);
+    doReveal();
+
+    // ===== HEADER SCROLL =====
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.96)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(37,99,235,0.1)' : '0 2px 30px rgba(37,99,235,0.05)';
+    });
+
+    // ===== PROJECTS FILTER =====
+    const filters = document.getElementById('projFiltersFull');
+    if (filters) {
+      filters.addEventListener('click', e => {
+        const btn = e.target.closest('.pf-btn');
+        if (!btn) return;
+        filters.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.cat-section').forEach(section => {
+          const cat = section.dataset.catSection;
+          section.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>

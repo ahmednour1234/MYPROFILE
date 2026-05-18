@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Al-Hayat Medical Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--ah-green:#0d9463;--ah-dark:#0a3d2e;--ah-light:#f0fdf9;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#062718 0%,#0a3d2e 50%,#0d4d37 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(13,150,99,.18) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(13,150,99,.1) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(13,150,99,.4);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:#0d9463;display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#6ee7b7;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 460px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#6ee7b7;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.green{background:rgba(13,150,99,.2);border-color:rgba(13,150,99,.5);color:#6ee7b7;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-green{padding:11px 24px;border-radius:12px;background:#0d9463;color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-green:hover{background:#059669;transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,150,99,.4);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:460px;border-radius:16px 16px 0 0;box-shadow:0 -16px 60px rgba(13,150,99,.25),0 -1px 0 rgba(13,150,99,.5);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;}
+    .platform-pill{padding:10px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(13,150,99,.15);border-color:rgba(13,150,99,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,150,99,.1);color:#059669;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(13,150,99,.08);color:#0a3d2e;font-size:12px;font-weight:700;}
+    .platform-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .platform-row:last-child{border-bottom:none;}
+    .pl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .pl-name{font-weight:700;color:var(--navy);}
+    .pl-tag{margin-left:auto;font-size:11px;color:var(--muted);font-weight:600;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Component cards */
+    .components-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.website::before{background:linear-gradient(90deg,#0d9463,#10b981);}
+    .component-card.app::before{background:linear-gradient(90deg,#2563eb,#7c3aed);}
+    .component-card.system::before{background:linear-gradient(90deg,#0a3d2e,#0d9463);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.g{background:rgba(13,150,99,.1);color:#059669;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .comp-tag.d{background:rgba(10,61,46,.1);color:#0a3d2e;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:#0d9463;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d9463,#10b981);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#0a3d2e,#0d9463);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #0d9463;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Specialties */
+    .specialty-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .spec-card{background:white;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow);}
+    .spec-card .spec-ico{font-size:22px;margin-bottom:6px;}
+    .spec-card .spec-name{font-size:12px;font-weight:700;color:var(--navy);}
+    /* Insurance */
+    .insurance-row{display:flex;flex-wrap:wrap;gap:8px;}
+    .ins-chip{padding:5px 12px;border-radius:8px;font-size:11.5px;font-weight:700;background:rgba(13,150,99,.06);color:#0a3d2e;border:1px solid rgba(13,150,99,.15);}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#0d9463;}
+    @media(max-width:960px){.proj-hero-layout{grid-template-columns:1fr;}.proj-hero-visual{display:none;}.detail-layout{grid-template-columns:1fr;}.detail-sidebar{order:-1;}.features-grid{grid-template-columns:1fr;}.results-grid{grid-template-columns:1fr 1fr;}.components-grid{grid-template-columns:1fr;}.specialty-grid{grid-template-columns:repeat(2,1fr);}.platform-inner{flex-direction:column;align-items:stretch;gap:8px;}.platform-pill{margin:0;}}
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span data-en="Al-Hayat Medical" data-ar="مجمع الحياة الطبي">Al-Hayat Medical</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">ح</div>
+          <span><em>مجمع الحياة الطبي</em> &nbsp;— AL-HAYAT MEDICAL COMPLEX · RIYADH</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat healthcare" data-en="Healthcare · Full Platform" data-ar="رعاية صحية · منصة متكاملة">Healthcare · Full Platform</span>
+            <h1 data-en="Al-Hayat Medical <em>Platform</em>" data-ar="منصة الحياة <em>الطبية</em>">Al-Hayat Medical <em>Platform</em></h1>
+            <p data-en="End-to-end digital transformation for Al-Hayat Medical Complex — a patient-facing booking website, Flutter mobile app on iOS & Android, and an internal management system — all integrated in one Laravel + MySQL backend serving 5 Riyadh branches." data-ar="تحول رقمي شامل لمجمع الحياة الطبي — موقع حجوزات للمرضى وتطبيق Flutter على iOS وAndroid ونظام إدارة داخلي متكامل — كلها مرتبطة بخلفية Laravel + MySQL واحدة تخدم 5 فروع في الرياض.">End-to-end digital transformation for Al-Hayat Medical Complex — a patient-facing booking website, Flutter mobile app on iOS &amp; Android, and an internal management system — all integrated in one Laravel + MySQL backend serving 5 Riyadh branches.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇸🇦 Riyadh, Saudi Arabia</span>
+              <span class="hero-badge green">✓ Live — alhayat.sa</span>
+              <span class="hero-badge green">📱 App Store &amp; Play Store</span>
+              <span class="hero-badge">5 Branches</span>
+              <span class="hero-badge">24+ Insurance</span>
+              <span class="hero-badge">25+ Years Experience</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://alhayat.sa" target="_blank" rel="noopener noreferrer" class="btn-green" data-en="Visit Live Website →" data-ar="زيارة الموقع →">Visit Live Website →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/alhayat/alhayat-dashboard.png" alt="Al-Hayat Medical Platform Dashboard" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Booking Website" data-ar="موقع الحجوزات">Booking Website</strong><span>alhayat.sa — Laravel</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Mobile App" data-ar="تطبيق الحياة">Mobile App</strong><span>Flutter — iOS &amp; Android</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🏥</span>
+              <div class="pp-text"><strong data-en="Management System" data-ar="نظام الإدارة">Management System</strong><span>Laravel — Internal Dashboard</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Al-Hayat Medical Complex has been serving Riyadh patients for over 25 years — but all appointment booking was phone-based and patient records were fragmented across 5 branches. The goal: a complete digital transformation building 3 interconnected systems on one shared Laravel + MySQL backend." data-ar="مجمع الحياة الطبي يخدم مرضى الرياض منذ أكثر من 25 عامًا — لكن حجز المواعيد كان هاتفيًا وسجلات المرضى مشتتة عبر 5 فروع. الهدف: تحول رقمي شامل ببناء 3 أنظمة مترابطة على خلفية Laravel + MySQL مشتركة واحدة.">Al-Hayat Medical Complex has been serving Riyadh patients for over 25 years — but all appointment booking was phone-based and patient records were fragmented across 5 branches. The goal: a complete digital transformation building 3 interconnected systems on one shared Laravel + MySQL backend.</p>
+              <p data-en="The result: a live booking website (alhayat.sa), a Flutter app published on both App Store and Google Play, and an internal management dashboard used by clinic staff and doctors — all sharing the same database and REST API layer." data-ar="النتيجة: موقع حجوزات حي (alhayat.sa) وتطبيق Flutter منشور على App Store وGoogle Play ولوحة تحكم إدارية داخلية يستخدمها موظفو العيادة والأطباء — وكلها تتشارك قاعدة البيانات وطبقة REST API ذاتها.">The result: a live booking website (alhayat.sa), a Flutter app published on both App Store and Google Play, and an internal management dashboard used by clinic staff and doctors — all sharing the same database and REST API layer.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="The Three Platforms" data-ar="المنصات الثلاث">The Three Platforms</h2>
+              <div class="components-grid">
+                <div class="component-card website">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Booking Website" data-ar="موقع الحجوزات">Booking Website</div>
+                  <div class="comp-sub">alhayat.sa</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Laravel</span>
+                    <span class="comp-tag g">Blade</span>
+                    <span class="comp-tag g">MySQL</span>
+                    <span class="comp-tag g">Arabic RTL</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Patient-facing website — browse specialties, book appointments by branch/doctor/time, check insurance coverage, home-care requests, blog." data-ar="موقع للمرضى — تصفح التخصصات، حجز مواعيد حسب الفرع/الطبيب/الوقت، التحقق من التأمين، طلبات الرعاية المنزلية، المدونة.">Patient-facing website — browse specialties, book appointments by branch/doctor/time, check insurance coverage, home-care requests, blog.</p>
+                </div>
+                <div class="component-card app">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Flutter Mobile App" data-ar="تطبيق الحياة">Flutter Mobile App</div>
+                  <div class="comp-sub">iOS &amp; Android</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">Flutter</span>
+                    <span class="comp-tag b">Dart</span>
+                    <span class="comp-tag p">Firebase</span>
+                    <span class="comp-tag b">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full-featured mobile app — appointment booking, upcoming appointments, push notification reminders, home-care requests, lab results, patient profile." data-ar="تطبيق متكامل — حجز المواعيد، المواعيد القادمة، تذكيرات بالدفع، طلبات الرعاية المنزلية، نتائج المختبرات، ملف المريض.">Full-featured mobile app — appointment booking, upcoming appointments, push reminders, home-care requests, lab results, patient profile.</p>
+                </div>
+                <div class="component-card system">
+                  <div class="comp-icon">🏥</div>
+                  <div class="comp-name" data-en="Management System" data-ar="نظام الإدارة الداخلي">Management System</div>
+                  <div class="comp-sub" data-en="Internal Dashboard" data-ar="لوحة تحكم داخلية">Internal Dashboard</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag d">Laravel</span>
+                    <span class="comp-tag d">Livewire</span>
+                    <span class="comp-tag d">MySQL</span>
+                    <span class="comp-tag d">RBAC</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Staff & doctor dashboard — patient records, appointment management, doctor schedules, branch operations, insurance billing, lab results." data-ar="لوحة الموظفين والأطباء — سجلات المرضى، إدارة المواعيد، جدول الأطباء، عمليات الفروع، فوترة التأمين، نتائج المختبرات.">Staff & doctor dashboard — patient records, appointment management, doctor schedules, branch operations, insurance billing, lab results.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Specialties Covered" data-ar="التخصصات المشمولة">Specialties Covered</h2>
+              <div class="specialty-grid">
+                <div class="spec-card"><div class="spec-ico">🫀</div><div class="spec-name" data-en="Internal Medicine" data-ar="الطب الباطني">Internal Medicine</div></div>
+                <div class="spec-card"><div class="spec-ico">🦷</div><div class="spec-name" data-en="Dentistry" data-ar="طب الأسنان">Dentistry</div></div>
+                <div class="spec-card"><div class="spec-ico">🦴</div><div class="spec-name" data-en="Orthopedics" data-ar="جراحة العظام">Orthopedics</div></div>
+                <div class="spec-card"><div class="spec-ico">🧴</div><div class="spec-name" data-en="Dermatology" data-ar="الجلدية">Dermatology</div></div>
+                <div class="spec-card"><div class="spec-ico">👁️</div><div class="spec-name" data-en="Ophthalmology" data-ar="طب العيون">Ophthalmology</div></div>
+                <div class="spec-card"><div class="spec-ico">🔬</div><div class="spec-name" data-en="Medical Labs" data-ar="المختبرات الطبية">Medical Labs</div></div>
+                <div class="spec-card"><div class="spec-ico">🏠</div><div class="spec-name" data-en="Home Care" data-ar="الرعاية المنزلية">Home Care</div></div>
+                <div class="spec-card"><div class="spec-ico">🚑</div><div class="spec-name" data-en="Emergency 24/7" data-ar="طوارئ 24/7">Emergency 24/7</div></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Unified API — One Backend, Three Platforms" data-ar="API موحد — خلفية واحدة وثلاث منصات">Unified API — One Backend, Three Platforms</strong>
+                    <span data-en="Laravel RESTful API serves the website, Flutter app, and internal dashboard simultaneously — no data duplication, real-time consistency across all channels." data-ar="Laravel RESTful API يخدم الموقع وتطبيق Flutter ولوحة الإدارة في آنٍ واحد — بدون تكرار بيانات وتناسق آني عبر جميع القنوات.">One Laravel REST API serves all three platforms — real-time data consistency with no duplication.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Smart Appointment Booking" data-ar="حجز المواعيد الذكي">Smart Appointment Booking</strong>
+                    <span data-en="Patients choose branch → specialty → doctor → available time slot. Real-time slot availability across all 5 branches, conflict prevention, waiting list support." data-ar="المرضى يختارون الفرع ← التخصص ← الطبيب ← وقت متاح. توفر المواعيد آنيًا عبر الفروع الـ5 ومنع التعارض وقائمة الانتظار.">Select branch → specialty → doctor → time slot. Real-time availability, conflict prevention, waiting list.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Flutter App — iOS & Android" data-ar="تطبيق Flutter — iOS وAndroid">Flutter App — iOS &amp; Android</strong>
+                    <span data-en="Single Flutter codebase published on both App Store and Google Play. Push notifications via Firebase, appointment reminders, home-care requests, lab result viewing." data-ar="كودبيس Flutter واحد منشور على App Store وGoogle Play. إشعارات Firebase وتذكيرات مواعيد وطلبات رعاية منزلية وعرض نتائج مختبرات.">Single Flutter codebase on both stores. Firebase push notifications, reminders, lab results.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="24+ Insurance Company Integration" data-ar="تكامل 24+ شركة تأمين">24+ Insurance Company Integration</strong>
+                    <span data-en="Patients select their insurance provider before booking — the system validates coverage eligibility and applies the correct billing workflow per insurance agreement." data-ar="المرضى يختارون شركة التأمين قبل الحجز — النظام يتحقق من أهلية التغطية ويطبق سير الفوترة الصحيح وفق عقد التأمين.">Patients select insurer at booking — system validates coverage and routes billing automatically.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="5-Branch Multi-Location System" data-ar="نظام 5 فروع متعدد المواقع">5-Branch Multi-Location System</strong>
+                    <span data-en="Each Riyadh branch operates independently with its own doctors, schedules, and capacity — but all data flows through the central system with per-branch reporting." data-ar="كل فرع من فروع الرياض يعمل باستقلالية بأطبائه وجداوله وطاقته الاستيعابية — لكن البيانات تتدفق عبر النظام المركزي مع تقارير لكل فرع.">Each branch operates independently — doctors, schedules, capacity — with centralized cross-branch reporting.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Doctor Schedule & Availability Management" data-ar="إدارة جدول وتوفر الأطباء">Doctor Schedule &amp; Availability Management</strong>
+                    <span data-en="Admin defines each doctor's working hours, break times, max-patients-per-slot, and vacation days. Booking system enforces these constraints in real time." data-ar="الأدمن يحدد ساعات عمل كل طبيب وأوقات الراحة والحد الأقصى للمرضى وأيام الإجازة. نظام الحجز يطبق هذه القيود آنيًا.">Admin sets doctor hours, breaks, patient limits, and vacations — enforced in real time on all platforms.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Home Care & Emergency Requests" data-ar="طلبات الرعاية المنزلية والطوارئ">Home Care &amp; Emergency Requests</strong>
+                    <span data-en="Patients submit home-care requests from website or app — including location, required specialty, preferred time. Emergency contact number triggers immediate response workflow." data-ar="المرضى يقدمون طلبات رعاية منزلية من الموقع أو التطبيق — مع الموقع والتخصص والوقت المفضل. رقم الطوارئ يُشغّل سير عمل الاستجابة الفورية.">Home-care and emergency requests from app or website — location, specialty, time — routed to staff immediately.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Arabic-First Bilingual — Full RTL" data-ar="عربي-أولًا ثنائي اللغة — RTL كامل">Arabic-First Bilingual — Full RTL</strong>
+                    <span data-en="Website and app built Arabic-first with complete RTL layout, Tajawal font, and Arabic number formatting — with full English support for international patients." data-ar="الموقع والتطبيق مبنيان بالعربية-أولًا مع تخطيط RTL كامل وخط Tajawal وتنسيق الأرقام العربية — مع دعم إنجليزي كامل للمرضى الدوليين.">Arabic-first RTL — Tajawal font, Arabic numerals, full layout flip — with English as secondary language.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Project Highlights" data-ar="أبرز المشروع">Project Highlights</h2>
+              <div class="results-grid">
+                <div class="result-card"><strong>3</strong><span data-en="Integrated Platforms — Website, App, System" data-ar="منصات متكاملة — موقع وتطبيق ونظام">Integrated Platforms</span></div>
+                <div class="result-card"><strong>5</strong><span data-en="Riyadh Branches — All Connected" data-ar="فروع الرياض — جميعها متصلة">Riyadh Branches</span></div>
+                <div class="result-card"><strong>24+</strong><span data-en="Insurance Companies Integrated" data-ar="شركات تأمين متكاملة">Insurance Companies</span></div>
+                <div class="result-card"><strong>iOS</strong><span data-en="& Android — Flutter App Published" data-ar="وAndroid — تطبيق Flutter منشور">&amp; Android Published</span></div>
+                <div class="result-card"><strong>25+</strong><span data-en="Years — Client's Medical Experience" data-ar="سنة خبرة طبية للعميل">Years Experience</span></div>
+                <div class="result-card"><strong>RTL</strong><span data-en="Arabic-First — All Three Platforms" data-ar="عربي-أولًا — المنصات الثلاث">Arabic-First RTL</span></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Insurance Partners" data-ar="شركاء التأمين">Insurance Partners</h2>
+              <p data-en="The system integrates with 24+ Saudi-approved insurance companies — patients select their insurer at booking time, and the system validates coverage and routes billing accordingly." data-ar="النظام متكامل مع 24+ شركة تأمين معتمدة سعودية — المرضى يختارون مزود التأمين عند الحجز والنظام يتحقق من التغطية ويوجه الفوترة تبعًا لذلك.">The system integrates with 24+ Saudi-approved insurance companies.</p>
+              <div class="insurance-row">
+                <span class="ins-chip">3NAYA</span><span class="ins-chip">ACIG</span><span class="ins-chip">Allianz</span>
+                <span class="ins-chip">Amana</span><span class="ins-chip">Arabia</span><span class="ins-chip">Bupa</span>
+                <span class="ins-chip">Buruj</span><span class="ins-chip">CIGNA</span><span class="ins-chip">GIG</span>
+                <span class="ins-chip">GlobeMed</span><span class="ins-chip">Khalejya</span><span class="ins-chip">MedGulf</span>
+                <span class="ins-chip">NextCare</span><span class="ins-chip">Saico</span><span class="ins-chip">Salama</span>
+                <span class="ins-chip">TCS</span><span class="ins-chip">Walaa</span><span class="ins-chip">+ 7 more</span>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Real-time appointment slot synchronization across 3 platforms" data-ar="مزامنة مواعيد آنية عبر 3 منصات">Real-time appointment slot synchronization across 3 platforms</strong>
+                  <p data-en="When a patient books via the app, the website and management system must reflect the updated availability instantly — preventing double-bookings across concurrent requests. Solved with MySQL row-level locking, Laravel queues for conflict resolution, and API-level slot invalidation caching." data-ar="عندما يحجز مريض عبر التطبيق يجب أن يعكس الموقع والنظام الإداري التوفر المحدَّث فورًا — مع منع الحجوزات المزدوجة عبر الطلبات المتزامنة. الحل: قفل صفوف MySQL وقوائم انتظار Laravel لحل التعارضات وتخزين مؤقت لإلغاء صلاحية الفترات.">Three concurrent platforms booking from one slot pool — solved with MySQL row-level locking, Laravel queues, and cache-based slot invalidation to prevent double-bookings.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Flutter + Laravel REST API architecture for offline-capable mobile app" data-ar="هندسة Flutter + Laravel REST API لتطبيق جوال يعمل أوفلاين">Flutter + Laravel REST API architecture for offline-capable mobile app</strong>
+                  <p data-en="The Flutter app needed to work in low-connectivity environments (common in certain Riyadh areas). Implemented local SQLite caching via Hive, background sync with Laravel queues, and JWT token refresh with secure token storage using flutter_secure_storage." data-ar="التطبيق احتاج أن يعمل في بيئات ضعيفة الاتصال. الحل: تخزين SQLite محلي عبر Hive ومزامنة خلفية بقوائم انتظار Laravel وتحديث JWT مع تخزين آمن للرمز عبر flutter_secure_storage.">Offline-capable Flutter app — Hive local SQLite cache, background sync with Laravel queues, JWT with flutter_secure_storage.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Multi-branch doctor schedule engine with conflict resolution" data-ar="محرك جدول أطباء متعدد الفروع مع حل التعارضات">Multi-branch doctor schedule engine with conflict resolution</strong>
+                  <p data-en="Some doctors work across multiple branches on different days. The scheduling engine had to handle cross-branch availability, enforce per-specialty slot durations, support emergency overrides, and generate per-branch utilization reports for clinic management." data-ar="بعض الأطباء يعملون في عدة فروع بأيام مختلفة. محرك الجدولة احتاج لمعالجة التوفر عبر الفروع وضبط مدد الفترات لكل تخصص ودعم تجاوزات الطوارئ وإنشاء تقارير استخدام لكل فرع.">Doctors across multiple branches — scheduling engine with cross-branch availability, per-specialty durations, emergency overrides, and utilization reporting.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-alemteyaz.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="→ السابق">← Previous</small>
+                <strong data-en="Almteyaz Management System" data-ar="نظام الامتياز للإدارة">Almteyaz Management System</strong>
+              </a>
+              <a href="index.html#contact" class="btn btn-primary" style="background:linear-gradient(135deg,#0a3d2e,#0d9463);" data-en="Build Your Medical Platform" data-ar="ابنِ منصتك الطبية">Build Your Medical Platform</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right">
+                <small data-en="Browse →" data-ar="تصفح ←">Browse →</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+            </div>
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Details" data-ar="تفاصيل المشروع">Project Details</h4>
+              <div class="meta-row"><span class="meta-label" data-en="Status" data-ar="الحالة">Status</span><span class="status-live">✓ Live</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Type" data-ar="النوع">Type</span><span class="meta-val" data-en="Full Platform" data-ar="منصة متكاملة">Full Platform</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Market" data-ar="السوق">Market</span><span class="meta-val">🇸🇦 Riyadh, KSA</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Branches" data-ar="الفروع">Branches</span><span class="meta-val">5 (Riyadh)</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Insurance" data-ar="التأمين">Insurance</span><span class="meta-val">24+ Companies</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="App" data-ar="التطبيق">App</span><span class="meta-val">iOS + Android</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Role" data-ar="الدور">Role</span><span class="meta-val" data-en="Full-Stack Developer" data-ar="مطور متكامل">Full-Stack Developer</span></div>
+              <div class="meta-row"><span class="meta-label" data-en="Website" data-ar="الموقع">Website</span><span class="meta-val"><a href="https://alhayat.sa" target="_blank" rel="noopener noreferrer" style="color:#0d9463">alhayat.sa ↗</a></span></div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Flutter</span><span class="tech-chip">Dart</span>
+                <span class="tech-chip">Laravel</span><span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span><span class="tech-chip">REST API</span>
+                <span class="tech-chip">Firebase</span><span class="tech-chip">Blade</span>
+                <span class="tech-chip">Livewire</span><span class="tech-chip">Arabic RTL</span>
+                <span class="tech-chip">JWT Auth</span><span class="tech-chip">Hive</span>
+              </div>
+            </div>
+            <div class="sidebar-card">
+              <h4 data-en="Platforms" data-ar="المنصات">Platforms</h4>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#0d9463"></span>
+                <span class="pl-name" data-en="Booking Website" data-ar="موقع الحجوزات">Booking Website</span>
+                <span class="pl-tag">Laravel</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#2563eb"></span>
+                <span class="pl-name" data-en="iOS App" data-ar="تطبيق iOS">iOS App</span>
+                <span class="pl-tag">Flutter</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#7c3aed"></span>
+                <span class="pl-name" data-en="Android App" data-ar="تطبيق Android">Android App</span>
+                <span class="pl-tag">Flutter</span>
+              </div>
+              <div class="platform-row">
+                <span class="pl-dot" style="background:#0a3d2e"></span>
+                <span class="pl-name" data-en="Management System" data-ar="نظام الإدارة">Management System</span>
+                <span class="pl-tag">Livewire</span>
+              </div>
+            </div>
+            <div class="sidebar-card" style="background:linear-gradient(135deg,#062718,#0a3d2e);border:none">
+              <h4 style="color:rgba(255,255,255,.45)" data-en="Need a healthcare platform?" data-ar="تحتاج منصة رعاية صحية؟">Need a healthcare platform?</h4>
+              <p style="font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin:0 0 16px" data-en="I build full-stack medical platforms — booking systems, Flutter apps, clinic management. Arabic-first, Saudi market expertise." data-ar="أبني منصات طبية متكاملة — أنظمة حجز وتطبيقات Flutter وإدارة عيادات. عربي-أولًا وخبرة في السوق السعودي.">I build full medical platforms — booking, Flutter apps, clinic management. Arabic-first, Saudi expertise.</p>
+              <a href="index.html#contact" class="btn-green" style="display:block;text-align:center" data-en="Let's Talk →" data-ar="تحدّث معي →">Let's Talk →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'منصة الحياة الطبية | أحمد نور' : 'Al-Hayat Medical Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active'); }); }
+    window.addEventListener('scroll', doReveal); doReveal();
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(10,61,46,0.1)' : '0 2px 30px rgba(10,61,46,0.05)';
+    });
+  </script>
+</body>
+</html>
