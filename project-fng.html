@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Nurseries Group — Parent &amp; Nursery Management App | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--fng-orange:#f97316;--fng-dark:#1c0a00;--fng-amber:#fbbf24;--fng-green:#10b981;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0f0500 0%,#1c0a00 50%,#3b1200 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(249,115,22,.20) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(251,191,36,.10) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(249,115,22,.4);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#f97316,#fbbf24);display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#fdba74;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(249,115,22,.18);color:#fdba74;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#fdba74;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.orange{background:rgba(249,115,22,.2);border-color:rgba(249,115,22,.5);color:#fdba74;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-orange{padding:11px 24px;border-radius:12px;background:linear-gradient(135deg,#f97316,#ea580c);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-orange:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:260px;border-radius:24px 24px 0 0;box-shadow:0 -16px 60px rgba(249,115,22,.3),0 -1px 0 rgba(249,115,22,.5);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;}
+    .platform-pill{padding:10px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(249,115,22,.15);border-color:rgba(249,115,22,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(249,115,22,.12);color:#ea580c;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(249,115,22,.09);color:#1c0a00;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Component cards */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.app::before{background:linear-gradient(90deg,#f97316,#fbbf24);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#ea580c,#f97316);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.o{background:rgba(249,115,22,.1);color:#ea580c;}
+    .comp-tag.g{background:rgba(16,185,129,.1);color:#059669;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#f97316,#ea580c);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f97316,#fbbf24);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1c0a00,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Grade cards */
+    .grade-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .grade-card{background:white;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow);}
+    .grade-card .gc-ico{font-size:24px;margin-bottom:6px;}
+    .grade-card .gc-name{font-size:12px;font-weight:700;color:var(--navy);}
+    .grade-card .gc-sub{font-size:10.5px;color:var(--muted);margin-top:2px;}
+    /* Challenge list */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #f97316;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#f97316;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .components-grid{grid-template-columns:1fr;}
+      .grade-grid{grid-template-columns:repeat(2,1fr);}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Future Nurseries Group</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">F</div>
+          <span><em>FNG</em> &nbsp;— NURSERY PARENT &amp; MANAGEMENT APP · LEBANON</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Education · Childcare · Mobile</span>
+            <h1 data-en="Future Nurseries Group — <em>Parent &amp; Nursery</em> Management" data-ar="مجموعة الحضانات المستقبلية — إدارة <em>أولياء الأمور والحضانة</em>">Future Nurseries Group — <em>Parent &amp; Nursery</em> Management</h1>
+            <p data-en="A full-stack nursery communication platform built for Lebanon — a mobile app that keeps parents connected to their child's daily classroom experience, paired with a nursery admin dashboard for managing classrooms, grades, activities, announcements, and enrolled families." data-ar="منصة تواصل متكاملة للحضانات مبنية للبنان — تطبيق موبايل يبقي أولياء الأمور على تواصل مع تجربة طفلهم اليومية في الفصل الدراسي، مع لوحة تحكم إدارية للحضانة لإدارة الفصول والمستويات والأنشطة والإعلانات والعائلات المسجلة.">A full-stack nursery communication platform built for Lebanon — a mobile app keeping parents connected to their child's daily classroom moments, paired with a nursery admin dashboard managing classrooms, grades, activities, and enrolled families.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇱🇧 Lebanon</span>
+              <span class="hero-badge orange">✓ Live on Google Play</span>
+              <span class="hero-badge orange">👶 Early Years Education</span>
+              <span class="hero-badge">📱 Parent Mobile App</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://play.google.com/store/apps/details?id=com.syscom.fng" target="_blank" rel="noopener noreferrer" class="btn-orange" data-en="View on Google Play →" data-ar="عرض على Google Play →">View on Google Play →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar App" data-ar="ابنِ تطبيقاً مماثلاً">Build Similar App</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/fng/fng-hero.jpg" alt="Future Nurseries Group App Screenshot" loading="eager" onerror="this.style.display='none'" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Parent Mobile App" data-ar="تطبيق ولي الأمر">Parent Mobile App</strong><span data-en="iOS &amp; Android — Stay Connected" data-ar="iOS وAndroid — ابقَ متصلاً">iOS &amp; Android — Stay Connected</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Classrooms, Grades, Posts, Families" data-ar="فصول، مستويات، منشورات، عائلات">Classrooms, Grades, Posts, Families</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Future Nurseries Group (FNG) is a nursery management and parent communication platform developed by Syscom Technologies for the Lebanese early-education market. The platform bridges the gap between nursery classrooms and families — giving parents a secure, private window into their child's daily learning journey from drop-off to pick-up." data-ar="مجموعة الحضانات المستقبلية (FNG) هي منصة إدارة حضانات وتواصل مع أولياء الأمور طورتها Syscom Technologies لسوق التعليم المبكر اللبناني. تجسر المنصة الفجوة بين فصول الحضانة والعائلات — منحًا أولياء الأمور نافذة آمنة وخاصة على رحلة تعلم طفلهم اليومية من الوصول إلى الانصراف.">Future Nurseries Group (FNG) is a nursery management and parent communication platform developed by Syscom Technologies for the Lebanese early-education market. The platform bridges the gap between nursery classrooms and families — giving parents a secure, private window into their child's daily learning journey from drop-off to pick-up.</p>
+              <p data-en="The ecosystem consists of a Flutter mobile app for parents and a full web-based admin dashboard for nursery staff. Parents can browse classroom activity posts, read official announcements, filter content by grade or date, and receive real-time push notifications — all through a clean, child-friendly interface. The dashboard empowers staff to publish posts, manage classroom grades, send announcements, and oversee enrolled families." data-ar="يتكون النظام من تطبيق Flutter للموبايل لأولياء الأمور ولوحة تحكم إدارية ويب كاملة لموظفي الحضانة. يمكن لأولياء الأمور تصفح منشورات نشاط الفصل وقراءة الإعلانات الرسمية وتصفية المحتوى حسب المستوى أو التاريخ وتلقي إشعارات فورية — كل ذلك من خلال واجهة نظيفة وصديقة للأطفال. تُمكِّن لوحة التحكم الموظفين من نشر المنشورات وإدارة مستويات الفصول وإرسال الإعلانات والإشراف على العائلات المسجلة.">The ecosystem consists of a Flutter mobile app for parents and a full web-based admin dashboard for nursery staff. Parents browse classroom posts, read announcements, filter by grade or date, and receive push notifications — all through a clean, child-friendly interface designed for busy families.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="The Two Platforms" data-ar="المنصتان">The Two Platforms</h2>
+              <div class="components-grid">
+                <div class="component-card app">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Parent Mobile App" data-ar="تطبيق ولي الأمر">Parent Mobile App</div>
+                  <div class="comp-sub">iOS &amp; Android</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag o">Flutter</span>
+                    <span class="comp-tag o">Dart</span>
+                    <span class="comp-tag b">Firebase</span>
+                    <span class="comp-tag g">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Secure parent login, personalized child profile view, activity feed with photos & videos, grade/date smart filters, official nursery announcements, and real-time push notifications." data-ar="تسجيل دخول آمن لأولياء الأمور، عرض ملف الطفل الشخصي، خلاصة أنشطة بالصور والفيديوهات، مرشحات ذكية بالمستوى والتاريخ، إعلانات رسمية للحضانة، وإشعارات فورية.">Secure parent login, personalized child profile, activity feed with photos & videos, grade/date smart filters, nursery announcements, and real-time push notifications.</p>
+                </div>
+                <div class="component-card dashboard">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Nursery Management Panel" data-ar="لوحة إدارة الحضانة">Nursery Management Panel</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag o">Laravel</span>
+                    <span class="comp-tag o">MySQL</span>
+                    <span class="comp-tag o">RBAC</span>
+                    <span class="comp-tag g">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Nursery staff publish classroom activity posts with photos/videos, manage grade levels and classrooms, create official announcements, manage enrolled families, and control child-to-parent access." data-ar="يقوم موظفو الحضانة بنشر منشورات نشاط الفصل بالصور والفيديوهات وإدارة المستويات والفصول وإنشاء الإعلانات الرسمية وإدارة العائلات المسجلة والتحكم في وصول الأطفال لأولياء الأمور.">Nursery staff publish classroom posts with media, manage grade levels & classrooms, send announcements, and control family-child access mappings.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Grade Levels Supported" data-ar="المستويات الدراسية المدعومة">Grade Levels Supported</h2>
+              <div class="grade-grid">
+                <div class="grade-card"><div class="gc-ico">🍼</div><div class="gc-name">Nursery</div><div class="gc-sub" data-en="Infants 0–1 yr" data-ar="رضع 0–1 سنة">Infants 0–1 yr</div></div>
+                <div class="grade-card"><div class="gc-ico">🐣</div><div class="gc-name">Toddlers</div><div class="gc-sub" data-en="Age 1–2 yr" data-ar="عمر 1–2 سنة">Age 1–2 yr</div></div>
+                <div class="grade-card"><div class="gc-ico">🌱</div><div class="gc-name">Pre-KG</div><div class="gc-sub" data-en="Age 2–3 yr" data-ar="عمر 2–3 سنة">Age 2–3 yr</div></div>
+                <div class="grade-card"><div class="gc-ico">🎨</div><div class="gc-name">KG 1</div><div class="gc-sub" data-en="Age 3–4 yr" data-ar="عمر 3–4 سنة">Age 3–4 yr</div></div>
+                <div class="grade-card"><div class="gc-ico">🔤</div><div class="gc-name">KG 2</div><div class="gc-sub" data-en="Age 4–5 yr" data-ar="عمر 4–5 سنة">Age 4–5 yr</div></div>
+                <div class="grade-card"><div class="gc-ico">🎓</div><div class="gc-name">KG 3</div><div class="gc-sub" data-en="Age 5–6 yr" data-ar="عمر 5–6 سنة">Age 5–6 yr</div></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Classroom Activity Feed" data-ar="خلاصة أنشطة الفصل">Classroom Activity Feed</strong>
+                    <span data-en="Teachers post photos and short video clips of classroom moments — English sessions, STEAM activities, art, physical education — time-stamped and tagged by grade level." data-ar="يرسل المعلمون صورًا ومقاطع فيديو قصيرة من لحظات الفصل — جلسات الإنجليزية وأنشطة STEAM والفن والتربية البدنية — مع طوابع زمنية وتصنيف حسب المستوى.">Teachers post photos and video clips of classroom moments — English sessions, STEAM, art — timestamped and tagged by grade level for easy browsing.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Smart Filters" data-ar="مرشحات ذكية">Smart Filters</strong>
+                    <span data-en="Parents quickly find relevant posts by filtering the activity feed by Date or by Grade/Level — making it easy to catch up on exactly what matters for their child." data-ar="يجد أولياء الأمور المنشورات ذات الصلة بسرعة عبر تصفية خلاصة الأنشطة حسب التاريخ أو المستوى — مما يسهل متابعة ما يهمهم بالنسبة لطفلهم.">Parents filter the activity feed by Date or Grade to quickly find what's relevant to their child without scrolling through everything.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Parents Announcements" data-ar="إعلانات أولياء الأمور">Parents Announcements</strong>
+                    <span data-en="Official nursery news in one place — holiday notices, reminders, field-trip details, closure dates, and event invites — organized and easy to find." data-ar="أخبار الحضانة الرسمية في مكان واحد — إشعارات العطل والتذكيرات وتفاصيل الرحلات الميدانية وتواريخ الإغلاق ودعوات الفعاليات — منظمة وسهلة الإيجاد.">All official nursery communications — holiday notices, reminders, field-trip info, closures, and event invites — organized in a single feed.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Real-Time Push Notifications" data-ar="إشعارات فورية">Real-Time Push Notifications</strong>
+                    <span data-en="Parents receive instant alerts the moment a new classroom post or announcement is published — so they never miss an update about their child's day, even when they're at work." data-ar="يتلقى أولياء الأمور تنبيهات فورية في اللحظة التي ينشر فيها منشور جديد أو إعلان — حتى لا يفوتهم أي تحديث عن يوم طفلهم، حتى وهم في العمل.">Instant alerts the moment a new post or announcement goes live — parents stay informed about their child's day in real time.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="My Children Profiles" data-ar="ملفات أطفالي">My Children Profiles</strong>
+                    <span data-en="Each parent sees only their own child's profile and classroom content — private, personalized, and secure. Parents with multiple children can switch between them in one tap." data-ar="يرى كل ولي أمر ملف طفله الخاص ومحتوى فصله فقط — خاص وشخصي وآمن. يمكن لأولياء الأمور الذين لديهم أطفال متعددون التنقل بينهم بنقرة واحدة.">Each parent sees only their own child's profile and classroom stream — private and personalized. Multiple children supported with a single-tap switch.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Secure Guardian-Only Access" data-ar="وصول حصري لأولياء الأمور">Secure Guardian-Only Access</strong>
+                    <span data-en="The platform enforces private, authorized access — only verified guardians can view a child's profile and classroom content. No public posts, no data leaks between unrelated families." data-ar="تفرض المنصة وصولًا خاصًا ومعتمدًا — فقط أولياء الأمور الموثقون يمكنهم عرض ملف طفلهم ومحتوى الفصل. لا منشورات عامة ولا تسرب بيانات بين العائلات غير المرتبطة.">Only verified guardians can access a child's profile and posts — no public content, no cross-family data leakage.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="On Google Play Store" data-ar="على متجر Google Play">On Google Play Store</span>
+                </div>
+                <div class="result-card">
+                  <strong>2</strong>
+                  <span data-en="Platforms — App &amp; Dashboard" data-ar="منصتان — تطبيق ولوحة تحكم">Platforms — App &amp; Dashboard</span>
+                </div>
+                <div class="result-card">
+                  <strong>6+</strong>
+                  <span data-en="Grade Levels Managed" data-ar="مستويات دراسية مُدارة">Grade Levels Managed</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Child-to-Parent Data Isolation" data-ar="عزل البيانات بين الأطفال وأولياء الأمور">Child-to-Parent Data Isolation</strong>
+                  <p data-en="The platform serves multiple nursery families simultaneously — each parent must see only their own child's content while staff publish posts visible to the relevant grade's parents. Implementing secure, scoped content delivery required careful API design with guardian-child relationship enforcement at every endpoint." data-ar="تخدم المنصة عائلات حضانة متعددة في آنٍ واحد — يجب أن يرى كل ولي أمر محتوى طفله فقط بينما ينشر الموظفون منشورات مرئية لأولياء أمور المستوى المعني. تطلب تنفيذ تسليم المحتوى الآمن والمحدود تصميم API دقيقًا مع فرض علاقة ولي الأمر–الطفل في كل نقطة نهاية.">Multiple families share the same platform — each parent sees only their child's content while staff publish to entire grade groups. This required scoped content delivery with guardian-child relationship enforcement at every API endpoint.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Media-Heavy Feed Performance" data-ar="أداء الخلاصة الغنية بالوسائط">Media-Heavy Feed Performance</strong>
+                  <p data-en="Classroom activity posts contain photos and video clips uploaded by nursery staff. Delivering a smooth, fast-loading media feed on mobile required optimized image compression, lazy loading, and efficient pagination — keeping the app responsive even as the activity archive grows over the school year." data-ar="تحتوي منشورات نشاط الفصل على صور ومقاطع فيديو يرفعها موظفو الحضانة. تقديم خلاصة وسائط سلسة وسريعة التحميل على الموبايل تطلب ضغط صور محسنًا وتحميلًا كسولًا وترقيمًا فعالًا للصفحات — مع الحفاظ على استجابة التطبيق مع نمو أرشيف الأنشطة خلال العام الدراسي.">Activity posts are media-rich — photos and video clips uploaded by staff. Delivering a smooth mobile feed required optimized compression, lazy loading, and efficient pagination to stay fast as the archive grows across the school year.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Real-Time Notification Reliability" data-ar="موثوقية الإشعارات الفورية">Real-Time Notification Reliability</strong>
+                  <p data-en="Parents depend on push notifications to stay informed about their child's day. Ensuring reliable delivery across iOS and Android devices — accounting for background app restrictions, battery optimization settings, and varying network conditions — required a robust Firebase Cloud Messaging implementation with fallback handling." data-ar="يعتمد أولياء الأمور على الإشعارات الفورية للبقاء على اطلاع بيوم طفلهم. ضمان التسليم الموثوق عبر أجهزة iOS وAndroid — مع مراعاة قيود تطبيقات الخلفية وإعدادات توفير البطارية وظروف الشبكة المتفاوتة — تطلب تطبيق Firebase Cloud Messaging قويًا مع معالجة احتياطية.">Parents rely on notifications to stay informed. Ensuring reliable delivery across iOS and Android — through background restrictions, battery-saver settings, and varying network conditions — required robust FCM implementation with proper fallback handling.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-eventix.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Eventix — Events Platform" data-ar="Eventix — منصة الفعاليات">Eventix — Events Platform</strong>
+              </a>
+              <a href="index.html#contact" class="btn-orange" data-en="Build Similar App →" data-ar="ابنِ تطبيقاً مماثلاً →">Build Similar App →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Future Nurseries Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Developer" data-ar="المطور">Developer</span>
+                <span class="meta-val">Syscom Technologies</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇱🇧 Lebanon</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Early Education" data-ar="تعليم مبكر">Early Education</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Platforms" data-ar="المنصات">Platforms</span>
+                <span class="meta-val">2</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Updated" data-ar="آخر تحديث">Updated</span>
+                <span class="meta-val">Jan 2026</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Firebase FCM</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Platforms" data-ar="المنصات">Platforms</h4>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;">
+                  <span style="font-size:16px;">📱</span>
+                  <span style="font-weight:700;color:var(--navy);">Android</span>
+                  <span style="margin-left:auto;font-size:11px;color:var(--muted);">Google Play</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;">
+                  <span style="font-size:16px;">🍎</span>
+                  <span style="font-weight:700;color:var(--navy);">iOS</span>
+                  <span style="margin-left:auto;font-size:11px;color:var(--muted);">App Store</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 0;font-size:13px;">
+                  <span style="font-size:16px;">🌐</span>
+                  <span style="font-weight:700;color:var(--navy);">Web Dashboard</span>
+                  <span style="margin-left:auto;font-size:11px;color:var(--muted);">Admin Panel</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Google Play" data-ar="متجر Google Play">Google Play</h4>
+              <a href="https://play.google.com/store/apps/details?id=com.syscom.fng" target="_blank" rel="noopener noreferrer" class="btn-orange" style="display:block;text-align:center;margin-top:4px;font-size:13px;" data-en="View on Google Play →" data-ar="عرض على Google Play →">View on Google Play →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p data-en="© 2025 Ahmed Nour · Software Engineer" data-ar="© 2025 أحمد نور · مهندس برمجيات">© 2025 Ahmed Nour · Software Engineer</p>
+      <div class="footer-links">
+        <a href="mailto:ahmednoor.dev@gmail.com">ahmednoor.dev@gmail.com</a>
+        <a href="https://linkedin.com/in/ahmed-nour-dev" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/ahmednour1234" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language toggle
+    const langKey = 'ahmed-portfolio-lang';
+    const langToggle = document.getElementById('langToggle');
+    const langLabel = document.getElementById('langLabel');
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      langLabel.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.innerHTML = lang === 'ar' ? el.dataset.ar : el.dataset.en;
+      });
+      localStorage.setItem(langKey, lang);
+    }
+    langToggle.addEventListener('click', () => {
+      applyLang(document.documentElement.lang === 'ar' ? 'en' : 'ar');
+    });
+    applyLang(localStorage.getItem(langKey) || 'en');
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
