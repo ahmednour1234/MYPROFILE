@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventix — Events &amp; Ticketing Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--ev-purple:#7c3aed;--ev-dark:#1a0533;--ev-pink:#e040fb;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0d0120 0%,#1a0533 50%,#2d0a5e 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(124,58,237,.22) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(224,64,251,.12) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(124,58,237,.4);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#7c3aed,#e040fb);display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#c4b5fd;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#c4b5fd;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.purple{background:rgba(124,58,237,.2);border-color:rgba(124,58,237,.5);color:#c4b5fd;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-purple{padding:11px 24px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#9333ea);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-purple:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:260px;border-radius:24px 24px 0 0;box-shadow:0 -16px 60px rgba(124,58,237,.3),0 -1px 0 rgba(124,58,237,.6);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;}
+    .platform-pill{padding:10px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(124,58,237,.15);border-color:rgba(124,58,237,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(124,58,237,.1);color:#7c3aed;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(124,58,237,.08);color:#1a0533;font-size:12px;font-weight:700;}
+    .platform-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .platform-row:last-child{border-bottom:none;}
+    .pl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .pl-name{font-weight:700;color:var(--navy);}
+    .pl-tag{margin-left:auto;font-size:11px;color:var(--muted);font-weight:600;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Component cards */
+    .components-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.app::before{background:linear-gradient(90deg,#7c3aed,#e040fb);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#2563eb,#7c3aed);}
+    .component-card.organizer::before{background:linear-gradient(90deg,#1a0533,#7c3aed);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.g{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.p{background:rgba(224,64,251,.1);color:#b91cc8;}
+    .comp-tag.d{background:rgba(26,5,51,.1);color:#1a0533;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#7c3aed,#9333ea);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7c3aed,#e040fb);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a0533,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenge list */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #7c3aed;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Event types */
+    .event-types-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .event-type-card{background:white;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow);}
+    .event-type-card .et-ico{font-size:24px;margin-bottom:6px;}
+    .event-type-card .et-name{font-size:12px;font-weight:700;color:var(--navy);}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#7c3aed;}
+    /* Mission banner */
+    .mission-banner{background:linear-gradient(135deg,#1a0533,#2d0a5e);border-radius:16px;padding:28px 32px;display:flex;align-items:center;gap:24px;color:white;}
+    .mission-icon{font-size:48px;flex-shrink:0;}
+    .mission-banner h3{font-size:18px;font-weight:800;margin:0 0 6px;color:white;}
+    .mission-banner p{font-size:13px;color:rgba(255,255,255,.7);margin:0;line-height:1.7;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .components-grid{grid-template-columns:1fr;}
+      .event-types-grid{grid-template-columns:repeat(2,1fr);}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+      .mission-banner{flex-direction:column;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Eventix</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">E</div>
+          <span><em>Eventix</em> &nbsp;— EVENTS &amp; TICKETING PLATFORM · LEBANON</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat events" data-en="Events · Ticketing · Mobile" data-ar="فعاليات · تذاكر · موبايل">Events · Ticketing · Mobile</span>
+            <h1 data-en="Eventix — <em>Events &amp; Ticketing</em> Platform" data-ar="Eventix — منصة <em>الفعاليات والتذاكر</em>">Eventix — <em>Events &amp; Ticketing</em> Platform</h1>
+            <p data-en="A full-stack cultural events platform built for Lebanon — a mobile app for users to discover and book nightlife, comedy, and live performance events, paired with an organizer portal and admin dashboard to manage events, venues, capacity, and ticket sales." data-ar="منصة فعاليات ثقافية متكاملة مبنية للبنان — تطبيق موبايل للمستخدمين لاكتشاف وحجز فعاليات الحياة الليلية والكوميديا والعروض الحية، مع بوابة المنظمين ولوحة تحكم الإدارة لإدارة الفعاليات والأماكن والسعة ومبيعات التذاكر.">A full-stack cultural events platform built for Lebanon — a mobile app for users to discover and book nightlife, comedy, and live performance events, paired with an organizer portal and admin dashboard to manage events, venues, capacity, and ticket sales.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇱🇧 Lebanon</span>
+              <span class="hero-badge purple">✓ Live on Google Play</span>
+              <span class="hero-badge purple">🎫 Ticket Booking</span>
+              <span class="hero-badge">🌿 Supports Environmental Causes</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://play.google.com/store/apps/details?id=com.eventix.app" target="_blank" rel="noopener noreferrer" class="btn-purple" data-en="View on Google Play →" data-ar="عرض على Google Play →">View on Google Play →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/eventix/eventix-app.png" alt="Eventix App Screenshot" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="User Mobile App" data-ar="تطبيق المستخدم">User Mobile App</strong><span data-en="iOS &amp; Android — Discover &amp; Book" data-ar="iOS وAndroid — اكتشف واحجز">iOS &amp; Android — Discover &amp; Book</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم">Admin Dashboard</strong><span data-en="Events, Tickets, Revenue" data-ar="فعاليات، تذاكر، إيرادات">Events, Tickets, Revenue</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎪</span>
+              <div class="pp-text"><strong data-en="Organizer Portal" data-ar="بوابة المنظمين">Organizer Portal</strong><span data-en="Create &amp; Manage Events" data-ar="إنشاء وإدارة الفعاليات">Create &amp; Manage Events</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Eventix is a cultural ticketing platform developed by Syscom Technologies for the Lebanese market — celebrating nightlife, comedy, and live performances. The platform operates under the mission campaign 'Laugh and Dance for Earth', which channels a portion of ticket revenue toward funding real environmental projects through the power of arts." data-ar="Eventix هي منصة تذاكر ثقافية طورتها Syscom Technologies للسوق اللبناني — تحتفي بالحياة الليلية والكوميديا والعروض الحية. تعمل المنصة تحت حملة 'اضحك وارقص من أجل الأرض'، التي توجه جزءًا من عائدات التذاكر لتمويل مشاريع بيئية حقيقية من خلال قوة الفنون.">Eventix is a cultural ticketing platform developed by Syscom Technologies for the Lebanese market — celebrating nightlife, comedy, and live performances. The platform operates under the mission 'Laugh and Dance for Earth', channeling ticket revenue toward funding real environmental projects through the arts.</p>
+              <p data-en="The full ecosystem includes a Flutter mobile app for end users to discover and book events, a dashboard for admins to manage events, venues, ticket tiers, capacity, and revenue reporting, plus an organizer-facing portal where event creators can publish and track their own events." data-ar="المنظومة الكاملة تتضمن تطبيق Flutter للمستخدمين لاكتشاف وحجز الفعاليات، ولوحة تحكم للمشرفين لإدارة الفعاليات والأماكن وفئات التذاكر والطاقة الاستيعابية وتقارير الإيرادات، بالإضافة إلى بوابة للمنظمين لنشر ومتابعة فعالياتهم.">The ecosystem includes a Flutter mobile app, an admin dashboard for events/tickets/revenue management, and an organizer portal for event creators to publish and track their events.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Mission" data-ar="الرسالة">Mission</h2>
+              <div class="mission-banner">
+                <div class="mission-icon">🌍</div>
+                <div>
+                  <h3 data-en="Laugh and Dance for Earth" data-ar="اضحك وارقص من أجل الأرض">Laugh and Dance for Earth</h3>
+                  <p data-en="Every ticket booked through Eventix contributes to funding real environmental projects. The platform connects entertainment with purpose — DJs, comedians, musicians, and organizers who care about the planet help generate impact beyond the stage." data-ar="كل تذكرة محجوزة عبر Eventix تساهم في تمويل مشاريع بيئية حقيقية. تربط المنصة الترفيه بالهدف — DJ والكوميديون والموسيقيون والمنظمون المهتمون بالكوكب يساعدون في توليد أثر يتجاوز الخشبة.">Every ticket booked through Eventix contributes to funding real environmental projects — connecting entertainment with purpose, where artists and organizers who care about the planet create impact beyond the stage.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="The Three Platforms" data-ar="المنصات الثلاث">The Three Platforms</h2>
+              <div class="components-grid">
+                <div class="component-card app">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="User Mobile App" data-ar="تطبيق المستخدم">User Mobile App</div>
+                  <div class="comp-sub">iOS &amp; Android</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Flutter</span>
+                    <span class="comp-tag g">Dart</span>
+                    <span class="comp-tag p">Firebase</span>
+                    <span class="comp-tag g">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Browse upcoming events, filter by category/date/location, view event details, book tickets, receive QR codes, and get push notifications for events." data-ar="تصفح الفعاليات القادمة، التصفية حسب الفئة/التاريخ/الموقع، عرض تفاصيل الفعالية، حجز التذاكر، استلام رموز QR وتلقي إشعارات الفعاليات.">Browse events, filter by type/date/location, book tickets, get QR codes, and receive push notifications.</p>
+                </div>
+                <div class="component-card dashboard">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة تحكم المشرف">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Full Control Panel" data-ar="لوحة تحكم كاملة">Full Control Panel</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">Laravel</span>
+                    <span class="comp-tag b">MySQL</span>
+                    <span class="comp-tag b">RBAC</span>
+                    <span class="comp-tag b">Charts</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full platform control — manage events, approve organizers, set ticket tiers & pricing, monitor real-time sales, track revenue, and generate financial reports." data-ar="تحكم كامل بالمنصة — إدارة الفعاليات والموافقة على المنظمين وتحديد فئات التذاكر والأسعار ومراقبة المبيعات الفورية وتتبع الإيرادات وتوليد التقارير المالية.">Manage events, approve organizers, set ticket tiers & pricing, monitor real-time sales, and generate financial reports.</p>
+                </div>
+                <div class="component-card organizer">
+                  <div class="comp-icon">🎪</div>
+                  <div class="comp-name" data-en="Organizer Portal" data-ar="بوابة المنظمين">Organizer Portal</div>
+                  <div class="comp-sub" data-en="Event Creator Tools" data-ar="أدوات إنشاء الفعاليات">Event Creator Tools</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag d">Laravel</span>
+                    <span class="comp-tag d">Dashboard</span>
+                    <span class="comp-tag d">Analytics</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Event organizers create and publish events, set venue capacity, configure ticket types & prices, monitor bookings in real time, and track their revenue." data-ar="ينشئ المنظمون الفعاليات ويقيمونها، ويحددون الطاقة الاستيعابية للمكان، ويضبطون أنواع التذاكر والأسعار، ويتابعون الحجوزات بشكل فوري ويتتبعون إيراداتهم.">Organizers create events, set capacity, configure ticket types & prices, and monitor bookings and revenue in real time.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Event Categories" data-ar="فئات الفعاليات">Event Categories</h2>
+              <div class="event-types-grid">
+                <div class="event-type-card"><div class="et-ico">🎤</div><div class="et-name" data-en="Stand-Up Comedy" data-ar="كوميديا ستاند أب">Stand-Up Comedy</div></div>
+                <div class="event-type-card"><div class="et-ico">🎵</div><div class="et-name" data-en="Live Music" data-ar="موسيقى حية">Live Music</div></div>
+                <div class="event-type-card"><div class="et-ico">🎧</div><div class="et-name" data-en="DJ Nights" data-ar="ليالي DJ">DJ Nights</div></div>
+                <div class="event-type-card"><div class="et-ico">🕺</div><div class="et-name" data-en="Nightlife Events" data-ar="فعاليات الحياة الليلية">Nightlife Events</div></div>
+                <div class="event-type-card"><div class="et-ico">🎭</div><div class="et-name" data-en="Performances" data-ar="عروض مسرحية">Performances</div></div>
+                <div class="event-type-card"><div class="et-ico">🌿</div><div class="et-name" data-en="Eco Fundraisers" data-ar="جمع تبرعات بيئية">Eco Fundraisers</div></div>
+                <div class="event-type-card"><div class="et-ico">🎉</div><div class="et-name" data-en="Special Events" data-ar="فعاليات خاصة">Special Events</div></div>
+                <div class="event-type-card"><div class="et-ico">🎪</div><div class="et-name" data-en="Cultural Nights" data-ar="ليالٍ ثقافية">Cultural Nights</div></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Event Discovery &amp; Filtering" data-ar="اكتشاف الفعاليات والتصفية">Event Discovery &amp; Filtering</strong>
+                    <span data-en="Users browse upcoming events filtered by category, date, venue, and city — with rich event detail pages including lineup, artists, and capacity info." data-ar="يتصفح المستخدمون الفعاليات القادمة مع التصفية حسب الفئة والتاريخ والمكان والمدينة — مع صفحات تفاصيل غنية تشمل التشكيلة والفنانين ومعلومات الطاقة الاستيعابية.">Users browse events filtered by category, date, venue, city — with rich detail pages including lineup and capacity.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Multi-Tier Ticket Booking" data-ar="حجز تذاكر متعدد الفئات">Multi-Tier Ticket Booking</strong>
+                    <span data-en="Organizers configure multiple ticket types per event — General Admission, VIP, Early Bird, Table reservations — each with its own price, quantity, and availability window." data-ar="يضبط المنظمون أنواع تذاكر متعددة لكل فعالية — الدخول العام وVIP والحجز المبكر وحجز الطاولات — كل منها بسعره الخاص وكميته ونافذة توفره.">Organizers set multiple ticket tiers — GA, VIP, Early Bird, Table — each with own price, quantity, and availability.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="QR Code Tickets" data-ar="تذاكر برمز QR">QR Code Tickets</strong>
+                    <span data-en="After booking, users receive QR-coded tickets directly in the app. Event staff scan QR codes at the gate for seamless, paperless entry validation." data-ar="بعد الحجز، يتلقى المستخدمون تذاكر برمز QR مباشرة في التطبيق. يقوم موظفو الفعالية بمسح رموز QR عند البوابة للتحقق السلس من الدخول بلا ورق.">After booking, QR tickets arrive in-app. Staff scan at the gate for seamless, paperless entry.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Real-Time Sales Dashboard" data-ar="لوحة مبيعات فورية">Real-Time Sales Dashboard</strong>
+                    <span data-en="Admins and organizers monitor live ticket sales, remaining capacity, revenue by ticket tier, and booking trends — all updated in real time as tickets are sold." data-ar="يراقب المشرفون والمنظمون مبيعات التذاكر الحية والطاقة المتبقية والإيرادات حسب فئة التذكرة واتجاهات الحجز — تُحدَّث كلها فورياً مع بيع التذاكر.">Live monitoring of ticket sales, remaining capacity, revenue by tier, and booking trends — updated in real time.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Organizer Onboarding &amp; Approval" data-ar="إعداد المنظمين والموافقة عليهم">Organizer Onboarding &amp; Approval</strong>
+                    <span data-en="Event organizers register on the platform, submit their profile and event proposals for admin review. Once approved, they access their own portal to manage events independently." data-ar="يسجل المنظمون في المنصة ويرسلون ملفاتهم الشخصية ومقترحات الفعاليات للمراجعة الإدارية. بعد الموافقة، يصلون إلى بواباتهم الخاصة لإدارة الفعاليات باستقلالية.">Organizers register and submit proposals for admin review — then manage their events independently through their portal.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Push Notifications &amp; Reminders" data-ar="إشعارات فورية وتذكيرات">Push Notifications &amp; Reminders</strong>
+                    <span data-en="Users receive push notifications for new events matching their interests, booking confirmations, event-day reminders, and last-seat alerts when capacity is nearly full." data-ar="يتلقى المستخدمون إشعارات فورية للفعاليات الجديدة المطابقة لاهتماماتهم وتأكيدات الحجز وتذكيرات يوم الفعالية وتنبيهات المقاعد الأخيرة عند اقتراب اكتمال الطاقة.">Push notifications for new matching events, booking confirmations, event-day reminders, and last-seat alerts.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Ticket Inventory &amp; Race Conditions" data-ar="مخزون التذاكر وتعارض الطلبات">Ticket Inventory &amp; Race Conditions</strong>
+                  <p data-en="When multiple users book the last available tickets simultaneously, the system must handle race conditions precisely — preventing overselling while keeping the booking experience fast. This required database-level locking and optimistic concurrency control for ticket reservations." data-ar="عندما يحجز عدة مستخدمين آخر التذاكر المتاحة في وقت واحد، يجب على النظام التعامل مع تعارض الطلبات بدقة — منع الإفراط في البيع مع الحفاظ على تجربة حجز سريعة. تطلب ذلك قفل على مستوى قاعدة البيانات والتحكم في التزامن التفاؤلي لحجوزات التذاكر.">Concurrent last-ticket bookings required database-level locking and optimistic concurrency control to prevent overselling without slowing the experience.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Multi-Role Platform Architecture" data-ar="بنية منصة متعددة الأدوار">Multi-Role Platform Architecture</strong>
+                  <p data-en="Three distinct user roles — app users, event organizers, and platform admins — each need different views, permissions, and data access. Designing clean RBAC boundaries where organizers can only see their own events while admins have full oversight required careful API design." data-ar="ثلاثة أدوار مستخدم مختلفة — مستخدمو التطبيق والمنظمون ومشرفو المنصة — يحتاج كل منهم إلى واجهات وصلاحيات ووصول مختلف للبيانات. تصميم حدود RBAC واضحة حيث يرى المنظمون فعالياتهم فقط بينما يملك المشرفون إشرافاً كاملاً تطلب تصميم API دقيقاً.">Three user roles (users, organizers, admins) with clean RBAC boundaries — organizers see only their events while admins have full platform oversight.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Environmental Revenue Allocation" data-ar="تخصيص الإيرادات البيئية">Environmental Revenue Allocation</strong>
+                  <p data-en="The platform's mission requires tracking which portion of every ticket sale goes toward environmental funding. The system automatically calculates and reports the environmental contribution per event, per organizer, and cumulatively — maintaining transparent accounting for the cause." data-ar="تتطلب رسالة المنصة تتبع الجزء الذي يذهب من كل مبيعات التذاكر نحو التمويل البيئي. يحسب النظام تلقائياً ويبلغ عن المساهمة البيئية لكل فعالية ولكل منظم وبشكل تراكمي — مع الحفاظ على محاسبة شفافة للقضية.">The platform automatically calculates, allocates, and reports the environmental contribution per event and organizer — maintaining transparent accounting for the cause.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-jinan.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Jinan University UMS" data-ar="نظام جامعة الجنان">Jinan University UMS</strong>
+              </a>
+              <a href="index.html#contact" class="btn-purple" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Eventix</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Developer" data-ar="المطور">Developer</span>
+                <span class="meta-val">Syscom Technologies</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇱🇧 Lebanon</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Events &amp; Ticketing" data-ar="فعاليات وتذاكر">Events &amp; Ticketing</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Platforms" data-ar="المنصات">Platforms</span>
+                <span class="meta-val">3</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Firebase</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">QR Codes</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Platforms" data-ar="المنصات">Platforms</h4>
+              <div class="platform-row">
+                <div class="pl-dot" style="background:#7c3aed;"></div>
+                <span class="pl-name" data-en="Mobile App" data-ar="تطبيق الموبايل">Mobile App</span>
+                <span class="pl-tag">iOS / Android</span>
+              </div>
+              <div class="platform-row">
+                <div class="pl-dot" style="background:#2563eb;"></div>
+                <span class="pl-name" data-en="Admin Dashboard" data-ar="لوحة التحكم">Admin Dashboard</span>
+                <span class="pl-tag">Web</span>
+              </div>
+              <div class="platform-row">
+                <div class="pl-dot" style="background:#1a0533;"></div>
+                <span class="pl-name" data-en="Organizer Portal" data-ar="بوابة المنظمين">Organizer Portal</span>
+                <span class="pl-tag">Web</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Links" data-ar="الروابط">Links</h4>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <a href="https://play.google.com/store/apps/details?id=com.eventix.app" target="_blank" rel="noopener" class="btn-purple" style="text-align:center;font-size:13px;padding:10px 16px;" data-en="Google Play →" data-ar="Google Play →">Google Play →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'Eventix — منصة الفعاليات والتذاكر | أحمد نور' : 'Eventix — Events & Ticketing Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active'); }); }
+    window.addEventListener('scroll', doReveal); doReveal();
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(10,45,69,0.1)' : '0 2px 30px rgba(10,45,69,0.05)';
+    });
+  </script>
+</body>
+</html>

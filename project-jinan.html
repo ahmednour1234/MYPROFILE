@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jinan University — UMS &amp; Student App | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--ju-blue:#1464b4;--ju-dark:#0d2a4a;--ju-light:#eef5ff;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#071e3d 0%,#0d2a4a 50%,#0f3668 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(20,100,180,.18) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(20,100,180,.1) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(20,100,180,.4);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:#1464b4;display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#93c5fd;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 460px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#93c5fd;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.blue{background:rgba(20,100,180,.2);border-color:rgba(20,100,180,.5);color:#93c5fd;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-blue{padding:11px 24px;border-radius:12px;background:#1464b4;color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-blue:hover{background:#1a7ad4;transform:translateY(-2px);box-shadow:0 8px 24px rgba(20,100,180,.4);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:460px;border-radius:16px 16px 0 0;box-shadow:0 -16px 60px rgba(20,100,180,.25),0 -1px 0 rgba(20,100,180,.5);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;}
+    .platform-pill{padding:10px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(20,100,180,.15);border-color:rgba(20,100,180,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(20,100,180,.1);color:#1464b4;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(20,100,180,.08);color:#0d2a4a;font-size:12px;font-weight:700;}
+    .platform-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .platform-row:last-child{border-bottom:none;}
+    .pl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .pl-name{font-weight:700;color:var(--navy);}
+    .pl-tag{margin-left:auto;font-size:11px;color:var(--muted);font-weight:600;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Component cards */
+    .components-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.website::before{background:linear-gradient(90deg,#1464b4,#3b82f6);}
+    .component-card.app::before{background:linear-gradient(90deg,#2563eb,#7c3aed);}
+    .component-card.system::before{background:linear-gradient(90deg,#0d2a4a,#1464b4);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.g{background:rgba(20,100,180,.1);color:#1464b4;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .comp-tag.d{background:rgba(13,42,74,.1);color:#0d2a4a;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:#1464b4;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1464b4,#3b82f6);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#0d2a4a,#1464b4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #1464b4;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Faculty grid */
+    .faculty-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .faculty-card{background:white;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;box-shadow:var(--shadow);}
+    .faculty-card .fac-ico{font-size:22px;margin-bottom:6px;}
+    .faculty-card .fac-name{font-size:12px;font-weight:700;color:var(--navy);}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#1464b4;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .components-grid{grid-template-columns:1fr;}
+      .faculty-grid{grid-template-columns:repeat(2,1fr);}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span data-en="Jinan University" data-ar="جامعة الجنان">Jinan University</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">ج</div>
+          <span><em>جامعة الجنان</em> &nbsp;— AL JINAN UNIVERSITY · TRIPOLI, LEBANON</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat education" data-en="Education · University System" data-ar="تعليم · نظام جامعي">Education · University System</span>
+            <h1 data-en="Jinan University <em>UMS &amp; Student App</em>" data-ar="جامعة الجنان <em>نظام الإدارة وتطبيق الطلاب</em>">Jinan University <em>UMS &amp; Student App</em></h1>
+            <p data-en="Full digital university ecosystem for Al Jinan University in Lebanon — a university website, a teacher & staff management portal (UMS), and a student mobile app — all connected to one backend serving thousands of students across multiple campuses." data-ar="منظومة جامعية رقمية متكاملة لجامعة الجنان في لبنان — موقع الجامعة ونظام إدارة المدرسين والموظفين (UMS) وتطبيق الطلاب — كلها مرتبطة بخلفية واحدة تخدم آلاف الطلاب عبر حرم جامعية متعددة.">Full digital university ecosystem for Al Jinan University in Lebanon — a university website, a teacher &amp; staff management portal (UMS), and a student mobile app — all connected to one backend serving thousands of students across multiple campuses.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇱🇧 Tripoli, Lebanon</span>
+              <span class="hero-badge blue">✓ Live — jinan.edu.lb</span>
+              <span class="hero-badge blue">📱 Student Mobile App</span>
+              <span class="hero-badge">Multi-Campus</span>
+              <span class="hero-badge">Arabic &amp; English</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://www.jinan.edu.lb/" target="_blank" rel="noopener noreferrer" class="btn-blue" data-en="Visit University →" data-ar="زيارة الجامعة →">Visit University →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar System" data-ar="ابنِ نظاماً مماثلاً">Build Similar System</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/jinan/jinan-hero.jpg" alt="Jinan University System" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="University Website" data-ar="موقع الجامعة">University Website</strong><span>jinan.edu.lb — Laravel</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="UMS — Teacher Portal" data-ar="UMS — بوابة المدرسين">UMS — Teacher Portal</strong><span>jinansystem.com — Internal</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Student Mobile App" data-ar="تطبيق الطلاب">Student Mobile App</strong><span>iOS &amp; Android</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Al Jinan University is one of Lebanon's leading private universities, headquartered in Tripoli with multiple campuses across the country. The university required a complete digital infrastructure: a public-facing website, an internal university management system (UMS) for teachers and administrative staff, and a mobile application for students." data-ar="جامعة الجنان هي إحدى الجامعات الخاصة الرائدة في لبنان، ومقرها طرابلس مع حرم جامعية متعددة في أنحاء البلاد. احتاجت الجامعة إلى بنية رقمية متكاملة: موقع عام وإلكتروني ونظام إدارة جامعي داخلي (UMS) للمدرسين والإداريين وتطبيق محمول للطلاب.">Al Jinan University is one of Lebanon's leading private universities, headquartered in Tripoli with multiple campuses across the country. The university required a complete digital infrastructure: a public-facing website, an internal university management system (UMS) for teachers and administrative staff, and a mobile application for students.</p>
+              <p data-en="The solution delivers a unified academic ecosystem — teachers manage courses, grades, attendance and exams through the UMS portal, while students access their academic records, schedules, results and university news through the mobile app, all connected to the same backend." data-ar="الحل يقدم منظومة أكاديمية موحدة — يدير المدرسون المقررات والدرجات والحضور والامتحانات عبر بوابة UMS، بينما يصل الطلاب إلى سجلاتهم الأكاديمية والجداول والنتائج وأخبار الجامعة عبر التطبيق، وكل ذلك مرتبط بالخلفية ذاتها.">The solution delivers a unified academic ecosystem — teachers manage courses, grades, attendance and exams through the UMS portal, while students access their academic records, schedules, results and university news through the mobile app, all connected to the same backend.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="The Three Platforms" data-ar="المنصات الثلاث">The Three Platforms</h2>
+              <div class="components-grid">
+                <div class="component-card website">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="University Website" data-ar="الموقع الجامعي">University Website</div>
+                  <div class="comp-sub">jinan.edu.lb</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Laravel</span>
+                    <span class="comp-tag g">Arabic RTL</span>
+                    <span class="comp-tag g">Multilingual</span>
+                    <span class="comp-tag g">CMS</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Public website — faculties & departments, news & events, admission info, academic calendar, research, campuses, and student services portal." data-ar="الموقع العام — الكليات والأقسام، الأخبار والفعاليات، معلومات القبول، التقويم الأكاديمي، البحث العلمي، الحرم الجامعية وبوابة خدمات الطلاب.">Public website — faculties, news, admission info, academic calendar, research, campuses, and student services.</p>
+                </div>
+                <div class="component-card system">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="UMS — Teacher &amp; Staff Portal" data-ar="UMS — بوابة المدرسين والموظفين">UMS — Teacher &amp; Staff Portal</div>
+                  <div class="comp-sub">jinansystem.com</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag d">Laravel</span>
+                    <span class="comp-tag d">MySQL</span>
+                    <span class="comp-tag d">RBAC</span>
+                    <span class="comp-tag d">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Internal management system for teachers and admins — manage courses, enter grades, track attendance, schedule exams, handle student records and academic affairs." data-ar="نظام إداري داخلي للمدرسين والإداريين — إدارة المقررات وإدخال الدرجات ومتابعة الحضور وجدولة الامتحانات ومعالجة سجلات الطلاب والشؤون الأكاديمية.">Internal portal for teachers & admins — courses, grades, attendance, exam scheduling, student records, academic affairs.</p>
+                </div>
+                <div class="component-card app">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Student Mobile App" data-ar="تطبيق الطلاب">Student Mobile App</div>
+                  <div class="comp-sub">iOS &amp; Android</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">Flutter</span>
+                    <span class="comp-tag b">Dart</span>
+                    <span class="comp-tag p">Firebase</span>
+                    <span class="comp-tag b">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Student-facing mobile app — view grades, class schedules, attendance records, exam dates, university announcements, and academic transcripts on the go." data-ar="تطبيق الطالب — عرض الدرجات والجداول الدراسية وسجلات الحضور ومواعيد الامتحانات وإعلانات الجامعة والنسخ الأكاديمية في أي مكان.">Student app — grades, schedules, attendance, exam dates, announcements, and academic transcripts.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Faculties &amp; Colleges" data-ar="الكليات والأقسام">Faculties &amp; Colleges</h2>
+              <div class="faculty-grid">
+                <div class="faculty-card"><div class="fac-ico">⚖️</div><div class="fac-name" data-en="Law & Political Science" data-ar="الحقوق والعلوم السياسية">Law &amp; Political Science</div></div>
+                <div class="faculty-card"><div class="fac-ico">💼</div><div class="fac-name" data-en="Business Administration" data-ar="إدارة الأعمال">Business Administration</div></div>
+                <div class="faculty-card"><div class="fac-ico">💻</div><div class="fac-name" data-en="Computer Science" data-ar="علوم الحاسوب">Computer Science</div></div>
+                <div class="faculty-card"><div class="fac-ico">🏥</div><div class="fac-name" data-en="Public Health" data-ar="الصحة العامة">Public Health</div></div>
+                <div class="faculty-card"><div class="fac-ico">📚</div><div class="fac-name" data-en="Arts &amp; Humanities" data-ar="الآداب والعلوم الإنسانية">Arts &amp; Humanities</div></div>
+                <div class="faculty-card"><div class="fac-ico">🕌</div><div class="fac-name" data-en="Sharia &amp; Islamic Studies" data-ar="الشريعة والدراسات الإسلامية">Sharia &amp; Islamic Studies</div></div>
+                <div class="faculty-card"><div class="fac-ico">🔬</div><div class="fac-name" data-en="Sciences" data-ar="العلوم">Sciences</div></div>
+                <div class="faculty-card"><div class="fac-ico">🎓</div><div class="fac-name" data-en="Graduate Studies" data-ar="الدراسات العليا">Graduate Studies</div></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Unified Backend — One API for All Platforms" data-ar="خلفية موحدة — API واحد لجميع المنصات">Unified Backend — One API for All Platforms</strong>
+                    <span data-en="The website, UMS portal, and student app all share one REST API and database — ensuring real-time data consistency across teachers, admins, and students." data-ar="الموقع وبوابة UMS وتطبيق الطلاب يتشاركون REST API وقاعدة بيانات واحدة — مما يضمن تناسق البيانات آنيًا عبر المدرسين والإداريين والطلاب.">Website, UMS portal, and student app share one API — real-time consistency for all users.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Grade &amp; Transcript Management" data-ar="إدارة الدرجات والنسخ الأكاديمية">Grade &amp; Transcript Management</strong>
+                    <span data-en="Teachers enter grades per course and semester. Students view results instantly in the app, and official transcripts are generated automatically." data-ar="يدخل المدرسون الدرجات لكل مقرر وفصل. يرى الطلاب النتائج فورًا في التطبيق وتُولَّد النسخ الرسمية تلقائيًا.">Teachers enter grades; students see results instantly in the app. Transcripts generated automatically.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Attendance Tracking System" data-ar="نظام متابعة الحضور">Attendance Tracking System</strong>
+                    <span data-en="Teachers mark attendance per lecture. Students monitor their attendance percentage through the app and receive alerts when approaching the absence limit." data-ar="يسجل المدرسون الحضور لكل محاضرة. يتابع الطلاب نسبة حضورهم عبر التطبيق ويتلقون تنبيهات عند الاقتراب من حد الغياب.">Teachers mark attendance per lecture; students track percentages and get absence warnings in the app.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Exam Scheduling &amp; Calendar" data-ar="جدولة الامتحانات والتقويم">Exam Scheduling &amp; Calendar</strong>
+                    <span data-en="Admins schedule midterm and final exams across all faculties and campuses. Students see their personal exam timetable in the app with date, time, hall, and course info." data-ar="يجدول الإداريون امتحانات منتصف الفصل والامتحانات النهائية عبر جميع الكليات والحرم الجامعية. يرى الطلاب جدول امتحاناتهم الشخصي في التطبيق مع التاريخ والوقت والقاعة ومعلومات المقرر.">Admins schedule exams; students see their personal timetable with hall, date, time, and course in the app.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Multi-Campus &amp; Multi-Role System" data-ar="نظام متعدد الحرم والأدوار">Multi-Campus &amp; Multi-Role System</strong>
+                    <span data-en="Supports Tripoli, Saida, and other campuses with role-based access — teachers, department heads, registrar, admins, and students each see only their relevant data." data-ar="يدعم حرم طرابلس وصيدا وغيرها بصلاحيات مبنية على الأدوار — يرى المدرسون والرؤساء والمسجلون والإداريون والطلاب بياناتهم ذات الصلة فقط.">Supports multiple campuses with role-based access for teachers, heads, registrars, admins, and students.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Push Notifications &amp; Announcements" data-ar="إشعارات فورية وإعلانات">Push Notifications &amp; Announcements</strong>
+                    <span data-en="University broadcasts announcements directly to students via push notifications — exam schedules, important deadlines, campus news, and registration reminders." data-ar="تبث الجامعة الإعلانات مباشرة للطلاب عبر الإشعارات الفورية — جداول الامتحانات والمواعيد الهامة وأخبار الحرم الجامعي وتذكيرات التسجيل.">University pushes announcements, exam notices, deadlines, and campus news directly to students.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Impact &amp; Scale" data-ar="الأثر والنطاق">Impact &amp; Scale</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>10K+</strong>
+                  <span data-en="Students Served" data-ar="طالب تخدمهم المنظومة">Students Served</span>
+                </div>
+                <div class="result-card">
+                  <strong>3</strong>
+                  <span data-en="Campuses Connected" data-ar="حرم جامعية مترابطة">Campuses Connected</span>
+                </div>
+                <div class="result-card">
+                  <strong>8+</strong>
+                  <span data-en="Faculties &amp; Colleges" data-ar="كليات وأقسام">Faculties &amp; Colleges</span>
+                </div>
+                <div class="result-card">
+                  <strong>3</strong>
+                  <span data-en="Integrated Platforms" data-ar="منصات متكاملة">Integrated Platforms</span>
+                </div>
+                <div class="result-card">
+                  <strong>iOS<br>&amp; Android</strong>
+                  <span data-en="Student App Available" data-ar="تطبيق الطلاب متاح">Student App Available</span>
+                </div>
+                <div class="result-card">
+                  <strong>2</strong>
+                  <span data-en="Languages (AR / EN)" data-ar="لغتان (عربي / إنجليزي)">Languages (AR / EN)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Academic Data Complexity" data-ar="تعقيد البيانات الأكاديمية">Academic Data Complexity</strong>
+                  <p data-en="University data is deeply relational — students, courses, sections, semesters, instructors, grades, and attendance all interconnect. Designing a flexible schema that handles prerequisites, credit hours, GPA calculation, and multi-semester history required careful database architecture." data-ar="البيانات الجامعية ذات علاقات معقدة — الطلاب والمقررات والأقسام والفصول والمدرسون والدرجات والحضور كلها مترابطة. تصميم مخطط مرن يتعامل مع المتطلبات السابقة والساعات المعتمدة وحساب المعدل وتاريخ الفصول المتعددة يتطلب بنية قاعدة بيانات دقيقة.">University data is highly relational across students, courses, semesters, grades, and attendance. Designing a schema handling prerequisites, GPA, credit hours, and multi-semester history required careful architecture.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Multi-Campus Role Isolation" data-ar="عزل الأدوار عبر الحرم الجامعية">Multi-Campus Role Isolation</strong>
+                  <p data-en="Each campus operates semi-independently — department heads of one campus should not access another campus's data. Implementing a campus-scoped RBAC system that still allows university-wide admin oversight was a key architectural challenge." data-ar="يعمل كل حرم جامعي بشكل شبه مستقل — رؤساء الأقسام في حرم ما لا ينبغي أن يصلوا إلى بيانات حرم آخر. كان تطبيق نظام RBAC محدود النطاق بالحرم مع السماح بالإشراف الإداري على مستوى الجامعة تحديًا معماريًا رئيسيًا.">Each campus is semi-isolated. Implementing campus-scoped RBAC while allowing university-wide admin oversight was a key architectural challenge.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Real-Time Sync — UMS to Student App" data-ar="المزامنة الفورية — من UMS إلى تطبيق الطلاب">Real-Time Sync — UMS to Student App</strong>
+                  <p data-en="When a teacher enters grades or updates attendance in the UMS portal, students must see the change immediately in their app without manual refresh. Implementing efficient push notification triggers and API cache invalidation ensured instant data propagation." data-ar="عندما يدخل المدرس درجات أو يحدث الحضور في بوابة UMS، يجب أن يرى الطلاب التغيير فورًا في تطبيقهم دون تحديث يدوي. ضمن تطبيق محفزات الإشعارات الفورية الفعالة وإلغاء صلاحية ذاكرة التخزين المؤقت لـAPI انتشار البيانات الفوري.">Teachers update grades in UMS — students see changes instantly in the app via push notification triggers and API cache invalidation.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-alhayat.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Al-Hayat Medical Platform" data-ar="منصة الحياة الطبية">Al-Hayat Medical Platform</strong>
+              </a>
+              <a href="index.html#contact" class="btn-blue" data-en="Build Similar System →" data-ar="ابنِ نظاماً مماثلاً →">Build Similar System →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val" data-en="Al Jinan University" data-ar="جامعة الجنان">Al Jinan University</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇱🇧 Lebanon</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="City" data-ar="المدينة">City</span>
+                <span class="meta-val" data-en="Tripoli" data-ar="طرابلس">Tripoli</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Education" data-ar="التعليم">Education</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Platforms" data-ar="المنصات">Platforms</span>
+                <span class="meta-val">3</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP 8</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">Firebase</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">Arabic RTL</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Platforms" data-ar="المنصات">Platforms</h4>
+              <div class="platform-row">
+                <div class="pl-dot" style="background:#1464b4;"></div>
+                <span class="pl-name" data-en="University Website" data-ar="موقع الجامعة">University Website</span>
+                <span class="pl-tag">Live</span>
+              </div>
+              <div class="platform-row">
+                <div class="pl-dot" style="background:#0d2a4a;"></div>
+                <span class="pl-name" data-en="UMS Teacher Portal" data-ar="بوابة المدرسين">UMS Teacher Portal</span>
+                <span class="pl-tag">Internal</span>
+              </div>
+              <div class="platform-row">
+                <div class="pl-dot" style="background:#2563eb;"></div>
+                <span class="pl-name" data-en="Student Mobile App" data-ar="تطبيق الطلاب">Student Mobile App</span>
+                <span class="pl-tag">iOS / Android</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Links" data-ar="الروابط">Links</h4>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <a href="https://www.jinan.edu.lb/" target="_blank" rel="noopener" class="btn-blue" style="text-align:center;font-size:13px;padding:10px 16px;" data-en="Visit Website →" data-ar="زيارة الموقع →">Visit Website →</a>
+                <a href="https://jinansystem.com/" target="_blank" rel="noopener" style="display:block;text-align:center;font-size:13px;padding:10px 16px;border-radius:12px;border:1.5px solid var(--line);color:var(--navy);text-decoration:none;font-weight:700;" data-en="UMS System →" data-ar="نظام UMS →">UMS System →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'جامعة الجنان — نظام الإدارة وتطبيق الطلاب | أحمد نور' : 'Jinan University — UMS & Student App | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const reveals = document.querySelectorAll('.reveal');
+    function doReveal() { reveals.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('active'); }); }
+    window.addEventListener('scroll', doReveal); doReveal();
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      header.style.background = window.scrollY > 40 ? 'rgba(248,251,255,0.97)' : 'rgba(248,251,255,0.84)';
+      header.style.boxShadow = window.scrollY > 40 ? '0 4px 40px rgba(10,45,69,0.1)' : '0 2px 30px rgba(10,45,69,0.05)';
+    });
+  </script>
+</body>
+</html>
