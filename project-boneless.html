@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boneless™ — Restaurant Mobile Ordering App | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--bnl-red:#dc2626;--bnl-dark:#1a0000;--bnl-amber:#f59e0b;--bnl-rose:#fca5a5;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0f0000 0%,#1a0000 50%,#3b0000 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(220,38,38,.22) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(245,158,11,.10) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(220,38,38,.4);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#dc2626,#b91c1c);display:flex;align-items:center;justify-content:center;color:white;font-size:15px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#fca5a5;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(220,38,38,.18);color:#fca5a5;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#fca5a5;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:500px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.red{background:rgba(220,38,38,.2);border-color:rgba(220,38,38,.5);color:#fca5a5;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-red{padding:11px 24px;border-radius:12px;background:linear-gradient(135deg,#dc2626,#b91c1c);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-red:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(220,38,38,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:260px;border-radius:24px 24px 0 0;box-shadow:0 -16px 60px rgba(220,38,38,.3),0 -1px 0 rgba(220,38,38,.5);display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;}
+    .platform-pill{padding:10px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(220,38,38,.15);border-color:rgba(220,38,38,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(220,38,38,.12);color:#dc2626;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(220,38,38,.09);color:#1a0000;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Component cards */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.app::before{background:linear-gradient(90deg,#dc2626,#f59e0b);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#b91c1c,#dc2626);}
+    .comp-icon{font-size:28px;margin-bottom:10px;}
+    .comp-name{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11.5px;color:var(--muted);margin-bottom:12px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.r{background:rgba(220,38,38,.1);color:#dc2626;}
+    .comp-tag.g{background:rgba(16,185,129,.1);color:#059669;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#dc2626,#b91c1c);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#dc2626,#f59e0b);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a0000,#dc2626);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenge list */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #dc2626;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#dc2626;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .components-grid{grid-template-columns:1fr;}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Boneless™</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">B</div>
+          <span><em>Boneless™</em> &nbsp;— RESTAURANT MOBILE ORDERING APP · LEBANON</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Food &amp; Drink · Mobile</span>
+            <h1 data-en="Boneless™ — <em>Restaurant Mobile</em> Ordering App" data-ar="Boneless™ — تطبيق <em>طلب طعام</em> للمطعم">Boneless™ — <em>Restaurant Mobile</em> Ordering App</h1>
+            <p data-en="Lebanon's premier boneless chicken restaurant app — built by Syscom Technologies. Customers browse the full menu, customize every item, place orders, track delivery in real time, and unlock exclusive offers. Paired with a complete restaurant admin dashboard for managing orders, menu, branches, and loyalty." data-ar="تطبيق مطعم Boneless اللبناني — مبني بواسطة Syscom Technologies. يتصفح العملاء القائمة الكاملة ويخصصون كل طلب ويتتبعون التوصيل آنيًا ويحصلون على عروض حصرية. مقرون بلوحة تحكم إدارية متكاملة لإدارة الطلبات والقائمة والفروع والعروض.">Lebanon's premier boneless chicken restaurant app — built by Syscom Technologies. Customers browse the full menu, customize items, place orders, track delivery in real time, and unlock exclusive offers. Paired with a restaurant admin dashboard for managing orders, menu, branches, and loyalty.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇱🇧 Lebanon</span>
+              <span class="hero-badge red">✓ Live on Google Play</span>
+              <span class="hero-badge red">🍗 Boneless Chicken</span>
+              <span class="hero-badge">📱 Customer Mobile App</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://play.google.com/store/apps/details?id=com.syscom.boneless" target="_blank" rel="noopener noreferrer" class="btn-red" data-en="View on Google Play →" data-ar="عرض على Google Play →">View on Google Play →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar App" data-ar="ابنِ تطبيقاً مماثلاً">Build Similar App</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/boneless/boneless-hero.jpg" alt="Boneless Restaurant App Screenshot" loading="eager" onerror="this.style.display='none'" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Customer Mobile App" data-ar="تطبيق العملاء">Customer Mobile App</strong><span data-en="iOS &amp; Android — Order, Track, Earn" data-ar="iOS وAndroid — اطلب، تتبع، اكسب">iOS &amp; Android — Order, Track, Earn</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Orders, Menu, Branches &amp; Offers" data-ar="الطلبات والقائمة والفروع والعروض">Orders, Menu, Branches &amp; Offers</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Boneless™ is Lebanon's go-to restaurant for fresh, flavorful boneless chicken — signature sandwiches, wraps, and savory platters delivered without the fuss of bones. Syscom Technologies built the brand's full digital ordering ecosystem: a Flutter-powered customer app and a comprehensive web admin dashboard." data-ar="Boneless™ هو وجهة لبنان المفضلة للدجاج الطازج اللذيذ منزوع العظام — شطائر مميزة ولفائف وأطباق شهية تُوصَّل دون متاعب العظام. بنت Syscom Technologies نظام الطلب الرقمي الكامل للعلامة التجارية: تطبيق عملاء مبني بـ Flutter ولوحة تحكم إدارية ويب شاملة.">Boneless™ is Lebanon's go-to restaurant for fresh, flavorful boneless chicken — signature sandwiches, wraps, and savory platters delivered without the fuss of bones. Syscom Technologies built the brand's full digital ordering ecosystem: a Flutter-powered customer app and a comprehensive web admin dashboard.</p>
+              <p data-en="The mobile app puts the entire Boneless menu at the customer's fingertips — browse, customize, order, and track from kitchen prep through to doorstep delivery. Exclusive in-app offers and rewards make every order more rewarding. On the operations side, the admin dashboard gives staff full visibility over incoming orders, menu management, branch operations, and customer loyalty data." data-ar="يضع التطبيق قائمة Boneless الكاملة بين يدي العميل — تصفح وخصص واطلب وتتبع من إعداد المطبخ حتى التوصيل للباب. العروض والمكافآت الحصرية داخل التطبيق تجعل كل طلبة أكثر إثراءً. على جانب العمليات، تمنح لوحة التحكم الإدارية الموظفين رؤية كاملة على الطلبات الواردة وإدارة القائمة وعمليات الفروع وبيانات ولاء العملاء.">The mobile app puts the entire Boneless menu at the customer's fingertips — browse, customize, order, and track from kitchen prep through to doorstep delivery. Exclusive in-app offers and rewards make every order more rewarding. The admin dashboard gives operations teams full visibility over orders, menu, branches, and customer loyalty.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="The Two Platforms" data-ar="المنصتان">The Two Platforms</h2>
+              <div class="components-grid">
+                <div class="component-card app">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Customer Mobile App" data-ar="تطبيق العملاء">Customer Mobile App</div>
+                  <div class="comp-sub">iOS &amp; Android</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Flutter</span>
+                    <span class="comp-tag r">Dart</span>
+                    <span class="comp-tag b">Firebase</span>
+                    <span class="comp-tag g">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full menu browsing with categories and customization, order placement & real-time status tracking, exclusive discounts & rewards, location-based branch finder, and push notification updates for every order stage." data-ar="تصفح القائمة الكاملة مع الفئات والتخصيص، تقديم الطلبات وتتبع الحالة آنيًا، خصومات ومكافآت حصرية، كاشف الفروع المعتمد على الموقع، وإشعارات فورية لكل مرحلة من الطلب.">Full menu browsing with customization, order placement and real-time tracking, exclusive discounts & rewards, location-based branch finder, and push notifications at every order stage.</p>
+                </div>
+                <div class="component-card dashboard">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Restaurant Management Panel" data-ar="لوحة إدارة المطعم">Restaurant Management Panel</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Laravel</span>
+                    <span class="comp-tag r">MySQL</span>
+                    <span class="comp-tag r">RBAC</span>
+                    <span class="comp-tag g">REST API</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Real-time incoming order management, menu item & category control, branch management, offer and reward configuration, customer database, and sales reporting." data-ar="إدارة الطلبات الواردة آنيًا، التحكم في عناصر القائمة والفئات، إدارة الفروع، تكوين العروض والمكافآت، قاعدة بيانات العملاء وتقارير المبيعات.">Real-time order management, menu & category control, branch management, offer and reward configuration, customer database, and sales reporting.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Simple Online Ordering" data-ar="طلب سهل عبر الإنترنت">Simple Online Ordering</strong>
+                    <span data-en="Browse the full Boneless menu by category, customize every item to taste — sauces, sizes, sides — and place an order in just a few taps. The fastest path from craving to order confirmation." data-ar="تصفح قائمة Boneless الكاملة حسب الفئة، خصص كل عنصر حسب ذوقك — صلصات وأحجام وإضافات — وقدم طلبك بنقرات قليلة. أسرع طريق من الرغبة إلى تأكيد الطلب.">Browse the full menu by category, customize every item — sauces, sizes, sides — and place an order in just a few taps. The fastest path from craving to confirmation.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Exclusive Offers &amp; Rewards" data-ar="عروض ومكافآت حصرية">Exclusive Offers &amp; Rewards</strong>
+                    <span data-en="Customers unlock special discounts and rewards every time they order through the app — creating a loyalty loop that keeps Boneless regulars coming back for more of their favorite meals." data-ar="يحصل العملاء على خصومات ومكافآت خاصة في كل مرة يطلبون فيها عبر التطبيق — مما يخلق حلقة ولاء تجعل رواد Boneless يعودون للمزيد من وجباتهم المفضلة.">Customers unlock special discounts and rewards every time they order through the app — building a loyalty loop that keeps regulars coming back for more.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Real-Time Order Tracking" data-ar="تتبع الطلب آنيًا">Real-Time Order Tracking</strong>
+                    <span data-en="From the moment an order is placed, customers stay informed with live status updates — kitchen is preparing, order is ready, out for delivery, delivered. No guessing, no waiting in the dark." data-ar="من لحظة تقديم الطلب، يبقى العملاء على اطلاع بتحديثات الحالة المباشرة — المطبخ يحضر، الطلب جاهز، خارج للتوصيل، تم التوصيل. لا تخمين، لا انتظار في الظلام.">From order placement, customers get live status updates — preparing, ready, out for delivery, delivered. Full visibility at every stage with no guessing.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Location-Based Branch Finder" data-ar="كاشف الفروع المعتمد على الموقع">Location-Based Branch Finder</strong>
+                    <span data-en="The app uses location services to surface the nearest Boneless branch, so customers always order from the closest kitchen — minimizing delivery time and ensuring their meal arrives hot." data-ar="يستخدم التطبيق خدمات الموقع لإظهار أقرب فرع Boneless، حتى يطلب العملاء دائمًا من أقرب مطبخ — مما يقلل وقت التوصيل ويضمن وصول وجبتهم ساخنة.">Location services surface the nearest Boneless branch automatically — customers always order from the closest kitchen for the fastest, hottest delivery.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Push Notification Updates" data-ar="إشعارات فورية للتحديثات">Push Notification Updates</strong>
+                    <span data-en="Firebase Cloud Messaging keeps customers in the loop with push alerts at every stage of their order — order confirmed, being prepared, on its way, delivered — even when the app is closed." data-ar="يُبقي Firebase Cloud Messaging العملاء على اطلاع بتنبيهات فورية في كل مرحلة من مراحل طلبهم — تأكيد الطلب، قيد الإعداد، في الطريق، تم التوصيل — حتى عندما يكون التطبيق مغلقًا.">Firebase push alerts at every order stage — confirmed, preparing, on its way, delivered — keeping customers informed even with the app closed.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Full Menu Customization" data-ar="تخصيص القائمة الكاملة">Full Menu Customization</strong>
+                    <span data-en="Every menu item is fully customizable — customers choose their sauces, portion sizes, sides, and any special instructions to build the exact boneless meal they're craving." data-ar="كل عنصر في القائمة قابل للتخصيص بالكامل — يختار العملاء صلصاتهم وأحجام الحصص والإضافات وأي تعليمات خاصة لبناء وجبة boneless التي يرغبون فيها.">Every item is fully customizable — sauces, portion sizes, sides, and special instructions — to build the exact meal each customer craves.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="On Google Play Store" data-ar="على متجر Google Play">On Google Play Store</span>
+                </div>
+                <div class="result-card">
+                  <strong>500+</strong>
+                  <span data-en="App Downloads" data-ar="تنزيلات التطبيق">App Downloads</span>
+                </div>
+                <div class="result-card">
+                  <strong>2</strong>
+                  <span data-en="Platforms — App &amp; Dashboard" data-ar="منصتان — تطبيق ولوحة تحكم">Platforms — App &amp; Dashboard</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Real-Time Order State Management" data-ar="إدارة حالة الطلب آنيًا">Real-Time Order State Management</strong>
+                  <p data-en="Restaurant orders move through multiple states rapidly — placed, confirmed, preparing, ready, out for delivery, delivered. Keeping the mobile app in sync with the kitchen's actual status required a reliable polling and push mechanism so customers always see the true, up-to-date state of their order without delays or stale data." data-ar="تمر طلبات المطعم بحالات متعددة بسرعة — تم التقديم، مؤكد، قيد الإعداد، جاهز، خارج للتوصيل، تم التسليم. الحفاظ على تزامن التطبيق المحمول مع الحالة الفعلية للمطبخ تطلب آلية استطلاع وإرسال موثوقة حتى يرى العملاء دائمًا الحالة الحقيقية والمحدثة لطلباتهم دون تأخير أو بيانات قديمة.">Restaurant orders move through multiple states rapidly. Keeping the mobile app in sync with the kitchen's actual status required a reliable push and polling mechanism — ensuring customers always see the true state of their order without delays or stale data.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Multi-Branch Order Routing" data-ar="توجيه الطلبات متعدد الفروع">Multi-Branch Order Routing</strong>
+                  <p data-en="Boneless operates multiple branches across Lebanon. When a customer places an order, the system must correctly resolve the nearest branch, route the order to that branch's kitchen operations, and ensure branch-specific menu availability and pricing is reflected in the app — all transparently to the customer." data-ar="تعمل Boneless فروعًا متعددة في لبنان. عند تقديم العميل لطلب، يجب على النظام تحديد أقرب فرع بشكل صحيح وتوجيه الطلب إلى عمليات مطبخ ذلك الفرع وضمان أن توافر القائمة وأسعار كل فرع تنعكس في التطبيق — وكل ذلك بشفافية تامة للعميل.">Boneless operates multiple branches across Lebanon. Orders must be correctly routed to the nearest branch's kitchen, with branch-specific menu availability and pricing reflected in the app — all transparently to the customer.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Consistent Push Notification Delivery" data-ar="تسليم إشعارات فوري ومتسق">Consistent Push Notification Delivery</strong>
+                  <p data-en="Order tracking is only as good as its notifications. Delivering timely, reliable push alerts across both iOS and Android — through background app restrictions, aggressive battery optimization, and Lebanon's varying network conditions — required a robust Firebase Cloud Messaging implementation with careful handling of delivery edge cases and retry logic." data-ar="تتبع الطلبات لا يكون جيدًا إلا بجودة إشعاراته. تسليم تنبيهات فورية موثوقة وفي الوقت المناسب عبر iOS وAndroid — من خلال قيود تطبيقات الخلفية وتحسين البطارية العدواني وظروف الشبكة المتفاوتة في لبنان — تطلب تطبيق Firebase Cloud Messaging قويًا مع معالجة دقيقة لحالات تسليم الحواف ومنطق إعادة المحاولة.">Timely push notifications are critical to the order tracking experience. Reliable delivery across iOS and Android — through background restrictions, battery optimization, and Lebanon's network variability — required a robust FCM implementation with careful edge-case handling and retry logic.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-fng.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Future Nurseries Group" data-ar="مجموعة الحضانات المستقبلية">Future Nurseries Group</strong>
+              </a>
+              <a href="index.html#contact" class="btn-red" data-en="Build Similar App →" data-ar="ابنِ تطبيقاً مماثلاً →">Build Similar App →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Boneless™ Lebanon</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Developer" data-ar="المطور">Developer</span>
+                <span class="meta-val">Syscom Technologies</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇱🇧 Lebanon</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Food &amp; Drink" data-ar="أغذية ومشروبات">Food &amp; Drink</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Platforms" data-ar="المنصات">Platforms</span>
+                <span class="meta-val">2</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Downloads" data-ar="التنزيلات">Downloads</span>
+                <span class="meta-val">500+</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Updated" data-ar="آخر تحديث">Updated</span>
+                <span class="meta-val">May 2025</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Firebase FCM</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">Location API</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://play.google.com/store/apps/details?id=com.syscom.boneless" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(135deg,#dc2626,#b91c1c);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="📱 View on Google Play" data-ar="📱 عرض على Google Play">📱 View on Google Play</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(220,38,38,.07);color:#dc2626;border:1px solid rgba(220,38,38,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language switcher
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'Boneless™ — تطبيق طلب طعام المطعم | أحمد نور'
+        : 'Boneless™ — Restaurant Mobile Ordering App | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

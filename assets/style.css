@@ -728,6 +728,7 @@ body {
 .pcat.enterprise  { background:rgba(253,71,13,0.1);   color:#c43500; }
 .pcat.mery        { background:rgba(22,163,74,0.1);   color:#15803d; }
 .pcat.education   { background:rgba(20,100,180,0.12); color:#1464b4; }
+.pcat.food        { background:rgba(220,38,38,0.1);   color:#dc2626; }
 
 /* ── Numbered project cards (pv2) ── */
 .pv2-row {
