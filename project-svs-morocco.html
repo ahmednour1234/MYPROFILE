@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVS Morocco 2026 — Smart Vision Summit Marrakech Event Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--svs-red:#d2232a;--svs-red2:#b01c22;--svs-dark:#0f0f0f;--svs-charcoal:#1a1a1a;--svs-mid:#2a2a2a;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0f0f0f 0%,#1a1a1a 60%,#220a0b 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 40%,rgba(210,35,42,.18) 0%,transparent 65%),radial-gradient(ellipse 35% 45% at 5% 80%,rgba(210,35,42,.08) 0%,transparent 55%);}
+    .red-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#d2232a,#ff5a5f,#d2232a,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(210,35,42,.4);margin-bottom:20px;}
+    .brand-mark img{height:26px;object-fit:contain;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#ff6b6b;}
+    .africa-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(255,107,107,.12);border:1px solid rgba(210,35,42,.35);margin-left:8px;}
+    .africa-badge span{font-size:11px;font-weight:800;color:#ff8080;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(210,35,42,.18);color:#ff8080;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(24px,2.8vw,38px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#ff6b6b,#d2232a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:510px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.red{background:rgba(210,35,42,.18);border-color:rgba(210,35,42,.5);color:#ff8080;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-red{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#d2232a,#b01c22);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;border:1px solid rgba(255,107,107,.15);}
+    .btn-red:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(210,35,42,.5);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:270px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(210,35,42,.3),0 -1px 0 rgba(255,107,107,.2);display:block;object-fit:cover;height:230px;}
+    /* Logo strip */
+    .logo-strip{background:rgba(210,35,42,.06);border-top:1px solid rgba(210,35,42,.2);border-bottom:1px solid rgba(210,35,42,.1);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
+    .logo-strip img{height:38px;object-fit:contain;filter:brightness(1.1);}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    /* Stats bar */
+    .stats-strip{background:rgba(210,35,42,.06);border-bottom:1px solid rgba(210,35,42,.12);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(210,35,42,.2);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(210,35,42,.15);border-color:rgba(210,35,42,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(210,35,42,.08);color:#b01c22;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.website::before{background:linear-gradient(90deg,#d2232a,#ff6b6b);}
+    .component-card.registration::before{background:linear-gradient(90deg,#b01c22,#d2232a);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#8b1017,#b01c22);}
+    .component-card.qr::before{background:linear-gradient(90deg,#5a0a0d,#8b1017);}
+    .component-card.sponsors::before{background:linear-gradient(90deg,#1a0003,#5a0a0d);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.r{background:rgba(210,35,42,.1);color:#b01c22;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    /* Sponsor tiers */
+    .tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .tier-card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden;}
+    .tier-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .tier-card.official::before{background:linear-gradient(90deg,#d2232a,#ff8080);}
+    .tier-card.platinum::before{background:linear-gradient(90deg,#9ca3af,#e5e7eb);}
+    .tier-card.main::before{background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .tier-card.royal::before{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+    .tier-card.elite::before{background:linear-gradient(90deg,#0d9488,#5eead4);}
+    .tier-name{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px;}
+    .tier-perks{font-size:11px;color:var(--muted);line-height:1.6;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#d2232a,#b01c22);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d2232a,#ff8080);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a1a1a,#d2232a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #d2232a;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#d2232a;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .tiers-grid{grid-template-columns:1fr 1fr;}
+      .platform-inner{flex-direction:column;align-items:stretch;}
+      .platform-pill{margin:0;}
+      .stat-item{padding:8px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="red-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>SVS Morocco 2026</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark"><img src="assets/projects/svs-morocco/svs-morocco-logo.png" alt="SVS Morocco 2026" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:14px;color:#ff6b6b;\'>SVS</span>'" /></div>
+            <span><em>Smart Vision Summit</em> &nbsp;— MOROCCO 2026 · MARRAKECH</span>
+          </div>
+          <div class="africa-badge">
+            <span>🌍 1ST SVS IN AFRICA</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Events · Summit · AI &amp; Fintech · Morocco · QR Ticketing · SEO</span>
+            <h1 data-en="SVS Morocco 2026 — <em>Smart Vision Summit</em> Marrakech Platform" data-ar="SVS Morocco 2026 — منصة <em>قمة الرؤية الذكية</em> مراكش">SVS Morocco 2026 — <em>Smart Vision Summit</em> Marrakech Platform</h1>
+            <p data-en="A full-stack event management platform for the Smart Vision Summit Morocco 2026 — a landmark two-day AI &amp; fintech summit at Pickalbatros Hotel Du Golf in Marrakech, Morocco. The first SVS edition on the African continent and in Francophone North Africa, bringing together financial leaders, AI innovators, and industry figures from Europe, the Gulf, and Africa. Built on Laravel &amp; PHP, the platform covers the public summit website with SEO, attendee registration, sponsorship packages, QR ticket generation, real-time door scanning, and an admin dashboard." data-ar="منصة إدارة فعاليات متكاملة لقمة الرؤية الذكية المغرب 2026 — قمة AI وفينتك محورية لمدة يومين في فندق Pickalbatros Hotel Du Golf في مراكش بالمغرب. الإصدار الأول من SVS على القارة الأفريقية وفي شمال أفريقيا الفرانكوفونية، يجمع قادة المالية ومبتكري الذكاء الاصطناعي وشخصيات الصناعة من أوروبا والخليج وأفريقيا. مبنية على Laravel وPHP، تغطي المنصة موقع القمة العام مع SEO وتسجيل الحضور وباقات الرعاية وتوليد تذاكر QR والمسح اللحظي والوصول الإداري.">A full-stack event management platform for Smart Vision Summit Morocco 2026 — a landmark two-day AI &amp; fintech summit at Pickalbatros Hotel Du Golf in Marrakech. The first SVS edition on the African continent, bringing together financial leaders, AI innovators, and industry figures from Europe, the Gulf, and Africa. Built on Laravel &amp; PHP, covering the public summit website, attendee registration, sponsorship packages, QR ticketing, real-time door scanning, and admin dashboard.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇲🇦 Morocco — Marrakech</span>
+              <span class="hero-badge red">🌍 First SVS in Africa</span>
+              <span class="hero-badge red">🤖 AI &amp; Fintech Focus</span>
+              <span class="hero-badge">🏨 Pickalbatros Hotel Du Golf</span>
+              <span class="hero-badge">📲 QR Ticketing</span>
+              <span class="hero-badge">🔍 SEO Optimized</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://morocco.smartvisionsummit.com/" target="_blank" rel="noopener noreferrer" class="btn-red" data-en="Visit SVS Morocco →" data-ar="زيارة موقع SVS المغرب →">Visit SVS Morocco →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/svs-morocco/svs-morocco-hero.jpg" alt="SVS Morocco 2026 — Marrakech" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <img src="assets/projects/svs-morocco/svs-morocco-logo.png" alt="SVS Morocco 2026" />
+            <span class="logo-strip-text">SMART VISION SUMMIT · MOROCCO 2026 · PICKALBATROS HOTEL DU GOLF · MARRAKECH 🇲🇦</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num">2</span>
+              <span class="stat-label" data-en="Day Summit" data-ar="يومي قمة">Day Summit</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">30–31</span>
+              <span class="stat-label" data-en="October 2026" data-ar="أكتوبر 2026">October 2026</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🏨</span>
+              <span class="stat-label" data-en="Pickalbatros Hotel Du Golf" data-ar="فندق Pickalbatros Hotel Du Golf">Pickalbatros Hotel Du Golf</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🌍</span>
+              <span class="stat-label" data-en="1st SVS in Africa" data-ar="أول SVS في أفريقيا">1st SVS in Africa</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">7th</span>
+              <span class="stat-label" data-en="Country for SVS Globally" data-ar="دولة لـ SVS عالمياً">Country for SVS Globally</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Public Summit Website" data-ar="موقع القمة العام">Public Summit Website</strong><span data-en="About, packages, media &amp; contact" data-ar="حول وباقات وميديا وتواصل">About, packages, media &amp; contact</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📋</span>
+              <div class="pp-text"><strong data-en="Registration System" data-ar="نظام التسجيل">Registration System</strong><span data-en="Online attendee registration &amp; QR tickets" data-ar="تسجيل حضور وتذاكر QR إلكترونياً">Online attendee registration &amp; QR tickets</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Attendees, sponsors &amp; event operations" data-ar="الحضور والرعاة وعمليات الفعالية">Attendees, sponsors &amp; event operations</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎟️</span>
+              <div class="pp-text"><strong data-en="QR Tickets &amp; Door Scanner" data-ar="تذاكر QR وماسح الباب">QR Tickets &amp; Door Scanner</strong><span data-en="Generate, email &amp; scan at entry" data-ar="توليد وإرسال ومسح عند الدخول">Generate, email &amp; scan at entry</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🤝</span>
+              <div class="pp-text"><strong data-en="Sponsorship Hub" data-ar="مركز الرعاة">Sponsorship Hub</strong><span data-en="5-tier packages · Become a Sponsor app" data-ar="5 مستويات · طلب تصبح راعياً">5-tier packages · Become a Sponsor app</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="SVS Morocco 2026 (Smart Vision Summit Morocco) is a landmark two-day business summit on 30–31 October 2026 at the Pickalbatros Hotel Du Golf in Marrakech — marking Smart Vision Group's first official event in Morocco and, more broadly, in Francophone North Africa. This is the 7th country in the global SVS series, making SVS Morocco a strategic milestone in the summit's continental expansion from the Gulf and Levant into Africa." data-ar="SVS Morocco 2026 (قمة الرؤية الذكية المغرب) هي قمة أعمال محورية لمدة يومين في 30-31 أكتوبر 2026 في فندق Pickalbatros Hotel Du Golf بمراكش — تمثل الفعالية الرسمية الأولى لمجموعة Smart Vision في المغرب وبشكل أوسع في شمال أفريقيا الفرانكوفونية. هذه هي الدولة السابعة في سلسلة SVS العالمية، مما يجعل SVS المغرب معلماً استراتيجياً في التوسع القاري للقمة من الخليج والمشرق إلى أفريقيا.">SVS Morocco 2026 (Smart Vision Summit Morocco) is a landmark two-day summit on 30–31 October 2026 at the Pickalbatros Hotel Du Golf in Marrakech — marking Smart Vision Group's first official event in Morocco and in Francophone North Africa. This is the 7th country in the global SVS series, a strategic milestone in the summit's expansion from the Gulf and Levant into Africa.</p>
+              <p data-en="The summit places Artificial Intelligence at the heart of finance, business, and capital markets — highlighting AI's transformative role in trading, investment, financial services, and strategic decision-making. The event brings together financial leaders, AI and fintech innovators, traders, brokerages, affiliates, institutional investors, and decision-makers from Europe, the Gulf region, and Africa, positioning SVS Morocco as a powerful bridge between MENA, Europe, and the African continent." data-ar="تضع القمة الذكاء الاصطناعي في قلب المالية والأعمال وأسواق رأس المال — تبرز الدور التحويلي للذكاء الاصطناعي في التداول والاستثمار والخدمات المالية واتخاذ القرارات الاستراتيجية. تجمع الفعالية قادة المالية ومبتكري الذكاء الاصطناعي والفينتك والمتداولين ووسطاء الأوراق المالية والشركاء التابعين والمستثمرين المؤسسيين وصانعي القرار من أوروبا ومنطقة الخليج وأفريقيا.">The summit places Artificial Intelligence at the heart of finance, business, and capital markets — highlighting AI's transformative role in trading, investment, financial services, and strategic decision-making. It brings together financial leaders, AI and fintech innovators, traders, brokerages, affiliates, institutional investors, and decision-makers from Europe, the Gulf, and Africa, positioning SVS Morocco as a powerful bridge between MENA, Europe, and the African continent.</p>
+              <p data-en="The full-stack platform built for SVS Morocco follows the proven SVS architecture established across Kuwait and other editions, adapted for the Moroccan and Francophone African market — with a full public summit website, SEO optimization for the Morocco and North Africa market, an online attendee registration and QR ticketing system, five-tier sponsorship packages with a Become a Sponsor application, and a comprehensive admin dashboard for the Smart Vision organizing team." data-ar="المنصة الكاملة المبنية لـ SVS المغرب تتبع بنية SVS المثبتة عبر الكويت وإصدارات أخرى، معدّلة لسوق المغرب وشمال أفريقيا الفرانكوفوني — مع موقع قمة عام كامل وتحسين SEO لسوق المغرب وشمال أفريقيا ونظام تسجيل حضور وتذاكر QR إلكتروني وباقات رعاية من خمسة مستويات مع طلب تصبح راعياً ولوحة تحكم إدارية شاملة لفريق التنظيم Smart Vision.">The platform follows the proven SVS architecture established across Kuwait and other editions — adapted for the Moroccan and Francophone African market. It delivers a full public summit website with SEO for Morocco &amp; North Africa, online attendee registration with QR ticketing, five-tier sponsorship packages with a Become a Sponsor application, and a comprehensive admin dashboard.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card website">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Public Summit Website" data-ar="موقع القمة العام">Public Summit Website</div>
+                  <div class="comp-sub">morocco.smartvisionsummit.com</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">About &amp; Agenda</span>
+                    <span class="comp-tag r">Packages</span>
+                    <span class="comp-tag b">Multi Media</span>
+                    <span class="comp-tag t">Countdown Timer</span>
+                    <span class="comp-tag p">Past Gallery</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The public summit website showcases all event details — the Marrakech venue (Pickalbatros Hotel Du Golf), summit overview, 30–31 October 2026 dates, past event photo gallery, promotional video section (Multi Media), sponsorship packages, contact, and a live countdown timer with a persistent sticky bar featuring WhatsApp direct contact, Register Now, and Become Sponsor CTAs." data-ar="يعرض موقع القمة العام جميع تفاصيل الفعالية — مكان مراكش (Pickalbatros Hotel Du Golf) ونظرة عامة على القمة وتواريخ 30-31 أكتوبر 2026 ومعرض صور الفعاليات السابقة وقسم الفيديو الترويجي (Multi Media) وباقات الرعاية والتواصل وعداد تنازلي حي مع شريط لاصق دائم يتضمن التواصل المباشر عبر WhatsApp وتسجيل الآن وCTAs تصبح راعياً.">The public summit website showcases all event details — Pickalbatros Hotel Du Golf venue, summit overview, 30–31 October 2026 dates, past event gallery, promotional video section, sponsorship packages, contact, and a live countdown with a persistent sticky bar featuring WhatsApp, Register Now, and Become Sponsor CTAs.</p>
+                </div>
+                <div class="component-card registration">
+                  <div class="comp-icon">📋</div>
+                  <div class="comp-name" data-en="Attendee Registration System" data-ar="نظام تسجيل الحضور">Attendee Registration System</div>
+                  <div class="comp-sub" data-en="Online sign-up · email confirmation · QR ticket" data-ar="تسجيل إلكتروني · تأكيد بالإيميل · تذكرة QR">Online sign-up · email confirmation · QR ticket</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Register Now CTA</span>
+                    <span class="comp-tag b">Email Confirmation</span>
+                    <span class="comp-tag t">Auto QR Issue</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Attendees register online through the summit website's 'Register Now' flow — fill in their details, choose their package, submit, and automatically receive a branded confirmation email with their unique QR ticket attached as a PDF. The system tracks all registrations with full status management in the admin dashboard." data-ar="يسجل الحضور إلكترونياً من خلال تدفق 'Register Now' لموقع القمة — يملؤون تفاصيلهم ويختارون باقتهم ويرسلون النموذج، ويتلقون تلقائياً إيميل تأكيد ذي علامة تجارية مع تذكرة QR الفريدة الخاصة بهم مرفقة كـ PDF. يتتبع النظام جميع التسجيلات بإدارة حالة كاملة في لوحة التحكم الإدارية.">Attendees register online via the 'Register Now' flow — fill in details, choose their package, and automatically receive a branded confirmation email with their unique QR ticket as a PDF. Full registration tracking and status management in the admin dashboard.</p>
+                </div>
+                <div class="component-card dashboard">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Full summit operations management" data-ar="إدارة عمليات القمة الكاملة">Full summit operations management</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Attendee Mgmt</span>
+                    <span class="comp-tag r">Sponsor Review</span>
+                    <span class="comp-tag b">Reports</span>
+                    <span class="comp-tag t">RBAC</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The Smart Vision organizing team manages the entire summit from the admin dashboard — view and manage registrations, review and approve sponsor applications, issue QR tickets manually, monitor event-day entry scans in real time, and generate comprehensive attendee and sponsor reports." data-ar="يدير فريق التنظيم Smart Vision القمة بأكملها من لوحة التحكم الإدارية — عرض وإدارة التسجيلات ومراجعة وموافقة طلبات الرعاة وإصدار تذاكر QR يدوياً ومراقبة عمليات مسح الدخول يوم الفعالية آنياً وإنشاء تقارير شاملة للحضور والرعاة.">The Smart Vision team manages the entire summit from the admin dashboard — manage registrations, review and approve sponsor applications, issue QR tickets manually, monitor event-day entry scans in real time, and generate comprehensive attendee and sponsor reports.</p>
+                </div>
+                <div class="component-card qr">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="QR Ticketing &amp; Door Scanner" data-ar="تذاكر QR وماسح الباب">QR Ticketing &amp; Door Scanner</div>
+                  <div class="comp-sub" data-en="Generate, email &amp; scan at entry gates" data-ar="توليد وإرسال ومسح عند بوابات الدخول">Generate, email &amp; scan at entry gates</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Unique QR / Attendee</span>
+                    <span class="comp-tag b">Anti-Duplicate Scan</span>
+                    <span class="comp-tag t">Real-Time Entry Log</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Every registered attendee at the Marrakech summit receives a unique, branded QR code ticket as a PDF email attachment. On summit day at the Pickalbatros Hotel, door staff use the scanner app to validate tickets in real time — green for valid, red for invalid or already scanned — preventing duplicate entry and logging every scan with a timestamp for the organizer's records." data-ar="يتلقى كل حاضر مسجل في قمة مراكش تذكرة رمز QR فريدة وذات علامة تجارية كمرفق إيميل PDF. في يوم القمة في فندق Pickalbatros، يستخدم الطاقم عند الباب تطبيق الماسح للتحقق من التذاكر آنياً — أخضر للصالح، أحمر للغير صالح أو المسحوب مسبقاً — يمنع الدخول المكرر ويسجل كل عملية مسح مع طابع زمني لسجلات المنظم.">Every registered attendee receives a unique branded QR ticket as a PDF email. On summit day at the Pickalbatros Hotel, door staff validate tickets in real time — green valid, red invalid or already scanned — preventing duplicate entry and logging every scan with a timestamp.</p>
+                </div>
+                <div class="component-card sponsors" style="grid-column:1/-1;">
+                  <div class="comp-icon">🤝</div>
+                  <div class="comp-name" data-en="Sponsorship Hub — 5-Tier Packages + Become a Sponsor Application" data-ar="مركز الرعاة — 5 مستويات باقات + طلب تصبح راعياً">Sponsorship Hub — 5-Tier Packages + Become a Sponsor Application</div>
+                  <div class="comp-sub" data-en="Official · Platinum · Main · Royal · Elite — with online sponsor application flow" data-ar="Official · Platinum · Main · Royal · Elite — مع تدفق طلب الرعاية الإلكتروني">Official · Platinum · Main · Royal · Elite — with online sponsor application flow</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">5 Sponsor Tiers</span>
+                    <span class="comp-tag b">Online Application</span>
+                    <span class="comp-tag t">Admin Review</span>
+                    <span class="comp-tag p">Package Benefits</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Five sponsor tiers are publicly showcased on the Packages page — each with a detailed benefits breakdown including magazine ad designs, VIP permits, panel discussions, seminar slots, speaker slots, roll-up/flag spaces, branding visibility across the venue, ADV placement on the website and with media partners, press interviews, email campaign inclusions, and more. Companies apply to become a sponsor via the 'Become a Sponsor' CTA, feeding into the admin dashboard for Smart Vision's review and follow-up." data-ar="خمسة مستويات رعاة معروضة للعموم على صفحة الباقات — لكل منها تفاصيل مزايا شاملة تتضمن تصميمات إعلانات المجلة وتصاريح VIP وجلسات نقاش ومحاور ندوات ومحاور متحدثين ومساحات roll-up/راية ورؤية العلامة التجارية في جميع أنحاء المكان وإعلانات ADV على الموقع ومع شركاء الإعلام ومقابلات صحفية وإدراج حملات إيميل والمزيد. تتقدم الشركات لتصبح راعية عبر CTA 'Become a Sponsor'، والتي تُغذّي لوحة التحكم الإدارية لمراجعة Smart Vision ومتابعتها.">Five sponsor tiers are publicly showcased — each with detailed benefits including magazine ad designs, VIP permits, panel discussions, seminar &amp; speaker slots, roll-up/flag spaces, venue branding, ADV on website &amp; with media partners, press interviews, and email campaign inclusions. Companies apply via the 'Become a Sponsor' CTA, feeding into the admin dashboard for Smart Vision's review.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="5-Tier Sponsorship Packages" data-ar="باقات الرعاية من 5 مستويات">5-Tier Sponsorship Packages</h2>
+              <p data-en="SVS Morocco offers five sponsor tiers, each with a distinct level of visibility and benefits — from the top-tier Official Sponsor with full branding dominance across the summit, down to the Elite Sponsor package for targeted visibility." data-ar="تقدم SVS المغرب خمسة مستويات للرعاة، لكل منها مستوى متميز من الظهور والمزايا — من الراعي الرسمي من المستوى الأعلى مع الهيمنة الكاملة للعلامة التجارية عبر القمة، وصولاً إلى باقة Elite Sponsor للظهور المستهدف.">SVS Morocco offers five sponsor tiers, each with a distinct level of visibility and benefits — from the top-tier Official Sponsor with full branding dominance, down to the Elite Sponsor package for targeted visibility.</p>
+              <div class="tiers-grid">
+                <div class="tier-card official">
+                  <div class="tier-name">🔴 Official Sponsor</div>
+                  <div class="tier-perks">4 Magazine Ads · 10 VIP Permits · 2 Panel Discussions · 2 Seminars · 2 Speakers · Award · 8 Roll-ups · 8 Big Flags · 5 Press Interviews · 3 Email Campaigns · Social Media Promo</div>
+                </div>
+                <div class="tier-card main">
+                  <div class="tier-name">✦ Main Sponsor</div>
+                  <div class="tier-perks">3 Magazine Ads · 7 VIP Permits · 1 Panel Discussion · 2 Seminars · 1 Speaker · Award · 5 Roll-ups · 5 Flags · 3 Press Interviews · 2 Email Campaigns · Social Promo</div>
+                </div>
+                <div class="tier-card royal">
+                  <div class="tier-name">💜 Royal Sponsor</div>
+                  <div class="tier-perks">2 Magazine Ads · 6 VIP Permits · 1 Panel Discussion · 1 Seminar · 1 Speaker · Award · 4 Roll-ups · 4 Flags · 2 Press Interviews · 1 Email Campaign · Notebook Sponsor</div>
+                </div>
+                <div class="tier-card elite">
+                  <div class="tier-name">🩵 Elite Sponsor</div>
+                  <div class="tier-perks">2 Magazine Ads · 6 VIP Permits · 1 Panel Discussion · 1 Seminar · 1 Speaker · Award · 4 Roll-ups · 4 Flags · 2 Press Interviews · 1 Email Campaign · Lunch Sponsor</div>
+                </div>
+                <div class="tier-card platinum">
+                  <div class="tier-name">⬜ Platinum Sponsor</div>
+                  <div class="tier-perks">1 Magazine Ad · 3 VIP Permits · 1 Panel Discussion · 1 Seminar · 1 Speaker · Award · 2 Roll-ups · 2 Press Interviews · 1 Email Campaign · Social Promo</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="First SVS in Africa — Historic Milestone" data-ar="أول SVS في أفريقيا — معلم تاريخي">First SVS in Africa — Historic Milestone</strong>
+                    <span data-en="SVS Morocco is the 7th country in the global Smart Vision Summit series — and the first edition on the African continent and in Francophone North Africa. The platform was designed to serve a genuinely cross-continental audience (Europe + Gulf + Africa), reflecting the summit's ambition to create a bridge between MENA, European, and African financial markets." data-ar="SVS Morocco هو الدولة السابعة في سلسلة قمة الرؤية الذكية العالمية — وأول إصدار على القارة الأفريقية وفي شمال أفريقيا الفرانكوفونية. تم تصميم المنصة لخدمة جمهور عابر للقارات حقاً (أوروبا + الخليج + أفريقيا)، مما يعكس طموح القمة في خلق جسر بين الأسواق المالية لمنطقة MENA وأوروبا وأفريقيا.">SVS Morocco is the 7th country in the global SVS series and the first edition on the African continent. The platform serves a genuinely cross-continental audience (Europe + Gulf + Africa), reflecting the summit's ambition to bridge MENA, European, and African financial markets.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Live Countdown + WhatsApp Sticky Bar" data-ar="عداد تنازلي حي + شريط WhatsApp لاصق">Live Countdown + WhatsApp Sticky Bar</strong>
+                    <span data-en="A JavaScript-powered live countdown on the homepage and throughout the site ticks down to the summit opening — October 30, 2026, 10:00 AM. A persistent sticky bottom bar across all pages features the live timer, a WhatsApp direct contact button, Register Now CTA, and Become Sponsor CTA, driving real-time engagement for both attendees and potential sponsors." data-ar="عداد تنازلي حي مدعوم بـ JavaScript على الصفحة الرئيسية وعبر الموقع يُحصي الوقت حتى افتتاح القمة — 30 أكتوبر 2026، 10:00 صباحاً. شريط لاصق أسفل الصفحات جميعها يتضمن المؤقت الحي وزر WhatsApp للتواصل المباشر وCTA تسجيل الآن وCTA تصبح راعياً، مما يدفع التفاعل الفوري للحضور والرعاة المحتملين.">A live countdown across the site ticks down to October 30, 2026 at 10:00 AM. A persistent sticky bottom bar features the timer, WhatsApp direct contact, Register Now CTA, and Become Sponsor CTA — driving real-time engagement for both attendees and potential sponsors.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="AI &amp; Fintech Summit Focus — Topic-Driven SEO" data-ar="تركيز قمة AI والفينتك — SEO موجه بالموضوعات">AI &amp; Fintech Summit Focus — Topic-Driven SEO</strong>
+                    <span data-en="The summit explicitly places Artificial Intelligence at the center of its agenda — AI-powered trading models, fintech innovation, digital transformation, capital markets, and investment. The SEO strategy targets Morocco and North Africa keywords for finance, AI, and business summit searches, capturing traffic from Arabic-speaking and French-speaking audiences across the region." data-ar="تضع القمة الذكاء الاصطناعي صراحةً في مركز أجندتها — نماذج التداول المدعومة بالذكاء الاصطناعي وابتكار الفينتك والتحول الرقمي وأسواق رأس المال والاستثمار. تستهدف استراتيجية SEO كلمات المغرب وشمال أفريقيا في المالية والذكاء الاصطناعي وبحوث قمة الأعمال، لالتقاط حركة المرور من الجماهير الناطقة بالعربية والفرنسية في المنطقة.">The summit explicitly centers AI on its agenda — AI-powered trading, fintech innovation, digital transformation, and capital markets. The SEO strategy targets Morocco and North Africa keywords for finance, AI, and business summit searches — capturing traffic from both Arabic and French-speaking audiences across the region.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Past Event Photo Gallery — Credibility for New Market" data-ar="معرض صور الفعاليات السابقة — مصداقية لسوق جديدة">Past Event Photo Gallery — Credibility for New Market</strong>
+                    <span data-en="Since SVS Morocco is the first Smart Vision event on the African continent, the Past Event Photos gallery is especially strategic — it showcases the scale, atmosphere, and prestige of previous SVS editions from other countries, building immediate credibility with Moroccan and North African sponsors and attendees who are discovering the summit brand for the first time." data-ar="بما أن SVS Morocco هو أول فعالية Smart Vision على القارة الأفريقية، فإن معرض صور الفعاليات السابقة استراتيجي بشكل خاص — يعرض حجم ومناخ ومكانة إصدارات SVS السابقة من دول أخرى، مما يبني مصداقية فورية مع الرعاة والحضور المغاربة وشمال أفريقيا الذين يكتشفون العلامة التجارية للقمة لأول مرة.">Since SVS Morocco is the first Smart Vision event in Africa, the Past Event Photos gallery is especially strategic — it showcases the scale, atmosphere, and prestige of previous SVS editions from other countries, building immediate credibility with Moroccan and North African sponsors and attendees discovering the brand for the first time.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Multi Media Section — Promotional Videos" data-ar="قسم Multi Media — مقاطع الفيديو الترويجية">Multi Media Section — Promotional Videos</strong>
+                    <span data-en="A dedicated Multi Media section on the summit website hosts promotional videos — a critical conversion tool for a summit entering a new market. Videos serve as social proof and event previews that help potential attendees and sponsors in Morocco and North Africa understand the scale and value of the Smart Vision Summit brand before committing to participation." data-ar="قسم Multi Media مخصص على موقع القمة يستضيف مقاطع الفيديو الترويجية — أداة تحويل حاسمة لقمة تدخل سوقاً جديدة. تعمل مقاطع الفيديو كدليل اجتماعي ومعاينات للفعاليات تساعد الحضور والرعاة المحتملين في المغرب وشمال أفريقيا على فهم حجم وقيمة علامة قمة الرؤية الذكية قبل الالتزام بالمشاركة.">A dedicated Multi Media section hosts promotional videos — a critical conversion tool for a summit entering a new market. Videos serve as social proof and event previews helping potential attendees and sponsors in Morocco and North Africa understand the SVS brand's scale and value before committing.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Pickalbatros Hotel Du Golf — Luxury Venue Showcase" data-ar="Pickalbatros Hotel Du Golf — عرض مكان فاخر">Pickalbatros Hotel Du Golf — Luxury Venue Showcase</strong>
+                    <span data-en="The summit venue — Pickalbatros Hotel Du Golf in Marrakech — is a premium golf resort with world-class conference facilities at the foot of the Atlas Mountains. The website prominently showcases the venue's prestige, location, and visual appeal to attract high-caliber speakers and sponsors from across Europe, the Gulf, and Africa who are considering travel to Marrakech for the summit." data-ar="مكان القمة — فندق Pickalbatros Hotel Du Golf في مراكش — هو منتجع غولف متميز ذو مرافق مؤتمرات عالمية المستوى عند سفح جبال الأطلس. يبرز الموقع مكانة المكان وموقعه وجاذبيته البصرية لجذب متحدثين ورعاة رفيعي المستوى من أوروبا والخليج وأفريقيا الذين يفكرون في السفر إلى مراكش لحضور القمة.">Pickalbatros Hotel Du Golf in Marrakech is a premium golf resort with world-class conference facilities at the foot of the Atlas Mountains. The website prominently showcases the venue to attract high-caliber speakers and sponsors from Europe, the Gulf, and Africa considering travel to Marrakech.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>7th</strong>
+                  <span data-en="Country for SVS Globally" data-ar="دولة لـ SVS عالمياً">Country for SVS Globally</span>
+                </div>
+                <div class="result-card">
+                  <strong>1st</strong>
+                  <span data-en="SVS Edition in Africa" data-ar="إصدار SVS في أفريقيا">SVS Edition in Africa</span>
+                </div>
+                <div class="result-card">
+                  <strong>5</strong>
+                  <span data-en="Sponsor Tiers · Packages" data-ar="مستويات رعاة · باقات">Sponsor Tiers · Packages</span>
+                </div>
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="In Production · Oct 30-31" data-ar="في الإنتاج · 30-31 أكتوبر">In Production · Oct 30-31</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Adapting the SVS Platform for a New Continental Market — Morocco &amp; Francophone Africa" data-ar="تكييف منصة SVS لسوق قاري جديد — المغرب وأفريقيا الفرانكوفونية">Adapting the SVS Platform for a New Continental Market — Morocco &amp; Francophone Africa</strong>
+                  <p data-en="While SVS Morocco uses the same proven platform architecture as SVS Kuwait, adapting it for Morocco introduces distinct challenges: the target audience includes both Arabic-speaking and French-speaking (Francophone) users across North Africa and Europe, the SEO keyword landscape differs from the Gulf, and the event brand needs to establish credibility from scratch in a market where SVS has never operated before. The platform's content, SEO configuration, and sponsor outreach messaging were all adapted for the Morocco and Francophone North Africa context." data-ar="بينما تستخدم SVS Morocco نفس بنية المنصة المثبتة في SVS Kuwait، فإن تكييفها للمغرب يطرح تحديات مميزة: يتضمن الجمهور المستهدف مستخدمين ناطقين بالعربية والفرنسية (فرانكوفون) في شمال أفريقيا وأوروبا، وتختلف المشهد الكلمات المفتاحية SEO عن الخليج، وتحتاج العلامة التجارية للفعالية إلى بناء المصداقية من الصفر في سوق لم تعمل فيه SVS من قبل. تم تكييف محتوى المنصة وإعداد SEO ورسائل التواصل مع الرعاة للسياق المغربي وشمال أفريقيا الفرانكوفوني.">While SVS Morocco uses the same proven platform architecture as SVS Kuwait, adapting it for Morocco introduces distinct challenges: the target audience includes both Arabic-speaking and French-speaking (Francophone) users across North Africa and Europe, the SEO keyword landscape differs from the Gulf, and the event brand needs to establish credibility from scratch in a market where SVS has never operated. The platform's content, SEO, and sponsor messaging were all adapted for Morocco and Francophone North Africa.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Cross-Continental Audience — Europe, Gulf &amp; Africa in a Single Platform" data-ar="جمهور عابر للقارات — أوروبا والخليج وأفريقيا في منصة واحدة">Cross-Continental Audience — Europe, Gulf &amp; Africa in a Single Platform</strong>
+                  <p data-en="SVS Morocco explicitly targets participants from three distinct regions — Europe, the Gulf, and Africa — each with different expectations, cultural contexts, and information needs when evaluating an event to attend or sponsor. The platform had to serve all three audiences simultaneously with a website experience that communicates the summit's value to a Moroccan entrepreneur, a Dubai-based brokerage, and a European fintech investor equally effectively, through design, copy, and SEO." data-ar="تستهدف SVS Morocco صراحةً المشاركين من ثلاث مناطق مميزة — أوروبا والخليج وأفريقيا — لكل منها توقعات وسياقات ثقافية واحتياجات معلومات مختلفة عند تقييم فعالية لحضورها أو رعايتها. كان على المنصة خدمة الجماهير الثلاثة في آن واحد من خلال تجربة موقع توصل قيمة القمة لرائد أعمال مغربي ووساطة مقرها دبي ومستثمر فينتك أوروبي بالتساوي، من خلال التصميم والمحتوى وSEO.">SVS Morocco explicitly targets participants from three distinct regions — Europe, the Gulf, and Africa — each with different expectations and information needs when evaluating an event. The platform had to serve all three audiences simultaneously, communicating the summit's value to a Moroccan entrepreneur, a Dubai-based brokerage, and a European fintech investor equally effectively through design, copy, and SEO.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Building Sponsor Trust for a First-Edition Event in a New Market" data-ar="بناء ثقة الرعاة لفعالية أولى في سوق جديدة">Building Sponsor Trust for a First-Edition Event in a New Market</strong>
+                  <p data-en="Attracting sponsors to a first-edition SVS in Morocco requires overcoming a credibility challenge — potential Moroccan and North African sponsors have no local reference point for the SVS brand. The platform's sponsorship hub addresses this with detailed package pages, a Past Event Gallery showcasing the scale of previous SVS editions, testimonial-type content, and a streamlined Become a Sponsor application flow that lowers the friction of the initial inquiry — making it easy for interested companies to take the first step." data-ar="جذب الرعاة لإصدار SVS الأول في المغرب يتطلب التغلب على تحدي المصداقية — الرعاة المغاربة وشمال أفريقيا المحتملين ليس لديهم نقطة مرجعية محلية لعلامة SVS. يعالج مركز الرعاة للمنصة هذا من خلال صفحات باقات مفصلة ومعرض صور الفعاليات السابقة الذي يعرض حجم إصدارات SVS السابقة ومحتوى من نوع الشهادات وتدفق طلب تصبح راعياً مبسط يقلل الاحتكاك في الاستفسار الأولي — مما يسهّل على الشركات المهتمة اتخاذ الخطوة الأولى.">Attracting sponsors to a first-edition SVS in Morocco requires overcoming a credibility challenge — potential Moroccan and North African sponsors have no local reference point for the SVS brand. The platform's sponsorship hub addresses this with detailed package pages, a Past Event Gallery showcasing the scale of previous SVS editions, and a streamlined Become a Sponsor application flow that lowers the friction of the initial inquiry.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-mefm.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="MEFM — Middle East Financial Markets Awards" data-ar="MEFM — حفل جوائز أسواق الشرق الأوسط المالية">MEFM — Middle East Financial Markets Awards</strong>
+              </a>
+              <a href="index.html#contact" class="btn-red" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Smart Vision Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Event" data-ar="الفعالية">Event</span>
+                <span class="meta-val" style="font-size:11px;text-align:right;max-width:150px;">SVS Morocco 2026 — Smart Vision Summit</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="meta-val" style="font-size:11px;" data-en="AI &amp; Fintech Business Summit" data-ar="قمة أعمال AI وفينتك">AI &amp; Fintech Business Summit</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇲🇦 Morocco — Marrakech</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Venue" data-ar="المكان">Venue</span>
+                <span class="meta-val" style="font-size:10.5px;text-align:right;max-width:140px;">Pickalbatros Hotel Du Golf, Marrakech</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Date" data-ar="التاريخ">Date</span>
+                <span class="meta-val" style="font-size:11px;">30–31 October 2026</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Duration" data-ar="المدة">Duration</span>
+                <span class="meta-val" style="font-size:11px;" data-en="2 Days · 10 AM – 6 PM" data-ar="يومان · 10 ص – 6 م">2 Days · 10 AM – 6 PM</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="SVS Edition" data-ar="إصدار SVS">SVS Edition</span>
+                <span class="meta-val" style="font-size:11px;" data-en="7th Country · 1st in Africa" data-ar="7 دولة · الأولى في أفريقيا">7th Country · 1st in Africa</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Events · AI · Fintech · Finance" data-ar="فعاليات · AI · فينتك · مالية">Events · AI · Fintech · Finance</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live · Registrations Open" data-ar="منتج · التسجيل مفتوح">Live · Registrations Open</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">QR Code</span>
+                <span class="tech-chip">PDF Gen</span>
+                <span class="tech-chip">SMTP</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">SEO</span>
+                <span class="tech-chip">YouTube Embed</span>
+                <span class="tech-chip">JSON-LD</span>
+                <span class="tech-chip">CDN</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://morocco.smartvisionsummit.com/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#d2232a,#b01c22);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🌐 Visit SVS Morocco" data-ar="🌐 زيارة SVS المغرب">🌐 Visit SVS Morocco</a>
+              <a href="https://morocco.smartvisionsummit.com/register" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(210,35,42,.07);color:#b01c22;border:1px solid rgba(210,35,42,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="📋 View Registration System" data-ar="📋 شاهد نظام التسجيل">📋 View Registration System</a>
+              <a href="https://morocco.smartvisionsummit.com/package" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(210,35,42,.07);color:#b01c22;border:1px solid rgba(210,35,42,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🤝 See Sponsorship Packages" data-ar="🤝 شاهد باقات الرعاية">🤝 See Sponsorship Packages</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(210,35,42,.05);color:#b01c22;border:1px solid rgba(210,35,42,.2);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language switcher
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'SVS Morocco 2026 — منصة قمة الرؤية الذكية مراكش | أحمد نور'
+        : 'SVS Morocco 2026 — Smart Vision Summit Marrakech Event Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
