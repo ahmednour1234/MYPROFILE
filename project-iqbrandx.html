@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IQ BrandX — Saudi Digital Agency Website | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    :root {
+      --iq-navy:  #3c4b96;
+      --iq-dark:  #1e2a5e;
+      --iq-gold:  #f8be1c;
+      --iq-light: #edf2ff;
+      --iq-mid:   #2d3b80;
+    }
+
+    canvas#webgl { display:none; }
+    .bg-orb      { display:none; }
+
+    /* ── Hero ── */
+    .proj-hero {
+      padding: 110px 0 64px;
+      background: linear-gradient(135deg, var(--iq-dark) 0%, var(--iq-navy) 55%, #2a3f9e 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(248,190,28,0.08) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 80% at 10% 80%, rgba(255,255,255,0.04) 0%, transparent 60%);
+    }
+    .proj-hero .container { position: relative; z-index: 1; }
+
+    .proj-breadcrumb {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 24px;
+    }
+    .proj-breadcrumb a { color: var(--iq-gold); text-decoration: none; font-weight: 600; }
+    .proj-breadcrumb a:hover { text-decoration: underline; }
+
+    .proj-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+    @media(max-width:768px){ .proj-hero-grid { grid-template-columns:1fr; } }
+
+    .proj-hero h1 {
+      font-size: clamp(26px, 4vw, 46px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -1.5px;
+      margin: 0 0 14px;
+      line-height: 1.15;
+    }
+    .proj-hero h1 .accent { color: var(--iq-gold); }
+    .proj-hero .sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      max-width: 580px;
+      margin: 0 0 28px;
+    }
+    .proj-hero .meta-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .meta-pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .meta-pill.gold { background: rgba(248,190,28,0.18); color: var(--iq-gold); border-color: rgba(248,190,28,0.3); }
+
+    .proj-logo-box {
+      width: 160px; height: 160px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.97);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+    .proj-logo-box img { width: 120px; height: 120px; object-fit: contain; }
+
+    /* ── Body ── */
+    .proj-body { padding: 64px 0 80px; }
+
+    .proj-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 48px;
+      align-items: start;
+    }
+    @media(max-width:900px){ .proj-layout { grid-template-columns:1fr; } }
+
+    /* Section titles */
+    .sec-title {
+      font-size: 22px; font-weight: 900; color: var(--navy);
+      letter-spacing: -0.5px;
+      margin: 0 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--iq-gold);
+      display: inline-block;
+    }
+
+    /* ── Services Grid ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 18px;
+      transition: box-shadow .2s, border-color .2s, transform .2s;
+    }
+    .service-card:hover {
+      box-shadow: 0 8px 28px rgba(60,75,150,0.12);
+      border-color: var(--iq-navy);
+      transform: translateY(-3px);
+    }
+    .service-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--iq-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+    .service-card h4 {
+      font-size: 13px; font-weight: 800; color: var(--navy);
+      margin: 0 0 6px;
+    }
+    .service-card p {
+      font-size: 12px; color: var(--muted);
+      line-height: 1.6; margin: 0;
+    }
+
+    /* ── About Section ── */
+    .about-box {
+      background: var(--iq-light);
+      border: 1px solid rgba(60,75,150,0.15);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    .about-box p {
+      font-size: 15px; color: var(--body); line-height: 1.8; margin: 0 0 14px;
+    }
+    .about-box p:last-child { margin: 0; }
+
+    /* ── "Why Choose IQ BrandX" ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    @media(max-width:600px){ .why-grid { grid-template-columns:1fr; } }
+    .why-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px 18px;
+    }
+    .why-card .why-icon { font-size: 24px; margin-bottom: 10px; }
+    .why-card h4 { font-size: 13px; font-weight: 800; color: var(--navy); margin: 0 0 6px; }
+    .why-card p { font-size: 12px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    /* ── Sidebar ── */
+    .sidebar-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .sidebar-card h3 {
+      font-size: 13px; font-weight: 800; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 1px;
+      margin: 0 0 16px;
+    }
+    .info-row {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .info-item { display: flex; flex-direction: column; gap: 2px; }
+    .info-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
+    .info-val { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .info-val a { color: var(--iq-navy); text-decoration: none; }
+    .info-val a:hover { text-decoration: underline; }
+
+    .tech-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .tech-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px; font-weight: 700;
+      background: var(--iq-light);
+      color: var(--iq-navy);
+      border: 1px solid rgba(60,75,150,0.2);
+    }
+
+    /* ── Live URL button ── */
+    .live-btn {
+      display: block;
+      text-align: center;
+      padding: 13px;
+      border-radius: 12px;
+      background: var(--iq-navy);
+      color: #fff;
+      font-size: 14px; font-weight: 700;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+      margin-top: 4px;
+    }
+    .live-btn:hover { background: var(--iq-dark); transform: translateY(-2px); }
+
+    /* ── Nav Footer ── */
+    .proj-nav-footer {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .proj-nav-footer a {
+      font-size: 14px; font-weight: 700;
+      color: var(--iq-navy);
+      text-decoration: none;
+      padding: 10px 18px;
+      border: 2px solid rgba(60,75,150,0.25);
+      border-radius: 10px;
+      transition: all .2s;
+    }
+    .proj-nav-footer a:hover {
+      background: var(--iq-navy);
+      color: #fff;
+      border-color: var(--iq-navy);
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo-link">
+        <span class="logo-dot"></span>
+        <span class="logo-text" data-en="Ahmed Nour" data-ar="أحمد نور">Ahmed Nour</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html#work"    data-en="Work"    data-ar="أعمالي">Work</a>
+        <a href="projects.html"      data-en="Projects" data-ar="المشاريع">Projects</a>
+        <a href="index.html#about"   data-en="About"   data-ar="عني">About</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="lang-toggle" onclick="toggleLang()" aria-label="Toggle language">EN / ع</button>
+        <a href="index.html#contact" class="btn btn-primary btn-sm" data-en="Hire Me" data-ar="وظّفني">Hire Me</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Hero ── -->
+    <section class="proj-hero">
+      <div class="container">
+        <div class="proj-breadcrumb">
+          <a href="projects.html" data-en="← All Projects" data-ar="→ جميع المشاريع">← All Projects</a>
+          <span>/</span>
+          <span data-en="IQ BrandX" data-ar="أي كيو براندكس">IQ BrandX</span>
+        </div>
+        <div class="proj-hero-grid">
+          <div>
+            <h1 data-en='<span class="accent">IQ BrandX</span> — Saudi Digital Agency Platform' data-ar='<span class="accent">أي كيو براندكس</span> — منصة وكالة رقمية سعودية'><span class="accent">IQ BrandX</span> — Saudi Digital Agency Platform</h1>
+            <p class="sub" data-en="Full-featured corporate website for a Saudi digital agency offering web development, mobile apps, digital marketing, SEO, design, photography, and motion graphics — serving clients across the Eastern Region of Saudi Arabia." data-ar="موقع مؤسسي متكامل لوكالة رقمية سعودية تقدم خدمات تطوير المواقع والتطبيقات والتسويق الرقمي والسيو والتصميم والتصوير والموشن جرافيك — تخدم عملاء في المنطقة الشرقية بالمملكة العربية السعودية.">Full-featured corporate website for a Saudi digital agency offering web development, mobile apps, digital marketing, SEO, design, photography, and motion graphics — serving clients across the Eastern Region of Saudi Arabia.</p>
+            <div class="meta-pills">
+              <span class="meta-pill gold" data-en="🇸🇦 Saudi Arabia" data-ar="🇸🇦 السعودية">🇸🇦 Saudi Arabia</span>
+              <span class="meta-pill" data-en="Digital Agency" data-ar="وكالة رقمية">Digital Agency</span>
+              <span class="meta-pill" data-en="Laravel · PHP" data-ar="Laravel · PHP">Laravel · PHP</span>
+              <span class="meta-pill" data-en="Bootstrap 5" data-ar="Bootstrap 5">Bootstrap 5</span>
+              <span class="meta-pill" data-en="8 Services" data-ar="٨ خدمات">8 Services</span>
+              <span class="meta-pill" data-en="Live" data-ar="مباشر">🟢 Live</span>
+            </div>
+          </div>
+          <div class="proj-logo-box">
+            <img src="assets/projects/iqbrandx/iqbrandx-logo.png" alt="IQ BrandX Logo" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Body ── -->
+    <section class="proj-body">
+      <div class="container">
+        <div class="proj-layout">
+
+          <!-- Main Content -->
+          <div>
+
+            <!-- Services -->
+            <h2 class="sec-title reveal" data-en="Services Offered" data-ar="الخدمات المقدمة">Services Offered</h2>
+            <div class="services-grid reveal">
+
+              <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h4 data-en="Website & E-Commerce Dev" data-ar="تصميم وبرمجة المواقع والمتاجر">Website & E-Commerce Dev</h4>
+                <p data-en="Custom website and online store design, development & launch — built for performance and results." data-ar="تصميم وتطوير مواقع ومتاجر إلكترونية مخصصة، مبنية للأداء والنتائج.">Custom website and online store design, development & launch — built for performance and results.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h4 data-en="Mobile App Development" data-ar="تصميم وبرمجة تطبيقات الجوال">Mobile App Development</h4>
+                <p data-en="iOS and Android mobile app design and development — from concept to App Store launch." data-ar="تصميم وتطوير تطبيقات iOS وAndroid — من الفكرة إلى النشر على المتجر.">iOS and Android mobile app design and development — from concept to App Store launch.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-icon">📸</div>
+                <h4 data-en="Photography & Media" data-ar="التصوير والميديا">Photography & Media</h4>
+                <p data-en="Professional photography and media production for brands, products, events and social content." data-ar="تصوير احترافي وإنتاج ميديا للعلامات التجارية والمنتجات والفعاليات.">Professional photography and media production for brands, products, events and social content.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-icon">🍽️</div>
+                <h4 data-en="Digital Menu (QR Code)" data-ar="المنيو الالكتروني (الباركود)">Digital Menu (QR Code)</h4>
+                <p data-en="Smart QR-code-based digital menus for restaurants and cafes — easy to update, no printing needed." data-ar="قوائم رقمية ذكية عبر QR للمطاعم والمقاهي — سهلة التحديث بدون طباعة.">Smart QR-code-based digital menus for restaurants and cafes — easy to update, no printing needed.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-icon">📣</div>
+                <h4 data-en="Digital Marketing" data-ar="خدمات التسويق الرقمي">Digital Marketing</h4>
+                <p data-en="Social media management, targeted ad campaigns (Google, Snapchat, Meta), content creation & analytics." data-ar="إدارة وسائل التواصل الاجتماعي، حملات إعلانية مستهدفة، إنشاء محتوى وتحليلات.">Social media management, targeted ad campaigns, content creation & analytics reporting.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h4 data-en="Design Services" data-ar="خدمات التصميم">Design Services</h4>
+                <p data-en="Brand identity, logo design, UI/UX, social media creatives and marketing collateral design." data-ar="هوية بصرية، تصميم شعار، UI/UX، تصاميم سوشيال ميديا ومواد تسويقية.">Brand identity, logo design, UI/UX, social media creatives and marketing collateral design.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-icon">🎬</div>
+                <h4 data-en="Motion Graphics" data-ar="الموشن جرافيك">Motion Graphics</h4>
+                <p data-en="Animated videos, explainer animations and motion design for brand storytelling and social ads." data-ar="فيديوهات متحركة، رسوم توضيحية وموشن جرافيك للعلامة التجارية والإعلانات.">Animated videos, explainer animations and motion design for brand storytelling and social ads.</p>
+              </div>
+
+              <div class="service-card">
+                <div class="service-icon">🔍</div>
+                <h4 data-en="SEO Services" data-ar="خدمات السيو (SEO)">SEO Services</h4>
+                <p data-en="Search engine optimization — keyword research, on-page SEO, technical audits and ranking improvement." data-ar="تحسين محركات البحث — بحث عن الكلمات المفتاحية، سيو داخلي، تدقيق تقني وتحسين الترتيب.">Search engine optimization — keyword research, on-page SEO, technical audits and ranking improvement.</p>
+              </div>
+
+            </div>
+
+            <!-- About -->
+            <h2 class="sec-title reveal" data-en="About the Project" data-ar="عن المشروع">About the Project</h2>
+            <div class="about-box reveal">
+              <p data-en="IQ BrandX (أي كيو براندكس) is a Saudi digital agency based in the Eastern Region, specializing in comprehensive digital solutions for startups and SMEs. The agency needed a professional, high-converting corporate website that showcases their full range of services, attracts new clients, and establishes their brand authority in the competitive Saudi market." data-ar="أي كيو براندكس وكالة رقمية سعودية مقرها المنطقة الشرقية، متخصصة في الحلول الرقمية المتكاملة للشركات الناشئة والمتوسطة. احتاجت الوكالة لموقع مؤسسي احترافي يعرض خدماتها بالكامل، يجذب عملاء جدد، ويرسّخ مكانتها التسويقية في السوق السعودي التنافسي.">IQ BrandX (أي كيو براندكس) is a Saudi digital agency based in the Eastern Region, specializing in comprehensive digital solutions for startups and SMEs. The agency needed a professional, high-converting corporate website that showcases their full range of services, attracts new clients, and establishes their brand authority in the competitive Saudi market.</p>
+              <p data-en="The platform was built with Laravel on the backend — providing a full content management system, a partner marketplace module, a blog engine, and a built-in affiliate/marketer registration system (انضم لنا كمسوق). The frontend uses Bootstrap 5 with AOS scroll animations, Swiper sliders, Glightbox media viewer and custom Arabic-first RTL styling." data-ar="بُني المنصة على Laravel في الخلفية — مع نظام إدارة محتوى كامل، وحدة سوق الشركاء، محرك مدونة، ونظام تسجيل شركاء التسويق (انضم لنا كمسوق). الواجهة الأمامية مبنية بـ Bootstrap 5 مع مؤثرات AOS وشرائح Swiper وعارض Glightbox وتنسيق عربي RTL مخصص.">The platform was built with Laravel on the backend — providing a full CMS, a partner marketplace module, a blog engine, and a built-in affiliate/marketer registration system. The frontend uses Bootstrap 5 with AOS animations, Swiper sliders, Glightbox media viewer and custom Arabic-first RTL styling.</p>
+              <p data-en="Key highlights: live client portfolio (أعمالنا), a blog for digital marketing tips (المدونات), a digital marketer affiliate program with a shopping cart, and a dynamic partners showcase. The site is fully bilingual (Arabic primary) and SEO-optimized for the Saudi Eastern Region market." data-ar="أبرز المميزات: معرض أعمال العملاء الحي، مدونة لنصائح التسويق الرقمي، برنامج شراكة للمسوقين مع سلة تسوق، وعرض ديناميكي للشركاء. الموقع مزدوج اللغة (عربي بالأساس) ومحسّن لمحركات البحث في سوق المنطقة الشرقية السعودية.">Key highlights: live client portfolio (أعمالنا), a blog for digital marketing tips, an affiliate marketer program with shopping cart, and a dynamic partners showcase — fully bilingual and SEO-optimized.</p>
+            </div>
+
+            <!-- Why Choose IQ BrandX -->
+            <h2 class="sec-title reveal" data-en="Platform Highlights" data-ar="أبرز مميزات المنصة">Platform Highlights</h2>
+            <div class="why-grid reveal">
+
+              <div class="why-card">
+                <div class="why-icon">🏗️</div>
+                <h4 data-en="Laravel CMS Backend" data-ar="نظام إدارة محتوى بـ Laravel">Laravel CMS Backend</h4>
+                <p data-en="Full content management system for services, portfolio works, blog posts, team members and partner listings." data-ar="نظام إدارة محتوى كامل للخدمات والأعمال والمدونة والفريق والشركاء.">Full CMS for services, portfolio, blog posts, team members and partner listings.</p>
+              </div>
+
+              <div class="why-card">
+                <div class="why-icon">🤝</div>
+                <h4 data-en="Affiliate Marketer Program" data-ar="برنامج شراكة المسوقين">Affiliate Marketer Program</h4>
+                <p data-en="Built-in marketer registration and management system with a shopping cart for service packages." data-ar="نظام مدمج لتسجيل وإدارة المسوقين مع سلة تسوق لحزم الخدمات.">Built-in marketer registration and management with a shopping cart for service packages.</p>
+              </div>
+
+              <div class="why-card">
+                <div class="why-icon">📊</div>
+                <h4 data-en="Data-Driven Social Growth" data-ar="نمو اجتماعي قائم على البيانات">Data-Driven Social Growth</h4>
+                <p data-en="Analytics-powered social media strategy with deep performance metrics, KPIs and continuous optimization." data-ar="استراتيجية سوشيال ميديا مدعومة بالتحليلات مع مقاييس أداء عميقة وتحسين مستمر.">Analytics-powered social media strategy with deep performance metrics and continuous optimization.</p>
+              </div>
+
+              <div class="why-card">
+                <div class="why-icon">🎯</div>
+                <h4 data-en="SEO-Optimized for KSA" data-ar="سيو محسّن لسوق السعودية">SEO-Optimized for KSA</h4>
+                <p data-en="Arabic-first SEO targeting the Eastern Region of Saudi Arabia — schema markup, meta strategy and fast load times." data-ar="سيو عربي يستهدف المنطقة الشرقية — ترميز سكيما واستراتيجية ميتا وأوقات تحميل سريعة.">Arabic-first SEO targeting the Eastern Region of Saudi Arabia — schema markup, meta strategy and fast load times.</p>
+              </div>
+
+              <div class="why-card">
+                <div class="why-icon">📱</div>
+                <h4 data-en="Fully Responsive RTL" data-ar="متجاوب بالكامل مع RTL">Fully Responsive RTL</h4>
+                <p data-en="Mobile-first Arabic RTL layout with smooth animations, AOS scroll effects and Swiper-powered service sliders." data-ar="تصميم عربي RTL مخصص للجوال أولاً مع مؤثرات AOS وشرائح Swiper للخدمات.">Mobile-first Arabic RTL layout with AOS scroll effects and Swiper-powered service sliders.</p>
+              </div>
+
+              <div class="why-card">
+                <div class="why-icon">🖼️</div>
+                <h4 data-en="Rich Portfolio & Blog" data-ar="معرض أعمال ومدونة">Rich Portfolio & Blog</h4>
+                <p data-en="Dynamic client work showcase (أعمالنا) with filterable gallery, plus a digital marketing blog for SEO authority." data-ar="معرض أعمال عملاء ديناميكي مع معرض قابل للفلترة، ومدونة تسويق رقمي لتعزيز السيو.">Dynamic client work showcase with filterable gallery, plus a digital marketing blog for SEO authority.</p>
+              </div>
+
+            </div>
+
+            <!-- Nav Footer -->
+            <div class="proj-nav-footer">
+              <a href="projects.html" data-en="← All Projects" data-ar="→ جميع المشاريع">← All Projects</a>
+              <a href="index.html#contact" data-en="Build Your Website →" data-ar="ابنِ موقعك →">Build Your Website →</a>
+            </div>
+
+          </div><!-- /main -->
+
+          <!-- Sidebar -->
+          <div>
+            <div class="sidebar-card reveal">
+              <h3 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h3>
+              <div class="info-row">
+                <div class="info-item">
+                  <span class="info-label" data-en="Client" data-ar="العميل">Client</span>
+                  <span class="info-val">IQ BrandX — أي كيو براندكس</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label" data-en="Category" data-ar="الفئة">Category</span>
+                  <span class="info-val" data-en="Corporate Website / Digital Agency" data-ar="موقع مؤسسي / وكالة رقمية">Corporate Website / Digital Agency</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label" data-en="Country" data-ar="الدولة">Country</span>
+                  <span class="info-val">🇸🇦 Saudi Arabia — Eastern Region</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                  <span class="info-val" data-en="Digital Marketing & Web Development" data-ar="تسويق رقمي وتطوير ويب">Digital Marketing & Web Development</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label" data-en="Website" data-ar="الموقع">Website</span>
+                  <span class="info-val"><a href="https://iqbrandx.com" target="_blank" rel="noopener">iqbrandx.com ↗</a></span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label" data-en="Status" data-ar="الحالة">Status</span>
+                  <span class="info-val" style="color:#16a34a;" data-en="🟢 Live & Active" data-ar="🟢 مباشر ونشط">🟢 Live & Active</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sidebar-card reveal">
+              <h3 data-en="Tech Stack" data-ar="تقنيات المشروع">Tech Stack</h3>
+              <div class="tech-pills">
+                <span class="tech-pill">Laravel</span>
+                <span class="tech-pill">PHP</span>
+                <span class="tech-pill">MySQL</span>
+                <span class="tech-pill">Bootstrap 5</span>
+                <span class="tech-pill">AOS</span>
+                <span class="tech-pill">Swiper.js</span>
+                <span class="tech-pill">Glightbox</span>
+                <span class="tech-pill">Chart.js</span>
+                <span class="tech-pill">Isotope</span>
+                <span class="tech-pill">Arabic RTL</span>
+                <span class="tech-pill">SEO</span>
+                <span class="tech-pill">Snapchat Pixel</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card reveal">
+              <h3 data-en="Services Built" data-ar="الخدمات المبنية">Services Built</h3>
+              <div class="tech-pills">
+                <span class="tech-pill">Website Dev</span>
+                <span class="tech-pill">Mobile Apps</span>
+                <span class="tech-pill">Photography</span>
+                <span class="tech-pill">Digital Menu</span>
+                <span class="tech-pill">Digital Marketing</span>
+                <span class="tech-pill">Design</span>
+                <span class="tech-pill">Motion Graphics</span>
+                <span class="tech-pill">SEO</span>
+              </div>
+            </div>
+
+            <a href="https://iqbrandx.com" target="_blank" rel="noopener" class="live-btn reveal" data-en="🌐 Visit Live Website" data-ar="🌐 زيارة الموقع المباشر">🌐 Visit Live Website</a>
+          </div><!-- /sidebar -->
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer></footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
