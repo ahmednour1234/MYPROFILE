@@ -1070,6 +1070,7 @@ body {
   display:flex; align-items:center; justify-content:center;
 }
 .logo-tile img { width:52px; height:52px; object-fit:contain; border-radius:10px; }
+.logo-tile.logo-dark .logo-img-box img { background:#1a1a2e; padding:5px; border-radius:10px; }
 .logo-init {
   width:52px; height:52px; border-radius:13px;
   background:var(--grad); color:white;
