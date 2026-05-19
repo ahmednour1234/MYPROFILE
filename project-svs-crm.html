@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Vision CRM — Custom CRM System for Event & Sponsorship Management | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--crm-navy:#0d2748;--crm-blue:#1a3a6b;--crm-gold:#c9a227;--crm-gold2:#a07a00;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#070e1a 0%,#0d2748 55%,#091830 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 40%,rgba(201,162,39,.14) 0%,transparent 60%),radial-gradient(ellipse 35% 45% at 0% 80%,rgba(26,58,107,.3) 0%,transparent 55%);}
+    .gold-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#c9a227,#e8c84a,#c9a227,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(201,162,39,.35);margin-bottom:20px;}
+    .brand-mark img{height:26px;object-fit:contain;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#e8c84a;}
+    .crm-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(26,58,107,.4);border:1px solid rgba(100,160,255,.3);margin-left:8px;}
+    .crm-badge span{font-size:11px;font-weight:800;color:#93c5fd;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(201,162,39,.18);color:#e8c84a;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(22px,2.6vw,36px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#e8c84a,#c9a227);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:510px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.gold{background:rgba(201,162,39,.12);border-color:rgba(201,162,39,.4);color:#e8c84a;}
+    .hero-badge.blue{background:rgba(37,99,235,.15);border-color:rgba(37,99,235,.4);color:#93c5fd;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-navy{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#1a3a6b,#0d2748);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;border:1px solid rgba(100,160,255,.2);}
+    .btn-navy:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(13,39,72,.7);}
+    .btn-gold{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#c9a227,#a07a00);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,162,39,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:270px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(201,162,39,.2),0 -1px 0 rgba(201,162,39,.15);display:block;object-fit:cover;height:230px;}
+    /* Strips */
+    .logo-strip{background:rgba(201,162,39,.05);border-top:1px solid rgba(201,162,39,.2);border-bottom:1px solid rgba(201,162,39,.1);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
+    .logo-strip img{height:34px;object-fit:contain;filter:brightness(1.1);}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    .logo-strip-pill{padding:6px 16px;border-radius:999px;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);color:#e8c84a;font-size:12px;font-weight:700;}
+    .stats-strip{background:rgba(13,39,72,.4);border-bottom:1px solid rgba(201,162,39,.12);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    .stat-num.gold{background:linear-gradient(135deg,#e8c84a,#c9a227);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .platform-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(201,162,39,.12);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(201,162,39,.1);border-color:rgba(201,162,39,.3);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .crm-val{padding:3px 10px;border-radius:999px;background:rgba(13,39,72,.08);border:1px solid rgba(13,39,72,.2);color:#0d2748;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(13,39,72,.08);color:#0d2748;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Module grid */
+    .modules-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .module-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .module-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .module-card.contacts::before{background:linear-gradient(90deg,#0d2748,#1a3a6b);}
+    .module-card.pipeline::before{background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .module-card.tasks::before{background:linear-gradient(90deg,#0d9488,#5eead4);}
+    .module-card.comms::before{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+    .module-card.reports::before{background:linear-gradient(90deg,#2563eb,#93c5fd);}
+    .module-card.users::before{background:linear-gradient(90deg,#374151,#6b7280);}
+    .mod-icon{font-size:26px;margin-bottom:10px;}
+    .mod-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .mod-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .mod-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .mod-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .mod-tag.n{background:rgba(13,39,72,.1);color:#0d2748;}
+    .mod-tag.g{background:rgba(201,162,39,.12);color:#7a5e00;}
+    .mod-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .mod-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .mod-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    /* Pipeline stages */
+    .pipeline-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:16px 0;}
+    .pipe-stage{flex:1;min-width:100px;text-align:center;padding:10px 8px;background:white;border:1px solid var(--line);box-shadow:var(--shadow);position:relative;}
+    .pipe-stage:first-child{border-radius:12px 0 0 12px;}
+    .pipe-stage:last-child{border-radius:0 12px 12px 0;}
+    .pipe-stage:not(:last-child)::after{content:'▶';position:absolute;right:-10px;top:50%;transform:translateY(-50%);z-index:2;font-size:10px;color:#94a3b8;}
+    .pipe-stage .stage-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;display:block;margin-bottom:4px;}
+    .pipe-stage .stage-dot{width:10px;height:10px;border-radius:50%;margin:0 auto 4px;display:block;}
+    .pipe-stage.s1 .stage-dot{background:#94a3b8;}
+    .pipe-stage.s2 .stage-dot{background:#3b82f6;}
+    .pipe-stage.s3 .stage-dot{background:#c9a227;}
+    .pipe-stage.s4 .stage-dot{background:#8b5cf6;}
+    .pipe-stage.s5 .stage-dot{background:#22c55e;}
+    .pipe-stage.s6 .stage-dot{background:#ef4444;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#0d2748,#1a3a6b);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d2748,#c9a227);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#0d2748,#1a3a6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #c9a227;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#0d2748;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .modules-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .pipeline-flow{flex-direction:column;gap:4px;}
+      .pipe-stage{width:100%;border-radius:8px!important;}
+      .pipe-stage::after{display:none;}
+      .stat-item{padding:8px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="gold-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Smart Vision CRM</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark"><img src="assets/projects/svs-crm/svs-crm-logo.png" alt="Smart Vision CRM" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:14px;color:#e8c84a;\'>SV</span>'" /></div>
+            <span><em>Smart Vision</em> &nbsp;— Custom CRM System</span>
+          </div>
+          <div class="crm-badge">
+            <span>🔐 INTERNAL · crm.smartvisionsummit.com</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">CRM · B2B · Sponsorship Pipeline · Contacts · Events · Egypt · UAE</span>
+            <h1 data-en="Smart Vision <em>CRM</em> — Custom CRM for Event &amp; Sponsorship Management" data-ar="Smart Vision <em>CRM</em> — نظام CRM مخصص لإدارة الفعاليات والرعاة">Smart Vision <em>CRM</em> — Custom CRM for Event &amp; Sponsorship Management</h1>
+            <p data-en="A fully custom-built CRM system for Smart Vision Group — the Egyptian event organizer behind the Smart Vision Summit (SVS) across 6 countries. Built specifically for Smart Vision's B2B event business, the CRM manages the full sponsor acquisition pipeline, contacts database (sponsors, speakers, VIP guests, media partners), event-linked deals, team tasks and follow-ups, communication logs, and a complete admin panel with role-based user management — all accessible at crm.smartvisionsummit.com." data-ar="نظام CRM مخصص ومبني بالكامل لـ Smart Vision Group — منظم الفعاليات المصري وراء قمة الرؤية الذكية (SVS) عبر 6 دول. مبني خصيصاً لأعمال الفعاليات B2B لـ Smart Vision، يدير CRM خط أنابيب اكتساب الرعاة الكامل وقاعدة بيانات جهات الاتصال (الرعاة والمتحدثون والضيوف VIP وشركاء الإعلام) والصفقات المرتبطة بالفعاليات ومهام الفريق والمتابعات وسجلات التواصل ولوحة إدارة كاملة مع إدارة مستخدمين قائمة على الأدوار — كل ذلك متاح على crm.smartvisionsummit.com.">A fully custom-built CRM system for Smart Vision Group — the Egyptian event organizer behind the Smart Vision Summit (SVS) across 6 countries. Built specifically for Smart Vision's B2B event business, the CRM manages the full sponsor acquisition pipeline, contacts database (sponsors, speakers, VIP guests, media partners), event-linked deals, team tasks and follow-ups, communication logs, and a complete admin panel with role-based user management — all accessible at crm.smartvisionsummit.com.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇪🇬 Egypt · 🇦🇪 UAE · Smart Vision</span>
+              <span class="hero-badge gold">💼 Sponsorship Pipeline CRM</span>
+              <span class="hero-badge blue">👥 Contacts · Deals · Tasks</span>
+              <span class="hero-badge">🔐 Role-Based Access Control</span>
+              <span class="hero-badge">📊 Reports &amp; Analytics Dashboard</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://crm.smartvisionsummit.com/" target="_blank" rel="noopener noreferrer" class="btn-navy" data-en="View CRM Login →" data-ar="شاهد تسجيل دخول CRM →">View CRM Login →</a>
+              <a href="index.html#contact" class="btn-gold" data-en="Build Similar CRM" data-ar="ابنِ CRM مماثلاً">Build Similar CRM</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/svs-crm/svs-crm-hero.jpg" alt="Smart Vision CRM — Sponsor & Event Management" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <img src="assets/projects/svs-crm/svs-crm-logo.png" alt="Smart Vision CRM" />
+            <span class="logo-strip-text">SMART VISION CRM · crm.smartvisionsummit.com · INTERNAL SYSTEM · EGYPT &amp; UAE</span>
+            <span class="logo-strip-pill">🔐 CUSTOM CRM · B2B EVENT &amp; SPONSORSHIP MANAGEMENT</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num gold">6</span>
+              <span class="stat-label" data-en="SVS Events Managed" data-ar="فعاليات SVS مُدارة">SVS Events Managed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">5</span>
+              <span class="stat-label" data-en="Sponsor Tiers · Pipeline" data-ar="مستويات رعاة · خط أنابيب">Sponsor Tiers · Pipeline</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">40+</span>
+              <span class="stat-label" data-en="Sponsors · Contacts Tracked" data-ar="رعاة · جهات اتصال مُتتبَّعة">Sponsors · Contacts Tracked</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🔐</span>
+              <span class="stat-label" data-en="Admin-Managed Users · RBAC" data-ar="مستخدمون مُدارون إدارياً · RBAC">Admin-Managed Users · RBAC</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">📊</span>
+              <span class="stat-label" data-en="Reports &amp; Analytics Dashboard" data-ar="تقارير ولوحة تحليلات">Reports &amp; Analytics Dashboard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">👥</span>
+              <div class="pp-text"><strong data-en="Contacts Management" data-ar="إدارة جهات الاتصال">Contacts Management</strong><span data-en="Sponsors, speakers, VIP, media — all event types" data-ar="رعاة ومتحدثون وVIP وإعلام — جميع أنواع الفعاليات">Sponsors, speakers, VIP, media — all event types</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">💰</span>
+              <div class="pp-text"><strong data-en="Sponsorship Pipeline" data-ar="خط أنابيب الرعاة">Sponsorship Pipeline</strong><span data-en="Lead → Contacted → Proposal → Negotiation → Closed" data-ar="عميل محتمل → تواصل → عرض → تفاوض → مغلق">Lead → Contacted → Proposal → Negotiation → Closed</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">✅</span>
+              <div class="pp-text"><strong data-en="Tasks &amp; Follow-ups" data-ar="المهام والمتابعات">Tasks &amp; Follow-ups</strong><span data-en="Team task assignment, reminders, due dates" data-ar="تعيين مهام الفريق والتذكيرات والمواعيد النهائية">Team task assignment, reminders, due dates</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">💬</span>
+              <div class="pp-text"><strong data-en="Communications Log" data-ar="سجل التواصلات">Communications Log</strong><span data-en="Calls, emails, meetings logged per contact" data-ar="مكالمات وإيميلات واجتماعات مسجّلة لكل جهة اتصال">Calls, emails, meetings logged per contact</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📊</span>
+              <div class="pp-text"><strong data-en="Reports &amp; Dashboard" data-ar="التقارير ولوحة التحكم">Reports &amp; Dashboard</strong><span data-en="Pipeline KPIs, team activity, event-by-event stats" data-ar="مؤشرات KPI لخط الأنابيب ونشاط الفريق وإحصائيات الفعاليات">Pipeline KPIs, team activity, event-by-event stats</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Smart Vision CRM is a fully custom-built Customer Relationship Management system developed specifically for Smart Vision Group — Egypt's leading financial markets event organizer, active since 2009, with presence across Egypt, UAE, Bahrain, Oman, Kuwait, and South Africa. The CRM is hosted at crm.smartvisionsummit.com and is an internal, login-protected system used exclusively by the Smart Vision team." data-ar="Smart Vision CRM نظام إدارة علاقات العملاء المبني بالكامل بشكل مخصص، طوّر خصيصاً لـ Smart Vision Group — منظم فعاليات الأسواق المالية الرائد في مصر، النشط منذ 2009، بحضور عبر مصر والإمارات والبحرين وعُمان والكويت وجنوب أفريقيا. يُستضاف CRM على crm.smartvisionsummit.com وهو نظام داخلي محمي بتسجيل الدخول يستخدمه حصرياً فريق Smart Vision.">Smart Vision CRM is a fully custom-built Customer Relationship Management system developed specifically for Smart Vision Group — Egypt's leading financial markets event organizer, active since 2009, with presence across Egypt, UAE, Bahrain, Oman, Kuwait, and South Africa. The CRM is hosted at crm.smartvisionsummit.com and is an internal, login-protected system used exclusively by the Smart Vision team.</p>
+              <p data-en="Smart Vision's core business is selling sponsorship packages to financial sector companies for SVS events across 6 countries. Each event has 5 sponsor tiers (Official, Main, Royal, Elite, Platinum) and the team must manage a large B2B sales pipeline — tracking sponsor leads from initial contact through proposal, negotiation, and deal closure — across multiple simultaneous events in different countries. The CRM was built to manage this process end-to-end, replacing spreadsheets and disconnected tools with a unified system purpose-built for Smart Vision's exact workflow." data-ar="الأعمال الأساسية لـ Smart Vision هي بيع باقات الرعاية لشركات القطاع المالي لفعاليات SVS عبر 6 دول. كل فعالية لها 5 مستويات رعاة (Official وMain وRoyal وElite وPlatinum) ويجب على الفريق إدارة خط أنابيب مبيعات B2B كبير — تتبع عملاء الرعاة المحتملين من الاتصال الأولي عبر العرض والتفاوض وإغلاق الصفقة — عبر فعاليات متزامنة متعددة في دول مختلفة. بُني CRM لإدارة هذه العملية من البداية للنهاية، مستبدلاً جداول البيانات والأدوات المنفصلة بنظام موحد مبني خصيصاً لسير عمل Smart Vision الدقيق.">Smart Vision's core business is selling sponsorship packages to financial sector companies for SVS events across 6 countries. Each event has 5 sponsor tiers and the team must manage a large B2B sales pipeline — tracking sponsor leads from initial contact through proposal, negotiation, and deal closure — across multiple simultaneous events in different countries. The CRM was built to manage this process end-to-end, replacing spreadsheets and disconnected tools with a unified system purpose-built for Smart Vision's exact workflow.</p>
+              <p data-en="The CRM is built on PHP/MySQL with a clean, professional dark-navy UI matching the Smart Vision brand. Access is controlled by the admin — team members are created exclusively from the admin panel and given appropriate permission levels. The 'Admin creates users from Admin Panel' note on the login page reflects this closed-system design philosophy: only authorized Smart Vision team members can access the CRM." data-ar="CRM مبني على PHP/MySQL بواجهة مستخدم داكنة الأزرق البحري نظيفة واحترافية تتطابق مع علامة Smart Vision التجارية. التحكم في الوصول يعود للمدير — يُنشئ المدير أعضاء الفريق حصرياً من لوحة الإدارة ويمنحهم مستويات الأذونات المناسبة. ملاحظة 'يُنشئ المدير المستخدمين من لوحة الإدارة' على صفحة تسجيل الدخول تعكس فلسفة تصميم النظام المغلق: فقط أعضاء فريق Smart Vision المرخّص لهم يمكنهم الوصول إلى CRM.">The CRM is built on PHP/MySQL with a clean, professional dark-navy UI matching the Smart Vision brand. Access is controlled by the admin — team members are created exclusively from the admin panel and given appropriate permission levels. The 'Admin creates users from Admin Panel' note on the login page reflects this closed-system design philosophy: only authorized Smart Vision team members can access the CRM.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Sponsorship Pipeline Stages" data-ar="مراحل خط أنابيب الرعاة">Sponsorship Pipeline Stages</h2>
+              <div class="pipeline-flow">
+                <div class="pipe-stage s1"><span class="stage-dot"></span><span class="stage-label" data-en="Cold Lead" data-ar="عميل بارد">Cold Lead</span></div>
+                <div class="pipe-stage s2"><span class="stage-dot"></span><span class="stage-label" data-en="Contacted" data-ar="تواصل">Contacted</span></div>
+                <div class="pipe-stage s3"><span class="stage-dot"></span><span class="stage-label" data-en="Proposal Sent" data-ar="عرض مرسل">Proposal Sent</span></div>
+                <div class="pipe-stage s4"><span class="stage-dot"></span><span class="stage-label" data-en="Negotiation" data-ar="تفاوض">Negotiation</span></div>
+                <div class="pipe-stage s5"><span class="stage-dot"></span><span class="stage-label" data-en="Closed Won" data-ar="مغلق رابح">Closed Won</span></div>
+                <div class="pipe-stage s6"><span class="stage-dot"></span><span class="stage-label" data-en="Closed Lost" data-ar="مغلق خاسر">Closed Lost</span></div>
+              </div>
+              <p data-en="Each deal in the sponsorship pipeline is linked to a specific SVS event (e.g., SVS Egypt 2026 — 9th Edition, SVS Kuwait 2026, SVS Bahrain 2026) and a specific sponsor tier (Official, Main, Royal, Elite, Platinum). The team can see at a glance how many deals are in each stage across all events, which company contacts are at what stage, and which follow-up tasks are due — giving management full visibility into the entire sponsorship sales operation." data-ar="كل صفقة في خط أنابيب الرعاة مرتبطة بفعالية SVS محددة (مثل SVS مصر 2026 — الإصدار التاسع وSVS الكويت 2026 وSVS البحرين 2026) ومستوى راعٍ محدد (Official وMain وRoyal وElite وPlatinum). يمكن للفريق رؤية دفعة واحدة عدد الصفقات في كل مرحلة عبر جميع الفعاليات وجهات اتصال الشركات في كل مرحلة والمهام المتابعة المستحقة — مما يمنح الإدارة رؤية كاملة لعملية مبيعات الرعاة بأكملها.">Each deal in the sponsorship pipeline is linked to a specific SVS event (e.g., SVS Egypt 2026 — 9th Edition, SVS Kuwait 2026, SVS Bahrain 2026) and a specific sponsor tier (Official, Main, Royal, Elite, Platinum). The team can see at a glance how many deals are in each stage across all events, which company contacts are at what stage, and which follow-up tasks are due — giving management full visibility into the entire sponsorship sales operation.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="CRM Modules" data-ar="وحدات CRM">CRM Modules</h2>
+              <div class="modules-grid">
+                <div class="module-card contacts">
+                  <div class="mod-icon">👥</div>
+                  <div class="mod-name" data-en="Contacts &amp; Companies" data-ar="جهات الاتصال والشركات">Contacts &amp; Companies</div>
+                  <div class="mod-sub" data-en="Sponsors, speakers, VIP guests, media partners, exhibitors" data-ar="الرعاة والمتحدثون وضيوف VIP وشركاء الإعلام والعارضون">Sponsors, speakers, VIP guests, media partners, exhibitors</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag n">Company Records</span>
+                    <span class="mod-tag n">Individual Contacts</span>
+                    <span class="mod-tag g">Contact Type</span>
+                    <span class="mod-tag b">Event Linking</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The CRM maintains a unified contacts database covering all people and organizations Smart Vision interacts with across all events — potential sponsors (financial institutions, forex companies, fintech firms, banks), confirmed sponsors, event speakers, VIP closing party guests, media partners, and exhibitors. Each contact is linked to their company record, assigned a contact type, tagged to specific events, and has a full interaction history (calls, emails, meetings). Company-level records aggregate all contacts within that organization — giving the team a full 360° view of each relationship." data-ar="يحافظ CRM على قاعدة بيانات موحدة لجهات الاتصال تغطي جميع الأشخاص والمنظمات التي تتعامل معها Smart Vision عبر جميع الفعاليات — الرعاة المحتملون والمؤكدون والمتحدثون وضيوف حفلات الإغلاق VIP وشركاء الإعلام والعارضون. كل جهة اتصال مرتبطة بسجل شركتها ومصنّفة بنوع جهة الاتصال ومُعلَّمة بفعاليات محددة ولها تاريخ تفاعل كامل. سجلات مستوى الشركة تُجمّع جميع جهات الاتصال داخل تلك المنظمة — مما يمنح الفريق رؤية 360° كاملة لكل علاقة.">The CRM maintains a unified contacts database covering all people and organizations Smart Vision interacts with across all events — potential sponsors, confirmed sponsors, speakers, VIP guests, media partners, and exhibitors. Each contact is linked to their company record, assigned a contact type, tagged to specific events, and has a full interaction history. Company-level records aggregate all contacts within that organization — giving the team a full 360° view of each relationship.</p>
+                </div>
+                <div class="module-card pipeline">
+                  <div class="mod-icon">💰</div>
+                  <div class="mod-name" data-en="Sponsorship Deals Pipeline" data-ar="خط أنابيب صفقات الرعاة">Sponsorship Deals Pipeline</div>
+                  <div class="mod-sub" data-en="Per event · Per tier · Full stage tracking" data-ar="لكل فعالية · لكل مستوى · تتبع المراحل الكاملة">Per event · Per tier · Full stage tracking</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag g">6 Pipeline Stages</span>
+                    <span class="mod-tag n">Event-Linked Deals</span>
+                    <span class="mod-tag p">Tier Assignment</span>
+                    <span class="mod-tag b">Revenue Tracking</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The core of the Smart Vision CRM — the sponsorship deals pipeline tracks every active sponsorship opportunity from first contact to signed deal. Each deal is linked to: the target SVS event (Egypt, Kuwait, Bahrain, Morocco, Oman, Forex Dubai), the target sponsor tier (Official, Main, Royal, Elite, Platinum), the company and contact person, the current pipeline stage (Cold Lead → Contacted → Proposal Sent → Negotiation → Closed Won / Closed Lost), deal value, and all associated tasks and communication history. The pipeline view gives management a real-time snapshot of the entire sponsorship sales operation across all events simultaneously." data-ar="جوهر CRM Smart Vision — يتتبع خط أنابيب صفقات الرعاة كل فرصة رعاية نشطة من الاتصال الأول حتى الصفقة الموقّعة. كل صفقة مرتبطة بـ: فعالية SVS المستهدفة ومستوى الراعي المستهدف والشركة وجهة الاتصال ومرحلة خط الأنابيب الحالية وقيمة الصفقة وجميع المهام المرتبطة وتاريخ التواصلات. يمنح عرض خط الأنابيب الإدارة لقطة فورية لعملية مبيعات الرعاة بأكملها عبر جميع الفعاليات في آن واحد.">The core of the Smart Vision CRM — the sponsorship deals pipeline tracks every active sponsorship opportunity from first contact to signed deal. Each deal is linked to the target SVS event, the target sponsor tier, the company and contact person, the current pipeline stage, deal value, and all associated tasks and communication history. The pipeline view gives management a real-time snapshot of the entire sponsorship sales operation across all events simultaneously.</p>
+                </div>
+                <div class="module-card tasks">
+                  <div class="mod-icon">✅</div>
+                  <div class="mod-name" data-en="Tasks &amp; Follow-ups" data-ar="المهام والمتابعات">Tasks &amp; Follow-ups</div>
+                  <div class="mod-sub" data-en="Team task assignment · Reminders · Due date tracking" data-ar="تعيين مهام الفريق · التذكيرات · تتبع المواعيد النهائية">Team task assignment · Reminders · Due date tracking</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag t">Assign to Team Member</span>
+                    <span class="mod-tag n">Link to Deal/Contact</span>
+                    <span class="mod-tag g">Due Date Alerts</span>
+                    <span class="mod-tag b">Priority Levels</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Every deal and contact in the CRM can have associated tasks — follow-up calls, email reminders, proposal delivery, contract review, payment follow-up, and more. Tasks are assigned to specific team members, given a due date and priority level, and linked to their parent deal or contact. The task view gives each team member their personal task queue — and managers get a cross-team view to monitor workload and ensure no follow-ups fall through the cracks in the sponsorship sales process." data-ar="كل صفقة وجهة اتصال في CRM يمكن أن يكون لها مهام مرتبطة — مكالمات متابعة وتذكيرات إيميل وتسليم عروض ومراجعة عقود ومتابعة المدفوعات والمزيد. المهام تُسند لأعضاء فريق محددين وتُعطى تاريخاً نهائياً ومستوى أولوية وترتبط بصفقتها الأصلية أو جهة الاتصال. يمنح عرض المهام كل عضو فريق قائمة مهامه الشخصية — ويحصل المديرون على عرض عبر الفريق لمراقبة عبء العمل وضمان عدم سقوط أي متابعات في عملية مبيعات الرعاة.">Every deal and contact in the CRM can have associated tasks — follow-up calls, email reminders, proposal delivery, contract review, payment follow-up, and more. Tasks are assigned to specific team members, given a due date and priority level, and linked to their parent deal or contact. The task view gives each team member their personal task queue — and managers get a cross-team view to monitor workload and ensure no follow-ups fall through the cracks.</p>
+                </div>
+                <div class="module-card comms">
+                  <div class="mod-icon">💬</div>
+                  <div class="mod-name" data-en="Communications Log" data-ar="سجل التواصلات">Communications Log</div>
+                  <div class="mod-sub" data-en="All calls, emails, meetings — per contact &amp; per deal" data-ar="جميع المكالمات والإيميلات والاجتماعات — لكل جهة اتصال وكل صفقة">All calls, emails, meetings — per contact &amp; per deal</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag p">Call Logs</span>
+                    <span class="mod-tag b">Email Notes</span>
+                    <span class="mod-tag t">Meeting Records</span>
+                    <span class="mod-tag n">Timeline View</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Every interaction with a sponsor prospect or confirmed sponsor is logged in the CRM — phone calls (date, duration, outcome, notes), email communications (subject, summary, attachments), in-person or video meetings (agenda, attendees, outcomes), and any other touchpoints. The communication history is displayed in a timeline view against each contact and deal — so any team member can pick up a relationship where another left off, without losing context. This is especially critical when managing sponsor relationships across multiple simultaneous events in 6 countries." data-ar="كل تفاعل مع عميل محتمل أو راعٍ مؤكد يُسجَّل في CRM — المكالمات الهاتفية (التاريخ والمدة والنتيجة والملاحظات) ومراسلات الإيميل (الموضوع والملخص والمرفقات) والاجتماعات الشخصية أو عبر الفيديو (الأجندة والحضور والنتائج) وأي نقاط اتصال أخرى. يُعرض تاريخ التواصلات في عرض مخطط زمني مقابل كل جهة اتصال وصفقة — حتى يتمكن أي عضو فريق من استئناف علاقة من حيث توقف آخر دون فقدان السياق. هذا بالغ الأهمية خاصةً عند إدارة علاقات الرعاة عبر فعاليات متزامنة متعددة في 6 دول.">Every interaction with a sponsor prospect or confirmed sponsor is logged in the CRM — phone calls, email communications, in-person or video meetings, and any other touchpoints. The communication history is displayed in a timeline view against each contact and deal — so any team member can pick up a relationship where another left off, without losing context. This is especially critical when managing sponsor relationships across multiple simultaneous events in 6 countries.</p>
+                </div>
+                <div class="module-card reports">
+                  <div class="mod-icon">📊</div>
+                  <div class="mod-name" data-en="Reports &amp; Analytics Dashboard" data-ar="لوحة التقارير والتحليلات">Reports &amp; Analytics Dashboard</div>
+                  <div class="mod-sub" data-en="Pipeline KPIs · Team performance · Event-by-event breakdown" data-ar="مؤشرات KPI لخط الأنابيب · أداء الفريق · تفصيل حسب الفعالية">Pipeline KPIs · Team performance · Event-by-event breakdown</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag g">Pipeline Value</span>
+                    <span class="mod-tag b">Conversion Rate</span>
+                    <span class="mod-tag t">Per Event Stats</span>
+                    <span class="mod-tag n">Team Activity</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The analytics dashboard gives Smart Vision management a real-time view of the entire sponsorship sales operation — total pipeline value across all events, deals closed this month vs. target, conversion rate per pipeline stage, event-by-event breakdown (how many sponsor deals are won vs. open vs. lost for SVS Egypt vs. SVS Kuwait vs. SVS Bahrain, etc.), team activity metrics (calls made, proposals sent, tasks completed per team member), and top sponsor companies by deal value. These KPIs drive Smart Vision's revenue forecasting and event planning decisions." data-ar="تمنح لوحة التحليلات إدارة Smart Vision رؤية آنية لعملية مبيعات الرعاة بأكملها — إجمالي قيمة خط الأنابيب عبر جميع الفعاليات وصفقات هذا الشهر مقابل الهدف ومعدل التحويل لكل مرحلة خط أنابيب وتفصيل حسب الفعالية (عدد صفقات الرعاة المكسوبة مقابل المفتوحة مقابل المخسورة لـ SVS مصر مقابل SVS الكويت مقابل SVS البحرين...) ومقاييس نشاط الفريق وأهم شركات الرعاة حسب قيمة الصفقة. هذه المؤشرات تقود توقعات الإيرادات وقرارات تخطيط الفعاليات في Smart Vision.">The analytics dashboard gives Smart Vision management a real-time view of the entire sponsorship sales operation — total pipeline value across all events, deals closed vs. target, conversion rate per pipeline stage, event-by-event breakdown (SVS Egypt vs. SVS Kuwait vs. SVS Bahrain, etc.), team activity metrics (calls made, proposals sent, tasks completed per team member), and top sponsor companies by deal value. These KPIs drive Smart Vision's revenue forecasting and event planning decisions.</p>
+                </div>
+                <div class="module-card users">
+                  <div class="mod-icon">🔐</div>
+                  <div class="mod-name" data-en="User Management &amp; Admin Panel" data-ar="إدارة المستخدمين ولوحة الإدارة">User Management &amp; Admin Panel</div>
+                  <div class="mod-sub" data-en="Admin creates all users · RBAC · Login-protected internal system" data-ar="المدير يُنشئ جميع المستخدمين · RBAC · نظام داخلي محمي بتسجيل الدخول">Admin creates all users · RBAC · Login-protected internal system</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag n">Admin Panel</span>
+                    <span class="mod-tag p">RBAC Roles</span>
+                    <span class="mod-tag t">User Creation</span>
+                    <span class="mod-tag g">Access Control</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The Smart Vision CRM is a closed, admin-controlled system — all team members are created exclusively by the admin from the admin panel. There is no self-registration. This ensures that only authorized Smart Vision team members ever have access to the sensitive B2B client data, sponsorship pipeline, and revenue information stored in the CRM. Role-based access control (RBAC) allows different permission levels — sales team members may see contacts and deals but not system settings; managers see full analytics; admins have full access including user management and system configuration." data-ar="Smart Vision CRM نظام مغلق يتحكم فيه المدير — يُنشئ المدير جميع أعضاء الفريق حصرياً من لوحة الإدارة. لا يوجد تسجيل ذاتي. هذا يضمن أن أعضاء فريق Smart Vision المرخّص لهم فقط يحصلون على وصول لبيانات العملاء B2B الحساسة وخط أنابيب الرعاة ومعلومات الإيرادات المخزّنة في CRM. RBAC يسمح بمستويات أذونات مختلفة — أعضاء فريق المبيعات قد يرون جهات الاتصال والصفقات لكن ليس إعدادات النظام؛ المديرون يرون التحليلات الكاملة؛ المسؤولون لديهم وصول كامل بما يشمل إدارة المستخدمين وتكوين النظام.">The Smart Vision CRM is a closed, admin-controlled system — all team members are created exclusively by the admin from the admin panel. There is no self-registration. This ensures only authorized Smart Vision team members ever have access to the sensitive B2B client data, sponsorship pipeline, and revenue information. RBAC allows different permission levels — sales team members see contacts and deals but not system settings; managers see full analytics; admins have full access including user management and system configuration.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Purpose-Built for Smart Vision's Exact B2B Sales Process" data-ar="مبني خصيصاً لعملية مبيعات B2B الدقيقة لـ Smart Vision">Purpose-Built for Smart Vision's Exact B2B Sales Process</strong>
+                    <span data-en="Unlike generic CRM tools (Salesforce, HubSpot, etc.), the Smart Vision CRM is built from scratch specifically for Smart Vision's unique business model — selling tiered sponsorship packages (Official, Main, Royal, Elite, Platinum) for financial markets summits across multiple countries simultaneously. Every module, pipeline stage, and report is designed around Smart Vision's actual workflow, not adapted from a generic template. This means no unnecessary complexity, no missing features, and no expensive per-seat licensing costs for a growing team." data-ar="على عكس أدوات CRM العامة (Salesforce وHubSpot وما إلى ذلك)، بُني Smart Vision CRM من الصفر خصيصاً لنموذج الأعمال الفريد لـ Smart Vision — بيع باقات رعاية متدرجة لقمم الأسواق المالية عبر دول متعددة في آن واحد. كل وحدة ومرحلة خط أنابيب وتقرير مصمم حول سير العمل الفعلي لـ Smart Vision، وليس محوّلاً من قالب عام. هذا يعني لا تعقيد غير ضروري ولا ميزات مفقودة ولا تكاليف ترخيص مرتفعة لكل مستخدم لفريق متنامٍ.">Unlike generic CRM tools (Salesforce, HubSpot, etc.), the Smart Vision CRM is built from scratch specifically for Smart Vision's unique business model — selling tiered sponsorship packages for financial markets summits across multiple countries simultaneously. Every module, pipeline stage, and report is designed around Smart Vision's actual workflow. This means no unnecessary complexity, no missing features, and no expensive per-seat licensing costs for a growing team.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Multi-Event Pipeline — 6 Countries, All Events, One View" data-ar="خط أنابيب متعدد الفعاليات — 6 دول، جميع الفعاليات، عرض واحد">Multi-Event Pipeline — 6 Countries, All Events, One View</strong>
+                    <span data-en="Smart Vision runs multiple SVS events simultaneously across 6 countries (Egypt, Kuwait, Bahrain, Morocco, Oman, UAE) — each with its own sponsor targets, timelines, and team assignments. The CRM's multi-event pipeline gives management a single view of all sponsorship deals across all active events, filterable by event, by sponsor tier, by pipeline stage, and by team member — making it possible to manage the full portfolio of event sponsorship sales from one dashboard without switching between separate spreadsheets or tools." data-ar="تُدير Smart Vision فعاليات SVS متعددة في آن واحد عبر 6 دول — كل منها بأهداف رعاة خاصة ومواعيد نهائية وتعيينات فريق. يمنح خط أنابيب CRM متعدد الفعاليات الإدارة عرضاً واحداً لجميع صفقات الرعاة عبر جميع الفعاليات النشطة، قابلاً للتصفية حسب الفعالية ومستوى الراعي ومرحلة خط الأنابيب وعضو الفريق — مما يجعل إدارة محفظة مبيعات رعاة الفعاليات الكاملة من لوحة تحكم واحدة ممكناً دون التبديل بين جداول بيانات أو أدوات منفصلة.">Smart Vision runs multiple SVS events simultaneously across 6 countries — each with its own sponsor targets, timelines, and team assignments. The CRM's multi-event pipeline gives management a single view of all sponsorship deals across all active events, filterable by event, sponsor tier, pipeline stage, and team member — making it possible to manage the full portfolio of event sponsorship sales from one dashboard without switching between separate spreadsheets or tools.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="360° Sponsor Relationship View — Company + Contacts + Deals + History" data-ar="رؤية 360° لعلاقة الراعي — الشركة + جهات الاتصال + الصفقات + التاريخ">360° Sponsor Relationship View — Company + Contacts + Deals + History</strong>
+                    <span data-en="For every sponsor company in Smart Vision's database (from Exness and XTB to smaller regional financial firms), the CRM provides a complete 360° relationship view — all contacts within that company, all past and current deals across all SVS events, the full communication history (every call, email, and meeting), all open tasks and follow-ups, and the deal history showing which events they've sponsored in past editions. This complete relationship view ensures that Smart Vision's sales team is always fully informed before any sponsor interaction, and that institutional knowledge is never lost when team members change." data-ar="لكل شركة راعية في قاعدة بيانات Smart Vision (من Exness وXTB إلى شركات مالية إقليمية أصغر)، يوفر CRM رؤية علاقة 360° كاملة — جميع جهات الاتصال داخل تلك الشركة وجميع الصفقات السابقة والحالية عبر جميع فعاليات SVS وتاريخ التواصلات الكامل (كل مكالمة وإيميل واجتماع) وجميع المهام والمتابعات المفتوحة وتاريخ الصفقات التي يُظهر الفعاليات التي رعوها في الإصدارات السابقة. هذه الرؤية الكاملة للعلاقة تضمن أن فريق مبيعات Smart Vision دائماً على دراية كاملة قبل أي تفاعل مع الراعي.">For every sponsor company in Smart Vision's database, the CRM provides a complete 360° relationship view — all contacts within that company, all past and current deals across all SVS events, the full communication history (every call, email, and meeting), all open tasks and follow-ups, and the deal history showing which events they've sponsored in past editions. This ensures the sales team is always fully informed before any sponsor interaction, and that institutional knowledge is never lost when team members change.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Closed Internal System — No Self-Registration, Admin-Controlled Access" data-ar="نظام داخلي مغلق — لا تسجيل ذاتي، وصول يتحكم فيه المدير">Closed Internal System — No Self-Registration, Admin-Controlled Access</strong>
+                    <span data-en="The Smart Vision CRM is deliberately designed as a closed, internal-only system — accessible only at crm.smartvisionsummit.com with credentials created exclusively by the admin. This architecture protects sensitive B2B client data (sponsor contact details, deal values, revenue pipeline, company relationships) from unauthorized access. The 'Admin creates users from Admin Panel' design means the system can never be accessed by external parties or by anyone not explicitly authorized by Smart Vision's system administrator." data-ar="Smart Vision CRM مصمم عمداً كنظام مغلق داخلي فقط — لا يمكن الوصول إليه إلا على crm.smartvisionsummit.com ببيانات اعتماد يُنشئها حصرياً المدير. هذه البنية تحمي بيانات عملاء B2B الحساسة (تفاصيل جهات اتصال الرعاة وقيم الصفقات وخط أنابيب الإيرادات وعلاقات الشركات) من الوصول غير المرخّص. تصميم 'يُنشئ المدير المستخدمين من لوحة الإدارة' يعني أنه لا يمكن للأطراف الخارجية أو أي شخص غير مرخّص صراحةً من قِبل مدير نظام Smart Vision الوصول إلى النظام أبداً.">The Smart Vision CRM is deliberately designed as a closed, internal-only system — accessible only at crm.smartvisionsummit.com with credentials created exclusively by the admin. This architecture protects sensitive B2B client data (sponsor contact details, deal values, revenue pipeline, company relationships) from unauthorized access. The 'Admin creates users from Admin Panel' design means the system can never be accessed by external parties or by anyone not explicitly authorized by Smart Vision's system administrator.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>6</strong>
+                  <span data-en="SVS Events · Pipeline Tracked" data-ar="فعاليات SVS · خط أنابيب مُتتبَّع">SVS Events · Pipeline Tracked</span>
+                </div>
+                <div class="result-card">
+                  <strong>5</strong>
+                  <span data-en="Sponsor Tiers · Per Event" data-ar="مستويات رعاة · لكل فعالية">Sponsor Tiers · Per Event</span>
+                </div>
+                <div class="result-card">
+                  <strong>360°</strong>
+                  <span data-en="Sponsor Relationship View" data-ar="رؤية علاقة الراعي">Sponsor Relationship View</span>
+                </div>
+                <div class="result-card">
+                  <strong>🔐</strong>
+                  <span data-en="RBAC · Admin-Controlled" data-ar="RBAC · يتحكم فيه المدير">RBAC · Admin-Controlled</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Multi-Dimensional Data Model — Contacts × Companies × Events × Tiers × Pipeline Stages" data-ar="نموذج بيانات متعدد الأبعاد — جهات الاتصال × الشركات × الفعاليات × المستويات × مراحل خط الأنابيب">Multi-Dimensional Data Model — Contacts × Companies × Events × Tiers × Pipeline Stages</strong>
+                  <p data-en="The core data model of the Smart Vision CRM is significantly more complex than a typical CRM because deals are multi-dimensional: a single sponsorship deal involves a contact person, a company, a specific SVS event (one of 6+ countries), a specific sponsor tier (one of 5 tiers), a pipeline stage, a deal value, team member ownership, and a task/communication history. Designing a relational data model that can efficiently query and aggregate across all these dimensions — especially for pipeline reports that show event-by-event and tier-by-tier breakdowns — required careful schema design." data-ar="نموذج البيانات الأساسي لـ Smart Vision CRM أكثر تعقيداً بكثير من CRM نموذجي لأن الصفقات متعددة الأبعاد: صفقة رعاية واحدة تتضمن شخص جهة اتصال وشركة وفعالية SVS محددة (واحدة من 6+ دول) ومستوى راعٍ محدد (واحد من 5 مستويات) ومرحلة خط أنابيب وقيمة صفقة وملكية عضو فريق وتاريخ مهام/تواصلات. تصميم نموذج بيانات علائقي يمكنه الاستعلام والتجميع بكفاءة عبر جميع هذه الأبعاد — خاصةً لتقارير خط الأنابيب التي تُظهر تفصيلاً حسب الفعالية والمستوى — يتطلب تصميم مخطط دقيقاً.">The core data model of the Smart Vision CRM is significantly more complex than a typical CRM because deals are multi-dimensional: a single sponsorship deal involves a contact person, a company, a specific SVS event (one of 6+ countries), a specific sponsor tier (one of 5 tiers), a pipeline stage, a deal value, team member ownership, and a task/communication history. Designing a relational data model that can efficiently query and aggregate across all these dimensions — especially for pipeline reports that show event-by-event and tier-by-tier breakdowns — required careful schema design.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Data Security for Sensitive B2B Client &amp; Revenue Data" data-ar="أمان البيانات لبيانات العملاء B2B الحساسة وبيانات الإيرادات">Data Security for Sensitive B2B Client &amp; Revenue Data</strong>
+                  <p data-en="The Smart Vision CRM stores highly sensitive commercial data — sponsor contact details for 40+ major financial sector companies (Exness, XTB, Vantage, XS.COM, etc.), deal values representing Smart Vision's total event revenue pipeline, competitive information about which companies are in negotiation for which events, and team performance data. This data must be protected at every level: secure login with session management, RBAC ensuring appropriate data access per role, no public-facing registration endpoints, CSRF protection on all forms, input sanitization on all data entry, and encrypted storage for sensitive fields." data-ar="يخزّن Smart Vision CRM بيانات تجارية حساسة للغاية — تفاصيل جهات اتصال الرعاة لـ 40+ شركة مالية كبرى وقيم الصفقات التي تمثل خط أنابيب الإيرادات الكلي للفعاليات لـ Smart Vision ومعلومات تنافسية حول الشركات التي تتفاوض لأي فعاليات وبيانات أداء الفريق. يجب حماية هذه البيانات على كل مستوى: تسجيل دخول آمن مع إدارة الجلسات وRBAC وعدم وجود نقاط نهاية تسجيل عامة وحماية CSRF على جميع النماذج وتعقيم المدخلات على جميع إدخالات البيانات وتشفير التخزين للحقول الحساسة.">The Smart Vision CRM stores highly sensitive commercial data — sponsor contact details for 40+ major financial sector companies, deal values representing Smart Vision's total event revenue pipeline, competitive information about which companies are in negotiation for which events, and team performance data. This data must be protected at every level: secure login with session management, RBAC ensuring appropriate data access per role, no public-facing registration endpoints, CSRF protection on all forms, input sanitization on all data entry, and encrypted storage for sensitive fields.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Adoption &amp; Workflow Fit — Replacing Spreadsheets for a Busy Sales Team" data-ar="التبني وملاءمة سير العمل — استبدال جداول البيانات لفريق مبيعات مشغول">Adoption &amp; Workflow Fit — Replacing Spreadsheets for a Busy Sales Team</strong>
+                  <p data-en="The Smart Vision team was previously managing sponsorship sales across 6 concurrent events using spreadsheets — a familiar but fragmented tool that made cross-event visibility and team coordination difficult. Replacing spreadsheets with a custom CRM only works if the new system is genuinely easier and faster to use than the old one. This required extensive workflow analysis upfront to ensure every screen, form, and action in the CRM directly maps to how the Smart Vision sales team actually works — minimizing the learning curve and ensuring daily adoption by a team that is always busy managing real event relationships." data-ar="كان فريق Smart Vision يُدير مبيعات الرعاة عبر 6 فعاليات متزامنة باستخدام جداول البيانات — أداة مألوفة لكن مجزّأة تجعل الرؤية عبر الفعاليات وتنسيق الفريق أمراً صعباً. استبدال جداول البيانات بـ CRM مخصص لا يعمل إلا إذا كان النظام الجديد أسهل وأسرع حقاً من القديم. تطلّب هذا تحليلاً مكثفاً لسير العمل مسبقاً لضمان أن كل شاشة ونموذج وإجراء في CRM يُرسم مباشرةً على كيفية عمل فريق مبيعات Smart Vision فعلياً — مما يُقلّل منحنى التعلم ويضمن التبني اليومي من فريق مشغول دائماً بإدارة علاقات الفعاليات الحقيقية.">The Smart Vision team was previously managing sponsorship sales across 6 concurrent events using spreadsheets — a familiar but fragmented tool that made cross-event visibility and team coordination difficult. Replacing spreadsheets with a custom CRM only works if the new system is genuinely easier and faster to use than the old one. This required extensive workflow analysis upfront to ensure every screen, form, and action in the CRM directly maps to how the Smart Vision sales team actually works — minimizing the learning curve and ensuring daily adoption by a team that is always busy managing real event relationships.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-svs-hub.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="SVS Hub — Corporate Website &amp; Dashboard" data-ar="SVS Hub — الموقع المؤسسي ولوحة التحكم">SVS Hub — Corporate Website &amp; Dashboard</strong>
+              </a>
+              <a href="index.html#contact" class="btn-gold" data-en="Build Similar CRM →" data-ar="ابنِ CRM مماثلاً →">Build Similar CRM →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Smart Vision Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="System" data-ar="النظام">System</span>
+                <span class="crm-val">Custom CRM</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="meta-val" style="font-size:11px;">B2B Sales · Event CRM</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="URL" data-ar="الرابط">URL</span>
+                <span class="meta-val" style="font-size:10px;">crm.smartvisionsummit.com</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Access" data-ar="الوصول">Access</span>
+                <span class="meta-val" style="font-size:11px;">🔐 Internal Only</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Events" data-ar="الفعاليات">Events</span>
+                <span class="meta-val">6 Countries · SVS</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live · In Use" data-ar="منتج · قيد الاستخدام">Live · In Use</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">Session Auth</span>
+                <span class="tech-chip">CSRF Protection</span>
+                <span class="tech-chip">Bootstrap</span>
+                <span class="tech-chip">AJAX</span>
+                <span class="tech-chip">Charts.js</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">Admin Panel</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="CRM Modules" data-ar="وحدات CRM">CRM Modules</h4>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="padding:8px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">👥 Contacts &amp; Companies</div>
+                <div style="padding:8px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">💰 Sponsorship Pipeline</div>
+                <div style="padding:8px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">✅ Tasks &amp; Follow-ups</div>
+                <div style="padding:8px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">💬 Communications Log</div>
+                <div style="padding:8px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">📊 Reports &amp; Analytics</div>
+                <div style="padding:8px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">🔐 User Management · RBAC</div>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://crm.smartvisionsummit.com/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#0d2748,#1a3a6b);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🔐 View CRM Login" data-ar="🔐 شاهد تسجيل دخول CRM">🔐 View CRM Login</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#c9a227,#a07a00);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Build a Custom CRM" data-ar="💬 ابنِ CRM مخصصاً">💬 Build a Custom CRM</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'Smart Vision CRM — نظام CRM مخصص لإدارة الفعاليات والرعاة | أحمد نور'
+        : 'Smart Vision CRM — Custom CRM System for Event & Sponsorship Management | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
