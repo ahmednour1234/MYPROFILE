@@ -172,7 +172,14 @@ function initSlider(totalCards) {
 function renderCards(ordered) {
   const grid = document.getElementById('countryGrid');
   if (!grid) return;
-  grid.innerHTML = ordered.map(([flagUrl, enName, arName]) => {
+
+  // Pad last page: clone from start so no empty slots
+  const remainder = ordered.length % VISIBLE_CARDS;
+  const padded = remainder === 0
+    ? ordered
+    : [...ordered, ...ordered.slice(0, VISIBLE_CARDS - remainder)];
+
+  grid.innerHTML = padded.map(([flagUrl, enName, arName]) => {
     const displayName = currentLang === 'ar' ? arName : enName;
     return `<div class="country-card">
       <img src="${flagUrl}" alt="${enName}" loading="lazy">
@@ -180,7 +187,7 @@ function renderCards(ordered) {
     </div>`;
   }).join('');
   doReveal();
-  initSlider(ordered.length);
+  initSlider(padded.length);
 }
 
 async function loadCountries() {
