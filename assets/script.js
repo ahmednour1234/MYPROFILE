@@ -1,4 +1,5 @@
 ﻿// ===== THREE.JS BACKGROUND =====
+try {
 const canvas = document.getElementById('webgl');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -60,18 +61,21 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+} catch(e) { /* Three.js unavailable – skip 3D background */ }
 
 // ===== SCROLL REVEAL =====
 const reveals = document.querySelectorAll('.reveal');
 function doReveal() {
   reveals.forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.95) {
       el.classList.add('active');
     }
   });
 }
 window.addEventListener('scroll', doReveal);
 doReveal();
+requestAnimationFrame(() => requestAnimationFrame(doReveal));
+window.addEventListener('load', doReveal);
 
 // ===== LANGUAGE SWITCHER =====
 let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
