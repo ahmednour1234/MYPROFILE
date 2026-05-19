@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Vision Summit — Corporate Hub Website & Multi-Event Admin Dashboard | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--svs-red:#d2232a;--svs-red2:#b01c22;--svs-dark:#0f0f0f;--hub-gold:#c9a227;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0a0a0f 0%,#12121a 55%,#180a0b 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 72% 35%,rgba(201,162,39,.12) 0%,transparent 55%),radial-gradient(ellipse 45% 55% at 0% 75%,rgba(210,35,42,.1) 0%,transparent 50%);}
+    .red-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#d2232a,#c9a227,#d2232a,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(201,162,39,.3);margin-bottom:20px;}
+    .brand-mark img{height:26px;object-fit:contain;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#e8c84a;}
+    .hub-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.4);margin-left:8px;}
+    .hub-badge span{font-size:11px;font-weight:800;color:#e8c84a;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(210,35,42,.18);color:#ff8080;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(22px,2.6vw,36px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#e8c84a,#c9a227);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:510px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.red{background:rgba(210,35,42,.18);border-color:rgba(210,35,42,.5);color:#ff8080;}
+    .hero-badge.gold{background:rgba(201,162,39,.1);border-color:rgba(201,162,39,.4);color:#e8c84a;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-gold{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#c9a227,#a07a00);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,162,39,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:270px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(201,162,39,.25),0 -1px 0 rgba(201,162,39,.2);display:block;object-fit:cover;height:230px;}
+    /* Strips */
+    .logo-strip{background:rgba(201,162,39,.05);border-top:1px solid rgba(201,162,39,.2);border-bottom:1px solid rgba(201,162,39,.1);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
+    .logo-strip img{height:36px;object-fit:contain;}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    .logo-strip-pill{padding:6px 16px;border-radius:999px;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);color:#e8c84a;font-size:12px;font-weight:700;}
+    .stats-strip{background:rgba(201,162,39,.04);border-bottom:1px solid rgba(201,162,39,.1);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    .stat-num.gold{background:linear-gradient(135deg,#e8c84a,#c9a227);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(201,162,39,.15);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(201,162,39,.12);border-color:rgba(201,162,39,.35);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .hub-val{padding:3px 10px;border-radius:999px;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);color:#7a5e00;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(210,35,42,.08);color:#b01c22;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.website::before{background:linear-gradient(90deg,#d2232a,#e8c84a);}
+    .component-card.events::before{background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#b01c22,#d2232a);}
+    .component-card.sponsors::before{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+    .component-card.media::before{background:linear-gradient(90deg,#0d9488,#5eead4);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.r{background:rgba(210,35,42,.1);color:#b01c22;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .comp-tag.g{background:rgba(201,162,39,.12);color:#7a5e00;}
+    /* Countries grid */
+    .countries-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .country-card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--shadow);}
+    .country-flag{font-size:28px;margin-bottom:6px;display:block;}
+    .country-name{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+    .country-event{font-size:11px;color:var(--muted);}
+    /* Sponsor scrollbar */
+    .sponsors-marquee{overflow:hidden;white-space:nowrap;padding:12px 0;background:white;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);}
+    .sponsors-note{font-size:13px;color:var(--muted);margin-bottom:10px;font-style:italic;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#c9a227,#a07a00);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Dashboard modules */
+    .dash-modules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .dash-module{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .dash-module::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .dash-module.m1::before{background:linear-gradient(90deg,#d2232a,#e8c84a);}
+    .dash-module.m2::before{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+    .dash-module.m3::before{background:linear-gradient(90deg,#0d9488,#5eead4);}
+    .dash-module.m4::before{background:linear-gradient(90deg,#2563eb,#93c5fd);}
+    .dash-module.m5::before{background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .dash-module.m6::before{background:linear-gradient(90deg,#374151,#6b7280);}
+    .dash-icon{font-size:22px;margin-bottom:8px;}
+    .dash-title{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .dash-desc{font-size:11px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d2232a,#c9a227);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a1a1a,#b01c22);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #c9a227;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#d2232a;}
+    /* About banner */
+    .about-banner{background:linear-gradient(135deg,#0a0a0f,#14140a);border:1px solid rgba(201,162,39,.2);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:4px;}
+    .about-stat{text-align:center;}
+    .about-stat .num{font-size:30px;font-weight:900;background:linear-gradient(135deg,#e8c84a,#c9a227);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+    .about-stat .lbl{font-size:11px;color:rgba(255,255,255,.55);font-weight:600;margin-top:4px;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .countries-grid{grid-template-columns:1fr 1fr;}
+      .dash-modules{grid-template-columns:1fr 1fr;}
+      .about-banner{grid-template-columns:1fr 1fr;}
+      .stat-item{padding:8px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="red-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Smart Vision Summit Hub</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark"><img src="assets/projects/svs-hub/svs-hub-logo.webp" alt="Smart Vision Summit" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:14px;color:#e8c84a;\'>SVS</span>'" /></div>
+            <span><em>Smart Vision Summit</em> &nbsp;— Corporate Hub &amp; Multi-Event Dashboard</span>
+          </div>
+          <div class="hub-badge">
+            <span>🌍 6 COUNTRIES · ALL SVS EVENTS</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Events · Corporate Hub · Multi-Country · Dashboard · 150+ Clients · 2009</span>
+            <h1 data-en="Smart Vision Summit — <em>Corporate Hub</em> Website &amp; Multi-Event Admin Dashboard" data-ar="قمة الرؤية الذكية — موقع <em>المركز المؤسسي</em> ولوحة تحكم الفعاليات المتعددة">Smart Vision Summit — <em>Corporate Hub</em> Website &amp; Multi-Event Admin Dashboard</h1>
+            <p data-en="The central company profile website and multi-event admin dashboard for Smart Vision Group — Egypt's leading event organizer since 2009, licensed in Egypt and the UAE, with presence across 6 countries. Smartvisionsummit.com serves as the master hub listing ALL upcoming SVS events globally (Kuwait, Bahrain, Morocco, Forex Dubai, Egypt, Oman), showcasing 40+ previous sponsors including Exness, XTB, and Vantage, and featuring a full admin dashboard to manage events, sponsors, media gallery, FAQ, and contact across the entire SVS portfolio." data-ar="موقع الشركة المركزي ولوحة التحكم متعددة الفعاليات لـ Smart Vision Group — منظم الفعاليات الرائد في مصر منذ 2009، مرخّص في مصر والإمارات، بحضور عبر 6 دول. يعمل smartvisionsummit.com كالمركز الرئيسي الذي يعرض جميع فعاليات SVS القادمة عالمياً (الكويت والبحرين والمغرب وفوركس دبي ومصر وعُمان) ويعرض 40+ راعي سابق بما يشمل Exness وXTB وVantage، ويتضمن لوحة تحكم إدارية كاملة لإدارة الفعاليات والرعاة ومعرض الميديا والأسئلة الشائعة والتواصل عبر محفظة SVS بأكملها.">The central company profile website and multi-event admin dashboard for Smart Vision Group — Egypt's leading event organizer since 2009, licensed in Egypt and the UAE, with presence across 6 countries. smartvisionsummit.com serves as the master hub listing ALL upcoming SVS events globally, showcasing 40+ previous sponsors including Exness, XTB, and Vantage, with a full admin dashboard managing events, sponsors, media gallery, FAQ, and contact across the entire SVS portfolio.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇪🇬 Egypt · 🇦🇪 UAE · Licensed 2009</span>
+              <span class="hero-badge gold">🌍 6 Countries · All SVS Events</span>
+              <span class="hero-badge red">150+ Clients · 30 Countries</span>
+              <span class="hero-badge">🏦 40+ Sponsors · Exness · XTB · Vantage</span>
+              <span class="hero-badge">📊 Admin Dashboard</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://smartvisionsummit.com/" target="_blank" rel="noopener noreferrer" class="btn-gold" data-en="Visit SVS Hub →" data-ar="زيارة مركز SVS →">Visit SVS Hub →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/svs-hub/svs-hub-hero.jpg" alt="Smart Vision Summit Corporate Hub" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <img src="assets/projects/svs-hub/svs-hub-logo.webp" alt="Smart Vision Summit" />
+            <span class="logo-strip-text">SMARTVISIONSUMMIT.COM · CORPORATE HUB · EST. 2009 · EGYPT &amp; UAE</span>
+            <span class="logo-strip-pill">🌍 6 COUNTRIES · 150+ CLIENTS · 30 COUNTRIES</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num gold">2009</span>
+              <span class="stat-label" data-en="Operating Since" data-ar="تأسست منذ">Operating Since</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">150+</span>
+              <span class="stat-label" data-en="Clients Worldwide" data-ar="عملاء حول العالم">Clients Worldwide</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">30</span>
+              <span class="stat-label" data-en="Countries · Client Base" data-ar="دولة · قاعدة عملاء">Countries · Client Base</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">6</span>
+              <span class="stat-label" data-en="Countries · SVS Presence" data-ar="دول · حضور SVS">Countries · SVS Presence</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">40+</span>
+              <span class="stat-label" data-en="Previous Sponsors" data-ar="رعاة سابقون">Previous Sponsors</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Corporate Hub Website" data-ar="موقع المركز المؤسسي">Corporate Hub Website</strong><span data-en="Company profile, events listing, sponsors, media" data-ar="ملف الشركة وعرض الفعاليات والرعاة والميديا">Company profile, events listing, sponsors, media</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📅</span>
+              <div class="pp-text"><strong data-en="Multi-Event Manager" data-ar="مدير الفعاليات المتعددة">Multi-Event Manager</strong><span data-en="All SVS events across 6 countries in one dashboard" data-ar="جميع فعاليات SVS عبر 6 دول في لوحة واحدة">All SVS events across 6 countries in one dashboard</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🤝</span>
+              <div class="pp-text"><strong data-en="Sponsors Database" data-ar="قاعدة بيانات الرعاة">Sponsors Database</strong><span data-en="40+ sponsor logos, categories, CRUD" data-ar="40+ شعار راعٍ وتصنيفات وCRUD">40+ sponsor logos, categories, CRUD</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖼️</span>
+              <div class="pp-text"><strong data-en="Media Gallery Admin" data-ar="إدارة معرض الميديا">Media Gallery Admin</strong><span data-en="Video gallery + photo gallery management" data-ar="إدارة معرض الفيديو والصور">Video gallery + photo gallery management</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="FAQ, contact, settings, SEO — all in one" data-ar="الأسئلة والتواصل والإعدادات وSEO — في مكان واحد">FAQ, contact, settings, SEO — all in one</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="About Smart Vision Group" data-ar="عن Smart Vision Group">About Smart Vision Group</h2>
+              <div class="about-banner">
+                <div class="about-stat"><div class="num">2009</div><div class="lbl" data-en="Founded" data-ar="التأسيس">Founded</div></div>
+                <div class="about-stat"><div class="num">150+</div><div class="lbl" data-en="Clients" data-ar="العملاء">Clients</div></div>
+                <div class="about-stat"><div class="num">30</div><div class="lbl" data-en="Countries" data-ar="الدول">Countries</div></div>
+                <div class="about-stat"><div class="num">20+</div><div class="lbl" data-en="Years Board Expertise" data-ar="خبرة مجلس الإدارة">Years Board Expertise</div></div>
+              </div>
+              <p data-en="Smart Vision is a licensed company in Egypt and the United Arab Emirates that has been operating since 2009. The company specializes in organizing exhibitions, conferences, and providing consultancy services. With a presence in Egypt, the UAE, Bahrain, Oman, Kuwait, and South Africa, Smart Vision has established itself as a prominent player in the industry." data-ar="Smart Vision شركة مرخّصة في مصر والإمارات العربية المتحدة تعمل منذ 2009. تتخصص الشركة في تنظيم المعارض والمؤتمرات وتقديم خدمات الاستشارات. بحضور في مصر والإمارات والبحرين وعُمان والكويت وجنوب أفريقيا، رسّخت Smart Vision نفسها كلاعب بارز في الصناعة.">Smart Vision is a licensed company in Egypt and the United Arab Emirates that has been operating since 2009. The company specializes in organizing exhibitions, conferences, and providing consultancy services. With a presence in Egypt, the UAE, Bahrain, Oman, Kuwait, and South Africa, Smart Vision has established itself as a prominent player in the industry.</p>
+              <p data-en="With a diverse portfolio, Smart Vision serves over 150 clients across 30 countries worldwide. Its client base includes major banks, financial market companies, stock exchanges, Forex firms, and fintech companies. The company's extensive experience in the financial markets and financial sector is reflected in its board of directors, which collectively possesses over 20 years of expertise. Smart Vision's commitment to excellence and innovation sets it apart — the company leverages its deep understanding of the industry to deliver tailored solutions, helping clients navigate the complexities of the financial landscape." data-ar="بمحفظة متنوعة، تخدم Smart Vision أكثر من 150 عميلاً في 30 دولة حول العالم. تشمل قاعدة عملائها البنوك الكبرى وشركات الأسواق المالية وبورصات الأوراق المالية وشركات الفوركس والشركات التقنية المالية. تنعكس خبرة الشركة الواسعة في الأسواق المالية على مجلس إدارتها الذي يمتلك مجتمعاً أكثر من 20 سنة من الخبرة. التزام Smart Vision بالتميز والابتكار يميّزها في السوق.">With a diverse portfolio, Smart Vision serves over 150 clients across 30 countries worldwide. Its client base includes major banks, financial market companies, stock exchanges, Forex firms, and fintech companies. The company's extensive experience in the financial markets and financial sector is reflected in its board of directors, which collectively possesses over 20 years of expertise. Smart Vision's commitment to excellence and innovation sets it apart — the company leverages its deep understanding of the industry to deliver tailored solutions, helping clients navigate the complexities of the financial landscape.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview — The Master SVS Hub" data-ar="نظرة عامة — المركز الرئيسي لـ SVS">Project Overview — The Master SVS Hub</h2>
+              <p data-en="Smartvisionsummit.com is Smart Vision's corporate company profile and multi-event hub website — the central digital presence for the entire Smart Vision Summit brand globally. Unlike the individual country event sites (which each have their own dedicated platform), this hub website serves as the front door to the Smart Vision brand — showcasing all upcoming SVS events across 6 countries in a single, unified interface." data-ar="Smartvisionsummit.com هو موقع ملف الشركة المؤسسي ومركز الفعاليات المتعددة لـ Smart Vision — الحضور الرقمي المركزي للعلامة التجارية لقمة الرؤية الذكية عالمياً. على عكس مواقع فعاليات الدول الفردية (التي لكل منها منصتها المخصصة)، يعمل هذا الموقع المركزي كواجهة أمامية للعلامة التجارية لـ Smart Vision — يعرض جميع فعاليات SVS القادمة عبر 6 دول في واجهة موحدة.">Smartvisionsummit.com is Smart Vision's corporate company profile and multi-event hub website — the central digital presence for the entire Smart Vision Summit brand globally. Unlike the individual country event sites (which each have their own dedicated platform), this hub website serves as the front door to the Smart Vision brand — showcasing all upcoming SVS events across 6 countries in a single, unified interface.</p>
+              <p data-en="The site features a dynamic 'NEXT IN LINE' hero section that automatically highlights the chronologically nearest upcoming event. The 'Find Upcoming Events' section lists all active SVS events with cover images, dates, a Details link (to the country-specific event site) and a 'Join Now' registration link. The massive Previous Sponsors gallery displays 40+ logo cards covering tier-1 financial sector sponsors including Exness, XTB, Vantage, XS.COM, MultiBank Group, One Royal, EasyMarkets, MonetaMarkets, and dozens more." data-ar="يتميز الموقع بقسم hero ديناميكي 'NEXT IN LINE' يُبرز تلقائياً الفعالية القادمة الأقرب زمنياً. يعرض قسم 'اعثر على الفعاليات القادمة' جميع فعاليات SVS النشطة مع صور الغلاف والتواريخ ورابط التفاصيل (للموقع المخصص للدولة) ورابط تسجيل 'انضم الآن'. يعرض معرض الرعاة السابق الضخم 40+ بطاقة شعار تغطي رعاة المستوى الأول في القطاع المالي بما يشمل Exness وXTB وVantage وXS.COM وMultiBank Group وOne Royal وEasyMarkets وMonetaMarkets وعشرات آخرين.">The site features a dynamic 'NEXT IN LINE' hero section that automatically highlights the chronologically nearest upcoming event. The 'Find Upcoming Events' section lists all active SVS events with cover images, dates, a Details link and a 'Join Now' registration link. The massive Previous Sponsors gallery displays 40+ logo cards covering tier-1 financial sector sponsors including Exness, XTB, Vantage, XS.COM, MultiBank Group, One Royal, EasyMarkets, MonetaMarkets, and dozens more.</p>
+              <p data-en="The full admin dashboard behind the hub site gives the Smart Vision team complete control over all content — creating and managing events across any SVS country edition, uploading and categorizing sponsor logos, managing the video and photo gallery, updating the FAQ, and reviewing contact form submissions. All content changes on the public-facing hub site are managed entirely through this dashboard — no code deployments required. The platform is built on Laravel/PHP with a clean admin panel and full RBAC." data-ar="لوحة التحكم الإدارية الكاملة خلف الموقع المركزي تمنح فريق Smart Vision سيطرة كاملة على جميع المحتوى — إنشاء وإدارة الفعاليات عبر أي إصدار دولة في SVS وتحميل وتصنيف شعارات الرعاة وإدارة معرض الفيديو والصور وتحديث الأسئلة الشائعة ومراجعة استمارات التواصل. جميع تغييرات المحتوى على الموقع المركزي العام تُدار بالكامل من خلال هذه اللوحة — لا يلزم نشر كود. المنصة مبنية على Laravel/PHP مع لوحة إدارة نظيفة وRBAC كامل.">The full admin dashboard behind the hub site gives the Smart Vision team complete control over all content — creating and managing events across any SVS country edition, uploading and categorizing sponsor logos, managing the video and photo gallery, updating the FAQ, and reviewing contact form submissions. All content changes on the public-facing hub site are managed entirely through this dashboard — no code deployments required. The platform is built on Laravel/PHP with a clean admin panel and full RBAC.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="SVS Events Covered — 6 Countries" data-ar="فعاليات SVS المغطاة — 6 دول">SVS Events Covered — 6 Countries</h2>
+              <div class="countries-grid">
+                <div class="country-card">
+                  <span class="country-flag">🇪🇬</span>
+                  <div class="country-name">Egypt</div>
+                  <div class="country-event">SVS Egypt 2026 · 9th Edition<br><small style="color:#b01c22;">Dec 5–6 · Nile Ritz-Carlton</small></div>
+                </div>
+                <div class="country-card">
+                  <span class="country-flag">🇰🇼</span>
+                  <div class="country-name">Kuwait</div>
+                  <div class="country-event">SVS Kuwait 2026<br><small style="color:#b01c22;">Oct 14–15 · Kuwait City</small></div>
+                </div>
+                <div class="country-card">
+                  <span class="country-flag">🇧🇭</span>
+                  <div class="country-name">Bahrain</div>
+                  <div class="country-event">SVS Manama 2026<br><small style="color:#b01c22;">Sep 9–10 · Crowne Plaza</small></div>
+                </div>
+                <div class="country-card">
+                  <span class="country-flag">🇲🇦</span>
+                  <div class="country-name">Morocco</div>
+                  <div class="country-event">SVS Morocco 2026<br><small style="color:#b01c22;">Oct 30–31 · Casablanca</small></div>
+                </div>
+                <div class="country-card">
+                  <span class="country-flag">🇴🇲</span>
+                  <div class="country-name">Oman</div>
+                  <div class="country-event">SVS Oman 2027<br><small style="color:#b01c22;">Jan 27–28 · JW Marriott</small></div>
+                </div>
+                <div class="country-card">
+                  <span class="country-flag">🇦🇪</span>
+                  <div class="country-name">UAE / Dubai</div>
+                  <div class="country-event">Forex Traders Summit Dubai<br><small style="color:#b01c22;">Nov 24–25 · Dubai</small></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card website">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Corporate Hub Website" data-ar="موقع المركز المؤسسي">Corporate Hub Website</div>
+                  <div class="comp-sub">smartvisionsummit.com</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Hero · NEXT IN LINE</span>
+                    <span class="comp-tag b">About SVS</span>
+                    <span class="comp-tag g">Sponsor Gallery</span>
+                    <span class="comp-tag t">FAQ</span>
+                    <span class="comp-tag p">Contact</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The main company profile website for Smart Vision Group — featuring a dynamic hero section with 'NEXT IN LINE' that auto-highlights the nearest upcoming SVS event globally, a company About section with stats, the Previous Sponsors gallery (40+ logos), a Video Gallery, a Past Events photo gallery, FAQ, and a contact form. The site uses a dark corporate theme with a red radial gradient, reflecting the Smart Vision brand. The tagline 'Connecting Financial Markets Across Borders' is displayed prominently." data-ar="الموقع الرئيسي لملف الشركة لـ Smart Vision Group — يتميز بقسم hero ديناميكي مع 'NEXT IN LINE' الذي يُبرز تلقائياً أقرب فعالية SVS القادمة عالمياً وقسم About للشركة بالإحصاءات ومعرض الرعاة السابقين (40+ شعار) ومعرض الفيديو ومعرض صور الفعاليات السابقة والأسئلة الشائعة واستمارة تواصل. يستخدم الموقع سمة مؤسسية داكنة مع تدرج لوني أحمر شعاعي يعكس علامة Smart Vision التجارية.">The main company profile website for Smart Vision Group — featuring a dynamic hero section with 'NEXT IN LINE' that auto-highlights the nearest upcoming SVS event globally, a company About section with stats, the Previous Sponsors gallery (40+ logos), a Video Gallery, a Past Events photo gallery, FAQ, and a contact form. The site uses a dark corporate theme with a red radial gradient, reflecting the Smart Vision brand identity with the tagline "Connecting Financial Markets Across Borders."</p>
+                </div>
+                <div class="component-card events">
+                  <div class="comp-icon">📅</div>
+                  <div class="comp-name" data-en="Multi-Event Listing Manager" data-ar="مدير عرض الفعاليات المتعددة">Multi-Event Listing Manager</div>
+                  <div class="comp-sub" data-en="All SVS country editions in one place" data-ar="جميع إصدارات دول SVS في مكان واحد">All SVS country editions in one place</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Dynamic Hero · NEXT IN LINE</span>
+                    <span class="comp-tag r">Event Cards</span>
+                    <span class="comp-tag b">Details + Join Now Links</span>
+                    <span class="comp-tag t">Cover Image</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The 'Find Upcoming Events' section dynamically renders event cards for all active SVS country editions — each card displays the event cover image, event name, date range, a Details link (to the country-specific event site), and a Join Now link (to the country-specific registration). The hero's 'NEXT IN LINE' pill automatically shows the chronologically nearest upcoming event with a hero background image and a Join Us + Learn More CTA. All event data is managed entirely from the admin dashboard — add a new country edition in seconds." data-ar="يعرض قسم 'اعثر على الفعاليات القادمة' بشكل ديناميكي بطاقات الفعاليات لجميع إصدارات دول SVS النشطة — كل بطاقة تعرض صورة غلاف الفعالية واسم الفعالية ونطاق التاريخ ورابط التفاصيل (لموقع الفعالية المخصص للدولة) ورابط انضم الآن. يعرض 'NEXT IN LINE' في الهيرو تلقائياً الفعالية القادمة الأقرب زمنياً مع صورة خلفية هيرو وCTA انضم إلينا وتعرّف أكثر. جميع بيانات الفعاليات تُدار بالكامل من لوحة التحكم الإدارية — أضف إصدار دولة جديد في ثوانٍ.">The 'Find Upcoming Events' section dynamically renders event cards for all active SVS country editions — each card displays the event cover image, event name, date range, a Details link and a Join Now link. The hero's 'NEXT IN LINE' pill automatically shows the chronologically nearest upcoming event. All event data is managed entirely from the admin dashboard — add a new country edition in seconds.</p>
+                </div>
+                <div class="component-card sponsors">
+                  <div class="comp-icon">🤝</div>
+                  <div class="comp-name" data-en="Sponsors Database & Gallery" data-ar="قاعدة بيانات الرعاة ومعرضهم">Sponsors Database &amp; Gallery</div>
+                  <div class="comp-sub" data-en="40+ previous sponsors · Exness, XTB, Vantage, XS.COM &amp; more" data-ar="40+ راعٍ سابق · Exness وXTB وVantage وXS.COM والمزيد">40+ previous sponsors · Exness, XTB, Vantage, XS.COM &amp; more</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag p">Logo Upload</span>
+                    <span class="comp-tag r">Name + Category</span>
+                    <span class="comp-tag b">CRUD Admin</span>
+                    <span class="comp-tag t">Masonry Display</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The massive Previous Sponsors section displays 40+ sponsor logo cards — covering Exness, XS.COM, XTB, MultiBank Group, Vantage, One Royal, EasyMarkets, MonetaMarkets, valetax, kanak, tradeview, b2b, dbinvesting, ntrader, cregis, centroid, Fyn, gfsc, finpros, azure, azure, vantage, swiss, binefx, and dozens more tier-1 financial sector brands from across the Middle East, Africa, and beyond. The admin dashboard provides full CRUD for sponsors — upload logo, set name, set category ('Our Previous Clients' / 'Sponsor'), and toggle visibility." data-ar="يعرض قسم الرعاة السابقين الضخم 40+ بطاقة شعار راعٍ — تغطي Exness وXS.COM وXTB وMultiBank Group وVantage وOne Royal وEasyMarkets وMonetaMarkets وvaletax وkanak وtradeview وb2b وdbinvesting ونتريدر وcregis وcentroid وFyn وgfsc وfinpros وazure وvantage وswiss وbinefx وعشرات آخرين من علامات القطاع المالي الأول عبر الشرق الأوسط وأفريقيا وما وراءهما. تقدم لوحة التحكم CRUD كاملاً للرعاة — تحميل الشعار وتعيين الاسم والتصنيف وتبديل الرؤية.">The massive Previous Sponsors section displays 40+ sponsor logo cards — covering Exness, XS.COM, XTB, MultiBank Group, Vantage, One Royal, EasyMarkets, MonetaMarkets, and dozens more tier-1 financial sector brands from across the Middle East, Africa, and beyond. The admin dashboard provides full CRUD for sponsors — upload logo, set name, set category, and toggle visibility.</p>
+                </div>
+                <div class="component-card media">
+                  <div class="comp-icon">🖼️</div>
+                  <div class="comp-name" data-en="Media Gallery Admin" data-ar="إدارة معرض الميديا">Media Gallery Admin</div>
+                  <div class="comp-sub" data-en="Video Gallery + Past Events Photo Gallery" data-ar="معرض الفيديو + معرض صور الفعاليات السابقة">Video Gallery + Past Events Photo Gallery</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag t">Photo Gallery Upload</span>
+                    <span class="comp-tag b">Video Embed</span>
+                    <span class="comp-tag r">CRUD Admin</span>
+                    <span class="comp-tag g">Past Events Archive</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The Media section of the hub site is split into two parts: a Video Gallery embedding event promo videos and highlight reels from past SVS editions, and a Past Events Gallery displaying photos from previous summits across all countries. The admin dashboard provides full media management — upload photos (jpg/webp), embed YouTube/Vimeo video URLs, set captions, categorize by event/year, and control display order. This rich media archive is a key credibility element for new sponsors and attendees exploring the Smart Vision brand." data-ar="قسم الميديا في الموقع المركزي مقسّم إلى جزأين: معرض فيديو يضمّن مقاطع الفيديو الترويجية ولقطات الإبراز من إصدارات SVS السابقة، ومعرض الفعاليات السابقة الذي يعرض صوراً من القمم السابقة عبر جميع الدول. تقدم لوحة التحكم إدارة ميديا كاملة — تحميل الصور وتضمين روابط فيديو YouTube/Vimeo وتعيين الرسائل التوضيحية والتصنيف حسب الفعالية/السنة والتحكم في ترتيب العرض. هذا الأرشيف الإعلامي الغني عنصر مصداقية رئيسي للرعاة والحضور الجدد الذين يستكشفون علامة Smart Vision التجارية.">The Media section is split into two parts: a Video Gallery embedding event promo videos and highlight reels from past SVS editions, and a Past Events Gallery displaying photos from previous summits across all countries. The admin dashboard provides full media management — upload photos, embed YouTube/Vimeo video URLs, set captions, categorize by event/year, and control display order. This rich media archive is a key credibility element for new sponsors and attendees exploring the Smart Vision brand.</p>
+                </div>
+                <div class="component-card dashboard" style="grid-column:1/-1;">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard — Full CMS for the Entire SVS Hub" data-ar="لوحة التحكم الإدارية — نظام CMS كامل لمركز SVS بأكمله">Admin Dashboard — Full CMS for the Entire SVS Hub</div>
+                  <div class="comp-sub" data-en="Events · Sponsors · Media · FAQ · Contact · Settings · SEO — all from one dashboard" data-ar="الفعاليات · الرعاة · الميديا · الأسئلة · التواصل · الإعدادات · SEO — كل ذلك من لوحة تحكم واحدة">Events · Sponsors · Media · FAQ · Contact · Settings · SEO — all from one dashboard</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Events CRUD</span>
+                    <span class="comp-tag p">Sponsors CRUD</span>
+                    <span class="comp-tag t">Media CRUD</span>
+                    <span class="comp-tag b">FAQ Manager</span>
+                    <span class="comp-tag g">Contact Inbox</span>
+                    <span class="comp-tag r">RBAC</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The Smart Vision admin dashboard is the single control center for the entire smartvisionsummit.com hub site — and indirectly, the entire SVS global portfolio. From one dashboard the team can: create and manage all SVS events (add new country editions, set dates, upload cover images, set Details URL and Join Now URL, toggle visibility); manage all sponsors (upload logos, set names and categories, toggle display); manage all media (upload gallery photos, embed video URLs); manage FAQ questions and answers; view and respond to contact form submissions; and manage site settings including logo, tagline, social links, and contact address. The platform is built on Laravel/PHP with RBAC (Role-Based Access Control) ensuring different team members have appropriate permission levels." data-ar="لوحة تحكم Smart Vision الإدارية هي مركز التحكم الأحادي لموقع smartvisionsummit.com المركزي بأكمله — وبشكل غير مباشر، محفظة SVS العالمية بأكملها. من لوحة تحكم واحدة يمكن للفريق: إنشاء وإدارة جميع فعاليات SVS (إضافة إصدارات دول جديدة وتعيين التواريخ وتحميل صور الغلاف وتعيين رابط التفاصيل ورابط انضم الآن وتبديل الرؤية)؛ إدارة جميع الرعاة (تحميل الشعارات وتعيين الأسماء والتصنيفات وتبديل العرض)؛ إدارة جميع الميديا (تحميل صور المعرض وتضمين روابط الفيديو)؛ إدارة أسئلة الأسئلة الشائعة وإجاباتها؛ عرض استمارات التواصل والرد عليها؛ وإدارة إعدادات الموقع بما يشمل الشعار والشعار الإعلاني والروابط الاجتماعية وعنوان التواصل. المنصة مبنية على Laravel/PHP مع RBAC.">The Smart Vision admin dashboard is the single control center for the entire smartvisionsummit.com hub site. From one dashboard the team can: create and manage all SVS events (add new country editions, set dates, upload cover images, set Details URL and Join Now URL, toggle visibility); manage all sponsors (upload logos, set names and categories, toggle display); manage all media (upload gallery photos, embed video URLs); manage FAQ questions and answers; view and respond to contact form submissions; and manage site settings including logo, tagline, social links, and contact address. Built on Laravel/PHP with RBAC for appropriate permission levels across team members.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Admin Dashboard Modules" data-ar="وحدات لوحة التحكم الإدارية">Admin Dashboard Modules</h2>
+              <div class="dash-modules">
+                <div class="dash-module m1">
+                  <div class="dash-icon">📅</div>
+                  <div class="dash-title" data-en="Events Manager" data-ar="مدير الفعاليات">Events Manager</div>
+                  <div class="dash-desc" data-en="Create, edit, delete SVS country events. Set dates, cover images, row images, Details URL, Join Now URL. Toggle visibility. Reorder. The public 'NEXT IN LINE' hero auto-updates based on nearest date." data-ar="إنشاء وتعديل وحذف فعاليات دول SVS. تعيين التواريخ وصور الغلاف وصور الصف ورابط التفاصيل ورابط انضم الآن. تبديل الرؤية. إعادة الترتيب. يتحدث 'NEXT IN LINE' في الهيرو العام تلقائياً بناءً على أقرب تاريخ.">Create, edit, delete SVS country events. Set dates, cover images, row images, Details URL, Join Now URL. Toggle visibility. Reorder. The public 'NEXT IN LINE' hero auto-updates based on nearest date.</div>
+                </div>
+                <div class="dash-module m2">
+                  <div class="dash-icon">🤝</div>
+                  <div class="dash-title" data-en="Sponsors Manager" data-ar="مدير الرعاة">Sponsors Manager</div>
+                  <div class="dash-desc" data-en="Upload sponsor logos, set display name, set category ('Our Previous Clients' / 'Sponsor'), toggle visibility. Full CRUD for the 40+ sponsor gallery. Drag-and-drop reorder." data-ar="تحميل شعارات الرعاة وتعيين اسم العرض والتصنيف ('عملاؤنا السابقون' / 'راعٍ') وتبديل الرؤية. CRUD كامل لمعرض الـ40+ راعٍ. إعادة ترتيب بالسحب والإفلات.">Upload sponsor logos, set display name, set category ('Our Previous Clients' / 'Sponsor'), toggle visibility. Full CRUD for the 40+ sponsor gallery. Drag-and-drop reorder.</div>
+                </div>
+                <div class="dash-module m3">
+                  <div class="dash-icon">🖼️</div>
+                  <div class="dash-title" data-en="Media Gallery Manager" data-ar="مدير معرض الميديا">Media Gallery Manager</div>
+                  <div class="dash-desc" data-en="Upload event photos to the Past Events Gallery. Embed YouTube or Vimeo video URLs for the Video Gallery section. Set captions and display order. Delete or hide specific media items." data-ar="تحميل صور الفعاليات لمعرض الفعاليات السابقة. تضمين روابط فيديو YouTube أو Vimeo لقسم معرض الفيديو. تعيين الرسائل التوضيحية وترتيب العرض. حذف أو إخفاء عناصر ميديا محددة.">Upload event photos to the Past Events Gallery. Embed YouTube or Vimeo video URLs for the Video Gallery section. Set captions and display order. Delete or hide specific media items.</div>
+                </div>
+                <div class="dash-module m4">
+                  <div class="dash-icon">❓</div>
+                  <div class="dash-title" data-en="FAQ Manager" data-ar="مدير الأسئلة الشائعة">FAQ Manager</div>
+                  <div class="dash-desc" data-en="Create, edit, and delete FAQ questions and answers displayed on the public site. The FAQ accordion covers: What is Smart Vision?, How to become a sponsor?, Where are events?, How to buy tickets? — and more." data-ar="إنشاء وتعديل وحذف أسئلة وإجابات الأسئلة الشائعة المعروضة على الموقع العام. يغطي أكوردين الأسئلة: ما هو Smart Vision؟ كيف تصبح راعياً؟ أين الفعاليات؟ كيف تشتري التذاكر؟ — والمزيد.">Create, edit, and delete FAQ questions and answers displayed on the public site. The FAQ accordion covers: What is Smart Vision?, How to become a sponsor?, Where are events?, How to buy tickets? — and more.</div>
+                </div>
+                <div class="dash-module m5">
+                  <div class="dash-icon">📬</div>
+                  <div class="dash-title" data-en="Contact Inbox" data-ar="صندوق بريد التواصل">Contact Inbox</div>
+                  <div class="dash-desc" data-en="View all contact form submissions from the public site. Track status (read / unread). Export submissions. The Become Sponsor CTA and general contact form both funnel into this inbox for the Smart Vision team to action." data-ar="عرض جميع استمارات التواصل من الموقع العام. تتبع الحالة (مقروء / غير مقروء). تصدير الاستمارات. CTA تصبح راعياً واستمارة التواصل العامة كلاهما يُغذّيان هذا الصندوق لفريق Smart Vision للتصرف.">View all contact form submissions from the public site. Track status (read / unread). Export submissions. The Become Sponsor CTA and general contact form both funnel into this inbox for the Smart Vision team to action.</div>
+                </div>
+                <div class="dash-module m6">
+                  <div class="dash-icon">⚙️</div>
+                  <div class="dash-title" data-en="Site Settings &amp; SEO" data-ar="إعدادات الموقع وSEO">Site Settings &amp; SEO</div>
+                  <div class="dash-desc" data-en="Manage site logo, tagline ('Connecting Financial Markets Across Borders'), social media links (Facebook, LinkedIn, YouTube, Instagram, X), contact address (Dubai + Egypt offices), page meta titles, descriptions, and OG tags — all without code." data-ar="إدارة شعار الموقع والشعار الإعلاني ('ربط الأسواق المالية عبر الحدود') وروابط التواصل الاجتماعي وعنوان التواصل (مكاتب دبي ومصر) وعناوين meta للصفحات والأوصاف وعلامات OG — كل ذلك بدون كود.">Manage site logo, tagline ('Connecting Financial Markets Across Borders'), social media links (Facebook, LinkedIn, YouTube, Instagram, X), contact address (Dubai + Egypt offices), page meta titles, descriptions, and OG tags — all without code.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="'NEXT IN LINE' Dynamic Hero — Auto-Highlights Nearest Event" data-ar="هيرو 'NEXT IN LINE' الديناميكي — يُبرز تلقائياً أقرب فعالية">'NEXT IN LINE' Dynamic Hero — Auto-Highlights Nearest Event</strong>
+                    <span data-en="The hero section of smartvisionsummit.com automatically shows the chronologically nearest upcoming SVS event — displaying its branded cover image as the hero background, the event name, date range, and two CTAs: 'Join Us' (to the country-specific registration page) and 'Learn More' (to the About page). As each event date passes, the hero automatically moves to the next upcoming event — entirely driven by the admin's event ordering in the dashboard." data-ar="يُبرز قسم الهيرو في smartvisionsummit.com تلقائياً أقرب فعالية SVS القادمة زمنياً — يعرض صورة الغلاف المميزة كخلفية للهيرو واسم الفعالية ونطاق التاريخ وCTA انضم إلينا (لصفحة التسجيل المخصصة للدولة) وتعرّف أكثر (لصفحة About). مع مرور تاريخ كل فعالية، ينتقل الهيرو تلقائياً للفعالية القادمة التالية — مدفوع بالكامل بترتيب الفعاليات في لوحة التحكم.">The hero section automatically shows the chronologically nearest upcoming SVS event — displaying its branded cover image as the hero background, the event name, date range, and two CTAs: 'Join Us' and 'Learn More'. As each event date passes, the hero automatically moves to the next upcoming event — entirely driven by the admin's event ordering in the dashboard.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Central Hub for All SVS Country Editions — One URL, All Events" data-ar="المركز المركزي لجميع إصدارات دول SVS — رابط واحد، جميع الفعاليات">Central Hub for All SVS Country Editions — One URL, All Events</strong>
+                    <span data-en="Smartvisionsummit.com serves as the single brand destination for the entire SVS ecosystem — with country-specific event sites operating as subdomains (bahrain.smartvisionsummit.com, kuwait.smartvisionsummit.com, etc.) or separate domains (smartvisionexpo.com for Egypt, forextraderssummit.com for Dubai). The hub site links all of them together — someone landing on smartvisionsummit.com can discover and jump to any upcoming SVS event in any country from a single page. The admin dashboard makes adding new country editions as simple as filling out an event creation form." data-ar="يعمل Smartvisionsummit.com كوجهة العلامة التجارية الأحادية لنظام SVS بأكمله — مع مواقع فعاليات الدول المحددة تعمل كنطاقات فرعية أو نطاقات منفصلة. يربط الموقع المركزي كل هذه المواقع معاً — شخص يصل إلى smartvisionsummit.com يمكنه اكتشاف والانتقال إلى أي فعالية SVS قادمة في أي دولة من صفحة واحدة. لوحة التحكم تجعل إضافة إصدارات دول جديدة بسيطة كملء نموذج إنشاء فعالية.">Smartvisionsummit.com serves as the single brand destination for the entire SVS ecosystem — with country-specific event sites operating as subdomains or separate domains. The hub site links all of them together — someone landing on smartvisionsummit.com can discover and jump to any upcoming SVS event in any country from a single page. The admin dashboard makes adding new country editions as simple as filling out an event creation form.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Massive Sponsors Gallery — 40+ Tier-1 Financial Brands" data-ar="معرض رعاة ضخم — 40+ علامة تجارية مالية الأول">Massive Sponsors Gallery — 40+ Tier-1 Financial Brands</strong>
+                    <span data-en="The Previous Sponsors section is one of the most powerful credibility elements of the smart vision brand — displaying 40+ logos from top-tier financial sector companies including Exness, XTB, XS.COM, Vantage, MultiBank Group, One Royal, EasyMarkets, MonetaMarkets, and many more. This gallery is fully admin-managed — the Smart Vision team can upload new sponsor logos, set display names and categories, and toggle visibility from the dashboard in seconds. No development work required to update the sponsor gallery." data-ar="قسم الرعاة السابقين هو أحد أقوى عناصر المصداقية لعلامة Smart Vision — يعرض 40+ شعار من شركات القطاع المالي الأولى بما يشمل Exness وXTB وXS.COM وVantage وMultiBank Group وOne Royal وEasyMarkets وMonetaMarkets والمزيد الكثير. هذا المعرض مُدار بالكامل من قِبل الإدارة — يمكن لفريق Smart Vision تحميل شعارات رعاة جديدة وتعيين أسماء وتصنيفات العرض وتبديل الرؤية من لوحة التحكم في ثوانٍ. لا يلزم أي عمل تطوير لتحديث معرض الرعاة.">The Previous Sponsors section displays 40+ logos from top-tier financial sector companies including Exness, XTB, XS.COM, Vantage, MultiBank Group, One Royal, EasyMarkets, MonetaMarkets, and many more. This gallery is fully admin-managed — the Smart Vision team can upload new sponsor logos, set display names and categories, and toggle visibility from the dashboard in seconds. No development work required to update the sponsor gallery.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="100% Admin-Managed Content — Zero Code Changes Required" data-ar="محتوى مُدار بالكامل من الإدارة — لا يلزم تغيير كود">100% Admin-Managed Content — Zero Code Changes Required</strong>
+                    <span data-en="Every piece of content on smartvisionsummit.com is managed through the admin dashboard — from event listings and sponsor logos to gallery photos, video embeds, FAQ answers, and site settings. The Smart Vision marketing team can update any section of the website instantly without requiring a developer. Adding a new SVS country edition, updating the Bahrain event dates, uploading new gallery photos from a just-concluded summit, adding a new sponsor logo, or updating the contact address — all done through the dashboard in seconds." data-ar="كل قطعة محتوى على smartvisionsummit.com تُدار من خلال لوحة التحكم الإدارية — من قوائم الفعاليات وشعارات الرعاة إلى صور المعرض وتضمينات الفيديو وإجابات الأسئلة الشائعة وإعدادات الموقع. يمكن لفريق تسويق Smart Vision تحديث أي قسم في الموقع فوراً دون الحاجة لمطور. إضافة إصدار دولة SVS جديد أو تحديث تواريخ فعالية البحرين أو تحميل صور معرض جديدة أو إضافة شعار راعٍ جديد أو تحديث عنوان التواصل — كل ذلك يتم من خلال لوحة التحكم في ثوانٍ.">Every piece of content on smartvisionsummit.com is managed through the admin dashboard — from event listings and sponsor logos to gallery photos, video embeds, FAQ answers, and site settings. The Smart Vision marketing team can update any section of the website instantly without requiring a developer. Adding a new SVS country edition, updating event dates, uploading new gallery photos, adding a new sponsor logo — all done through the dashboard in seconds.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Bilingual Corporate Profile — English + Arabic" data-ar="ملف شركة ثنائي اللغة — إنجليزي + عربي">Bilingual Corporate Profile — English + Arabic</strong>
+                    <span data-en="The smartvisionsummit.com hub site targets both English-speaking and Arabic-speaking audiences — spanning the Middle East (Egypt, Kuwait, Bahrain, Oman, UAE) and North Africa (Morocco, South Africa). The company profile content, event descriptions, FAQ answers, and contact information all support bilingual display. With Smart Vision's presence across 6 countries and a client base of 150+ companies from 30 countries worldwide, bilingual support is critical for reaching the full spectrum of potential sponsors, attendees, and media partners across the brand's geographic footprint." data-ar="يستهدف الموقع المركزي smartvisionsummit.com الجماهير الناطقة بالإنجليزية والعربية على حد سواء — عبر الشرق الأوسط (مصر والكويت والبحرين وعُمان والإمارات) وشمال أفريقيا (المغرب وجنوب أفريقيا). محتوى ملف الشركة وأوصاف الفعاليات وإجابات الأسئلة ومعلومات التواصل كلها تدعم العرض ثنائي اللغة. مع حضور Smart Vision عبر 6 دول وقاعدة عملاء تضم 150+ شركة من 30 دولة حول العالم، الدعم ثنائي اللغة ضروري للوصول إلى الطيف الكامل من الرعاة والحضور وشركاء الإعلام المحتملين.">The smartvisionsummit.com hub site targets both English-speaking and Arabic-speaking audiences — spanning the Middle East and North Africa. The company profile content, event descriptions, FAQ answers, and contact information all support bilingual display. With Smart Vision's presence across 6 countries and a client base of 150+ companies from 30 countries worldwide, bilingual support is critical for reaching the full spectrum of potential sponsors, attendees, and media partners.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="SEO for the Smart Vision Summit Brand — Corporate + Event Keywords" data-ar="SEO لعلامة Smart Vision Summit — كلمات مؤسسية وفعاليات">SEO for the Smart Vision Summit Brand — Corporate + Event Keywords</strong>
+                    <span data-en="Full technical SEO implementation for the smartvisionsummit.com hub — covering corporate brand keywords ('Smart Vision Summit', 'financial markets conference Egypt UAE'), event-specific keywords across all 6 countries, JSON-LD Organization and Event schema markup for Google rich results, Open Graph and Twitter Card social tags, XML sitemap with all event URLs, canonical tags, H1-H3 hierarchy, semantic HTML5, and bilingual meta content. The hub site's strong domain authority amplifies SEO performance across the entire SVS country edition network." data-ar="تطبيق SEO تقني كامل للموقع المركزي smartvisionsummit.com — يغطي كلمات علامة الشركة التجارية وكلمات الفعاليات المحددة عبر جميع الدول الستة وعلامة JSON-LD لمنظمة وفعالية لنتائج Google الغنية وعلامات Open Graph وTwitter Card الاجتماعية وخريطة موقع XML بجميع روابط الفعاليات وعلامات canonical وتسلسل هرمي H1-H3 وHTML5 دلالي ومحتوى meta ثنائي اللغة. قوة سلطة النطاق للموقع المركزي تُضخّم أداء SEO عبر شبكة إصدارات دول SVS بأكملها.">Full technical SEO implementation for the smartvisionsummit.com hub — covering corporate brand keywords, event-specific keywords across all 6 countries, JSON-LD Organization and Event schema markup for Google rich results, Open Graph social tags, XML sitemap with all event URLs, canonical tags, H1-H3 hierarchy, semantic HTML5, and bilingual meta content. The hub site's strong domain authority amplifies SEO performance across the entire SVS country edition network.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>6</strong>
+                  <span data-en="Countries · SVS Events Hub" data-ar="دول · مركز فعاليات SVS">Countries · SVS Events Hub</span>
+                </div>
+                <div class="result-card">
+                  <strong>40+</strong>
+                  <span data-en="Sponsors · Exness, XTB, Vantage" data-ar="رعاة · Exness وXTB وVantage">Sponsors · Exness, XTB, Vantage</span>
+                </div>
+                <div class="result-card">
+                  <strong>150+</strong>
+                  <span data-en="Clients · 30 Countries" data-ar="عملاء · 30 دولة">Clients · 30 Countries</span>
+                </div>
+                <div class="result-card">
+                  <strong>2009</strong>
+                  <span data-en="Founded · Egypt &amp; UAE Licensed" data-ar="تأسست · مرخّصة في مصر والإمارات">Founded · Egypt &amp; UAE Licensed</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Multi-Event Hub Architecture — One Site, Many Country Editions" data-ar="بنية مركز الفعاليات المتعددة — موقع واحد، إصدارات دول كثيرة">Multi-Event Hub Architecture — One Site, Many Country Editions</strong>
+                  <p data-en="Unlike an individual event site (which serves one specific summit), the smartvisionsummit.com hub must dynamically serve content for all active SVS country editions simultaneously — each with different dates, venues, countries, cover images, and external links to their dedicated event sites. The admin dashboard's event management module must make it trivial to add or remove country editions, update event details, and reorder events — while the 'NEXT IN LINE' hero logic correctly resolves the chronologically nearest upcoming event in real time." data-ar="على عكس موقع فعالية فردية (يخدم قمة واحدة محددة)، يجب على الموقع المركزي smartvisionsummit.com تقديم محتوى لجميع إصدارات دول SVS النشطة في آن واحد — كل منها بتواريخ ومكان ودول وصور غلاف وروابط خارجية مختلفة لمواقع الفعاليات المخصصة لهم. يجب أن تجعل وحدة إدارة الفعاليات في لوحة التحكم إضافة أو إزالة إصدارات الدول وتحديث تفاصيل الفعاليات وإعادة ترتيبها أمراً بسيطاً — بينما يحل منطق 'NEXT IN LINE' في الهيرو بشكل صحيح الفعالية القادمة الأقرب زمنياً في الوقت الفعلي.">Unlike an individual event site, the smartvisionsummit.com hub must dynamically serve content for all active SVS country editions simultaneously — each with different dates, venues, countries, cover images, and external links. The admin dashboard's event management module must make it trivial to add or remove country editions, update event details, and reorder events — while the 'NEXT IN LINE' hero logic correctly resolves the chronologically nearest upcoming event in real time.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="40+ Sponsor Logo Management — Upload, Categorize, Display at Scale" data-ar="إدارة 40+ شعار راعٍ — تحميل وتصنيف وعرض على نطاق واسع">40+ Sponsor Logo Management — Upload, Categorize, Display at Scale</strong>
+                  <p data-en="The Previous Sponsors gallery is one of the most content-heavy sections of the hub site — with 40+ sponsor logos from companies of varying sizes, industries, and brand identity guidelines. Challenges include image optimization (logos must look sharp at various display sizes without being overly large), consistent display sizing for logos of different dimensions and aspect ratios, category management (a sponsor may be listed as 'Our Previous Clients' or as an active 'Sponsor'), and an admin UX that makes uploading, naming, and reordering 40+ logos fast and intuitive for the Smart Vision marketing team." data-ar="معرض الرعاة السابقين هو أحد أكثر أقسام الموقع المركزي كثافةً بالمحتوى — مع 40+ شعار راعٍ من شركات ذات أحجام وصناعات وإرشادات هوية علامة تجارية متفاوتة. تشمل التحديات تحسين الصور وعرض متسق لشعارات بأبعاد ونسب متنوعة وإدارة التصنيفات وتجربة إدارة تجعل تحميل وتسمية وإعادة ترتيب 40+ شعار سريعاً وبديهياً لفريق تسويق Smart Vision.">The Previous Sponsors gallery has 40+ sponsor logos from companies of varying sizes, industries, and brand identity guidelines. Challenges include image optimization (logos must look sharp at various display sizes), consistent display sizing for logos of different dimensions and aspect ratios, category management (a sponsor may be listed as 'Previous Clients' or active 'Sponsor'), and an admin UX that makes uploading, naming, and reordering 40+ logos fast and intuitive.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Linking the Hub to 6 Different Subdomain/Domain Event Sites" data-ar="ربط المركز بـ 6 مواقع فعاليات مختلفة النطاقات الفرعية/النطاقات">Linking the Hub to 6 Different Subdomain/Domain Event Sites</strong>
+                  <p data-en="The SVS country editions operate on a mix of subdomains (bahrain.smartvisionsummit.com, kuwait.smartvisionsummit.com, morocco.smartvisionsummit.com, oman.smartvisionsummit.com) and separate domains (smartvisionexpo.com for Egypt, forextraderssummit.com for Forex Dubai). The hub site must correctly link to each of these — both for the Details button (opening the country-specific event landing page) and the Join Now button (opening the country-specific registration page) — with links managed entirely from the admin dashboard rather than hardcoded in templates." data-ar="تعمل إصدارات دول SVS على مزيج من النطاقات الفرعية والنطاقات المنفصلة. يجب أن يرتبط الموقع المركزي بكل هذه المواقع بشكل صحيح — لكل من زر التفاصيل (يفتح صفحة هبوط الفعالية المخصصة للدولة) وزر انضم الآن (يفتح صفحة التسجيل المخصصة للدولة) — مع إدارة الروابط بالكامل من لوحة التحكم بدلاً من الترميز الثابت في القوالب.">The SVS country editions operate on a mix of subdomains and separate domains. The hub site must correctly link to each of these — both for the Details button and the Join Now button — with links managed entirely from the admin dashboard rather than hardcoded in templates.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-svs-egypt.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="SVS Egypt 2026 — Cairo 9th Edition" data-ar="SVS Egypt 2026 — القاهرة الإصدار التاسع">SVS Egypt 2026 — Cairo 9th Edition</strong>
+              </a>
+              <a href="index.html#contact" class="btn-gold" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Smart Vision Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="hub-val">Corporate Hub + Dashboard</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Founded" data-ar="التأسيس">Founded</span>
+                <span class="meta-val">2009 · Egypt &amp; UAE</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Countries" data-ar="الدول">Countries</span>
+                <span class="meta-val">🌍 6 Countries</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Clients" data-ar="العملاء">Clients</span>
+                <span class="meta-val">150+ · 30 Countries</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Sponsors Gallery" data-ar="معرض الرعاة">Sponsors Gallery</span>
+                <span class="meta-val">40+ Logos</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live · Production" data-ar="منتج · إنتاج">Live · Production</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">Admin Panel</span>
+                <span class="tech-chip">Media Upload</span>
+                <span class="tech-chip">SEO</span>
+                <span class="tech-chip">JSON-LD</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">SMTP</span>
+                <span class="tech-chip">CDN</span>
+                <span class="tech-chip">YouTube Embed</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Previous Sponsors (Sample)" data-ar="رعاة سابقون (نماذج)">Previous Sponsors (Sample)</h4>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">Exness</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">XTB</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">Vantage</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">XS.COM</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">MultiBank</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">One Royal</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">EasyMarkets</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">MonetaMarkets</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">Cregis</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">Vantage</span>
+                <span style="padding:4px 8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;font-size:11px;font-weight:700;color:#374151;">+30 more</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://smartvisionsummit.com/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#c9a227,#a07a00);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🌐 Visit SVS Hub" data-ar="🌐 زيارة مركز SVS">🌐 Visit SVS Hub</a>
+              <a href="https://smartvisionsummit.com/events" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(201,162,39,.07);color:#7a5e00;border:1px solid rgba(201,162,39,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="📅 View All Events" data-ar="📅 شاهد جميع الفعاليات">📅 View All Events</a>
+              <a href="https://smartvisionsummit.com/about" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(201,162,39,.07);color:#7a5e00;border:1px solid rgba(201,162,39,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🏢 About Smart Vision" data-ar="🏢 عن Smart Vision">🏢 About Smart Vision</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(201,162,39,.05);color:#7a5e00;border:1px solid rgba(201,162,39,.2);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'قمة الرؤية الذكية — موقع المركز المؤسسي ولوحة تحكم الفعاليات المتعددة | أحمد نور'
+        : 'Smart Vision Summit — Corporate Hub Website & Multi-Event Admin Dashboard | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
