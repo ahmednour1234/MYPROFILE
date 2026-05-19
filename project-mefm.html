@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MEFM — Middle East Financial Markets Awards Ceremony | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--mefm-gold:#c9a227;--mefm-gold2:#a07c10;--mefm-dark:#080808;--mefm-charcoal:#111111;--mefm-mid:#1a1a1a;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(160deg,#080808 0%,#111111 45%,#1a1405 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 70% 40%,rgba(201,162,39,.15) 0%,transparent 65%),radial-gradient(ellipse 30% 35% at 5% 85%,rgba(201,162,39,.07) 0%,transparent 55%);}
+    .gold-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#a07c10,#c9a227,#e8c84a,#c9a227,#a07c10,transparent);}
+    .private-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.4);margin-bottom:18px;}
+    .private-badge span{font-size:12px;font-weight:700;color:#e8c84a;letter-spacing:.3px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(201,162,39,.18);color:#e8c84a;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(22px,2.6vw,36px);font-weight:900;letter-spacing:-1.3px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#e8c84a,#c9a227);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:530px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.gold{background:rgba(201,162,39,.18);border-color:rgba(201,162,39,.45);color:#e8c84a;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-gold{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#c9a227,#a07c10);color:#0a0800;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,162,39,.5);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:290px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(201,162,39,.3),0 -1px 0 rgba(232,200,74,.25);display:block;object-fit:cover;height:240px;}
+    /* Logo strip */
+    .logo-strip{background:rgba(201,162,39,.08);border-top:1px solid rgba(201,162,39,.25);border-bottom:1px solid rgba(201,162,39,.12);padding:14px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;}
+    .logo-strip img{height:44px;object-fit:contain;filter:brightness(1.05);}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.5px;}
+    /* Stats bar */
+    .stats-strip{background:rgba(201,162,39,.08);border-bottom:1px solid rgba(201,162,39,.15);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;gap:0;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:26px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    /* Platform strip */
+    .platform-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(201,162,39,.2);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 3px;}
+    .platform-pill .pp-icon{font-size:17px;}
+    .platform-pill .pp-text strong{display:block;font-size:12.5px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:10.5px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(201,162,39,.14);border-color:rgba(201,162,39,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(201,162,39,.1);color:#7a5c00;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.c1::before{background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .component-card.c2::before{background:linear-gradient(90deg,#a07c10,#c9a227);}
+    .component-card.c3::before{background:linear-gradient(90deg,#7a5c00,#a07c10);}
+    .component-card.c4::before{background:linear-gradient(90deg,#4a3800,#7a5c00);}
+    .component-card.c5::before{background:linear-gradient(90deg,#1a1200,#4a3800);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.g{background:rgba(201,162,39,.1);color:#7a5c00;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    /* Award categories */
+    .awards-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .award-card{padding:16px 18px;background:white;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);display:flex;align-items:flex-start;gap:12px;}
+    .award-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#c9a227,#a07c10);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+    .award-info strong{display:block;font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px;line-height:1.3;}
+    .award-info span{font-size:11.5px;color:var(--muted);line-height:1.5;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#c9a227,#a07c10);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:#0a0800;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#111,#c9a227);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #c9a227;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#c9a227;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .awards-grid{grid-template-columns:1fr;}
+      .stats-inner{gap:0;}
+      .stat-item{padding:8px 20px;}
+      .platform-inner{flex-direction:column;align-items:stretch;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="gold-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>MEFM Awards Ceremony</span>
+        </div>
+        <div class="private-badge">
+          <span>🏆 PRIVATE AWARDS GALA · ATLANTIS THE PALM · DUBAI</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Events · Awards Ceremony · Forex · Finance · Dubai</span>
+            <h1 data-en="<em>Middle East Financial Markets</em> Awards Ceremony — Full Event Platform" data-ar="<em>حفل توزيع جوائز أسواق الشرق الأوسط المالية</em> — منصة الفعالية الكاملة"><em>Middle East Financial Markets</em> Awards Ceremony — Full Event Platform</h1>
+            <p data-en="MEFM is the most prestigious black-tie awards gala in the Middle East for the Forex &amp; financial markets industry — held at the iconic Atlantis The Palm, Dubai. The full-stack platform powers the event website, a public online voting system for financial institutions, award category management, sponsorship packages, a luxury section, media gallery, past event photos, and a Become a Sponsor online application — all organized by Smart Vision Group." data-ar="MEFM هو حفل توزيع الجوائز الأرقى في الشرق الأوسط لصناعة الفوركس والأسواق المالية — يُعقد في أتلانتيس النخلة الأيقوني في دبي. تشغّل المنصة الكاملة موقع الفعالية ونظام التصويت الإلكتروني للمؤسسات المالية وإدارة فئات الجوائز وباقات الرعاية وقسم الفخامة ومعرض الميديا وصور الفعاليات السابقة وتطبيق إلكتروني لتصبح راعياً — كلها منظمة بواسطة مجموعة Smart Vision.">MEFM is the most prestigious black-tie awards gala in the Middle East for the Forex &amp; financial markets industry — held at the iconic Atlantis The Palm, Dubai. The platform powers the event website, public online voting for financial institutions, award category management, sponsorship packages, luxury section, media gallery, past event photos, and a Become a Sponsor application — organized by Smart Vision Group.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇦🇪 Dubai, UAE</span>
+              <span class="hero-badge gold">🏆 Private Gala · Atlantis The Palm</span>
+              <span class="hero-badge gold">🗳️ Online Voting System</span>
+              <span class="hero-badge">4 Oct · Atlantis</span>
+              <span class="hero-badge gold">6 Award Categories</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://toptrustedfxbrokers.com/" target="_blank" rel="noopener noreferrer" class="btn-gold" data-en="Visit MEFM Website →" data-ar="زيارة موقع MEFM →">Visit MEFM Website →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/mefm/mefm-gala.webp" alt="MEFM Awards Gala — Atlantis The Palm Dubai" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <img src="assets/projects/mefm/mefm-logo.png" alt="MEFM Middle East Financial Markets Awards" />
+            <span class="logo-strip-text">ORGANIZED BY SMART VISION GROUP · ATLANTIS THE PALM · DUBAI, UAE 🇦🇪</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num">6</span>
+              <span class="stat-label" data-en="Award Categories" data-ar="فئات جوائز">Award Categories</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🗳️</span>
+              <span class="stat-label" data-en="Live Online Voting" data-ar="تصويت إلكتروني حي">Live Online Voting</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🏝️</span>
+              <span class="stat-label" data-en="Atlantis The Palm" data-ar="أتلانتيس النخلة">Atlantis The Palm</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">4 Oct</span>
+              <span class="stat-label" data-en="Private Gala · Dubai" data-ar="حفل خاص · دبي">Private Gala · Dubai</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Public Event Website" data-ar="موقع الفعالية العام">Public Event Website</strong><span data-en="About, media, packages &amp; luxury" data-ar="عن وميديا وباقات وفخامة">About, media, packages &amp; luxury</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🗳️</span>
+              <div class="pp-text"><strong data-en="Online Voting System" data-ar="نظام التصويت الإلكتروني">Online Voting System</strong><span data-en="Vote for top Forex brokers &amp; institutions" data-ar="صوّت لأفضل وسطاء الفوركس والمؤسسات">Vote for top Forex brokers &amp; institutions</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🏆</span>
+              <div class="pp-text"><strong data-en="Awards &amp; Nominees" data-ar="الجوائز والمرشحون">Awards &amp; Nominees</strong><span data-en="6 categories + nominee company profiles" data-ar="6 فئات + ملفات شركات المرشحين">6 categories + nominee company profiles</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Full event &amp; voting management" data-ar="إدارة كاملة للفعالية والتصويت">Full event &amp; voting management</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🤝</span>
+              <div class="pp-text"><strong data-en="Sponsorship Hub" data-ar="مركز الرعاة">Sponsorship Hub</strong><span data-en="Packages + Become a Sponsor app" data-ar="باقات + طلب تصبح راعياً">Packages + Become a Sponsor app</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="The Middle East Financial Markets Awards Ceremony (MEFM) is the most prestigious black-tie awards gala in the region for the Forex and financial markets industry. Held at the legendary Atlantis The Palm in Dubai, this private event gathers the top Forex brokers, financial institution CEOs, industry leaders, sales directors, marketing heads, and influential women in finance — all under one roof for a night of recognition, networking, and celebration." data-ar="حفل توزيع جوائز أسواق الشرق الأوسط المالية (MEFM) هو حفل الجوائز الأرقى في المنطقة لصناعة الفوركس والأسواق المالية. يُعقد في أتلانتيس النخلة الأسطوري في دبي، يجمع هذا الحدث الخاص أبرز وسطاء الفوركس والرؤساء التنفيذيين للمؤسسات المالية وقادة الصناعة ومديري المبيعات ورؤساء التسويق والنساء المؤثرات في المجال المالي — تحت سقف واحد لليلة من التقدير والتواصل والاحتفال.">The Middle East Financial Markets Awards Ceremony (MEFM) is the most prestigious black-tie awards gala in the region for the Forex and financial markets industry. Held at the legendary Atlantis The Palm in Dubai, this private event gathers the top Forex brokers, financial institution CEOs, industry leaders, sales directors, marketing heads, and influential women in finance — for a night of recognition, networking, and celebration.</p>
+              <p data-en="The platform built for MEFM is the most unique in this portfolio — it introduces a public online voting system that allows industry participants to vote for their most trusted Forex brokers and financial institutions across multiple categories. Each nominee company has a public profile page with their logo, regulatory information, and a live vote button. The results feed directly into the awards ceremony, making it a community-driven recognition event. The backend admin dashboard manages nominees, vote counts, award categories, sponsorship packages, the media gallery, and the luxury event section." data-ar="المنصة المبنية لـ MEFM هي الأكثر تميزاً في هذا المعرض — تُدخل نظام تصويت إلكتروني عام يتيح للمشاركين في الصناعة التصويت لأكثر وسطاء الفوركس والمؤسسات المالية الجديرة بالثقة عبر فئات متعددة. لكل شركة مرشحة صفحة ملف عام مع شعارها ومعلوماتها التنظيمية وزر تصويت مباشر. تغذي النتائج حفل توزيع الجوائز مباشرة، مما يجعله فعالية تقدير مدفوعة بالمجتمع. تدير لوحة التحكم الإدارية المرشحين وأعداد الأصوات وفئات الجوائز وباقات الرعاية ومعرض الميديا وقسم الفعالية الفاخر.">The platform built for MEFM is the most unique in this portfolio — it introduces a public online voting system where industry participants vote for their most trusted Forex brokers and financial institutions across multiple categories. Each nominee company has a public profile with logo, regulatory info, and a live vote button. The results feed directly into the awards ceremony — making it a community-driven recognition event. The admin dashboard manages nominees, vote counts, award categories, sponsorship packages, media gallery, and the luxury event section.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card c1">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Public Event Website" data-ar="موقع الفعالية العام">Public Event Website</div>
+                  <div class="comp-sub">toptrustedfxbrokers.com</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">About &amp; Venue</span>
+                    <span class="comp-tag g">Packages</span>
+                    <span class="comp-tag b">Media Gallery</span>
+                    <span class="comp-tag t">Luxury Section</span>
+                    <span class="comp-tag p">Past Photos</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The public website is the face of the MEFM gala — showcasing the event venue (Atlantis The Palm), about the ceremony, promotional videos, past event photo galleries, a dedicated luxury section for the exclusive event experience, sponsorship packages, and a live countdown. The site drives both sponsorship inquiries and voting participation from the global Forex community." data-ar="الموقع العام هو واجهة حفل MEFM — يعرض مكان الفعالية (أتلانتيس النخلة) وعن الحفل ومقاطع الفيديو الترويجية ومعارض صور الفعاليات السابقة وقسم الفخامة المخصص للتجربة الحصرية وباقات الرعاية وعداد تنازلي حي. يدفع الموقع استفسارات الرعاة ومشاركة التصويت من مجتمع الفوركس العالمي.">The public website is the face of the MEFM gala — showcasing the venue (Atlantis The Palm), ceremony overview, promotional videos, past event gallery, a dedicated luxury section, sponsorship packages, and a live countdown. The site drives both sponsorship inquiries and voting participation from the global Forex community.</p>
+                </div>
+                <div class="component-card c2">
+                  <div class="comp-icon">🗳️</div>
+                  <div class="comp-name" data-en="Online Public Voting System" data-ar="نظام التصويت العام الإلكتروني">Online Public Voting System</div>
+                  <div class="comp-sub" data-en="Community votes determine award winners" data-ar="أصوات المجتمع تحدد الفائزين بالجوائز">Community votes determine award winners</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Nominee Profiles</span>
+                    <span class="comp-tag b">Live Vote Button</span>
+                    <span class="comp-tag t">Regulation Info</span>
+                    <span class="comp-tag p">Anti-Duplicate</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The centerpiece of the MEFM platform — an open online voting system where Forex traders, investors, and industry participants cast their votes for the most trusted financial institutions. Each nominated company has a public profile page displaying their logo, regulatory body, website link, and current nomination category. The voting system includes anti-duplicate measures, an admin vote monitoring panel, and the ability to open/close voting rounds." data-ar="القطعة المحورية لمنصة MEFM — نظام تصويت إلكتروني مفتوح حيث يُدلي متداولو الفوركس والمستثمرون والمشاركون في الصناعة بأصواتهم لصالح أكثر المؤسسات المالية الجديرة بالثقة. لكل شركة مرشحة صفحة ملف عام تعرض شعارها وهيئتها التنظيمية ورابط موقعها وفئة الترشيح الحالية. يتضمن نظام التصويت تدابير لمنع التكرار ولوحة مراقبة أصوات إدارية وإمكانية فتح/إغلاق جولات التصويت.">The centerpiece of the MEFM platform — an open online voting system where Forex traders, investors, and industry participants vote for the most trusted financial institutions. Each nominee company has a public profile with logo, regulatory body, website link, and nomination category. The voting system includes anti-duplicate measures, an admin vote monitoring panel, and the ability to open/close voting rounds.</p>
+                </div>
+                <div class="component-card c3">
+                  <div class="comp-icon">🏆</div>
+                  <div class="comp-name" data-en="Awards &amp; Nominees Management" data-ar="إدارة الجوائز والمرشحين">Awards &amp; Nominees Management</div>
+                  <div class="comp-sub" data-en="6 award categories · nominee company profiles" data-ar="6 فئات جوائز · ملفات شركات المرشحين">6 award categories · nominee company profiles</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">6 Categories</span>
+                    <span class="comp-tag b">Company Profiles</span>
+                    <span class="comp-tag t">Winner Selection</span>
+                    <span class="comp-tag p">Award History</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Six prestigious award categories, each with its own criteria and nominees — from Top 100 Trusted Financial Institutions to Top 25 Influential Women in Finance. Each category is publicly showcased with detailed criteria and award imagery. The admin manages which companies are nominated per category, monitors vote tallies per category, and selects final winners for the ceremony night." data-ar="ست فئات جوائز مرموقة، لكل منها معاييرها ومرشحوها الخاصون — من أفضل 100 مؤسسة مالية موثوقة إلى أفضل 25 امرأة مؤثرة في المجال المالي. كل فئة معروضة للعموم بمعايير تفصيلية وصور جائزة. يدير المسؤول الشركات المرشحة لكل فئة ويراقب إحصاءات التصويت ويختار الفائزين النهائيين لليلة الحفل.">Six prestigious award categories, each with its own criteria and nominees — from Top 100 Trusted Financial Institutions to Top 25 Influential Women in Finance. Each category is publicly showcased with detailed criteria and award imagery. The admin manages nominees per category, monitors vote tallies, and selects final winners for the ceremony night.</p>
+                </div>
+                <div class="component-card c4">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Full awards ceremony management" data-ar="إدارة حفل توزيع الجوائز الكامل">Full awards ceremony management</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Voting Control</span>
+                    <span class="comp-tag b">Nominees &amp; Winners</span>
+                    <span class="comp-tag t">Sponsors &amp; Packages</span>
+                    <span class="comp-tag p">Media &amp; Gallery</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="A comprehensive admin dashboard for the Smart Vision team to manage every aspect of the ceremony — add and manage nominee companies per award category, monitor live vote counts, open and close voting rounds, manage sponsorship applications and packages, upload past event gallery photos, manage promo videos, and update the luxury section content." data-ar="لوحة تحكم إدارية شاملة لفريق Smart Vision لإدارة كل جانب من جوانب الحفل — إضافة وإدارة الشركات المرشحة لكل فئة جائزة ومراقبة عدد الأصوات المباشرة وفتح وإغلاق جولات التصويت وإدارة طلبات الرعاة والباقات وتحميل صور معرض الفعاليات السابقة وإدارة مقاطع الفيديو الترويجية وتحديث محتوى القسم الفاخر.">A comprehensive admin dashboard for the Smart Vision team — manage nominee companies per award category, monitor live vote counts, open/close voting rounds, manage sponsorship applications and packages, upload past event gallery photos, manage promo videos, and update the luxury section content.</p>
+                </div>
+                <div class="component-card c5" style="grid-column:1/-1;">
+                  <div class="comp-icon">🤝</div>
+                  <div class="comp-name" data-en="Sponsorship Hub &amp; Become a Sponsor Application" data-ar="مركز الرعاة وطلب تصبح راعياً">Sponsorship Hub &amp; Become a Sponsor Application</div>
+                  <div class="comp-sub" data-en="Sponsorship packages · online application · admin review · luxury sponsor benefits" data-ar="باقات رعاية · طلب إلكتروني · مراجعة إدارية · مزايا رعاة فاخرة">Sponsorship packages · online application · admin review · luxury sponsor benefits</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Premium Packages</span>
+                    <span class="comp-tag b">Online Application</span>
+                    <span class="comp-tag t">Admin Review</span>
+                    <span class="comp-tag p">Luxury Benefits</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Multiple sponsorship packages for the MEFM gala are publicly listed with their benefits — title sponsorship, gold sponsorship, and more. Companies apply to become a sponsor directly through the 'Become a Sponsor' page on the website. All applications land in the admin dashboard for Smart Vision review and follow-up. The Luxury section additionally showcases the exclusive gala experience offered to sponsors — premium table placements, branding at Atlantis, and recognition during the live awards ceremony." data-ar="باقات رعاية متعددة لحفل MEFM مدرجة للعموم مع مزاياها — رعاية العنوان والرعاية الذهبية والمزيد. تتقدم الشركات لتصبح راعية مباشرة عبر صفحة 'تصبح راعياً' على الموقع. جميع الطلبات تصل لوحة التحكم الإدارية لمراجعة Smart Vision ومتابعتها. يعرض القسم الفاخر إضافياً التجربة الحصرية لحفل الرعاة — أماكن طاولات متميزة وعلامة تجارية في أتلانتيس وتقدير أثناء حفل توزيع الجوائز الحي.">Multiple sponsorship packages publicly listed with their benefits. Companies apply via the 'Become a Sponsor' page — all applications land in the admin for Smart Vision review. The Luxury section showcases the exclusive gala experience offered to sponsors: premium table placements, branding at Atlantis, and live recognition during the awards ceremony.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Award Categories" data-ar="فئات الجوائز">Award Categories</h2>
+              <p data-en="Six prestigious industry awards recognizing excellence across different dimensions of the financial markets world — from institutional trust to personal leadership to gender diversity." data-ar="ست جوائز صناعية مرموقة تعترف بالتميز عبر أبعاد مختلفة من عالم الأسواق المالية — من الثقة المؤسسية إلى القيادة الشخصية إلى التنوع بين الجنسين.">Six prestigious industry awards recognizing excellence across different dimensions of the financial markets world — from institutional trust to personal leadership to gender diversity.</p>
+              <div class="awards-grid">
+                <div class="award-card">
+                  <div class="award-icon">🏦</div>
+                  <div class="award-info">
+                    <strong data-en="Top 100 Trusted Financial Institutions" data-ar="أفضل 100 مؤسسة مالية موثوقة">Top 100 Trusted Financial Institutions</strong>
+                    <span data-en="Recognizing the most credible & reliable financial institutions across the Middle East — based on compliance, transparency & client trust." data-ar="تكريم أكثر المؤسسات المالية مصداقية وموثوقية في الشرق الأوسط — بناءً على الامتثال والشفافية وثقة العملاء.">Recognizing the most credible &amp; reliable financial institutions across the Middle East — based on compliance, transparency &amp; client trust.</span>
+                  </div>
+                </div>
+                <div class="award-card">
+                  <div class="award-icon">👔</div>
+                  <div class="award-info">
+                    <strong data-en="Top 50 Financial Markets CEO Awards" data-ar="جوائز أفضل 50 رئيس تنفيذي في الأسواق المالية">Top 50 Financial Markets CEO Awards</strong>
+                    <span data-en="Honoring visionary CEOs who lead their organizations with strategic excellence, resilience, and a forward-thinking approach that drives growth and innovation." data-ar="تكريم الرؤساء التنفيذيين ذوي الرؤية الذين يقودون مؤسساتهم بتميز استراتيجي ومرونة ونهج تطلعي يدفع النمو والابتكار.">Honoring visionary CEOs leading their organizations with strategic excellence, resilience, and a forward-thinking approach that drives growth and innovation.</span>
+                  </div>
+                </div>
+                <div class="award-card">
+                  <div class="award-icon">🌟</div>
+                  <div class="award-info">
+                    <strong data-en="Top 50 Leaders in Financial Markets" data-ar="أفضل 50 قائداً في الأسواق المالية">Top 50 Leaders in Financial Markets</strong>
+                    <span data-en="Honoring influential figures who demonstrated exceptional leadership, strategic vision, and measurable impact — shaping the future of financial markets." data-ar="تكريم الشخصيات المؤثرة التي أثبتت قيادة استثنائية ورؤية استراتيجية وتأثيراً ملموساً — تشكّل مستقبل الأسواق المالية.">Honoring influential figures who demonstrated exceptional leadership, strategic vision, and measurable impact — shaping the future of financial markets.</span>
+                  </div>
+                </div>
+                <div class="award-card">
+                  <div class="award-icon">📈</div>
+                  <div class="award-info">
+                    <strong data-en="Top 25 Sales & Business Development Managers" data-ar="أفضل 25 مدير مبيعات وتطوير أعمال">Top 25 Sales &amp; Business Development Managers</strong>
+                    <span data-en="Recognizing the most dynamic, results-driven professionals who have played a pivotal role in expanding business opportunities and building partnerships in the financial industry." data-ar="تكريم أكثر المتخصصين ديناميكية ودوافع النتائج الذين أدوا دوراً محورياً في توسيع فرص الأعمال وبناء شراكات في الصناعة المالية.">Recognizing the most dynamic, results-driven professionals who have played a pivotal role in expanding business opportunities and building lasting partnerships in the financial industry.</span>
+                  </div>
+                </div>
+                <div class="award-card">
+                  <div class="award-icon">📢</div>
+                  <div class="award-info">
+                    <strong data-en="Top 25 Marketing Managers in Financial Markets" data-ar="أفضل 25 مدير تسويق في الأسواق المالية">Top 25 Marketing Managers in Financial Markets</strong>
+                    <span data-en="Recognizing outstanding marketing leaders who excelled in building brand visibility, driving impactful campaigns, and elevating their institutions within the financial sector." data-ar="تكريم قادة التسويق المتميزين في بناء رؤية العلامة التجارية وتشغيل حملات مؤثرة ورفع مؤسساتهم داخل القطاع المالي.">Recognizing outstanding marketing leaders who excelled in building brand visibility, driving impactful campaigns, and elevating their institutions within the financial sector.</span>
+                  </div>
+                </div>
+                <div class="award-card">
+                  <div class="award-icon">👩‍💼</div>
+                  <div class="award-info">
+                    <strong data-en="Top 25 Influential Women in Finance" data-ar="أفضل 25 امرأة مؤثرة في المجال المالي">Top 25 Influential Women in Finance</strong>
+                    <span data-en="In collaboration with the Arab Women Summit — celebrating powerful women reshaping the financial industry through leadership, innovation, and impact." data-ar="بالتعاون مع قمة المرأة العربية — تحتفي بالنساء القويات اللواتي يعيدن تشكيل الصناعة المالية من خلال القيادة والابتكار والتأثير.">In collaboration with the Arab Women Summit — celebrating powerful women reshaping the financial industry through leadership, innovation, and impact.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Live Online Voting for Financial Institutions" data-ar="تصويت إلكتروني حي للمؤسسات المالية">Live Online Voting for Financial Institutions</strong>
+                    <span data-en="The core unique feature of MEFM — a public voting system where Forex traders and industry participants vote for their most trusted financial institutions. Each nominee has a dedicated profile page with vote CTA, regulation details, and website link. Vote totals are tracked live in the admin dashboard." data-ar="الميزة الفريدة الجوهرية لـ MEFM — نظام تصويت عام حيث يصوت متداولو الفوركس والمشاركون في الصناعة لصالح مؤسساتهم المالية الأكثر ثقة. لكل مرشح صفحة ملف مخصصة مع CTA تصويت وتفاصيل تنظيمية ورابط موقع. إجماليات الأصوات يتم تتبعها مباشرة في لوحة التحكم الإدارية.">The core unique feature of MEFM — a public voting system where Forex traders and industry participants vote for their most trusted financial institutions. Each nominee has a dedicated profile page with vote CTA, regulation details, and website link. Vote totals are tracked live in the admin dashboard.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Nominee Company Profiles — Regulatory Info" data-ar="ملفات الشركات المرشحة — المعلومات التنظيمية">Nominee Company Profiles — Regulatory Info</strong>
+                    <span data-en="Each nominated financial institution has a public company profile page displaying their logo, nomination category (e.g. Top 100 Member), regulatory authority (e.g. CIMA, FCA, ASIC), website link, and a prominent Vote button — creating a transparent, community-verifiable directory of the industry's most trusted players." data-ar="لكل مؤسسة مالية مرشحة صفحة ملف شركة عام تعرض شعارها وفئة الترشيح (مثل عضو أفضل 100) والهيئة التنظيمية (مثل CIMA وFCA وASIC) ورابط الموقع وزر التصويت البارز — مما يخلق دليلاً شفافاً قابلاً للتحقق من قِبَل المجتمع لأكثر اللاعبين ثقة في الصناعة.">Each nominated financial institution has a public profile page with logo, nomination category (e.g. Top 100 Member), regulatory authority (e.g. CIMA, FCA, ASIC), website link, and a prominent Vote button — creating a transparent, community-verifiable directory of the industry's most trusted players.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Luxury Section — Exclusive Gala Experience" data-ar="القسم الفاخر — تجربة حفل حصرية">Luxury Section — Exclusive Gala Experience</strong>
+                    <span data-en="A dedicated Luxury section on the website showcases the exclusive, premium experience of the MEFM gala — highlighting the Atlantis The Palm venue, gala dinner setup, VIP table arrangements, award trophy imagery, and the premium experience that awaits sponsors and nominees attending the private ceremony." data-ar="قسم الفخامة المخصص على الموقع يعرض التجربة الحصرية المتميزة لحفل MEFM — يبرز مكان أتلانتيس النخلة وإعداد حفل العشاء وترتيبات طاولة VIP وصور كأس الجائزة والتجربة المتميزة التي تنتظر الرعاة والمرشحين الحاضرين في الحفل الخاص.">A dedicated Luxury section showcases the exclusive, premium experience of the MEFM gala — highlighting the Atlantis The Palm venue, gala dinner setup, VIP table arrangements, award trophy imagery, and the premium experience that awaits sponsors and nominees at the private ceremony.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Past Event Photo Gallery" data-ar="معرض صور الفعاليات السابقة">Past Event Photo Gallery</strong>
+                    <span data-en="A curated photo gallery from previous MEFM ceremonies — showing the gala dinner atmosphere at Atlantis, award presentations, sponsor moments, and the caliber of attendees. This builds credibility for potential new sponsors and nominees considering participation in upcoming editions." data-ar="معرض صور منتقى من حفلات MEFM السابقة — يُظهر أجواء حفل العشاء في أتلانتيس وتقديم الجوائز ولحظات الرعاة ومستوى الحضور. يبني هذا المصداقية للرعاة والمرشحين الجدد المحتملين الذين يفكرون في المشاركة في الإصدارات القادمة.">A curated photo gallery from previous MEFM ceremonies — showing the gala dinner atmosphere at Atlantis, award presentations, sponsor moments, and the caliber of attendees. This builds credibility for potential new sponsors and nominees considering future editions.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Live Countdown + WhatsApp Direct Contact" data-ar="عداد تنازلي حي + تواصل مباشر عبر WhatsApp">Live Countdown + WhatsApp Direct Contact</strong>
+                    <span data-en="A live countdown timer displayed prominently across the site drives urgency for both the voting period and ceremony attendance. A persistent WhatsApp button allows direct real-time communication with the Smart Vision organizing team — critical for high-level sponsorship negotiations at this caliber of event." data-ar="عداد تنازلي حي معروض بارزاً في جميع أرجاء الموقع يخلق إلحاحاً لفترة التصويت وحضور الحفل. يتيح زر WhatsApp الثابت التواصل المباشر الفوري مع فريق تنظيم Smart Vision — حيوي لمفاوضات الرعاة رفيعة المستوى في فعالية بهذا المستوى.">A live countdown timer drives urgency for both the voting period and ceremony attendance. A persistent WhatsApp button allows direct real-time communication with the Smart Vision organizing team — critical for high-level sponsorship negotiations at this caliber of event.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Private Event Badge — Exclusivity by Design" data-ar="شارة الفعالية الخاصة — الحصرية بالتصميم">Private Event Badge — Exclusivity by Design</strong>
+                    <span data-en="The event is designated as a 'Private Event' — attendance is by invitation only, adding to the prestige and exclusivity of the MEFM gala. The platform clearly communicates this through a private event indicator on the homepage, reinforcing the elite positioning that makes sponsorship at MEFM so valuable to Forex and finance brands." data-ar="الفعالية مصنفة كـ 'فعالية خاصة' — الحضور بالدعوة فقط، مما يضيف للمكانة والحصرية لحفل MEFM. توصّل المنصة هذا بوضوح من خلال مؤشر فعالية خاصة على الصفحة الرئيسية، مما يعزز التموضع المتميز الذي يجعل الرعاية في MEFM قيّمة جداً لعلامات الفوركس والمالية التجارية.">The event is a 'Private Event' — attendance by invitation only, adding to the prestige and exclusivity of the MEFM gala. The platform clearly communicates this through a private event indicator on the homepage, reinforcing the elite positioning that makes MEFM sponsorship so valuable to Forex and finance brands.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>6</strong>
+                  <span data-en="Award Categories — Community Voted" data-ar="فئات جوائز — تصويت المجتمع">Award Categories — Community Voted</span>
+                </div>
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="Voting Active · In Production" data-ar="التصويت نشط · في الإنتاج">Voting Active · In Production</span>
+                </div>
+                <div class="result-card">
+                  <strong>🏝️</strong>
+                  <span data-en="Atlantis The Palm · Dubai" data-ar="أتلانتيس النخلة · دبي">Atlantis The Palm · Dubai</span>
+                </div>
+                <div class="result-card">
+                  <strong>1st</strong>
+                  <span data-en="Voting-Driven Gala in Portfolio" data-ar="حفل مدفوع بالتصويت في المعرض">Voting-Driven Gala in Portfolio</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Building a Fair & Tamper-Resistant Public Voting System" data-ar="بناء نظام تصويت عام عادل ومقاوم للتلاعب">Building a Fair &amp; Tamper-Resistant Public Voting System</strong>
+                  <p data-en="A public online voting system for a prestigious industry awards ceremony must be both accessible and resistant to manipulation. The challenge was designing a voting flow that allows genuine industry participants to vote while preventing vote stuffing, bot submissions, and duplicate votes from the same source — using IP tracking, device fingerprinting, and rate-limiting measures. The admin dashboard had to give the Smart Vision team full visibility into voting patterns with anomaly detection capabilities." data-ar="يجب أن يكون نظام التصويت الإلكتروني العام لحفل جوائز صناعي مرموق سهل الوصول ومقاوماً للتلاعب في نفس الوقت. كان التحدي في تصميم تدفق تصويت يتيح للمشاركين الحقيقيين في الصناعة التصويت مع منع حشو الأصوات وطلبات البوت والأصوات المكررة من نفس المصدر — باستخدام تتبع IP وبصمة الجهاز وتدابير الحد من المعدل. كان على لوحة التحكم الإدارية أن تمنح فريق Smart Vision رؤية كاملة لأنماط التصويت مع قدرات اكتشاف الشذوذ.">A public online voting system for a prestigious industry awards ceremony must be both accessible and resistant to manipulation. The challenge was designing a voting flow that allows genuine industry participants to vote while preventing vote stuffing, bot submissions, and duplicate votes — using IP tracking, device fingerprinting, and rate-limiting. The admin dashboard had to give full visibility into voting patterns with anomaly detection capabilities.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Managing Nominees Across Multiple Categories with a Unified System" data-ar="إدارة المرشحين عبر فئات متعددة بنظام موحد">Managing Nominees Across Multiple Categories with a Unified System</strong>
+                  <p data-en="Each of the 6 award categories has a different type of nominee — Top 100 Trusted Financial Institutions features broker companies, while Top 50 CEOs features individuals, and Top 25 Influential Women in Finance features specific leadership profiles. The platform needed a single unified admin interface that could manage nominees of fundamentally different entity types, assign them to the correct categories, and display them correctly on the public voting and awards pages." data-ar="كل فئة من الـ 6 فئات للجوائز لها نوع مختلف من المرشحين — تتميز أفضل 100 مؤسسة مالية موثوقة بشركات الوساطة، بينما تتميز أفضل 50 رئيساً تنفيذياً بالأفراد، وأفضل 25 امرأة مؤثرة في المجال المالي تتميز بملفات القيادة المحددة. احتاجت المنصة لواجهة إدارية واحدة موحدة يمكنها إدارة المرشحين من أنواع كيانات مختلفة جوهرياً وتعيينهم للفئات الصحيحة وعرضهم بشكل صحيح على صفحات التصويت والجوائز العامة.">Each of the 6 award categories has a different type of nominee — Top 100 Trusted Institutions features broker companies, while Top 50 CEOs features individuals, and Top 25 Influential Women features specific leadership profiles. The platform needed a single unified admin interface that could manage nominees of fundamentally different entity types, assign them to correct categories, and display them appropriately on the public voting and awards pages.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Delivering a Premium Digital Experience for an Atlantis-Level Event" data-ar="تقديم تجربة رقمية متميزة لفعالية بمستوى أتلانتيس">Delivering a Premium Digital Experience for an Atlantis-Level Event</strong>
+                  <p data-en="Atlantis The Palm is one of the most iconic luxury venues in the world. The digital platform needed to match this premium positioning — conveying the exclusivity, prestige, and black-tie nature of the MEFM gala through design language, imagery, and copy. The platform had to communicate 'invite-only luxury event' while still being functional for public voting and sponsor acquisition — balancing exclusivity with accessibility in a way that serves both the event's brand image and its commercial objectives." data-ar="أتلانتيس النخلة هو أحد أكثر أماكن الفخامة أيقونية في العالم. كانت المنصة الرقمية بحاجة لمطابقة هذا التموضع المتميز — نقل الحصرية والمكانة وطبيعة حفل التوكسيدو لـ MEFM من خلال لغة التصميم والصور والنص. كان على المنصة إيصال رسالة 'فعالية فاخرة بالدعوة فقط' مع بقائها وظيفية للتصويت العام واستقطاب الرعاة — موازنة الحصرية مع إمكانية الوصول بطريقة تخدم صورة العلامة التجارية للفعالية وأهدافها التجارية في آن واحد.">Atlantis The Palm is one of the most iconic luxury venues in the world. The digital platform needed to match this premium positioning — conveying the exclusivity, prestige, and black-tie nature of the MEFM gala through design, imagery, and copy. The platform had to communicate 'invite-only luxury event' while still being functional for public voting and sponsor acquisition — balancing exclusivity with accessibility that serves both brand image and commercial objectives.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-aff-summit.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="AFF Summit Dubai 2026 — Affiliate &amp; Influencers" data-ar="AFF Summit Dubai 2026 — قمة التسويق والمؤثرين">AFF Summit Dubai 2026 — Affiliate &amp; Influencers</strong>
+              </a>
+              <a href="index.html#contact" class="btn-gold" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Smart Vision Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Event" data-ar="الفعالية">Event</span>
+                <span class="meta-val" style="font-size:11px;text-align:right;max-width:150px;">MEFM — Middle East Financial Markets Awards</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Private Awards Gala" data-ar="حفل جوائز خاص">Private Awards Gala</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇦🇪 UAE — Dubai</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Venue" data-ar="المكان">Venue</span>
+                <span class="meta-val" style="font-size:11px;text-align:right;max-width:140px;">Atlantis The Palm, Dubai</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Date" data-ar="التاريخ">Date</span>
+                <span class="meta-val" style="font-size:11px;">October 4th</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Award Categories" data-ar="فئات الجوائز">Award Categories</span>
+                <span class="meta-val">6 Categories</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Events · Forex · Awards" data-ar="فعاليات · فوركس · جوائز">Events · Forex · Awards</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live · Voting Active" data-ar="منتج · التصويت نشط">Live · Voting Active</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Voting System</span>
+                <span class="tech-chip">IP Tracking</span>
+                <span class="tech-chip">Rate Limiting</span>
+                <span class="tech-chip">PDF Gen</span>
+                <span class="tech-chip">SMTP</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">SEO</span>
+                <span class="tech-chip">YouTube Embed</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://toptrustedfxbrokers.com/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#c9a227,#a07c10);color:#0a0800;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🏆 Visit MEFM Website" data-ar="🏆 زيارة موقع MEFM">🏆 Visit MEFM Website</a>
+              <a href="https://toptrustedfxbrokers.com/voting" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(201,162,39,.08);color:#7a5c00;border:1px solid rgba(201,162,39,.3);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🗳️ See Voting System Live" data-ar="🗳️ شاهد نظام التصويت مباشرة">🗳️ See Voting System Live</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(201,162,39,.07);color:#7a5c00;border:1px solid rgba(201,162,39,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language switcher
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'حفل توزيع جوائز أسواق الشرق الأوسط المالية MEFM — منصة الفعالية | أحمد نور'
+        : 'MEFM — Middle East Financial Markets Awards Ceremony | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
