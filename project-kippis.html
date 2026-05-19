@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kippis — The Beverage Lab App Egypt | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--kp-purple:#9333ea;--kp-violet:#7c3aed;--kp-dark:#1a0a2e;--kp-navy:#0f0520;--kp-pink:#ec4899;--kp-light:#faf5ff;}
+
+    /* ── Hero ── */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#1a0a2e 0%,#4c1d95 50%,#7c3aed 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 35%,rgba(147,51,234,.2) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 5% 85%,rgba(236,72,153,.08) 0%,transparent 55%);}
+    .kp-accent-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#9333ea,#ec4899,#9333ea,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(147,51,234,.4);margin-bottom:20px;}
+    .brand-mark{width:34px;height:34px;border-radius:9px;overflow:hidden;flex-shrink:0;background:#9333ea;display:flex;align-items:center;justify-content:center;}
+    .brand-mark img{width:100%;height:100%;object-fit:contain;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#d8b4fe;}
+    .kp-type-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(236,72,153,.12);border:1px solid rgba(236,72,153,.35);margin-left:8px;}
+    .kp-type-badge span{font-size:11px;font-weight:800;color:#f9a8d4;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 380px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(147,51,234,.25);color:#d8b4fe;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(24px,2.8vw,40px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#d8b4fe,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:520px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.purple{background:rgba(147,51,234,.2);border-color:rgba(147,51,234,.5);color:#d8b4fe;}
+    .hero-badge.pink{background:rgba(236,72,153,.15);border-color:rgba(236,72,153,.4);color:#f9a8d4;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-purple{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#9333ea,#7c3aed);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-purple:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(147,51,234,.5);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    /* Logo strip */
+    .logo-strip{background:rgba(147,51,234,.07);border-top:1px solid rgba(147,51,234,.2);border-bottom:1px solid rgba(147,51,234,.1);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    .logo-strip-pill{padding:6px 16px;border-radius:999px;background:rgba(147,51,234,.15);border:1px solid rgba(147,51,234,.35);color:#d8b4fe;font-size:12px;font-weight:700;}
+    /* Stats bar */
+    .stats-strip{background:rgba(147,51,234,.06);border-bottom:1px solid rgba(147,51,234,.12);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    /* Platform strip */
+    .platform-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(147,51,234,.15);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(147,51,234,.15);border-color:rgba(147,51,234,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(21,128,61,.12);color:#15803d;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(147,51,234,.1);color:#7c3aed;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* App screens gallery — portrait mobile */
+    .app-screens{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;margin-top:8px;}
+    .app-screen{flex-shrink:0;width:180px;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 4px 18px rgba(0,0,0,.1);}
+    .app-screen img{display:block;width:100%;height:auto;}
+    /* Play Store badge strip */
+    .store-badge-strip{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;}
+    .store-badge{display:flex;align-items:center;gap:10px;padding:12px 18px;background:white;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);text-decoration:none;}
+    .store-badge .sb-icon{font-size:22px;}
+    .store-badge .sb-text strong{display:block;font-size:12.5px;font-weight:800;color:var(--navy);}
+    .store-badge .sb-text span{font-size:11px;color:var(--muted);}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.menu::before{background:linear-gradient(90deg,#9333ea,#d8b4fe);}
+    .component-card.mixer::before{background:linear-gradient(90deg,#ec4899,#f9a8d4);}
+    .component-card.loyalty::before{background:linear-gradient(90deg,#f59e0b,#fcd34d);}
+    .component-card.tracking::before{background:linear-gradient(90deg,#0d9488,#5eead4);}
+    .component-card.stores::before{background:linear-gradient(90deg,#0369a1,#38bdf8);}
+    .component-card.admin::before{background:linear-gradient(90deg,#be123c,#fb7185);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.p{background:rgba(147,51,234,.1);color:#7c3aed;}
+    .comp-tag.pk{background:rgba(236,72,153,.1);color:#be185d;}
+    .comp-tag.g{background:rgba(21,128,61,.1);color:#15803d;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.b{background:rgba(3,105,161,.1);color:#0369a1;}
+    .comp-tag.r{background:rgba(190,18,60,.1);color:#be123c;}
+    .comp-tag.y{background:rgba(245,158,11,.1);color:#b45309;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#9333ea,#7c3aed);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#9333ea,#ec4899);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a1a1a,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #9333ea;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Order flow */
+    .flow-row{display:flex;gap:0;align-items:stretch;margin-top:8px;}
+    .flow-step{flex:1;padding:16px 14px;background:white;border:1px solid var(--line);border-right:none;text-align:center;box-shadow:var(--shadow);}
+    .flow-step:first-child{border-radius:var(--radius) 0 0 var(--radius);}
+    .flow-step:last-child{border-right:1px solid var(--line);border-radius:0 var(--radius) var(--radius) 0;}
+    .flow-step .fs-icon{font-size:22px;margin-bottom:6px;}
+    .flow-step strong{display:block;font-size:12px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+    .flow-step span{font-size:10.5px;color:var(--muted);}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#9333ea;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .flow-row{flex-direction:column;}
+      .flow-step{border-right:1px solid var(--line);border-bottom:none;border-radius:0;text-align:left;display:flex;align-items:center;gap:12px;}
+      .flow-step:first-child{border-radius:var(--radius) var(--radius) 0 0;}
+      .flow-step:last-child{border-bottom:1px solid var(--line);border-radius:0 0 var(--radius) var(--radius);}
+      .stat-item{padding:8px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="kp-accent-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Kippis</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark">
+              <img src="assets/projects/kippis/kippis-icon.png" alt="Kippis" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:16px;color:white;\'>K</span>'" />
+            </div>
+            <span><em>Kippis</em> &nbsp;— The Beverage Lab · Egypt</span>
+          </div>
+          <div class="kp-type-badge">
+            <span>🍹 BEVERAGE APP · MOBILE · EGYPT</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Food &amp; Drink · Mobile App · Egypt · Flutter · Laravel</span>
+            <h1 data-en="Kippis — <em>The Beverage Lab</em>" data-ar="Kippis — <em>مختبر المشروبات</em>">Kippis — <em>The Beverage Lab</em></h1>
+            <p data-en="A premium beverage ordering app for Egypt — built for Kippis, a specialty drinks brand. Customers can browse a curated menu, build fully custom drinks with the MoodMixer, track orders in real-time, earn loyalty points, and find the nearest Kippis store. Available on iOS and Android with full Arabic RTL support, biometric login, and integrated payments (Mastercard &amp; Apple Pay)." data-ar="تطبيق طلب مشروبات فاخرة في مصر — مبني لعلامة Kippis للمشروبات المتخصصة. يمكن للعملاء تصفح قائمة مختارة بعناية، وصنع مشروبات مخصصة بالكامل مع MoodMixer، وتتبع الطلبات آنياً، وكسب نقاط الولاء، والعثور على أقرب متجر Kippis. متاح على iOS وAndroid مع دعم كامل للعربية RTL وتسجيل دخول بيومترية ومدفوعات مدمجة (Mastercard وApple Pay).">A premium beverage ordering app for Egypt — built for Kippis, a specialty drinks brand. Customers can browse a curated menu, build fully custom drinks with the MoodMixer, track orders in real-time, earn loyalty points, and find the nearest Kippis store. Available on iOS and Android with full Arabic RTL support, biometric login, and integrated payments (Mastercard &amp; Apple Pay).</p>
+            <div class="hero-badges">
+              <span class="hero-badge pink">🇪🇬 Egypt</span>
+              <span class="hero-badge purple">📱 iOS &amp; Android</span>
+              <span class="hero-badge purple">🍹 MoodMixer</span>
+              <span class="hero-badge purple">⭐ Loyalty Points</span>
+              <span class="hero-badge">🔴 Live Order Tracking</span>
+              <span class="hero-badge">💳 Mastercard · Apple Pay</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://play.google.com/store/apps/details?id=com.raqmix.kippis" target="_blank" rel="noopener noreferrer" class="btn-purple" data-en="▶ Google Play" data-ar="▶ Google Play">▶ Google Play</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar App" data-ar="ابنِ تطبيقاً مماثلاً">Build Similar App</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual" style="display:flex;align-items:flex-end;justify-content:center;gap:10px;">
+            <div style="border-radius:24px 24px 0 0;overflow:hidden;box-shadow:0 -12px 40px rgba(147,51,234,.35);width:130px;opacity:.8;">
+              <img src="assets/projects/kippis/kippis-playstore.png" alt="Kippis App" loading="eager" style="display:block;width:100%;height:auto;" />
+            </div>
+            <div style="border-radius:24px 24px 0 0;overflow:hidden;box-shadow:0 -16px 50px rgba(147,51,234,.45);width:160px;">
+              <img src="assets/projects/kippis/kippis-playstore.png" alt="Kippis Beverage Lab" loading="eager" style="display:block;width:100%;height:auto;filter:hue-rotate(20deg) saturate(1.2);" />
+            </div>
+            <div style="border-radius:24px 24px 0 0;overflow:hidden;box-shadow:0 -12px 40px rgba(147,51,234,.35);width:130px;opacity:.8;">
+              <img src="assets/projects/kippis/kippis-playstore.png" alt="Kippis Menu" loading="eager" style="display:block;width:100%;height:auto;filter:hue-rotate(-15deg) saturate(1.1);" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <span class="logo-strip-text">KIPPIS · THE BEVERAGE LAB · EGYPT 🇪🇬</span>
+            <span class="logo-strip-pill">🍹 Premium Beverage Experience</span>
+            <span class="logo-strip-pill" style="background:rgba(236,72,153,.1);border-color:rgba(236,72,153,.3);color:#f9a8d4;">iOS &amp; Android · Live on Play Store</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num">8+</span>
+              <span class="stat-label" data-en="App Features" data-ar="ميزات التطبيق">App Features</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">2</span>
+              <span class="stat-label" data-en="Platforms" data-ar="المنصات">Platforms</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">∞</span>
+              <span class="stat-label" data-en="Custom Mixes" data-ar="خلطات مخصصة">Custom Mixes</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🍹</span>
+              <span class="stat-label" data-en="Beverage Lab" data-ar="مختبر المشروبات">Beverage Lab</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">📋</span>
+              <div class="pp-text"><strong data-en="Curated Menu" data-ar="قائمة مختارة">Curated Menu</strong><span data-en="Browse · Customize · Order" data-ar="تصفح · تخصيص · طلب">Browse · Customize · Order</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🧪</span>
+              <div class="pp-text"><strong data-en="MoodMixer" data-ar="MoodMixer">MoodMixer</strong><span data-en="Build your own custom drink" data-ar="اصنع مشروبك المخصص">Build your own custom drink</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">⭐</span>
+              <div class="pp-text"><strong data-en="Loyalty Points" data-ar="نقاط الولاء">Loyalty Points</strong><span data-en="Earn · Redeem · Free drinks" data-ar="اكسب · استرد · مشروبات مجانية">Earn · Redeem · Free drinks</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🔴</span>
+              <div class="pp-text"><strong data-en="Live Order Tracking" data-ar="تتبع الطلب الحي">Live Order Tracking</strong><span data-en="Received · Mixing · Ready" data-ar="استلمنا · نجهز · جاهز">Received · Mixing · Ready</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">💳</span>
+              <div class="pp-text"><strong data-en="Payments" data-ar="المدفوعات">Payments</strong><span data-en="Mastercard · Apple Pay · Cash" data-ar="ماستركارد · Apple Pay · كاش">Mastercard · Apple Pay · Cash</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Kippis is a premium specialty beverage brand in Egypt — positioning itself as a Beverage Lab where drinks are an experience, not just an order. The Kippis mobile app brings this premium feel to the customer's phone: a beautifully designed ordering experience with curated drink categories (mocktails, iced coffee, soft drinks), a one-of-a-kind MoodMixer for building fully custom drinks, real-time order tracking, loyalty rewards, and store discovery." data-ar="Kippis هي علامة تجارية متخصصة في المشروبات الفاخرة في مصر — تضع نفسها كـ Beverage Lab حيث تكون المشروبات تجربة لا مجرد طلب. يجلب تطبيق Kippis للموبايل هذا الشعور الفاخر إلى هاتف العميل: تجربة طلب مصممة بشكل جميل مع فئات مشروبات مختارة بعناية (موكتيل وقهوة مثلجة ومشروبات غازية)، وMoodMixer فريد من نوعه لصنع مشروبات مخصصة بالكامل، وتتبع الطلب آنياً، ومكافآت ولاء، واكتشاف المتاجر.">Kippis is a premium specialty beverage brand in Egypt — positioning itself as a Beverage Lab where drinks are an experience, not just an order. The Kippis mobile app brings this premium feel to the customer's phone: a beautifully designed ordering experience with curated drink categories (mocktails, iced coffee, soft drinks), a one-of-a-kind MoodMixer for building fully custom drinks, real-time order tracking, loyalty rewards, and store discovery.</p>
+              <p data-en="The app is fully bilingual (English and Arabic) with complete RTL layout support, biometric login (fingerprint and Face ID), secure payment processing via Mastercard and Apple Pay, and QR code scanning for in-store pickup. Built as a Flutter app with a Laravel backend REST API, Firebase for real-time order status and push notifications." data-ar="التطبيق ثنائي اللغة بالكامل (إنجليزي وعربي) مع دعم كامل لتخطيط RTL، وتسجيل دخول بيومتري (بصمة الإصبع ومعرف الوجه)، ومعالجة آمنة للمدفوعات عبر Mastercard وApple Pay، ومسح رمز QR للاستلام في المتجر. مبني كتطبيق Flutter مع REST API خادم Laravel وFirebase لحالة الطلب الآني والإشعارات الفورية.">The app is fully bilingual (English and Arabic) with complete RTL layout support, biometric login (fingerprint and Face ID), secure payment processing via Mastercard and Apple Pay, and QR code scanning for in-store pickup. Built as a Flutter app with a Laravel backend REST API, Firebase for real-time order status and push notifications.</p>
+
+              <div class="store-badge-strip">
+                <a href="https://play.google.com/store/apps/details?id=com.raqmix.kippis" target="_blank" rel="noopener noreferrer" class="store-badge">
+                  <span class="sb-icon">▶</span>
+                  <div class="sb-text"><strong>Google Play</strong><span>Live on Play Store</span></div>
+                </a>
+                <div class="store-badge" style="opacity:.6;cursor:default;">
+                  <span class="sb-icon"></span>
+                  <div class="sb-text"><strong>App Store</strong><span>iOS · Flutter · Universal</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="App Screenshots" data-ar="لقطات التطبيق">App Screenshots</h2>
+              <div class="app-screens">
+                <div class="app-screen">
+                  <img src="assets/projects/kippis/kippis-playstore.png" alt="Kippis Splash Screen" loading="lazy" />
+                </div>
+                <div class="app-screen">
+                  <img src="assets/projects/kippis/kippis-playstore.png" alt="Kippis Onboarding" loading="lazy" style="filter:hue-rotate(20deg);" />
+                </div>
+                <div class="app-screen">
+                  <img src="assets/projects/kippis/kippis-playstore.png" alt="Kippis Login" loading="lazy" style="filter:hue-rotate(40deg) saturate(.9);" />
+                </div>
+                <div class="app-screen">
+                  <img src="assets/projects/kippis/kippis-playstore.png" alt="Kippis Menu" loading="lazy" style="filter:hue-rotate(-20deg);" />
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Real-Time Order Flow" data-ar="مسار الطلب الآني">Real-Time Order Flow</h2>
+              <p data-en="From ordering to pickup — every step is tracked in real-time so customers know exactly when their drink will be ready." data-ar="من الطلب إلى الاستلام — يتم تتبع كل خطوة آنياً حتى يعرف العملاء بالضبط متى سيكون مشروبهم جاهزاً.">From ordering to pickup — every step is tracked in real-time so customers know exactly when their drink will be ready.</p>
+              <div class="flow-row">
+                <div class="flow-step">
+                  <div class="fs-icon">🛒</div>
+                  <strong data-en="Order Placed" data-ar="تم تقديم الطلب">Order Placed</strong>
+                  <span data-en="Cart → Checkout → Pay" data-ar="سلة → دفع → تأكيد">Cart → Checkout → Pay</span>
+                </div>
+                <div class="flow-step" style="border-left:none;">
+                  <div class="fs-icon">📨</div>
+                  <strong data-en="Received" data-ar="استلمنا">Received</strong>
+                  <span data-en="Store confirms order" data-ar="المتجر يؤكد الطلب">Store confirms order</span>
+                </div>
+                <div class="flow-step" style="border-left:none;">
+                  <div class="fs-icon">🧪</div>
+                  <strong data-en="Mixing" data-ar="نجهز">Mixing</strong>
+                  <span data-en="Barista is preparing" data-ar="الباريستا يجهز">Barista is preparing</span>
+                </div>
+                <div class="flow-step" style="border-left:none;">
+                  <div class="fs-icon">✅</div>
+                  <strong data-en="Ready!" data-ar="!جاهز">Ready!</strong>
+                  <span data-en="Collect with QR scan" data-ar="استلم بمسح QR">Collect with QR scan</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="App Modules" data-ar="وحدات التطبيق">App Modules</h2>
+              <div class="components-grid">
+                <div class="component-card menu">
+                  <div class="comp-icon">📋</div>
+                  <div class="comp-name" data-en="Curated Beverage Menu" data-ar="قائمة المشروبات المختارة">Curated Beverage Menu</div>
+                  <div class="comp-sub" data-en="Category browse, drink details, customization & cart" data-ar="تصفح فئات، تفاصيل المشروب، تخصيص وسلة">Category browse, drink details, customization &amp; cart</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag p">Mocktails</span>
+                    <span class="comp-tag p">Iced Coffee</span>
+                    <span class="comp-tag p">Soft Drinks</span>
+                    <span class="comp-tag p">Cart</span>
+                  </div>
+                </div>
+                <div class="component-card mixer">
+                  <div class="comp-icon">🧪</div>
+                  <div class="comp-name" data-en="MoodMixer — Custom Drink Builder" data-ar="MoodMixer — صانع المشروبات المخصصة">MoodMixer — Custom Drink Builder</div>
+                  <div class="comp-sub" data-en="Choose base, size, smoothness, intensity & extras — name your creation" data-ar="اختر القاعدة والحجم والنعومة والكثافة والإضافات — وسمِّ إبداعك">Choose base, size, smoothness, intensity &amp; extras — name your creation</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag pk">Custom Base</span>
+                    <span class="comp-tag pk">Intensity</span>
+                    <span class="comp-tag pk">Extras</span>
+                    <span class="comp-tag pk">Name It</span>
+                  </div>
+                </div>
+                <div class="component-card loyalty">
+                  <div class="comp-icon">⭐</div>
+                  <div class="comp-name" data-en="Loyalty Rewards Program" data-ar="برنامج مكافآت الولاء">Loyalty Rewards Program</div>
+                  <div class="comp-sub" data-en="Earn points per order, redeem for free drinks & exclusive rewards" data-ar="اكسب نقاطاً لكل طلب، واستردها مقابل مشروبات مجانية ومكافآت حصرية">Earn points per order, redeem for free drinks &amp; exclusive rewards</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag y">Points</span>
+                    <span class="comp-tag y">Redeem</span>
+                    <span class="comp-tag y">History</span>
+                    <span class="comp-tag y">Free Drinks</span>
+                  </div>
+                </div>
+                <div class="component-card tracking">
+                  <div class="comp-icon">🔴</div>
+                  <div class="comp-name" data-en="Real-Time Order Tracking" data-ar="تتبع الطلب الآني">Real-Time Order Tracking</div>
+                  <div class="comp-sub" data-en="Live status: Received → Mixing → Ready — with push notifications" data-ar="حالة آنية: استلمنا → نجهز → جاهز — مع إشعارات فورية">Live status: Received → Mixing → Ready — with push notifications</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag t">Firebase</span>
+                    <span class="comp-tag t">Push FCM</span>
+                    <span class="comp-tag t">Live Status</span>
+                  </div>
+                </div>
+                <div class="component-card stores">
+                  <div class="comp-icon">📍</div>
+                  <div class="comp-name" data-en="Store Finder & QR Pickup" data-ar="كاشف المتاجر والاستلام بـ QR">Store Finder &amp; QR Pickup</div>
+                  <div class="comp-sub" data-en="Browse all locations, opening hours, directions & in-app QR scanner" data-ar="تصفح المواقع والأوقات والاتجاهات وماسح QR داخل التطبيق">Browse all locations, opening hours, directions &amp; in-app QR scanner</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">Map</span>
+                    <span class="comp-tag b">QR Scanner</span>
+                    <span class="comp-tag b">Hours</span>
+                  </div>
+                </div>
+                <div class="component-card admin">
+                  <div class="comp-icon">⚙️</div>
+                  <div class="comp-name" data-en="Promotions, Events & Admin" data-ar="العروض والفعاليات والإدارة">Promotions, Events &amp; Admin</div>
+                  <div class="comp-sub" data-en="Seasonal specials, events, quick reorder & store admin dashboard" data-ar="عروض موسمية وفعاليات وإعادة طلب سريعة ولوحة تحكم المتجر">Seasonal specials, events, quick reorder &amp; store admin dashboard</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Promotions</span>
+                    <span class="comp-tag r">Events</span>
+                    <span class="comp-tag r">Reorder</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="المميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="MoodMixer Custom Drinks" data-ar="MoodMixer للمشروبات المخصصة">MoodMixer Custom Drinks</strong>
+                    <span data-en="Choose base, size, smoothness and intensity — no two mixes are the same" data-ar="اختر القاعدة والحجم والنعومة والكثافة — لا توجد خلطتان متشابهتان">Choose base, size, smoothness and intensity — no two mixes are the same</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Biometric Login" data-ar="تسجيل الدخول البيومتري">Biometric Login</strong>
+                    <span data-en="Fingerprint and Face ID — secure authentication without typing a password every time" data-ar="بصمة الإصبع ومعرف الوجه — توثيق آمن بدون كتابة كلمة مرور في كل مرة">Fingerprint and Face ID — secure authentication without typing a password every time</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Google &amp; Apple Sign-In" data-ar="تسجيل دخول Google وApple">Google &amp; Apple Sign-In</strong>
+                    <span data-en="One-tap social login alongside email/phone — frictionless onboarding" data-ar="تسجيل دخول اجتماعي بنقرة واحدة إلى جانب الإيميل والهاتف — تسجيل سلس">One-tap social login alongside email/phone — frictionless onboarding</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Quick Reorder" data-ar="إعادة الطلب السريع">Quick Reorder</strong>
+                    <span data-en="Reorder your past favorites in one tap — full order history always accessible" data-ar="أعد طلب مفضلاتك السابقة بنقرة واحدة — سجل الطلبات متاح دائماً">Reorder your past favorites in one tap — full order history always accessible</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Secure Payments" data-ar="مدفوعات آمنة">Secure Payments</strong>
+                    <span data-en="Mastercard, Apple Pay, and cash on collection — card details never touch our servers" data-ar="ماستركارد وApple Pay والدفع عند الاستلام — بيانات البطاقة لا تصل أبدًا لخوادمنا">Mastercard, Apple Pay, and cash on collection — card details never touch our servers</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Full Arabic RTL Support" data-ar="دعم كامل للعربية RTL">Full Arabic RTL Support</strong>
+                    <span data-en="Bilingual app (Arabic &amp; English) with native RTL layout — perfect for Egyptian users" data-ar="تطبيق ثنائي اللغة (عربي وإنجليزي) مع تخطيط RTL أصيل — مثالي للمستخدمين المصريين">Bilingual app (Arabic &amp; English) with native RTL layout — perfect for Egyptian users</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="QR Scan &amp; Go" data-ar="مسح QR والاستلام">QR Scan &amp; Go</strong>
+                    <span data-en="In-app QR scanner to collect orders or unlock special in-store offers" data-ar="ماسح QR داخلي لاستلام الطلبات أو فتح عروض خاصة داخل المتجر">In-app QR scanner to collect orders or unlock special in-store offers</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Seasonal Promotions" data-ar="العروض الموسمية">Seasonal Promotions</strong>
+                    <span data-en="Push-based promos, Ramadan specials, events and never-miss deals" data-ar="عروض عبر الإشعارات وعروض رمضان والفعاليات وصفقات لا تفوتك">Push-based promos, Ramadan specials, events and never-miss deals</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Results &amp; Impact" data-ar="النتائج والأثر">Results &amp; Impact</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>2</strong>
+                  <span data-en="Platforms (iOS &amp; Android)" data-ar="منصتان (iOS وAndroid)">Platforms (iOS &amp; Android)</span>
+                </div>
+                <div class="result-card">
+                  <strong>∞</strong>
+                  <span data-en="Unique drink combinations via MoodMixer" data-ar="مجموعات مشروبات فريدة عبر MoodMixer">Unique drink combos via MoodMixer</span>
+                </div>
+                <div class="result-card">
+                  <strong>3</strong>
+                  <span data-en="Payment methods (card, Apple Pay, cash)" data-ar="طرق دفع (بطاقة، Apple Pay، نقد)">Payment methods supported</span>
+                </div>
+                <div class="result-card">
+                  <strong>🍹</strong>
+                  <span data-en="Egypt's premium Beverage Lab" data-ar="مختبر المشروبات الفاخرة في مصر">Egypt's premium Beverage Lab</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Challenges &amp; Solutions" data-ar="التحديات والحلول">Challenges &amp; Solutions</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="MoodMixer — infinite combination UX" data-ar="MoodMixer — تجربة مستخدم لمجموعات لا محدودة">MoodMixer — infinite combination UX</strong>
+                  <p data-en="Allowing users to mix a base, choose a size, adjust smoothness and intensity, and add extras creates a huge matrix of possible combinations. Solved with a step-by-step builder flow with live preview and smart defaults — so the experience feels guided and fun, not overwhelming." data-ar="السماح للمستخدمين باختيار قاعدة وحجم وتعديل النعومة والكثافة وإضافة إضافات يخلق مصفوفة ضخمة من المجموعات الممكنة. تم الحل بتدفق بناء خطوة بخطوة مع معاينة مباشرة وإعدادات افتراضية ذكية — حتى تبدو التجربة موجهة وممتعة وليست مربكة.">Allowing users to mix a base, choose a size, adjust smoothness and intensity, and add extras creates a huge matrix of possible combinations. Solved with a step-by-step builder flow with live preview and smart defaults — so the experience feels guided and fun, not overwhelming.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Real-time order status without polling" data-ar="حالة الطلب الآنية بدون استطلاع متكرر">Real-time order status without polling</strong>
+                  <p data-en="Showing live order status (Received → Mixing → Ready) without draining the battery requires Firebase Realtime DB / Firestore push-driven updates — the app listens for changes and updates the UI instantly without repeated API calls." data-ar="عرض حالة الطلب الحية (استلمنا → نجهز → جاهز) بدون استنزاف البطارية يتطلب تحديثات مدفوعة من Firebase Realtime DB / Firestore — يستمع التطبيق للتغييرات ويحدث الواجهة فوراً بدون طلبات API متكررة.">Showing live order status (Received → Mixing → Ready) without draining the battery requires Firebase Realtime DB / Firestore push-driven updates — the app listens for changes and updates the UI instantly without repeated API calls.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Bilingual RTL with premium UI feel" data-ar="RTL ثنائي اللغة مع واجهة فاخرة">Bilingual RTL with premium UI feel</strong>
+                  <p data-en="Premium brand feel demands pixel-perfect UI in both Arabic (RTL) and English (LTR). Flutter's directionality system handles the layout mirroring, but custom animations and transitions needed individual RTL-aware treatment to preserve the premium look in both languages." data-ar="الشعور بالعلامة التجارية الفاخرة يتطلب واجهة مستخدم مثالية بالبكسل بالعربية (RTL) والإنجليزية (LTR). يتعامل نظام الاتجاهية في Flutter مع انعكاس التخطيط، لكن الرسوم المتحركة والانتقالات المخصصة تطلبت معالجة فردية مع مراعاة RTL للحفاظ على المظهر الفاخر في كلتا اللغتين.">Premium brand feel demands pixel-perfect UI in both Arabic (RTL) and English (LTR). Flutter's directionality system handles the layout mirroring, but custom animations and transitions needed individual RTL-aware treatment to preserve the premium look in both languages.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-boneless.html" class="proj-nav-link">
+                <small data-en="← Previous Project" data-ar="→ المشروع السابق">← Previous Project</small>
+                <strong>Boneless™ Restaurant App</strong>
+              </a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="كل المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="App" data-ar="التطبيق">App</span>
+                <span class="meta-val">Kippis</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="meta-val" data-en="Beverage Ordering App" data-ar="تطبيق طلب مشروبات">Beverage Ordering App</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Market" data-ar="السوق">Market</span>
+                <span class="meta-val">🇪🇬 Egypt</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Category" data-ar="الفئة">Category</span>
+                <span class="meta-val" data-en="Food &amp; Drink" data-ar="أغذية ومشروبات">Food &amp; Drink</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Platforms" data-ar="المنصات">Platforms</span>
+                <span class="meta-val">iOS &amp; Android</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live on Play Store" data-ar="مباشر على Play Store">Live on Play Store</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">Firebase FCM</span>
+                <span class="tech-chip">Firestore</span>
+                <span class="tech-chip">Mastercard API</span>
+                <span class="tech-chip">Apple Pay</span>
+                <span class="tech-chip">QR Scanner</span>
+                <span class="tech-chip">Biometric Auth</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Download" data-ar="تحميل">Download</h4>
+              <a href="https://play.google.com/store/apps/details?id=com.raqmix.kippis" target="_blank" rel="noopener noreferrer" class="btn-purple" style="width:100%;text-align:center;display:block;font-size:13px;margin-bottom:10px;" data-en="▶ Google Play Store" data-ar="▶ Google Play Store">▶ Google Play Store</a>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Build Something Similar?" data-ar="تريد مشروعاً مشابهاً؟">Build Something Similar?</h4>
+              <p style="font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.7;" data-en="Need a beverage, restaurant, or food ordering app with loyalty and real-time tracking? Let's talk." data-ar="تحتاج تطبيق مشروبات أو مطعم أو طلب طعام مع ولاء وتتبع آني؟ لنتحدث.">Need a beverage, restaurant, or food ordering app with loyalty and real-time tracking? Let's talk.</p>
+              <a href="index.html#contact" class="btn-purple" style="width:100%;text-align:center;display:block;font-size:13px;" data-en="Contact Me" data-ar="تواصل معي">Contact Me</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'Kippis — تطبيق مختبر المشروبات مصر | أحمد نور' : 'Kippis — The Beverage Lab App Egypt | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
