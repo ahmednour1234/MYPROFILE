@@ -268,7 +268,7 @@
         <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
       </nav>
       <div class="header-actions">
-        <button class="lang-toggle" onclick="toggleLang()" aria-label="Toggle language">EN / ع</button>
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle language"><span id="langLabel">العربية</span></button>
         <a href="index.html#contact" class="btn btn-primary btn-sm" data-en="Hire Me" data-ar="وظّفني">Hire Me</a>
       </div>
     </div>
@@ -497,6 +497,33 @@
 
   <footer></footer>
 
-  <script src="assets/script.js"></script>
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'أي كيو براندكس — موقع وكالة رقمية سعودية | أحمد نور'
+        : 'IQ BrandX — Saudi Digital Agency Website | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
