@@ -20,6 +20,37 @@
     canvas#webgl { display:none; }
     .bg-orb      { display:none; }
 
+    /* ── Branded Navbar ── */
+    .site-header {
+      background: rgba(22, 30, 80, 0.96) !important;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(248,190,28,0.15) !important;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.25) !important;
+    }
+    .brand img.nav-logo { filter: brightness(1.15); }
+    .nav-links a { color: rgba(255,255,255,0.75) !important; }
+    .nav-links a:hover { color: var(--iq-gold) !important; }
+    .nav-links a::after { background: var(--iq-gold) !important; }
+    .lang-toggle {
+      color: rgba(255,255,255,0.85) !important;
+      border-color: rgba(255,255,255,0.25) !important;
+      background: transparent !important;
+    }
+    .lang-toggle:hover {
+      background: rgba(248,190,28,0.18) !important;
+      color: var(--iq-gold) !important;
+      border-color: var(--iq-gold) !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+    .nav-cta {
+      background: var(--iq-gold) !important;
+      color: var(--iq-dark) !important;
+      box-shadow: 0 6px 20px rgba(248,190,28,0.35) !important;
+    }
+    .nav-cta:hover { background: #ffd04a !important; }
+
     /* ── Hero ── */
     .proj-hero {
       padding: 110px 0 64px;
@@ -255,21 +286,20 @@
   </style>
 </head>
 <body>
+  <canvas id="webgl"></canvas>
   <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo-link">
-        <span class="logo-dot"></span>
-        <span class="logo-text" data-en="Ahmed Nour" data-ar="أحمد نور">Ahmed Nour</span>
-      </a>
-      <nav class="main-nav">
-        <a href="index.html#work"    data-en="Work"    data-ar="أعمالي">Work</a>
-        <a href="projects.html"      data-en="Projects" data-ar="المشاريع">Projects</a>
-        <a href="index.html#about"   data-en="About"   data-ar="عني">About</a>
-        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">الإمكانيات</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--iq-gold)">المشاريع</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">الدول</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">التقنيات</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">تواصل</a>
       </nav>
-      <div class="header-actions">
-        <button class="lang-toggle" id="langToggle" aria-label="Toggle language"><span id="langLabel">العربية</span></button>
-        <a href="index.html#contact" class="btn btn-primary btn-sm" data-en="Hire Me" data-ar="وظّفني">Hire Me</a>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">ابدأ مشروعاً</a>
       </div>
     </div>
   </header>
