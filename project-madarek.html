@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Madarek LMS — مدارك Learning Management System Oman | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--mdk-teal:#0e8c6e;--mdk-teal2:#0a6e56;--mdk-dark:#070f0c;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#070f0c 0%,#0d1a17 55%,#0a2419 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 40%,rgba(14,140,110,.18) 0%,transparent 65%),radial-gradient(ellipse 35% 45% at 5% 80%,rgba(14,140,110,.1) 0%,transparent 55%);}
+    .teal-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#0e8c6e,#4ec9a8,#0e8c6e,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(14,140,110,.4);margin-bottom:20px;}
+    .brand-mark{width:34px;height:34px;border-radius:9px;overflow:hidden;flex-shrink:0;}
+    .brand-mark img{width:100%;height:100%;object-fit:cover;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#4ec9a8;}
+    .lms-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(78,201,168,.1);border:1px solid rgba(14,140,110,.35);margin-left:8px;}
+    .lms-badge span{font-size:11px;font-weight:800;color:#4ec9a8;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(14,140,110,.2);color:#4ec9a8;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(24px,2.8vw,40px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#4ec9a8,#0e8c6e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:520px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.teal{background:rgba(14,140,110,.2);border-color:rgba(14,140,110,.5);color:#4ec9a8;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-teal{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#0e8c6e,#0a6e56);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-teal:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(14,140,110,.45);}
+    .btn-play{padding:11px 24px;border-radius:12px;background:rgba(14,140,110,.15);border:1.5px solid rgba(14,140,110,.4);color:#4ec9a8;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-flex;align-items:center;gap:8px;}
+    .btn-play:hover{background:rgba(14,140,110,.25);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    /* Screens showcase */
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;gap:10px;}
+    .screen-stack{display:flex;gap:8px;align-items:flex-end;}
+    .screen-card{border-radius:12px 12px 0 0;overflow:hidden;box-shadow:0 -12px 40px rgba(14,140,110,.25);}
+    .screen-card img{display:block;width:100%;height:auto;}
+    .screen-card.main{width:160px;}
+    .screen-card.sec{width:120px;opacity:.8;}
+    /* Logo strip */
+    .logo-strip{background:rgba(14,140,110,.06);border-top:1px solid rgba(14,140,110,.2);border-bottom:1px solid rgba(14,140,110,.1);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;}
+    .logo-strip img{height:36px;width:36px;border-radius:8px;object-fit:cover;}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    .logo-strip-pill{padding:6px 16px;border-radius:999px;background:rgba(14,140,110,.15);border:1px solid rgba(14,140,110,.3);color:#4ec9a8;font-size:12px;font-weight:700;}
+    /* Stats bar */
+    .stats-strip{background:rgba(14,140,110,.06);border-bottom:1px solid rgba(14,140,110,.12);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    /* Platform strip */
+    .platform-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(14,140,110,.15);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(14,140,110,.15);border-color:rgba(14,140,110,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(14,140,110,.1);color:#0a6e56;font-size:12px;font-weight:700;}
+    /* App store badge */
+    .store-badge{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#0e8c6e;color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:13px;margin-top:4px;transition:all .2s;}
+    .store-badge:hover{background:#0a6e56;transform:translateY(-1px);}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Screens gallery */
+    .screens-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px;}
+    .gallery-screen{border-radius:10px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);}
+    .gallery-screen img{display:block;width:100%;height:auto;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.admin::before{background:linear-gradient(90deg,#0e8c6e,#4ec9a8);}
+    .component-card.teacher::before{background:linear-gradient(90deg,#0a6e56,#0e8c6e);}
+    .component-card.student::before{background:linear-gradient(90deg,#074d3c,#0a6e56);}
+    .component-card.course::before{background:linear-gradient(90deg,#04352a,#074d3c);}
+    .component-card.payment::before{background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .component-card.mobile::before{background:linear-gradient(90deg,#1a1a2e,#16213e);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.g{background:rgba(14,140,110,.1);color:#0a6e56;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.y{background:rgba(201,162,39,.1);color:#a07a10;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .comp-tag.d{background:rgba(30,30,50,.1);color:#1a1a3e;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#0e8c6e,#0a6e56);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0e8c6e,#4ec9a8);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a1a1a,#0e8c6e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #0e8c6e;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#0e8c6e;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .screens-gallery{grid-template-columns:1fr 1fr;}
+      .platform-inner{flex-direction:column;align-items:stretch;}
+      .platform-pill{margin:0;}
+      .stat-item{padding:8px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="teal-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Madarek LMS</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark"><img src="assets/projects/madarek/madarek-icon.png" alt="Madarek LMS" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:15px;color:#4ec9a8;\'>م</span>'" /></div>
+            <span><em>مدارك</em> &nbsp;— Madarek LMS · Oman</span>
+          </div>
+          <div class="lms-badge">
+            <span>📚 FULL-STACK LMS + MOBILE APP</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Education · LMS · Oman · Laravel + Filament · Flutter · Payments</span>
+            <h1 data-en="Madarek — <em>مدارك</em> Learning Management System" data-ar="مدارك — <em>Madarek</em> منصة إدارة التعلم">Madarek — <em>مدارك</em> Learning Management System</h1>
+            <p data-en="A comprehensive full-stack Learning Management System built for Alemtayaz in Oman — connecting students with instructors through course uploads, exams, and live payments. The platform includes a Filament-powered admin dashboard, a teacher portal for course and student management, a student-facing web interface, and a Flutter mobile app on Google Play for on-the-go learning access." data-ar="منصة إدارة تعلم متكاملة مبنية لشركة التميز في عُمان — تربط الطلاب بالمدرسين من خلال رفع الكورسات والامتحانات والمدفوعات الحية. تتضمن المنصة لوحة تحكم إدارية مدعومة بـ Filament وبوابة مدرسين لإدارة الكورسات والطلاب وواجهة ويب للطلاب وتطبيق Flutter على Google Play للتعلم في أي وقت ومكان.">A comprehensive full-stack Learning Management System for Alemtayaz in Oman — connecting students with instructors through course uploads, exams, and integrated payments. Features a Filament-powered admin dashboard, teacher portal for course and student management, student web interface, and a Flutter mobile app on Google Play for on-the-go learning access.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇴🇲 Oman — Alemtayaz</span>
+              <span class="hero-badge teal">📚 Full LMS Platform</span>
+              <span class="hero-badge teal">📱 Flutter Mobile App</span>
+              <span class="hero-badge">💳 Integrated Payments</span>
+              <span class="hero-badge">🎓 Courses &amp; Exams</span>
+              <span class="hero-badge">🖥️ Filament Admin</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://play.google.com/store/apps/details?id=com.lms.madarekapp" target="_blank" rel="noopener noreferrer" class="btn-teal" data-en="▶ Download on Google Play" data-ar="▶ تحميل من Google Play">▶ Download on Google Play</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <div class="screen-stack">
+              <div class="screen-card sec"><img src="assets/projects/madarek/madarek-screen2.jpg" alt="Madarek App Screen 2" loading="eager" /></div>
+              <div class="screen-card main"><img src="assets/projects/madarek/madarek-screen1.jpg" alt="Madarek App Screen 1" loading="eager" /></div>
+              <div class="screen-card sec"><img src="assets/projects/madarek/madarek-screen3.jpg" alt="Madarek App Screen 3" loading="eager" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <img src="assets/projects/madarek/madarek-icon.png" alt="Madarek LMS" />
+            <span class="logo-strip-text">MADAREK LMS · مدارك · ALEMTAYAZ · OMAN 🇴🇲</span>
+            <span class="logo-strip-pill">📱 Available on Google Play</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num">6</span>
+              <span class="stat-label" data-en="Platform Components" data-ar="مكونات المنصة">Platform Components</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">📱</span>
+              <span class="stat-label" data-en="Flutter Mobile App" data-ar="تطبيق Flutter">Flutter Mobile App</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">💳</span>
+              <span class="stat-label" data-en="Integrated Payments" data-ar="مدفوعات مدمجة">Integrated Payments</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🎓</span>
+              <span class="stat-label" data-en="Courses &amp; Exams" data-ar="كورسات وامتحانات">Courses &amp; Exams</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🇴🇲</span>
+              <span class="stat-label" data-en="Oman Market" data-ar="سوق عُمان">Oman Market</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Filament-powered full control" data-ar="تحكم كامل بـ Filament">Filament-powered full control</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">👨‍🏫</span>
+              <div class="pp-text"><strong data-en="Teacher Portal" data-ar="بوابة المدرسين">Teacher Portal</strong><span data-en="Courses, students &amp; content" data-ar="كورسات وطلاب ومحتوى">Courses, students &amp; content</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎓</span>
+              <div class="pp-text"><strong data-en="Student Interface" data-ar="واجهة الطلاب">Student Interface</strong><span data-en="Enroll, learn &amp; take exams" data-ar="التسجيل والتعلم والامتحانات">Enroll, learn &amp; take exams</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">💳</span>
+              <div class="pp-text"><strong data-en="Payment System" data-ar="نظام الدفع">Payment System</strong><span data-en="Course fees &amp; subscriptions" data-ar="رسوم الكورسات والاشتراكات">Course fees &amp; subscriptions</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Flutter Mobile App" data-ar="تطبيق Flutter">Flutter Mobile App</strong><span data-en="Google Play · Courses &amp; exams" data-ar="Google Play · كورسات وامتحانات">Google Play · Courses &amp; exams</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Madarek (مدارك) is a full-stack Learning Management System built for Alemtayaz in the Sultanate of Oman. The platform is designed to connect students with instructors in a structured digital learning environment — enabling course creation and management, student enrollment, online examinations, and integrated payment processing for course access." data-ar="مدارك هو نظام إدارة تعلم متكامل مبني لشركة التميز في سلطنة عُمان. تم تصميم المنصة لربط الطلاب بالمدرسين في بيئة تعلم رقمية منظمة — تُمكّن إنشاء الكورسات وإدارتها وتسجيل الطلاب والامتحانات الإلكترونية ومعالجة المدفوعات المتكاملة للوصول إلى الكورسات.">Madarek (مدارك) is a full-stack Learning Management System built for Alemtayaz in the Sultanate of Oman. The platform connects students with instructors in a structured digital learning environment — enabling course creation and management, student enrollment, online examinations, and integrated payment processing for course access.</p>
+              <p data-en="The backend is built on Laravel and PHP, with Filament powering the admin control panel — providing a clean, modern interface for the platform administrator to manage all users (students and teachers), courses, categories, payment records, and system configuration from a single dashboard." data-ar="الواجهة الخلفية مبنية على Laravel وPHP، مع Filament يشغّل لوحة التحكم الإدارية — يوفر واجهة نظيفة وحديثة لمسؤول المنصة لإدارة جميع المستخدمين (الطلاب والمدرسين) والكورسات والتصنيفات وسجلات المدفوعات وتكوين النظام من لوحة تحكم واحدة.">The backend is built on Laravel and PHP, with Filament powering the admin panel — providing a clean, modern interface for the platform administrator to manage all users (students and teachers), courses, categories, payment records, and system configuration from a single dashboard.</p>
+              <p data-en="Beyond the web platform, Madarek ships with a Flutter mobile application available on Google Play — allowing students to access their enrolled courses, complete exams, track progress, and continue learning from anywhere on their Android device. The app connects to the same Laravel REST API backend, ensuring data consistency between the web and mobile experiences." data-ar="بالإضافة إلى منصة الويب، يتضمن مدارك تطبيقاً Flutter للهواتف المحمولة متاحاً على Google Play — يتيح للطلاب الوصول إلى كورساتهم المسجلين فيها وأداء الامتحانات وتتبع التقدم ومواصلة التعلم من أي مكان على جهازهم الأندرويد. يتصل التطبيق بنفس واجهة REST API الخلفية لـ Laravel، مما يضمن اتساق البيانات بين تجارب الويب والهاتف.">Beyond the web platform, Madarek ships with a Flutter mobile app on Google Play — allowing students to access enrolled courses, complete exams, track progress, and continue learning from anywhere on their Android device. The app connects to the same Laravel REST API backend, ensuring data consistency between web and mobile experiences.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="App Screenshots" data-ar="لقطات شاشة التطبيق">App Screenshots</h2>
+              <div class="screens-gallery">
+                <div class="gallery-screen"><img src="assets/projects/madarek/madarek-screen1.jpg" alt="Madarek App - Screen 1" loading="lazy" /></div>
+                <div class="gallery-screen"><img src="assets/projects/madarek/madarek-screen2.jpg" alt="Madarek App - Screen 2" loading="lazy" /></div>
+                <div class="gallery-screen"><img src="assets/projects/madarek/madarek-screen3.jpg" alt="Madarek App - Screen 3" loading="lazy" /></div>
+                <div class="gallery-screen"><img src="assets/projects/madarek/madarek-screen4.jpg" alt="Madarek App - Screen 4" loading="lazy" /></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card admin">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard — Filament" data-ar="لوحة التحكم الإدارية — Filament">Admin Dashboard — Filament</div>
+                  <div class="comp-sub" data-en="lms.alemtayaz.shop/public/admin" data-ar="lms.alemtayaz.shop/public/admin">lms.alemtayaz.shop/public/admin</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">User Management</span>
+                    <span class="comp-tag g">Course Control</span>
+                    <span class="comp-tag b">Payment Records</span>
+                    <span class="comp-tag t">Analytics</span>
+                    <span class="comp-tag p">RBAC</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The platform administrator has complete system control through a Filament-powered admin dashboard. From here, the admin manages all teacher and student accounts, approves or rejects course submissions, oversees all payment transactions, configures platform settings, manages course categories and tags, and generates reports on platform usage, revenue, and enrollment trends." data-ar="لدى مسؤول المنصة تحكم كامل في النظام من خلال لوحة تحكم إدارية مدعومة بـ Filament. من هنا، يدير الأدمن جميع حسابات المدرسين والطلاب، ويوافق أو يرفض تقديمات الكورسات، ويشرف على جميع معاملات الدفع، ويهيئ إعدادات المنصة، ويدير تصنيفات وعلامات الكورسات، ويولد تقارير حول استخدام المنصة والإيرادات واتجاهات التسجيل.">The platform admin has full control through a Filament-powered dashboard — managing all teacher and student accounts, approving course submissions, overseeing payment transactions, configuring platform settings, managing course categories, and generating reports on usage, revenue, and enrollment trends.</p>
+                </div>
+                <div class="component-card teacher">
+                  <div class="comp-icon">👨‍🏫</div>
+                  <div class="comp-name" data-en="Teacher / Instructor Portal" data-ar="بوابة المدرس / المحاضر">Teacher / Instructor Portal</div>
+                  <div class="comp-sub" data-en="Course creation · Content upload · Student management" data-ar="إنشاء الكورسات · رفع المحتوى · إدارة الطلاب">Course creation · Content upload · Student management</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Course Builder</span>
+                    <span class="comp-tag b">Video Upload</span>
+                    <span class="comp-tag t">Exam Creator</span>
+                    <span class="comp-tag g">Student List</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Instructors access their own portal to build and publish courses — upload video lessons, PDFs, and other learning materials, organize content into sections and modules, create exams with question banks and grading rules, set course pricing, and track the progress and performance of enrolled students. The teacher portal gives instructors complete ownership of their course content and student experience." data-ar="يصل المدرسون إلى بوابتهم الخاصة لبناء الكورسات ونشرها — رفع دروس الفيديو وملفات PDF والمواد التعليمية الأخرى، وتنظيم المحتوى في أقسام ووحدات، وإنشاء امتحانات ببنوك أسئلة وقواعد تقدير، وتحديد أسعار الكورسات، وتتبع تقدم وأداء الطلاب المسجلين. تمنح بوابة المدرس المحاضرين ملكية كاملة لمحتوى كورساتهم وتجربة الطلاب.">Instructors build and publish courses — upload video lessons, PDFs, and materials, organize content into sections and modules, create exams with question banks and grading rules, set course pricing, and track enrolled student progress and performance. The teacher portal gives instructors complete ownership of their course content and student experience.</p>
+                </div>
+                <div class="component-card student">
+                  <div class="comp-icon">🎓</div>
+                  <div class="comp-name" data-en="Student Learning Interface" data-ar="واجهة التعلم للطلاب">Student Learning Interface</div>
+                  <div class="comp-sub" data-en="Browse · Enroll · Learn · Take exams · Track progress" data-ar="تصفح · التسجيل · التعلم · الامتحانات · تتبع التقدم">Browse · Enroll · Learn · Take exams · Track progress</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Course Catalog</span>
+                    <span class="comp-tag b">Video Player</span>
+                    <span class="comp-tag t">Online Exams</span>
+                    <span class="comp-tag p">Progress Track</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Students browse the course catalog, view detailed course descriptions and instructor profiles, enroll after payment, and access their learning dashboard with all enrolled courses. Within each course, students watch video lessons, download materials, complete assignments, and sit online exams with automatic grading. Progress tracking shows completion percentage, exam scores, and certificate eligibility." data-ar="يتصفح الطلاب كتالوج الكورسات، ويشاهدون الأوصاف التفصيلية وملفات المدرسين، ويسجلون بعد الدفع، ويصلون إلى لوحة تعلمهم مع جميع الكورسات المسجلين فيها. داخل كل كورس، يشاهد الطلاب دروس الفيديو ويحملون المواد ويكملون الواجبات ويؤدون الامتحانات الإلكترونية مع التقدير الآلي. يُظهر تتبع التقدم نسبة الإكمال ودرجات الامتحانات وأهلية الشهادة.">Students browse the course catalog, view detailed course descriptions and instructor profiles, enroll after payment, and access their learning dashboard with all enrolled courses. Within each course, students watch video lessons, download materials, complete assignments, and sit online exams with automatic grading. Progress tracking shows completion percentage, exam scores, and certificate eligibility.</p>
+                </div>
+                <div class="component-card payment">
+                  <div class="comp-icon">💳</div>
+                  <div class="comp-name" data-en="Payment &amp; Enrollment System" data-ar="نظام الدفع والتسجيل">Payment &amp; Enrollment System</div>
+                  <div class="comp-sub" data-en="Course monetization · Secure checkout · Enrollment unlock" data-ar="تحقيق الدخل من الكورسات · دفع آمن · فتح التسجيل">Course monetization · Secure checkout · Enrollment unlock</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag y">Payment Gateway</span>
+                    <span class="comp-tag b">Secure Checkout</span>
+                    <span class="comp-tag t">Auto Enrollment</span>
+                    <span class="comp-tag g">Receipts</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Courses on the Madarek platform can be priced by instructors and require payment for student enrollment. The payment system handles secure checkout, processes the transaction through an integrated payment gateway, and automatically unlocks full course access for the student upon successful payment. All payment records are logged in the admin dashboard with full transaction history, student-to-course mapping, and financial reporting for Alemtayaz." data-ar="يمكن للمدرسين تحديد أسعار الكورسات وتتطلب دفعاً لتسجيل الطلاب. يتعامل نظام الدفع مع الدفع الآمن ويعالج المعاملة من خلال بوابة دفع متكاملة، ويفتح تلقائياً الوصول الكامل للكورس للطالب عند نجاح الدفع. جميع سجلات الدفع مُسجَّلة في لوحة التحكم الإدارية مع تاريخ المعاملات الكامل وخريطة الطالب-الكورس والتقارير المالية لشركة التميز.">Courses can be priced by instructors and require payment for student enrollment. The payment system handles secure checkout, processes the transaction through an integrated payment gateway, and automatically unlocks full course access upon successful payment. All payment records are logged in the admin dashboard with full transaction history, student-to-course mapping, and financial reporting.</p>
+                </div>
+                <div class="component-card course" style="grid-column:span 2;">
+                  <div class="comp-icon">📖</div>
+                  <div class="comp-name" data-en="Course Upload &amp; Content Management System" data-ar="نظام رفع الكورسات وإدارة المحتوى">Course Upload &amp; Content Management System</div>
+                  <div class="comp-sub" data-en="Videos · PDFs · Sections · Modules · Exam questions · Course pricing" data-ar="فيديوهات · PDFs · أقسام · وحدات · أسئلة الامتحانات · تسعير الكورس">Videos · PDFs · Sections · Modules · Exam questions · Course pricing</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Multi-Format Upload</span>
+                    <span class="comp-tag b">Section Builder</span>
+                    <span class="comp-tag t">Question Bank</span>
+                    <span class="comp-tag y">Pricing Control</span>
+                    <span class="comp-tag p">Thumbnail Upload</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The course upload system is the core content engine of Madarek LMS. Instructors create a course with a title, description, category, thumbnail, and price — then build it out section by section, uploading video lessons, PDF documents, and supplementary materials for each section. An integrated exam builder allows instructors to attach graded assessments to any section, with support for multiple-choice, true/false, and short-answer question formats. The system also supports free preview lessons, course prerequisites, and certificate generation upon completion." data-ar="نظام رفع الكورسات هو المحرك المحتوى الأساسي لـ Madarek LMS. ينشئ المدرسون كورساً بعنوان ووصف وتصنيف وصورة مصغرة وسعر — ثم يبنونه قسماً بقسم، رفع دروس الفيديو ومستندات PDF والمواد التكميلية لكل قسم. يتيح منشئ الامتحانات المتكامل للمدرسين إرفاق تقييمات مقدّرة بأي قسم، مع دعم تنسيقات الأسئلة متعددة الاختيارات والصح والخطأ والإجابة القصيرة. يدعم النظام أيضاً دروس المعاينة المجانية ومتطلبات الكورسات المسبقة وإنشاء الشهادات عند الإكمال.">The course upload system is the core content engine of Madarek LMS. Instructors create a course with title, description, category, thumbnail, and price — then build it out section by section, uploading video lessons, PDFs, and supplementary materials for each section. An integrated exam builder allows instructors to attach graded assessments to any section, with support for multiple-choice, true/false, and short-answer question formats. The system also supports free preview lessons, course prerequisites, and certificate generation upon completion.</p>
+                </div>
+                <div class="component-card mobile" style="grid-column:span 2;">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Flutter Mobile App — Madarek LMS on Google Play" data-ar="تطبيق Flutter — مدارك LMS على Google Play">Flutter Mobile App — Madarek LMS on Google Play</div>
+                  <div class="comp-sub" data-en="package: com.lms.madarekapp · Android · Available now on Google Play" data-ar="package: com.lms.madarekapp · Android · متاح الآن على Google Play">package: com.lms.madarekapp · Android · Available now on Google Play</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag d">Flutter</span>
+                    <span class="comp-tag b">REST API</span>
+                    <span class="comp-tag t">Firebase Push</span>
+                    <span class="comp-tag g">Course Access</span>
+                    <span class="comp-tag g">Exams</span>
+                    <span class="comp-tag p">Progress Sync</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The Madarek Flutter mobile app extends the full LMS experience to Android devices — students can browse the course catalog, view detailed course information, enroll and pay for courses, access all their enrolled course content (video lessons, materials), take online exams, track their learning progress, and receive push notifications for new content, exam reminders, and announcements. The app communicates with the Laravel backend through a secure REST API, ensuring real-time data sync across web and mobile. Firebase push notifications keep students engaged throughout their learning journey." data-ar="يمتد تطبيق Madarek Flutter لتجربة LMS الكاملة على أجهزة Android — يمكن للطلاب تصفح كتالوج الكورسات وعرض معلومات الكورس التفصيلية والتسجيل والدفع مقابل الكورسات والوصول إلى جميع محتوى كورساتهم المسجلين فيها (دروس فيديو ومواد) وأداء الامتحانات الإلكترونية وتتبع تقدمهم في التعلم والحصول على إشعارات دفع للمحتوى الجديد والتذكيرات بالامتحانات والإعلانات. يتواصل التطبيق مع واجهة Laravel الخلفية من خلال REST API آمن، مما يضمن مزامنة البيانات في الوقت الفعلي عبر الويب والهاتف. إشعارات Firebase الدفعية تُبقي الطلاب منخرطين طوال رحلتهم التعليمية.">The Flutter mobile app extends the full LMS experience to Android — students browse the course catalog, enroll and pay for courses, access all enrolled course content (video lessons, materials), take online exams, track learning progress, and receive push notifications for new content, exam reminders, and announcements. The app communicates with the Laravel backend through a secure REST API, ensuring real-time data sync across web and mobile. Firebase push notifications keep students engaged throughout their learning journey.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Filament Admin Panel — Modern Laravel-Native Control" data-ar="لوحة Filament — تحكم حديث لـ Laravel">Filament Admin Panel — Modern Laravel-Native Control</strong>
+                    <span data-en="The Madarek admin panel is built with Filament — the leading Laravel admin framework. Filament provides a clean, fast, and beautifully designed dashboard that's fully customizable: user resource management, course approval workflows, payment record tables with filters and exports, analytics widgets, and system settings — all in a responsive, dark-mode-ready interface without building custom admin views from scratch." data-ar="لوحة تحكم مدارك الإدارية مبنية بـ Filament — إطار عمل Laravel الإداري الرائد. يوفر Filament لوحة تحكم نظيفة وسريعة وذات تصميم جميل وقابلة للتخصيص بالكامل: إدارة موارد المستخدمين وسير عمل موافقة الكورسات وجداول سجلات الدفع مع مرشحات وتصدير وأدوات تحليلية وإعدادات النظام — كلها في واجهة متجاوبة جاهزة للوضع الداكن دون بناء عروض إدارية مخصصة من الصفر.">The Madarek admin panel is built with Filament — the leading Laravel admin framework. Filament provides a clean, fast, beautifully designed dashboard: user resource management, course approval workflows, payment record tables with filters and exports, analytics widgets, and system settings — all in a responsive, dark-mode-ready interface without building custom admin views from scratch.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Cross-Platform: Web + Mobile (Flutter)" data-ar="متعدد المنصات: ويب + موبايل (Flutter)">Cross-Platform: Web + Mobile (Flutter)</strong>
+                    <span data-en="Madarek delivers a consistent learning experience across both web browsers and the Flutter Android app. Students can start a course on the web and continue from where they left off on mobile — with progress, enrollment status, and exam results synced in real time through the shared Laravel REST API backend. This cross-platform continuity is key for learners who switch between desktop study sessions and mobile learning on the go." data-ar="يقدم مدارك تجربة تعلم متسقة عبر كل من متصفحات الويب وتطبيق Flutter الأندرويد. يمكن للطلاب البدء في كورس على الويب والاستمرار من حيث توقفوا على الهاتف — مع مزامنة التقدم وحالة التسجيل ونتائج الامتحانات في الوقت الفعلي من خلال واجهة Laravel REST API المشتركة الخلفية. هذه الاستمرارية متعددة المنصات أساسية للمتعلمين الذين يتنقلون بين جلسات الدراسة على سطح المكتب والتعلم عبر الهاتف أثناء التنقل.">Madarek delivers a consistent learning experience across web browsers and the Flutter Android app. Students can start a course on web and continue from where they left off on mobile — with progress, enrollment status, and exam results synced in real time through the shared Laravel REST API backend. This cross-platform continuity is key for learners who switch between desktop study and mobile learning on the go.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Role-Based Access Control (RBAC) — Admin / Teacher / Student" data-ar="التحكم في الوصول بناءً على الدور — أدمن / مدرس / طالب">Role-Based Access Control (RBAC) — Admin / Teacher / Student</strong>
+                    <span data-en="The Madarek platform operates with three distinct user roles — Admin, Teacher, and Student — each with their own set of permissions, dashboard views, and accessible features. RBAC is enforced at both the API level (protecting REST endpoints) and the web interface (restricting navigation and actions based on role). This ensures clean data separation: teachers only see their own courses and students, students only access enrolled content, and admins have full system visibility." data-ar="تعمل منصة مدارك بثلاثة أدوار مستخدم متميزة — أدمن ومدرس وطالب — كل منهم مجموعته الخاصة من الأذونات ومشاهدات لوحة التحكم والميزات الوصيلة. يُطبَّق RBAC على مستوى API (حماية نقاط REST) وواجهة الويب (تقييد التنقل والإجراءات بناءً على الدور). هذا يضمن فصلاً نظيفاً للبيانات: المدرسون يرون كورساتهم وطلابهم فقط، والطلاب يصلون فقط إلى المحتوى المسجلين فيه، والأدمن لديه رؤية كاملة للنظام.">The platform operates with three distinct user roles — Admin, Teacher, and Student — each with their own permissions, dashboard views, and accessible features. RBAC is enforced at both the API level (protecting REST endpoints) and the web interface (restricting navigation and actions based on role). This ensures clean data separation: teachers only see their own courses and students, students only access enrolled content, and admins have full system visibility.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Online Exam Engine — Question Banks &amp; Auto Grading" data-ar="محرك الامتحانات الإلكترونية — بنوك الأسئلة والتقدير الآلي">Online Exam Engine — Question Banks &amp; Auto Grading</strong>
+                    <span data-en="The integrated exam engine allows teachers to build assessments directly within their course sections. Teachers create question banks with multiple-choice, true/false, and short-answer questions, set time limits, passing scores, and attempt limits. Students take exams within the platform (or via the mobile app) and receive instant automated grading with score breakdowns. Exam results are stored in student records and accessible to both the student and the teacher through their respective portals." data-ar="يتيح محرك الامتحانات المتكامل للمدرسين بناء التقييمات مباشرةً داخل أقسام كورساتهم. ينشئ المدرسون بنوك أسئلة بتنسيقات متعددة الاختيارات والصح/الخطأ والإجابة القصيرة، ويضبطون حدود الوقت ودرجات النجاح وحدود المحاولات. يؤدي الطلاب الامتحانات داخل المنصة (أو عبر التطبيق) ويتلقون تقديراً آلياً فورياً مع تفاصيل الدرجات. تُخزَّن نتائج الامتحانات في سجلات الطلاب ويمكن لكل من الطالب والمدرس الوصول إليها من خلال بواباتهم المعنية.">The integrated exam engine allows teachers to build assessments directly within course sections. Teachers create question banks with multiple-choice, true/false, and short-answer questions, set time limits, passing scores, and attempt limits. Students take exams within the platform or via the mobile app and receive instant automated grading with score breakdowns. Exam results are stored in student records and accessible to both students and teachers through their respective portals.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Course Monetization — Integrated Payment Gateway" data-ar="تحقيق الدخل من الكورسات — بوابة دفع متكاملة">Course Monetization — Integrated Payment Gateway</strong>
+                    <span data-en="Madarek includes a full course monetization layer — instructors set prices for their courses, and students pay to enroll. The integrated payment gateway handles secure transaction processing with support for the Omani market, generates payment receipts, and automatically enrolls the student in the course upon successful payment confirmation. All revenue is tracked in the admin financial dashboard with per-course, per-instructor, and platform-wide revenue breakdowns." data-ar="يتضمن مدارك طبقة تحقيق دخل كاملة من الكورسات — يحدد المدرسون أسعاراً لكورساتهم، ويدفع الطلاب للتسجيل. تتعامل بوابة الدفع المتكاملة مع معالجة المعاملات الآمنة مع دعم السوق العُماني، وتولد إيصالات الدفع، وتسجّل الطالب تلقائياً في الكورس عند تأكيد الدفع الناجح. يُتتبّع كل الدخل في لوحة التحكم الإدارية المالية مع تفاصيل الدخل لكل كورس وكل مدرس وعلى مستوى المنصة.">Madarek includes a full course monetization layer — instructors set prices, and students pay to enroll. The integrated payment gateway handles secure transaction processing for the Omani market, generates payment receipts, and automatically enrolls the student upon successful payment. All revenue is tracked in the admin financial dashboard with per-course, per-instructor, and platform-wide revenue breakdowns.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Firebase Push Notifications — Learning Reminders &amp; Announcements" data-ar="إشعارات Firebase الدفعية — تذكيرات التعلم والإعلانات">Firebase Push Notifications — Learning Reminders &amp; Announcements</strong>
+                    <span data-en="The Flutter mobile app integrates Firebase Cloud Messaging (FCM) to deliver push notifications to students — new course content notifications, exam reminders before deadlines, instructor announcements, course completion alerts, and platform news from Alemtayaz. Push notifications are managed from the admin dashboard and can be targeted to specific student groups, course enrollees, or the full user base — keeping learners engaged throughout their educational journey on the Madarek platform." data-ar="يدمج تطبيق Flutter إشعارات Firebase Cloud Messaging (FCM) لتقديم إشعارات دفع للطلاب — إشعارات محتوى الكورس الجديد وتذكيرات الامتحانات قبل المواعيد النهائية وإعلانات المدرسين وتنبيهات إكمال الكورس وأخبار المنصة من شركة التميز. تُدار الإشعارات الدفعية من لوحة التحكم الإدارية ويمكن توجيهها إلى مجموعات طلاب محددة أو المسجلين في كورس أو قاعدة المستخدمين بأكملها — مما يبقي المتعلمين منخرطين طوال رحلتهم التعليمية على منصة مدارك.">The Flutter app integrates Firebase Cloud Messaging (FCM) to deliver push notifications — new course content alerts, exam reminders before deadlines, instructor announcements, course completion alerts, and platform news. Push notifications are managed from the admin dashboard and can be targeted to specific student groups, course enrollees, or the full user base — keeping learners engaged throughout their educational journey on Madarek.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>6</strong>
+                  <span data-en="Platform Components" data-ar="مكونات المنصة">Platform Components</span>
+                </div>
+                <div class="result-card">
+                  <strong>📱</strong>
+                  <span data-en="Live on Google Play" data-ar="متاح على Google Play">Live on Google Play</span>
+                </div>
+                <div class="result-card">
+                  <strong>💳</strong>
+                  <span data-en="Monetized LMS" data-ar="LMS مُدرّ للدخل">Monetized LMS</span>
+                </div>
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="In Production · Oman" data-ar="في الإنتاج · عُمان">In Production · Oman</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Unified REST API for Both Web and Flutter Mobile — Single Source of Truth" data-ar="REST API موحّدة للويب وFlutter — مصدر حقيقة واحد">Unified REST API for Both Web and Flutter Mobile — Single Source of Truth</strong>
+                  <p data-en="Madarek's architecture requires a single Laravel REST API to serve both the web student interface and the Flutter mobile app simultaneously. This means all business logic — enrollment validation, payment processing, progress tracking, exam grading — must be implemented at the API level rather than in web-specific controllers. API responses must be structured to handle the needs of both clients while keeping authentication secure (Sanctum/JWT) and responses performant under concurrent load from both web and mobile users." data-ar="تتطلب بنية مدارك REST API موحدة للـ Laravel لخدمة كل من واجهة الطلاب على الويب وتطبيق Flutter الهاتف في آن واحد. هذا يعني تطبيق جميع منطق الأعمال — التحقق من التسجيل ومعالجة الدفع وتتبع التقدم وتقدير الامتحانات — على مستوى API بدلاً من وحدات التحكم الخاصة بالويب. يجب هيكلة استجابات API للتعامل مع احتياجات كلا العميلين مع إبقاء المصادقة آمنة (Sanctum/JWT) والاستجابات عالية الأداء في ظل الحمل المتزامن من مستخدمي الويب والهاتف.">Madarek's architecture requires a single Laravel REST API to serve both the web interface and the Flutter mobile app simultaneously. All business logic — enrollment validation, payment processing, progress tracking, exam grading — must be implemented at the API level rather than in web-specific controllers. API responses must handle the needs of both clients while keeping authentication secure (Sanctum/JWT) and responses performant under concurrent load from both web and mobile users.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Video Content Delivery — Efficient Streaming for Course Lessons" data-ar="تسليم محتوى الفيديو — بث فعّال لدروس الكورسات">Video Content Delivery — Efficient Streaming for Course Lessons</strong>
+                  <p data-en="An LMS built on video lessons requires efficient video upload, storage, and delivery. Instructors upload video files of varying sizes and formats through the teacher portal, which must be processed, stored securely, and delivered to students with acceptable streaming performance on both desktop browsers and the Flutter mobile app. The solution involves CDN-backed storage, chunked upload support for large video files, and access-controlled video delivery to prevent unenrolled students from accessing paid course content." data-ar="نظام LMS مبني على دروس الفيديو يتطلب رفعاً وتخزيناً وتسليماً فعّالاً للفيديو. يرفع المدرسون ملفات الفيديو بأحجام وتنسيقات متفاوتة من خلال بوابة المدرس، والتي يجب معالجتها وتخزينها بشكل آمن وتسليمها للطلاب بأداء بث مقبول على كل من متصفحات سطح المكتب وتطبيق Flutter. يتضمن الحل تخزيناً مدعوماً بـ CDN ودعم الرفع على أجزاء لملفات الفيديو الكبيرة وتسليم الفيديو المتحكم بالوصول لمنع الطلاب غير المسجلين من الوصول إلى المحتوى المدفوع.">An LMS built on video lessons requires efficient video upload, storage, and delivery. Instructors upload video files of varying sizes through the teacher portal, which must be processed, stored securely, and delivered with acceptable streaming performance on both desktop browsers and the Flutter mobile app. The solution involves CDN-backed storage, chunked upload support for large video files, and access-controlled delivery to prevent unenrolled students from accessing paid course content.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Localizing an LMS for the Omani Market — Arabic UI &amp; Regional Payment Support" data-ar="تعريب LMS للسوق العُماني — واجهة عربية ودعم مدفوعات إقليمية">Localizing an LMS for the Omani Market — Arabic UI &amp; Regional Payment Support</strong>
+                  <p data-en="Deploying an LMS in Oman requires full localization for the Arabic-speaking Omani market — RTL interface support across both the web platform and the Flutter mobile app, Arabic language content management (course titles, descriptions, exam questions in Arabic), and integration with payment gateways that support the Omani Rial (OMR) and common GCC payment methods. The Filament admin dashboard and the teacher portal both need to handle bidirectional content (instructors writing in Arabic, students reading in Arabic) without layout or data integrity issues." data-ar="نشر LMS في عُمان يتطلب تعريباً كاملاً للسوق العُمانية الناطقة بالعربية — دعم واجهة RTL عبر منصة الويب وتطبيق Flutter الهاتف، وإدارة محتوى اللغة العربية (عناوين الكورسات والأوصاف وأسئلة الامتحانات بالعربية)، والتكامل مع بوابات الدفع التي تدعم الريال العُماني (OMR) وطرق الدفع الخليجية الشائعة. تحتاج كل من لوحة التحكم الإدارية لـ Filament وبوابة المدرس إلى التعامل مع المحتوى ثنائي الاتجاه (المدرسون يكتبون بالعربية والطلاب يقرؤون بالعربية) دون مشاكل في التخطيط أو سلامة البيانات.">Deploying an LMS in Oman requires full localization for the Arabic-speaking market — RTL interface support across both web and Flutter, Arabic content management (course titles, descriptions, exam questions in Arabic), and integration with payment gateways supporting the Omani Rial (OMR) and common GCC payment methods. Both the Filament admin dashboard and the teacher portal need to handle bidirectional content (instructors writing in Arabic, students reading in Arabic) without layout or data integrity issues.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-fng.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Future Nurseries Group — Parent App" data-ar="مجموعة الحضانات المستقبلية — تطبيق أولياء الأمور">Future Nurseries Group — Parent App</strong>
+              </a>
+              <a href="index.html#contact" class="btn-teal" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Alemtayaz · التميز</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Product" data-ar="المنتج">Product</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Madarek LMS — مدارك" data-ar="مدارك — Madarek LMS">Madarek LMS — مدارك</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Learning Management System + App" data-ar="نظام إدارة تعلم + تطبيق">Learning Management System + App</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇴🇲 Oman</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Users" data-ar="المستخدمون">Users</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Admin · Teachers · Students" data-ar="أدمن · مدرسون · طلاب">Admin · Teachers · Students</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Education · EdTech" data-ar="تعليم · تقنية التعليم">Education · EdTech</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Mobile" data-ar="الهاتف">Mobile</span>
+                <span class="meta-val" style="font-size:11px;">Flutter · Google Play</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live · In Production" data-ar="منتج · في الإنتاج">Live · In Production</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">Filament</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">Firebase FCM</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">Payment API</span>
+                <span class="tech-chip">CDN</span>
+                <span class="tech-chip">SMTP</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://play.google.com/store/apps/details?id=com.lms.madarekapp" target="_blank" rel="noopener noreferrer" class="store-badge">
+                <span style="font-size:20px;">▶</span>
+                <div>
+                  <div style="font-size:10px;opacity:.8;" data-en="GET IT ON" data-ar="احصل عليه من">GET IT ON</div>
+                  <div data-en="Google Play" data-ar="Google Play">Google Play</div>
+                </div>
+              </a>
+              <a href="https://lms.alemtayaz.shop/public/admin/login" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(14,140,110,.07);color:#0a6e56;border:1px solid rgba(14,140,110,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-top:8px;" data-en="🖥️ Admin Dashboard Login" data-ar="🖥️ دخول لوحة التحكم الإدارية">🖥️ Admin Dashboard Login</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(14,140,110,.05);color:#0a6e56;border:1px solid rgba(14,140,110,.2);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-top:8px;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'مدارك LMS — منصة إدارة التعلم عُمان | أحمد نور'
+        : 'Madarek LMS — مدارك Learning Management System Oman | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
