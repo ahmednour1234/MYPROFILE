@@ -1033,24 +1033,39 @@ body {
 /* ===== CLIENTS ===== */
 .client-grid {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(168px,1fr));
   gap:16px;
 }
-.client-grid div {
-  height:98px;
-  display:grid; place-items:center;
-  border-radius:22px;
+.client-card {
+  display:flex; flex-direction:column; align-items:center;
+  gap:10px;
+  padding:22px 14px 16px;
+  border-radius:20px;
   background:white;
   border:1px solid var(--line);
   box-shadow:var(--shadow);
-  transition:all 0.35s;
+  transition:all 0.3s;
+  text-align:center;
 }
-.client-grid div:hover {
+.client-card:hover {
   transform:translateY(-6px);
-  box-shadow:0 22px 55px rgba(37,99,235,0.12);
-  border-color:rgba(37,99,235,0.2);
+  box-shadow:0 22px 55px rgba(37,99,235,0.14);
+  border-color:rgba(37,99,235,0.22);
 }
-.client-grid img { max-width:118px; max-height:58px; object-fit:contain; }
+.client-logo-wrap {
+  width:64px; height:56px;
+  display:flex; align-items:center; justify-content:center;
+}
+.clogo { max-width:64px; max-height:48px; object-fit:contain; border-radius:6px; }
+.cinit {
+  width:52px; height:52px; border-radius:14px;
+  background:var(--grad); color:white;
+  font-size:17px; font-weight:900;
+  display:flex; align-items:center; justify-content:center;
+  font-family:Inter,Arial,sans-serif; letter-spacing:0.03em;
+}
+.client-card > b { font-size:13.5px; color:var(--navy); line-height:1.2; }
+.client-card > span { font-size:11.5px; color:var(--muted); }
 
 /* ===== CTA SECTION ===== */
 .cta-section {
