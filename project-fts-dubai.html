@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forex Traders Expo & Summit Dubai 2026 — Event Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--fts-orange:#e84318;--fts-orange2:#c23610;--fts-dark:#0a0a0f;--fts-charcoal:#141418;--fts-mid:#1e1e26;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0a0a0f 0%,#141418 55%,#1e0e08 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 70% 40%,rgba(232,67,24,.16) 0%,transparent 65%),radial-gradient(ellipse 35% 40% at 5% 85%,rgba(232,67,24,.07) 0%,transparent 55%);}
+    .orange-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#e84318,#ff6b40,#e84318,transparent);}
+    .edition-badge-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+    .edition-badge{padding:5px 14px;background:linear-gradient(90deg,#e84318,#c23610);color:white;border-radius:999px;font-size:11.5px;font-weight:900;letter-spacing:.5px;}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(232,67,24,.4);}
+    .brand-mark img{height:26px;object-fit:contain;filter:brightness(1.2);}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#ff7a55;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(232,67,24,.18);color:#ff8060;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(24px,2.8vw,38px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#ff7a55,#e84318);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:520px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.orange{background:rgba(232,67,24,.18);border-color:rgba(232,67,24,.5);color:#ff8060;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-orange{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#e84318,#c23610);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;border:1px solid rgba(255,122,85,.15);}
+    .btn-orange:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,67,24,.5);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:290px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(232,67,24,.3),0 -1px 0 rgba(255,122,85,.2);display:block;object-fit:cover;height:240px;}
+    /* Stats bar */
+    .stats-strip{background:rgba(232,67,24,.1);border-top:1px solid rgba(232,67,24,.25);border-bottom:1px solid rgba(232,67,24,.15);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;gap:0;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:26px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    /* Platform strip */
+    .platform-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(232,67,24,.2);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 3px;}
+    .platform-pill .pp-icon{font-size:17px;}
+    .platform-pill .pp-text strong{display:block;font-size:12.5px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:10.5px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(232,67,24,.14);border-color:rgba(232,67,24,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(232,67,24,.08);color:#c23610;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.c1::before{background:linear-gradient(90deg,#e84318,#ff7a55);}
+    .component-card.c2::before{background:linear-gradient(90deg,#c23610,#e84318);}
+    .component-card.c3::before{background:linear-gradient(90deg,#8b2508,#c23610);}
+    .component-card.c4::before{background:linear-gradient(90deg,#5a1505,#8b2508);}
+    .component-card.c5::before{background:linear-gradient(90deg,#2a0a02,#5a1505);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.o{background:rgba(232,67,24,.1);color:#c23610;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#e84318,#c23610);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Gallery strip */
+    .gallery-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .gallery-card{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);position:relative;}
+    .gallery-card img{width:100%;height:160px;object-fit:cover;display:block;}
+    .gallery-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 60%);display:flex;align-items:flex-end;padding:12px;}
+    .gallery-card-overlay span{font-size:12px;font-weight:700;color:white;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e84318,#ff8060);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#141418,#e84318);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #e84318;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#e84318;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .gallery-strip{grid-template-columns:1fr;}
+      .stats-inner{gap:0;}
+      .stat-item{padding:8px 20px;}
+      .platform-inner{flex-direction:column;align-items:stretch;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="orange-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Forex Traders Summit Dubai</span>
+        </div>
+        <div class="edition-badge-row">
+          <span class="edition-badge" data-en="7th EDITION — 2026" data-ar="الإصدار السابع — 2026">7th EDITION — 2026</span>
+          <div class="brand-badge">
+            <div class="brand-mark"><img src="assets/projects/fts-dubai/fts-logo.png" alt="Forex Traders Summit" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:12px;color:#ff7a55;\'>FTS</span>'" /></div>
+            <span><em>Forex Traders Summit</em> &nbsp;— DUBAI · UAE</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Events · Forex Expo · Trading Summit · QR Ticketing</span>
+            <h1 data-en="Forex Traders <em>Expo &amp; Summit</em> Dubai 2026 — Full Event Platform" data-ar="<em>معرض وقمة</em> متداولي الفوركس دبي 2026 — منصة الفعالية الكاملة">Forex Traders <em>Expo &amp; Summit</em> Dubai 2026 — Full Event Platform</h1>
+            <p data-en="The premier Forex &amp; trading event platform in the Middle East — a 2-day Expo &amp; Summit at the iconic Dubai Festival Arena, hosting the world's top Forex brokers, trading firms, and financial technology companies. The full-stack platform covers the public website, speakers, sponsors, event schedule, floor plan, QR ticketing, and a powerful admin dashboard — built with Laravel &amp; PHP." data-ar="المنصة الرائدة لفعاليات الفوركس والتداول في الشرق الأوسط — معرض وقمة لمدة يومين في أرينا مهرجان دبي الأيقونية، تستضيف أبرز وسطاء الفوركس وشركات التداول وشركات التكنولوجيا المالية في العالم. تغطي المنصة الموقع العام والمتحدثين والرعاة وجدول الفعالية ومخطط الأرضية وتذاكر QR ولوحة تحكم إدارية قوية — مبنية بـ Laravel وPHP.">The premier Forex &amp; trading event platform in the Middle East — a 2-day Expo &amp; Summit at the iconic Dubai Festival Arena, hosting the world's top Forex brokers, trading firms, and fintech companies. Built with Laravel &amp; PHP, covering the public website, speakers, sponsors, schedule, floor plan, QR ticketing, and a powerful admin dashboard.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇦🇪 Dubai, UAE</span>
+              <span class="hero-badge orange">✓ Live — 7th Edition</span>
+              <span class="hero-badge orange">📈 Forex &amp; Finance</span>
+              <span class="hero-badge">🏟️ Dubai Festival Arena</span>
+              <span class="hero-badge">📲 QR Ticketing</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://forextraderssummit.com/" target="_blank" rel="noopener noreferrer" class="btn-orange" data-en="Visit FTS Website →" data-ar="زيارة موقع FTS →">Visit FTS Website →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/fts-dubai/fts-gallery.jpg" alt="Forex Traders Summit Dubai Expo Floor" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num">7th</span>
+              <span class="stat-label" data-en="Edition" data-ar="إصدار">Edition</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">2</span>
+              <span class="stat-label" data-en="Day Expo + Summit" data-ar="يوم معرض + قمة">Day Expo + Summit</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🏟️</span>
+              <span class="stat-label" data-en="Dubai Festival Arena" data-ar="أرينا مهرجان دبي">Dubai Festival Arena</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">24–25</span>
+              <span class="stat-label" data-en="Nov 2026" data-ar="نوفمبر 2026">Nov 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Public Event Website" data-ar="موقع الفعالية العام">Public Event Website</strong><span data-en="Speakers, sponsors, schedule &amp; media" data-ar="متحدثون ورعاة وجدول وميديا">Speakers, sponsors, schedule &amp; media</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎤</span>
+              <div class="pp-text"><strong data-en="Speakers Module" data-ar="وحدة المتحدثين">Speakers Module</strong><span data-en="Profiles, sessions &amp; bios" data-ar="ملفات تعريفية وجلسات وسير ذاتية">Profiles, sessions &amp; bios</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🏢</span>
+              <div class="pp-text"><strong data-en="Sponsors Hub" data-ar="مركز الرعاة">Sponsors Hub</strong><span data-en="Packages, floor plan &amp; logos" data-ar="باقات ومخطط أرضية وشعارات">Packages, floor plan &amp; logos</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Full event operations control" data-ar="تحكم كامل في عمليات الفعالية">Full event operations control</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎟️</span>
+              <div class="pp-text"><strong data-en="QR Tickets &amp; Scanner" data-ar="تذاكر QR والماسح">QR Tickets &amp; Scanner</strong><span data-en="Generate, email &amp; real-time door scan" data-ar="توليد وإرسال ومسح آني للباب">Generate, email &amp; real-time door scan</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="The Forex Traders Expo &amp; Summit Dubai is the largest and most established Forex &amp; financial trading event in the Middle East — organized by Smart Vision Group, now in its 7th edition. The event brings together thousands of traders, investors, and representatives from the world's leading Forex brokers and fintech companies for two full days of exhibitions, keynote talks, panel discussions, and live trading demonstrations at the iconic Dubai Festival Arena." data-ar="يُعدّ معرض وقمة متداولي الفوركس في دبي أكبر وأرسخ فعالية للفوركس والتداول المالي في الشرق الأوسط — تنظمها مجموعة Smart Vision، وهي الآن في إصدارها السابع. تجمع الفعالية آلاف المتداولين والمستثمرين وممثلي أبرز وسطاء الفوركس وشركات التكنولوجيا المالية العالمية لمدة يومين كاملين من المعارض والخطابات الرئيسية والنقاشات الجماعية وعروض التداول الحي في أرينا مهرجان دبي الأيقونية.">The Forex Traders Expo &amp; Summit Dubai is the largest and most established Forex &amp; financial trading event in the Middle East — organized by Smart Vision Group, now in its 7th edition. The event brings thousands of traders, investors, and reps from the world's leading Forex brokers and fintech companies for two days of exhibitions, keynotes, panel discussions, and live trading demos at the iconic Dubai Festival Arena.</p>
+              <p data-en="The platform built for FTS Dubai is the most feature-rich event management system in this portfolio — a complete ecosystem that drives the event from pre-registration through to post-event media. It covers the public event website with dedicated sections for speakers, sponsors, event schedule, floor plan, past event photo galleries, and news articles, alongside a full attendee registration system, QR ticketing, and a comprehensive admin dashboard for the Smart Vision operations team." data-ar="المنصة المبنية لـ FTS دبي هي أغنى منصة إدارة فعاليات بالميزات في هذا المعرض — نظام بيئي متكامل يقود الفعالية من التسجيل المسبق وحتى الميديا ما بعد الفعالية. تغطي موقع الفعالية العام بأقسام مخصصة للمتحدثين والرعاة وجدول الفعالية ومخطط الأرضية وصور معارض الفعاليات السابقة والمقالات الإخبارية، إلى جانب نظام تسجيل حضور كامل وتذاكر QR ولوحة تحكم إدارية شاملة لفريق عمليات Smart Vision.">The platform built for FTS Dubai is the most feature-rich event management system in this portfolio — a complete ecosystem from pre-registration through post-event media. It covers the public website with sections for speakers, sponsors, event schedule, floor plan, photo gallery, and news, alongside a full registration system, QR ticketing, and a comprehensive admin dashboard for the Smart Vision operations team.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card c1">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Public Event Website" data-ar="موقع الفعالية العام">Public Event Website</div>
+                  <div class="comp-sub">forextraderssummit.com</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag o">About &amp; Agenda</span>
+                    <span class="comp-tag o">Speakers</span>
+                    <span class="comp-tag b">Sponsors</span>
+                    <span class="comp-tag t">Schedule</span>
+                    <span class="comp-tag p">Blog &amp; News</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full event showcase — about the summit, speaker profiles with session topics, sponsor listings (current + previous), detailed event schedule, interactive floor plan image, past event photo gallery, promo video, and a blog section with news articles." data-ar="عرض كامل للفعالية — عن القمة وملفات تعريفية للمتحدثين مع موضوعات الجلسات وقوائم الرعاة (الحاليين + السابقين) وجدول الفعالية المفصل وصورة مخطط الأرضية التفاعلية ومعرض صور الفعاليات السابقة وفيديو ترويجي وقسم مدونة بمقالات إخبارية.">Full event showcase — speaker profiles, sponsor listings (current + previous), detailed schedule, floor plan, past event gallery, promo video, and blog articles.</p>
+                </div>
+                <div class="component-card c2">
+                  <div class="comp-icon">🎤</div>
+                  <div class="comp-name" data-en="Speakers Module" data-ar="وحدة المتحدثين">Speakers Module</div>
+                  <div class="comp-sub" data-en="Speaker profiles &amp; session management" data-ar="ملفات المتحدثين وإدارة الجلسات">Speaker profiles &amp; session management</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag o">Bio &amp; Photo</span>
+                    <span class="comp-tag b">Session Topics</span>
+                    <span class="comp-tag t">Schedule Link</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Dedicated speakers section with profile photos, bios, company affiliations, and session topics for each speaker. Linked to the event schedule so attendees can see exactly when each speaker presents. Managed entirely from the admin dashboard." data-ar="قسم متحدثين مخصص مع صور الملفات الشخصية والسير الذاتية وانتماءات الشركات وموضوعات الجلسات لكل متحدث. مرتبط بجدول الفعالية حتى يتمكن الحضور من معرفة موعد عرض كل متحدث بالضبط. مُدار بالكامل من لوحة التحكم الإدارية.">Dedicated speakers section with profile photos, bios, company affiliations, and session topics. Linked to the event schedule so attendees know exactly when each speaker presents. Fully managed from the admin dashboard.</p>
+                </div>
+                <div class="component-card c3">
+                  <div class="comp-icon">🏢</div>
+                  <div class="comp-name" data-en="Sponsors Hub &amp; Packages" data-ar="مركز الرعاة والباقات">Sponsors Hub &amp; Packages</div>
+                  <div class="comp-sub" data-en="Sponsorship tiers, floor plan &amp; gallery" data-ar="مستويات رعاية ومخطط أرضية ومعرض">Sponsorship tiers, floor plan &amp; gallery</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag o">Packages</span>
+                    <span class="comp-tag b">Floor Plan</span>
+                    <span class="comp-tag t">Sponsor Gallery</span>
+                    <span class="comp-tag p">Apply Online</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Multiple sponsorship package tiers with full benefits displayed publicly. A floor plan image shows booth locations by package tier. A sponsors gallery displays current and all previous edition sponsors. Companies apply to become a sponsor directly through the website — all applications managed in the dashboard." data-ar="مستويات باقات رعاية متعددة مع عرض المزايا الكاملة للعموم. تُظهر صورة مخطط الأرضية مواقع الأكشاك حسب مستوى الباقة. يعرض معرض الرعاة الرعاة الحاليين وجميع رعاة الإصدارات السابقة. تتقدم الشركات لتصبح راعية مباشرة عبر الموقع — جميع الطلبات مُدارة في لوحة التحكم.">Multiple sponsorship tiers with full benefits. Floor plan image shows booth locations by tier. Sponsors gallery shows current and all previous edition sponsors. Companies apply online — all managed in the dashboard.</p>
+                </div>
+                <div class="component-card c4">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Complete event operations control" data-ar="تحكم كامل في عمليات الفعالية">Complete event operations control</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag o">Attendee &amp; Registration</span>
+                    <span class="comp-tag b">Speaker &amp; Schedule</span>
+                    <span class="comp-tag t">Sponsors &amp; Packages</span>
+                    <span class="comp-tag p">Blog &amp; Media</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The most comprehensive dashboard in this event platform family — the Smart Vision team manages registrations, speakers, schedule, sponsors, packages, blog posts, media gallery, QR ticket issuance, door scan monitoring, and event reporting all from a single control panel." data-ar="لوحة التحكم الأشمل في عائلة منصات الفعاليات هذه — يدير فريق Smart Vision التسجيلات والمتحدثين والجدول والرعاة والباقات والمقالات ومعرض الميديا وإصدار تذاكر QR ومراقبة مسح الباب وتقارير الفعالية كلها من لوحة تحكم واحدة.">The most comprehensive dashboard in this event platform family — Smart Vision team manages registrations, speakers, schedule, sponsors, packages, blog posts, media gallery, QR ticket issuance, door scan monitoring, and event reporting from a single control panel.</p>
+                </div>
+                <div class="component-card c5" style="grid-column:1/-1;">
+                  <div class="comp-icon">🎟️</div>
+                  <div class="comp-name" data-en="QR Ticketing &amp; Real-Time Door Scanner" data-ar="تذاكر QR وماسح الباب الآني">QR Ticketing &amp; Real-Time Door Scanner</div>
+                  <div class="comp-sub" data-en="Unique QR per attendee · branded PDF email · instant scan at entry" data-ar="QR فريد لكل حاضر · PDF ببريد علامة تجارية · مسح فوري عند الدخول">Unique QR per attendee · branded PDF email · instant scan at entry</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag o">Unique QR / Attendee</span>
+                    <span class="comp-tag b">Auto PDF Email</span>
+                    <span class="comp-tag t">Anti-Duplicate</span>
+                    <span class="comp-tag p">Real-Time Scan Log</span>
+                    <span class="comp-tag o">Offline Mode</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Every registered attendee receives a unique UUID-based QR code embedded in a branded FTS PDF ticket and emailed automatically. On event day, door staff at Dubai Festival Arena use the scanner app for instant ticket validation — green/red result, one-use enforcement, and a live scan count in the admin dashboard. Offline mode fallback ensures no valid attendee is ever turned away even if connectivity drops at the venue entrance." data-ar="يتلقى كل حاضر مسجل رمز QR فريداً قائماً على UUID مضمّناً في تذكرة FTS PDF ذات علامة تجارية وترسل تلقائياً بالبريد الإلكتروني. في يوم الفعالية، يستخدم الطاقم عند أبواب أرينا مهرجان دبي تطبيق الماسح للتحقق الفوري من التذاكر — نتيجة خضراء/حمراء وتطبيق استخدام واحد وعداد مسح مباشر في لوحة التحكم. يضمن وضع عدم الاتصال الاحتياطي عدم رفض أي حاضر صالح حتى إذا انقطع الاتصال عند مدخل المكان.">Every registered attendee receives a unique UUID-based QR code in a branded FTS PDF ticket, emailed automatically. On event day, door staff at Dubai Festival Arena use the scanner app — instant green/red result, one-use enforcement, live scan count in the admin. Offline mode ensures no valid attendee is turned away even if venue connectivity drops.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Event Schedule Builder" data-ar="منشئ جدول الفعالية">Event Schedule Builder</strong>
+                    <span data-en="A day-by-day event schedule displayed publicly — showing all sessions, keynote talks, and panel discussions with their time slots, assigned speakers, and hall locations. Fully editable from the admin dashboard." data-ar="جدول فعالية يومي معروض للعموم — يعرض جميع الجلسات والخطابات الرئيسية والنقاشات الجماعية مع مواعيدها والمتحدثين المُعيَّنين ومواقع القاعات. قابل للتحرير الكامل من لوحة التحكم الإدارية.">Day-by-day schedule displayed publicly — sessions, keynotes, and panels with time slots, speakers, and hall locations. Fully editable from the admin dashboard.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Floor Plan with Booth Allocation" data-ar="مخطط الأرضية مع توزيع الأكشاك">Floor Plan with Booth Allocation</strong>
+                    <span data-en="A floor plan image of the Dubai Festival Arena expo floor is displayed on the website — showing sponsor booth locations and which package tier corresponds to which zone. Uploaded and updated via the admin dashboard." data-ar="تُعرض صورة مخطط الأرضية لطابق معرض أرينا مهرجان دبي على الموقع — تُظهر مواقع أكشاك الرعاة ومستوى الباقة المقابل لكل منطقة. تُحمَّل وتُحدَّث عبر لوحة التحكم الإدارية.">Floor plan image of the Dubai Festival Arena expo floor shown on the website — sponsor booth locations and which package tier maps to which zone. Uploaded and updated via admin dashboard.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Sponsors Gallery — Current &amp; Historical" data-ar="معرض الرعاة — الحاليون والتاريخيون">Sponsors Gallery — Current &amp; Historical</strong>
+                    <span data-en="Displays all current edition sponsors plus a 'Previous Sponsors' gallery showing all companies that have sponsored past editions — a powerful social proof wall that helps convert new sponsorship inquiries." data-ar="يعرض جميع رعاة الإصدار الحالي بالإضافة إلى معرض 'الرعاة السابقين' الذي يُظهر جميع الشركات التي رعت الإصدارات السابقة — جدار إثبات اجتماعي قوي يساعد في تحويل استفسارات الرعاية الجديدة.">Displays current edition sponsors plus a 'Previous Sponsors' gallery from all past editions — a strong social proof wall that converts new sponsorship inquiries.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Blog &amp; News Article System" data-ar="نظام المدونة والمقالات الإخبارية">Blog &amp; News Article System</strong>
+                    <span data-en="A built-in CMS for publishing blog posts and news articles about the event — boosting SEO with fresh keyword-rich content before the event date, announcing speakers, sponsors, and event updates." data-ar="نظام CMS مدمج لنشر مقالات المدونة والأخبار عن الفعالية — يعزز SEO بمحتوى جديد غني بالكلمات المفتاحية قبل تاريخ الفعالية ويُعلن عن المتحدثين والرعاة وتحديثات الفعالية.">Built-in CMS for publishing blog posts and news articles — boosting SEO with fresh keyword-rich content before the event date, announcing speakers, sponsors, and updates.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Past Event Photo Gallery" data-ar="معرض صور الفعاليات السابقة">Past Event Photo Gallery</strong>
+                    <span data-en="A curated photo gallery from previous Forex Traders Summit editions — building credibility and showing potential sponsors and attendees the scale and atmosphere of the event before they commit." data-ar="معرض صور منتقى من إصدارات قمة متداولي الفوركس السابقة — يبني المصداقية ويُظهر للرعاة والحضور المحتملين حجم الفعالية وأجواءها قبل التزامهم.">Curated photo gallery from previous editions — building credibility and showing potential sponsors and attendees the scale and atmosphere before they commit.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Live Countdown &amp; WhatsApp CTA" data-ar="عداد تنازلي حي وزر WhatsApp">Live Countdown &amp; WhatsApp CTA</strong>
+                    <span data-en="A JavaScript-powered countdown visible across all pages — ticking down to the summit's opening hour, creating urgency. A persistent WhatsApp button lets potential attendees and sponsors contact the organizing team directly from any page." data-ar="عداد تنازلي مدعوم بـ JavaScript مرئي في جميع الصفحات — يُحصي الوقت حتى ساعة افتتاح القمة، مما يخلق إلحاحاً. يتيح زر WhatsApp الثابت للحضور والرعاة المحتملين التواصل مع فريق التنظيم مباشرة من أي صفحة.">JavaScript countdown visible across all pages, ticking to the opening hour. A persistent WhatsApp button lets potential attendees and sponsors contact the organizing team directly from any page.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>7th</strong>
+                  <span data-en="Edition — Established Event" data-ar="إصدار — فعالية راسخة">Edition — Established Event</span>
+                </div>
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="In Production · Dubai" data-ar="في الإنتاج · دبي">In Production · Dubai</span>
+                </div>
+                <div class="result-card">
+                  <strong>QR</strong>
+                  <span data-en="Tickets + Door Scanner" data-ar="تذاكر + ماسح الباب">Tickets + Door Scanner</span>
+                </div>
+                <div class="result-card">
+                  <strong>5+</strong>
+                  <span data-en="Integrated Modules" data-ar="وحدات متكاملة">Integrated Modules</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Scaling for High-Traffic — Dubai Festival Arena Volume" data-ar="التوسع لحركة مرور عالية — حجم أرينا مهرجان دبي">Scaling for High-Traffic — Dubai Festival Arena Volume</strong>
+                  <p data-en="The Dubai Festival Arena hosts up to 17,000 people. In the weeks before the event, the website experiences massive traffic spikes from Forex traders and trading companies worldwide registering and checking the schedule. The platform needed aggressive caching, optimized database queries, and CDN-based static asset delivery to handle simultaneous high-load periods without downtime — critical for an event of this profile." data-ar="تستضيف أرينا مهرجان دبي ما يصل إلى 17,000 شخص. في الأسابيع السابقة للفعالية، يشهد الموقع ارتفاعات هائلة في حركة المرور من متداولي الفوركس وشركات التداول حول العالم الذين يسجلون ويراجعون الجدول. كانت المنصة بحاجة لتخزين مؤقت مكثف واستعلامات قاعدة بيانات محسّنة وتسليم أصول ثابتة قائمة على CDN للتعامل مع فترات التحميل العالي المتزامنة دون توقف — أمر حيوي لفعالية بهذا المستوى.">Dubai Festival Arena hosts up to 17,000 people. In the weeks before the event, massive traffic spikes hit from Forex traders and trading companies worldwide registering and checking the schedule. The platform required aggressive caching, optimized DB queries, and CDN static delivery to handle simultaneous high-load periods without downtime — critical for an event of this global profile.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Managing a Complex Multi-Entity Data Model" data-ar="إدارة نموذج بيانات متعدد الكيانات المعقد">Managing a Complex Multi-Entity Data Model</strong>
+                  <p data-en="Unlike simpler event platforms, FTS Dubai required a rich relational data model — speakers linked to sessions, sessions linked to schedule slots, schedule slots linked to halls, sponsors linked to package tiers, tiers linked to floor plan zones, and all of it linked to attendee registrations and QR tickets. Designing a clean, normalized MySQL schema and admin interface that the Smart Vision team could manage without technical knowledge was a significant architectural challenge." data-ar="على خلاف منصات الفعاليات الأبسط، تطلبت FTS دبي نموذج بيانات علائقياً غنياً — متحدثون مرتبطون بجلسات، وجلسات مرتبطة بمواعيد الجدول، ومواعيد مرتبطة بالقاعات، ورعاة مرتبطون بمستويات الباقات، ومستويات مرتبطة بمناطق مخطط الأرضية، وكل ذلك مرتبط بتسجيلات الحضور وتذاكر QR. كان تصميم مخطط MySQL نظيف ومُعيَّر وواجهة إدارية يمكن لفريق Smart Vision إدارتها دون معرفة تقنية تحدياً معمارياً كبيراً.">Unlike simpler event platforms, FTS Dubai required a rich relational data model — speakers linked to sessions, sessions to schedule slots, slots to halls, sponsors to package tiers, tiers to floor plan zones — all linked to registrations and QR tickets. Designing a clean normalized MySQL schema and an admin UI that the Smart Vision team could manage without technical knowledge was a significant architectural challenge.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="QR Scanner Performance at Arena-Scale Entry" data-ar="أداء ماسح QR عند الدخول بمقياس الأرينا">QR Scanner Performance at Arena-Scale Entry</strong>
+                  <p data-en="Hundreds of attendees arriving simultaneously at Dubai Festival Arena's multiple entry gates meant the QR scanner system faced its most demanding scenario in this platform family. The system needed to validate tickets in under 1 second per scan across multiple simultaneous door stations, synchronize scan states instantly to prevent the same ticket being accepted at two different gates, and degrade gracefully to offline mode if arena Wi-Fi was unavailable — without any attendee noticing an issue." data-ar="مئات الحضور القادمين في نفس الوقت إلى بوابات دخول أرينا مهرجان دبي المتعددة يعني أن نظام ماسح QR واجه أكثر السيناريوهات تطلباً في عائلة منصات هذه. كان النظام بحاجة للتحقق من التذاكر في أقل من ثانية واحدة لكل مسح عبر محطات دخول متعددة ومتزامنة، ومزامنة حالات المسح فوراً لمنع قبول نفس التذكرة في بوابتين مختلفتين، والتدهور بسلاسة إلى وضع عدم الاتصال إذا كان واي فاي الأرينا غير متاح — دون أن يلاحظ أي حاضر أي مشكلة.">Hundreds of simultaneous arrivals at Dubai Festival Arena's multiple entry gates meant the QR scanner faced its most demanding scenario in this platform family. The system needed sub-1-second validation per scan across multiple simultaneous door stations, instant scan state sync to prevent the same ticket being accepted at two gates, and graceful offline degradation if arena Wi-Fi was unavailable — without any attendee noticing an issue.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-svs-kuwait.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="SVS Kuwait 2026 — Smart Vision Summit" data-ar="SVS Kuwait 2026 — قمة الرؤية الذكية">SVS Kuwait 2026 — Smart Vision Summit</strong>
+              </a>
+              <a href="index.html#contact" class="btn-orange" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Smart Vision Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Event" data-ar="الفعالية">Event</span>
+                <span class="meta-val" style="font-size:11px;text-align:right;max-width:150px;">Forex Traders Expo &amp; Summit Dubai</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Edition" data-ar="الإصدار">Edition</span>
+                <span class="meta-val">7th — 2026</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇦🇪 UAE — Dubai</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Venue" data-ar="المكان">Venue</span>
+                <span class="meta-val" style="font-size:11px;text-align:right;max-width:140px;">Dubai Festival Arena</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Dates" data-ar="التواريخ">Dates</span>
+                <span class="meta-val" style="font-size:11px;">24–25 Nov 2026</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Events · Forex · Finance" data-ar="فعاليات · فوركس · مالية">Events · Forex · Finance</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">QR Code</span>
+                <span class="tech-chip">SEO</span>
+                <span class="tech-chip">JSON-LD</span>
+                <span class="tech-chip">PDF Gen</span>
+                <span class="tech-chip">SMTP</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">CDN</span>
+                <span class="tech-chip">Blog CMS</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://forextraderssummit.com/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#e84318,#c23610);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🌐 Visit FTS Dubai Website" data-ar="🌐 زيارة موقع FTS دبي">🌐 Visit FTS Dubai Website</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(232,67,24,.07);color:#c23610;border:1px solid rgba(232,67,24,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language switcher
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'معرض وقمة متداولي الفوركس دبي 2026 — منصة الفعالية | أحمد نور'
+        : 'Forex Traders Expo & Summit Dubai 2026 — Event Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
