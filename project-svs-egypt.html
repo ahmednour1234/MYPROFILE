@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVS Egypt 2026 — Smart Vision Summit Cairo 9th Edition Event Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--svs-red:#d2232a;--svs-red2:#b01c22;--svs-dark:#0f0f0f;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0f0f0f 0%,#1a1a1a 60%,#220a0b 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 40%,rgba(210,35,42,.18) 0%,transparent 65%),radial-gradient(ellipse 35% 45% at 5% 80%,rgba(210,35,42,.08) 0%,transparent 55%);}
+    .red-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#d2232a,#ff5a5f,#d2232a,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(210,35,42,.4);margin-bottom:20px;}
+    .brand-mark img{height:26px;object-fit:contain;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#ff6b6b;}
+    .edition-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(255,107,107,.12);border:1px solid rgba(210,35,42,.45);margin-left:8px;}
+    .edition-badge span{font-size:11px;font-weight:800;color:#ff8080;letter-spacing:.5px;}
+    .home-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.3);margin-left:8px;}
+    .home-badge span{font-size:11px;font-weight:800;color:#ffd700;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(210,35,42,.18);color:#ff8080;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(24px,2.8vw,38px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#ff6b6b,#d2232a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:510px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.red{background:rgba(210,35,42,.18);border-color:rgba(210,35,42,.5);color:#ff8080;}
+    .hero-badge.gold{background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.35);color:#ffd700;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-red{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#d2232a,#b01c22);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;border:1px solid rgba(255,107,107,.15);}
+    .btn-red:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(210,35,42,.5);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:270px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(210,35,42,.3),0 -1px 0 rgba(255,107,107,.2);display:block;object-fit:cover;height:230px;}
+    /* Logo strip */
+    .logo-strip{background:rgba(210,35,42,.06);border-top:1px solid rgba(210,35,42,.2);border-bottom:1px solid rgba(210,35,42,.1);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
+    .logo-strip img{height:38px;object-fit:contain;filter:brightness(1.1);}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    .logo-strip-pill{padding:6px 16px;border-radius:999px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:#ffd700;font-size:12px;font-weight:700;}
+    /* Stats bar */
+    .stats-strip{background:rgba(210,35,42,.06);border-bottom:1px solid rgba(210,35,42,.12);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    .stat-num.gold{background:linear-gradient(135deg,#ffd700,#ffaa00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(210,35,42,.2);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(210,35,42,.15);border-color:rgba(210,35,42,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .edition-val{padding:3px 10px;border-radius:999px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:#a07a00;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(210,35,42,.08);color:#b01c22;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.website::before{background:linear-gradient(90deg,#d2232a,#ff6b6b);}
+    .component-card.registration::before{background:linear-gradient(90deg,#b01c22,#d2232a);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#8b1017,#b01c22);}
+    .component-card.qr::before{background:linear-gradient(90deg,#5a0a0d,#8b1017);}
+    .component-card.sponsors::before{background:linear-gradient(90deg,#1a0003,#5a0a0d);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.r{background:rgba(210,35,42,.1);color:#b01c22;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    /* Sponsor tiers */
+    .tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .tier-card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden;}
+    .tier-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .tier-card.official::before{background:linear-gradient(90deg,#d2232a,#ff8080);}
+    .tier-card.platinum::before{background:linear-gradient(90deg,#9ca3af,#e5e7eb);}
+    .tier-card.main::before{background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .tier-card.royal::before{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+    .tier-card.elite::before{background:linear-gradient(90deg,#0d9488,#5eead4);}
+    .tier-name{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:6px;}
+    .tier-perks{font-size:11px;color:var(--muted);line-height:1.6;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#d2232a,#b01c22);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Edition timeline */
+    .edition-banner{background:linear-gradient(135deg,#0f0f0f,#1a1a1a);border:1px solid rgba(255,215,0,.2);border-radius:16px;padding:24px 28px;display:flex;align-items:center;gap:24px;margin-bottom:4px;}
+    .edition-num{font-size:60px;font-weight:900;background:linear-gradient(135deg,#ffd700,#ffaa00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;flex-shrink:0;}
+    .edition-text h3{font-size:17px;font-weight:800;color:white;margin:0 0 6px;}
+    .edition-text p{font-size:13px;color:rgba(255,255,255,.6);margin:0;line-height:1.7;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d2232a,#ff8080);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a1a1a,#d2232a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #d2232a;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#d2232a;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .tiers-grid{grid-template-columns:1fr 1fr;}
+      .platform-inner{flex-direction:column;align-items:stretch;}
+      .platform-pill{margin:0;}
+      .stat-item{padding:8px 20px;}
+      .edition-banner{flex-direction:column;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="red-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>SVS Egypt 2026</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark"><img src="assets/projects/svs-egypt/svs-egypt-logo.png" alt="SVS Egypt 2026" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:14px;color:#ff6b6b;\'>SVS</span>'" /></div>
+            <span><em>Smart Vision Summit</em> &nbsp;— EGYPT 2026 · CAIRO</span>
+          </div>
+          <div class="edition-badge">
+            <span>🏆 9TH EDITION — FLAGSHIP</span>
+          </div>
+          <div class="home-badge">
+            <span>🇪🇬 SVS HOME COUNTRY</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Events · Summit · AI &amp; Financial Markets · Egypt · QR Ticketing · SEO · 9th Edition</span>
+            <h1 data-en="SVS Egypt 2026 — <em>Smart Vision Summit</em> Cairo 9th Edition" data-ar="SVS Egypt 2026 — <em>قمة الرؤية الذكية</em> القاهرة الإصدار التاسع">SVS Egypt 2026 — <em>Smart Vision Summit</em> Cairo 9th Edition</h1>
+            <p data-en="The flagship full-stack event management platform for Smart Vision Summit Egypt 2026 — the 9th edition of SVS in its home country, Egypt. A two-day AI and financial markets summit at the iconic Nile Ritz-Carlton, Cairo on 5–6 December 2026. Smart Vision is an Egyptian company, making this the founding and most established SVS edition globally. The platform delivers the public summit website, attendee registration, QR ticketing, real-time door scanning, five-tier sponsorship packages, and a full admin dashboard." data-ar="منصة إدارة الفعاليات المتكاملة الرائدة لقمة الرؤية الذكية مصر 2026 — الإصدار التاسع لـ SVS في دولتها الأم، مصر. قمة AI والأسواق المالية لمدة يومين في فندق النيل ريتز كارلتون الأيقوني في القاهرة في 5-6 ديسمبر 2026. Smart Vision شركة مصرية، مما يجعل هذا الإصدار التأسيسي والأكثر رسوخاً لـ SVS عالمياً. تقدم المنصة موقع القمة العام وتسجيل الحضور وتذاكر QR والمسح اللحظي وباقات رعاية من خمسة مستويات ولوحة تحكم إدارية كاملة.">The flagship full-stack event platform for Smart Vision Summit Egypt 2026 — the 9th edition of SVS in its home country. A two-day AI and financial markets summit at the iconic Nile Ritz-Carlton, Cairo on 5–6 December 2026. Smart Vision is an Egyptian company, making this the founding and most established SVS edition globally. The platform delivers the public summit website, attendee registration, QR ticketing, real-time door scanning, 5-tier sponsorship packages, and full admin dashboard.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇪🇬 Egypt — Cairo</span>
+              <span class="hero-badge gold">🏆 9th Edition · Flagship</span>
+              <span class="hero-badge red">🤖 AI &amp; Financial Markets</span>
+              <span class="hero-badge">🏨 Nile Ritz-Carlton</span>
+              <span class="hero-badge">📲 QR Ticketing</span>
+              <span class="hero-badge">🔍 SEO Optimized</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://smartvisionexpo.com/" target="_blank" rel="noopener noreferrer" class="btn-red" data-en="Visit SVS Egypt →" data-ar="زيارة موقع SVS مصر →">Visit SVS Egypt →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/svs-egypt/svs-egypt-hero.jpg" alt="SVS Egypt 2026 — Nile Ritz-Carlton Cairo" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <img src="assets/projects/svs-egypt/svs-egypt-logo.png" alt="SVS Egypt 2026" />
+            <span class="logo-strip-text">SMART VISION SUMMIT · EGYPT 2026 · NILE RITZ-CARLTON CAIRO 🇪🇬</span>
+            <span class="logo-strip-pill">🏆 9TH EDITION — SVS HOME COUNTRY</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num gold">9th</span>
+              <span class="stat-label" data-en="SVS Edition · Egypt" data-ar="إصدار SVS · مصر">SVS Edition · Egypt</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">05–06</span>
+              <span class="stat-label" data-en="December 2026" data-ar="ديسمبر 2026">December 2026</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🏨</span>
+              <span class="stat-label" data-en="Nile Ritz-Carlton Cairo" data-ar="النيل ريتز كارلتون القاهرة">Nile Ritz-Carlton Cairo</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🤖</span>
+              <span class="stat-label" data-en="AI &amp; Financial Markets" data-ar="AI والأسواق المالية">AI &amp; Financial Markets</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🇪🇬</span>
+              <span class="stat-label" data-en="SVS Founding Country" data-ar="الدولة المؤسِّسة لـ SVS">SVS Founding Country</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Public Summit Website" data-ar="موقع القمة العام">Public Summit Website</strong><span data-en="About, packages, media &amp; contact" data-ar="حول وباقات وميديا وتواصل">About, packages, media &amp; contact</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📋</span>
+              <div class="pp-text"><strong data-en="Registration System" data-ar="نظام التسجيل">Registration System</strong><span data-en="Online attendee registration &amp; QR tickets" data-ar="تسجيل حضور وتذاكر QR إلكترونياً">Online attendee registration &amp; QR tickets</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Attendees, sponsors &amp; event operations" data-ar="الحضور والرعاة وعمليات الفعالية">Attendees, sponsors &amp; event operations</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎟️</span>
+              <div class="pp-text"><strong data-en="QR Tickets &amp; Door Scanner" data-ar="تذاكر QR وماسح الباب">QR Tickets &amp; Door Scanner</strong><span data-en="Generate, email &amp; scan at entry" data-ar="توليد وإرسال ومسح عند الدخول">Generate, email &amp; scan at entry</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🤝</span>
+              <div class="pp-text"><strong data-en="Sponsorship Hub" data-ar="مركز الرعاة">Sponsorship Hub</strong><span data-en="5-tier packages · Become a Sponsor app" data-ar="5 مستويات · طلب تصبح راعياً">5-tier packages · Become a Sponsor app</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="The Flagship Edition" data-ar="الإصدار الرائد">The Flagship Edition</h2>
+              <div class="edition-banner">
+                <div class="edition-num">9</div>
+                <div class="edition-text">
+                  <h3 data-en="SVS Egypt — 9 Consecutive Editions · Smart Vision's Home Country" data-ar="SVS مصر — 9 إصدارات متتالية · الدولة الأم لـ Smart Vision">SVS Egypt — 9 Consecutive Editions · Smart Vision's Home Country</h3>
+                  <p data-en="Smart Vision is an Egyptian company with 15 years of experience in hosting international events in the Middle East. Egypt is where SVS began — and the 9th edition at the Nile Ritz-Carlton, Cairo is the summit's most established, highest-visibility edition. 'SVS Egypt 2026 is where knowledge meets innovation — and where the future of finance begins.'" data-ar="Smart Vision شركة مصرية ذات 15 سنة خبرة في تنظيم الفعاليات الدولية في الشرق الأوسط. مصر هي حيث بدأ SVS — والإصدار التاسع في النيل ريتز كارلتون القاهرة هو الإصدار الأكثر رسوخاً والأعلى ظهوراً للقمة. 'SVS مصر 2026 هو حيث يلتقي المعرفة بالابتكار — وحيث تبدأ مستقبل التمويل.'">Smart Vision is an Egyptian company with 15 years of experience hosting international events across the Middle East. Egypt is where SVS began — and the 9th edition at the Nile Ritz-Carlton, Cairo is the summit's most established, highest-visibility edition. "SVS Egypt 2026 is where knowledge meets innovation — and where the future of finance begins."</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="SVS Egypt 2026 — the 9th edition of Smart Vision Summit in Egypt — takes place on 5–6 December 2026 at the Nile Ritz-Carlton, Cairo. This year's edition focuses on how AI is reshaping investment strategies, market analysis, trading behavior, and the entire financial ecosystem. From keynote sessions to live panels, workshops, and high-level networking, SVS Egypt 2026 unites global experts, traders, investors, fintech innovators, and industry leaders for two transformative days of insights, technology, and future-driven opportunities." data-ar="SVS مصر 2026 — الإصدار التاسع لقمة الرؤية الذكية في مصر — يُعقد في 5-6 ديسمبر 2026 في النيل ريتز كارلتون القاهرة. يُركّز إصدار هذا العام على كيفية إعادة تشكيل AI لاستراتيجيات الاستثمار وتحليل السوق وسلوك التداول والنظام المالي بأكمله. من الجلسات الرئيسية إلى اللجان الحية وورش العمل والتواصل عالي المستوى، يجمع SVS مصر 2026 خبراء عالميين وتجار ومستثمرين ومبتكري فينتك وقادة صناعيين ليومين تحويليين من الرؤى والتقنية والفرص المستقبلية.">SVS Egypt 2026 — the 9th edition of Smart Vision Summit in Egypt — takes place on 5–6 December 2026 at the Nile Ritz-Carlton, Cairo. This year's edition focuses on how AI is reshaping investment strategies, market analysis, trading behavior, and the entire financial ecosystem. From keynote sessions to live panels, workshops, and high-level networking, SVS Egypt 2026 unites global experts, traders, investors, fintech innovators, and industry leaders for two transformative days of insights, technology, and future-driven opportunities.</p>
+              <p data-en="As the organizing company's home country edition, SVS Egypt carries the highest brand prestige and the longest track record in the SVS portfolio. Smart Vision has been running this summit in Egypt for 9 consecutive years — making it the platform's most proven, most attended, and most connected edition. The event attracts the largest sponsorship portfolios, the most established speaker lineups, and the widest media coverage of any SVS edition globally." data-ar="بوصفه إصدار الدولة الأم لشركة التنظيم، يحمل SVS مصر أعلى هيبة للعلامة التجارية وأطول سجل حافل في محفظة SVS. تُنظّم Smart Vision هذه القمة في مصر لـ 9 سنوات متتالية — مما يجعله الإصدار الأكثر برهاناً وحضوراً وتواصلاً. تجذب الفعالية أكبر محافظ الرعاية وأكثر تشكيلات المتحدثين رسوخاً وأوسع تغطية إعلامية بين جميع إصدارات SVS عالمياً.">As the organizing company's home country edition, SVS Egypt carries the highest brand prestige and the longest track record in the SVS portfolio. Smart Vision has been running this summit in Egypt for 9 consecutive years — making it the platform's most proven, most attended, and most connected edition. The event attracts the largest sponsorship portfolios, the most established speaker lineups, and the widest media coverage of any SVS edition globally.</p>
+              <p data-en="The SVS Egypt platform is built on the same proven Laravel/PHP architecture as all other SVS country editions — delivering the complete event management system. The full platform covers the public summit website (smartvisionexpo.com), online attendee registration with automated QR ticket generation and email delivery, a Become a Sponsor application flow feeding into the admin dashboard, real-time QR door scanning at the Nile Ritz-Carlton on event day, and five-tier sponsorship packages with detailed benefits." data-ar="منصة SVS مصر مبنية على نفس بنية Laravel/PHP المثبتة كجميع إصدارات SVS الأخرى — تقدم نظام إدارة الفعاليات الكامل. تغطي المنصة الكاملة موقع القمة العام (smartvisionexpo.com) وتسجيل الحضور الإلكتروني مع توليد تذاكر QR الآلي وتسليم البريد الإلكتروني وتدفق طلب تصبح راعياً يُغذّي لوحة التحكم الإدارية ومسح باب QR لحظي في النيل ريتز كارلتون يوم الفعالية وباقات رعاية من خمسة مستويات مع مزايا تفصيلية.">The SVS Egypt platform is built on the same proven Laravel/PHP architecture as all other SVS country editions — delivering the complete event management system. The full platform covers the public summit website (smartvisionexpo.com), online attendee registration with automated QR ticket generation and email delivery, a Become a Sponsor application flow, real-time QR door scanning at the Nile Ritz-Carlton on event day, and five-tier sponsorship packages with detailed benefits.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card website">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Public Summit Website" data-ar="موقع القمة العام">Public Summit Website</div>
+                  <div class="comp-sub">smartvisionexpo.com</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">About &amp; Agenda</span>
+                    <span class="comp-tag r">Packages</span>
+                    <span class="comp-tag b">Multi Media</span>
+                    <span class="comp-tag t">Countdown Timer</span>
+                    <span class="comp-tag p">Past Gallery</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The public summit website showcases all event information — the iconic Nile Ritz-Carlton Cairo venue, the 9th edition summit overview with AI and financial markets focus, 5–6 December 2026 dates, a Multi Media promo video section, a rich past event photo gallery from 8 previous Egypt editions, sponsorship packages, contact, and a persistent sticky bar with live countdown, WhatsApp, Register Now, and Become Sponsor CTAs." data-ar="يعرض موقع القمة العام جميع معلومات الفعالية — مكان النيل ريتز كارلتون الأيقوني في القاهرة ونظرة عامة على الإصدار التاسع للقمة بتركيز على AI والأسواق المالية وتواريخ 5-6 ديسمبر 2026 وقسم فيديو ترويجي Multi Media ومعرض صور غني للفعاليات السابقة من 8 إصدارات مصرية سابقة وباقات رعاية وتواصل وشريط لاصق دائم مع عداد تنازلي حي وWhatsApp وتسجيل الآن وCTAs تصبح راعياً.">The public summit website showcases all event information — the iconic Nile Ritz-Carlton Cairo venue, the 9th edition summit overview with AI and financial markets focus, 5–6 December 2026 dates, a Multi Media promo video section, a rich past event gallery from 8 previous Egypt editions, sponsorship packages, contact, and a persistent sticky bar with live countdown, WhatsApp, Register Now, and Become Sponsor CTAs.</p>
+                </div>
+                <div class="component-card registration">
+                  <div class="comp-icon">📋</div>
+                  <div class="comp-name" data-en="Attendee Registration System" data-ar="نظام تسجيل الحضور">Attendee Registration System</div>
+                  <div class="comp-sub" data-en="Online sign-up · email confirmation · QR ticket" data-ar="تسجيل إلكتروني · تأكيد بالإيميل · تذكرة QR">Online sign-up · email confirmation · QR ticket</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Register Now CTA</span>
+                    <span class="comp-tag b">Email Confirmation</span>
+                    <span class="comp-tag t">Auto QR Issue</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Attendees register online through the summit website — complete their details, choose their attendance package, and automatically receive a branded confirmation email with their unique QR-coded ticket as a PDF attachment. All registrations are tracked in real time in the admin dashboard, with full status management and the ability to manually issue or revoke tickets. The 9th edition's established brand drives the highest registration volumes of any SVS edition." data-ar="يسجل الحضور إلكترونياً عبر موقع القمة — يكملون تفاصيلهم ويختارون باقة حضورهم، ويتلقون تلقائياً إيميل تأكيد ذي علامة تجارية مع تذكرتهم الفريدة المشفرة بـ QR كمرفق PDF. جميع التسجيلات يتم تتبعها آنياً في لوحة التحكم الإدارية، مع إدارة حالة كاملة وإمكانية إصدار التذاكر أو إلغائها يدوياً. العلامة التجارية الراسخة للإصدار التاسع تدفع أعلى أحجام التسجيل بين أي إصدار SVS.">Attendees register online — complete their details, choose their attendance package, and automatically receive a branded email with their unique QR ticket as a PDF. All registrations are tracked in real time in the admin dashboard, with full status management and manual ticket issuance/revocation. The 9th edition's established brand drives the highest registration volumes of any SVS edition.</p>
+                </div>
+                <div class="component-card dashboard">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Complete summit operations control" data-ar="تحكم كامل في عمليات القمة">Complete summit operations control</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Attendee Mgmt</span>
+                    <span class="comp-tag r">Sponsor Review</span>
+                    <span class="comp-tag b">Reports</span>
+                    <span class="comp-tag t">RBAC</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The Smart Vision organizing team manages all aspects of the SVS Egypt summit from the admin dashboard — view and manage attendee registrations, review and approve Become a Sponsor applications, issue QR tickets manually, monitor real-time entry scanning on summit day at the Nile Ritz-Carlton, and generate comprehensive reports on attendance, sponsorship, and event operations." data-ar="يدير فريق التنظيم Smart Vision جميع جوانب قمة SVS مصر من لوحة التحكم الإدارية — عرض وإدارة تسجيلات الحضور ومراجعة وموافقة طلبات تصبح راعياً وإصدار تذاكر QR يدوياً ومراقبة المسح اللحظي للدخول يوم القمة في النيل ريتز كارلتون وإنشاء تقارير شاملة عن الحضور والرعاية وعمليات الفعالية.">The Smart Vision organizing team manages all aspects of the SVS Egypt summit — attendee registrations, sponsor application review, manual QR ticket issuance, real-time entry scanning on summit day at the Nile Ritz-Carlton, and comprehensive reports on attendance, sponsorship, and event operations.</p>
+                </div>
+                <div class="component-card qr">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="QR Ticketing &amp; Door Scanner" data-ar="تذاكر QR وماسح الباب">QR Ticketing &amp; Door Scanner</div>
+                  <div class="comp-sub" data-en="Generate, email &amp; scan at Nile Ritz-Carlton entry" data-ar="توليد وإرسال ومسح عند مدخل النيل ريتز كارلتون">Generate, email &amp; scan at Nile Ritz-Carlton entry</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Unique QR / Attendee</span>
+                    <span class="comp-tag b">Anti-Duplicate</span>
+                    <span class="comp-tag t">Real-Time Entry Log</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Every registered attendee receives a unique, branded QR code ticket as a PDF email. On summit day at the Nile Ritz-Carlton, Cairo, door staff use the scanner app to validate tickets in real time — green for valid, red for invalid or already scanned. Anti-duplicate protection prevents any ticket from being used more than once, and every scan is logged with a timestamp in the organizer's dashboard." data-ar="يتلقى كل حاضر مسجل تذكرة رمز QR فريدة وذات علامة تجارية كـ PDF عبر الإيميل. يوم القمة في النيل ريتز كارلتون القاهرة، يستخدم الطاقم عند الباب تطبيق الماسح للتحقق من التذاكر آنياً — أخضر للصالح، أحمر للغير صالح أو المسحوب مسبقاً. الحماية من التكرار تمنع استخدام أي تذكرة أكثر من مرة، وكل عملية مسح مسجلة بطابع زمني في لوحة تحكم المنظم.">Every registered attendee receives a unique branded QR ticket as a PDF email. On summit day at the Nile Ritz-Carlton Cairo, door staff validate tickets in real time — green valid, red invalid or already scanned. Anti-duplicate protection prevents any ticket being used more than once, and every scan is logged with a timestamp.</p>
+                </div>
+                <div class="component-card sponsors" style="grid-column:1/-1;">
+                  <div class="comp-icon">🤝</div>
+                  <div class="comp-name" data-en="Sponsorship Hub — 5-Tier Packages + Become a Sponsor Application" data-ar="مركز الرعاة — 5 مستويات باقات + طلب تصبح راعياً">Sponsorship Hub — 5-Tier Packages + Become a Sponsor Application</div>
+                  <div class="comp-sub" data-en="Official · Platinum · Main · Royal · Elite — including VIP closing party, lunch &amp; coffee break invitations" data-ar="Official · Platinum · Main · Royal · Elite — بما في ذلك دعوات حفلة الإغلاق وغداء VIP واستراحة القهوة">Official · Platinum · Main · Royal · Elite — including VIP closing party, lunch &amp; coffee break invitations</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">5 Sponsor Tiers</span>
+                    <span class="comp-tag b">Become a Sponsor CTA</span>
+                    <span class="comp-tag t">Admin Review</span>
+                    <span class="comp-tag p">VIP Perks</span>
+                    <span class="comp-tag r">Closing Party</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="SVS Egypt's five-tier sponsorship structure is the most comprehensive in the SVS portfolio — including VIP closing party invitations, VIP lunch invitations, and VIP coffee break invitations unique to the Egypt edition. All five tiers are publicly showcased on the Packages page with full benefits breakdowns. Companies apply to become a sponsor via the 'Become a Sponsor' page, feeding directly into the admin dashboard for Smart Vision's review, approval, and follow-up. The 9th edition commands Egypt's largest financial sector sponsorship audience." data-ar="بنية الرعاة الخماسية لـ SVS مصر هي الأكثر شمولاً في محفظة SVS — بما في ذلك دعوات حفلة الإغلاق VIP ودعوات غداء VIP ودعوات استراحة القهوة VIP المميزة للإصدار المصري. جميع المستويات الخمسة معروضة للعموم على صفحة الباقات مع تفصيل المزايا الكامل. تتقدم الشركات لتصبح راعية عبر صفحة 'تصبح راعياً'، تُغذّي مباشرةً لوحة التحكم الإدارية لمراجعة Smart Vision وموافقتها ومتابعتها. الإصدار التاسع يستقطب أكبر جمهور رعاة القطاع المالي في مصر.">SVS Egypt's five-tier sponsorship structure is the most comprehensive in the SVS portfolio — including VIP closing party invitations, VIP lunch invitations, and VIP coffee break invitations unique to the Egypt edition. All five tiers are publicly showcased with full benefits breakdowns. Companies apply via the 'Become a Sponsor' page, feeding directly into the admin dashboard for Smart Vision's review, approval, and follow-up. The 9th edition commands Egypt's largest financial sector sponsorship audience.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="5-Tier Sponsorship Packages" data-ar="باقات الرعاية من 5 مستويات">5-Tier Sponsorship Packages</h2>
+              <div class="tiers-grid">
+                <div class="tier-card official">
+                  <div class="tier-name">🔴 Official Sponsor</div>
+                  <div class="tier-perks">4 Magazine Ads · 10 VIP Permits · 10 Closing Party + Lunch + Coffee Invites · 2 Panel Discussions · 2 Seminars · 2 Speakers · Award · 8 Roll-ups · 8 Flags · 8 Big Hall Flags · 6 VIP Hall Permits · 5 Press Interviews · 3 Email Campaigns · Social Promo</div>
+                </div>
+                <div class="tier-card main">
+                  <div class="tier-name">✦ Main Sponsor</div>
+                  <div class="tier-perks">3 Magazine Ads · 7 VIP Permits · 7 Closing Party + Lunch + Coffee Invites · 1 Panel Discussion · 2 Seminars · 1 Speaker · Award · 5 Roll-ups · 5 Flags · 4 VIP Hall Permits · 3 Press Interviews · 2 Email Campaigns · Social Promo</div>
+                </div>
+                <div class="tier-card royal">
+                  <div class="tier-name">💜 Royal Sponsor</div>
+                  <div class="tier-perks">2 Magazine Ads · 6 VIP Permits · 6 Closing Party + 3 Lunch + 3 Coffee Invites · 1 Panel · 1 Seminar · 1 Speaker · Award · 4 Roll-ups · 4 Flags · 3 VIP Hall Permits · 2 Press Interviews · 1 Email Campaign · Notebook Sponsor</div>
+                </div>
+                <div class="tier-card elite">
+                  <div class="tier-name">🩵 Elite Sponsor</div>
+                  <div class="tier-perks">2 Magazine Ads · 6 VIP Permits · 6 Closing Party + 4 Lunch + 4 Coffee Invites · 1 Panel · 1 Seminar · 1 Speaker · Award · 4 Roll-ups · 4 Flags · 3 VIP Hall Permits · 2 Press Interviews · 1 Email Campaign · Lunch Sponsor</div>
+                </div>
+                <div class="tier-card platinum">
+                  <div class="tier-name">⬜ Platinum Sponsor</div>
+                  <div class="tier-perks">1 Magazine Ad · 3 VIP Permits · 3 Closing Party + Lunch + Coffee Invites · 1 Panel · 1 Seminar · 1 Speaker · Award · 2 Roll-ups · 2 VIP Hall Permits · 2 Press Interviews · 1 Email Campaign · Social Promo</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="9th Edition — The Most Established SVS in the Portfolio" data-ar="الإصدار التاسع — SVS الأكثر رسوخاً في المحفظة">9th Edition — The Most Established SVS in the Portfolio</strong>
+                    <span data-en="SVS Egypt 2026 is the 9th consecutive Smart Vision Summit in Egypt — making it the most proven, most attended, and highest-prestige edition in the entire SVS portfolio. Smart Vision is an Egyptian company, and Egypt is both the founding country and the home base of the brand. Nine consecutive editions means the platform serves a summit with 8 years of cumulative past event data, attendee records, sponsor relationships, and media partnerships — all managed through the same digital platform." data-ar="SVS مصر 2026 هو الإصدار التاسع المتتالي لقمة الرؤية الذكية في مصر — مما يجعله الإصدار الأكثر برهاناً وحضوراً وأعلى هيبة في محفظة SVS بأكملها. Smart Vision شركة مصرية، ومصر هي الدولة المؤسِّسة والمقر الأساسي للعلامة التجارية. تسعة إصدارات متتالية تعني أن المنصة تخدم قمة ذات 8 سنوات من البيانات التراكمية للفعاليات السابقة وسجلات الحضور وعلاقات الرعاة والشراكات الإعلامية — كلها تُدار من خلال نفس المنصة الرقمية.">SVS Egypt 2026 is the 9th consecutive Smart Vision Summit in Egypt — making it the most proven, most attended, and highest-prestige edition in the entire SVS portfolio. Smart Vision is an Egyptian company, and Egypt is both the founding country and home base of the brand. Nine consecutive editions means the platform serves a summit with 8 years of cumulative past event data, attendee records, sponsor relationships, and media partnerships — all managed through the same digital platform.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Nile Ritz-Carlton, Cairo — Africa &amp; Middle East's Iconic Summit Venue" data-ar="النيل ريتز كارلتون القاهرة — مكان القمة الأيقوني في أفريقيا والشرق الأوسط">Nile Ritz-Carlton, Cairo — Africa &amp; Middle East's Iconic Summit Venue</strong>
+                    <span data-en="The Nile Ritz-Carlton is one of the most iconic and prestigious luxury hotels in Africa and the Middle East — a five-star venue directly on the Nile River in the heart of Cairo. The summit website prominently showcases the venue's world-class prestige and Nile-facing setting to attract international speakers, investors, sponsors, and attendees who expect a premium conference experience befitting the 9th edition of SVS's flagship summit." data-ar="النيل ريتز كارلتون هو أحد أكثر الفنادق الفاخرة شهرة وهيبة في أفريقيا والشرق الأوسط — مكان خمس نجوم مباشرةً على نهر النيل في قلب القاهرة. يُبرز موقع القمة بشكل بارز هيبة المكان العالمية وموقعه المطل على النيل لجذب المتحدثين الدوليين والمستثمرين والرعاة والحضور الذين يتوقعون تجربة مؤتمرات فاخرة تليق بالإصدار التاسع من القمة الرائدة لـ SVS.">The Nile Ritz-Carlton is one of the most iconic luxury hotels in Africa and the Middle East — a five-star venue directly on the Nile River in the heart of Cairo. The summit website prominently showcases the venue's world-class prestige and Nile-facing setting to attract international speakers, investors, sponsors, and attendees who expect a premium conference experience befitting the 9th edition of SVS's flagship summit.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="AI Reshaping Financial Markets — The Most Evolved SVS Focus" data-ar="AI يُعيد تشكيل الأسواق المالية — أكثر تركيز SVS تطوراً">AI Reshaping Financial Markets — The Most Evolved SVS Focus</strong>
+                    <span data-en="SVS Egypt 2026 carries the most evolved and forward-looking focus in the SVS lineup: 'How AI is reshaping investment strategies, market analysis, trading behavior, and the entire financial ecosystem.' The summit program covers keynote speeches from global AI and fintech leaders, live panel discussions on AI-driven trading, workshops on applying AI to investment, and high-level networking — positioning SVS Egypt as the region's premier event at the intersection of artificial intelligence and financial markets." data-ar="يحمل SVS مصر 2026 أكثر تركيز تطوراً ومستقبلياً في تشكيلة SVS: 'كيف يُعيد AI تشكيل استراتيجيات الاستثمار وتحليل السوق وسلوك التداول والنظام المالي بأكمله'. يغطي برنامج القمة خطابات رئيسية من قادة AI والفينتك العالميين ومناقشات لجان حية حول التداول المدفوع بـ AI وورش عمل حول تطبيق AI على الاستثمار وتواصل عالي المستوى — مما يضع SVS مصر كأبرز فعالية في المنطقة عند تقاطع الذكاء الاصطناعي والأسواق المالية.">SVS Egypt 2026 carries the most evolved focus in the SVS lineup: "How AI is reshaping investment strategies, market analysis, trading behavior, and the entire financial ecosystem." The summit program covers keynote speeches from global AI and fintech leaders, live panel discussions on AI-driven trading, workshops on applying AI to investment, and high-level networking — positioning SVS Egypt as the region's premier event at the intersection of AI and financial markets.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="VIP Closing Party — Egypt Edition's Signature Exclusive" data-ar="حفلة الإغلاق VIP — الحصري المميز للإصدار المصري">VIP Closing Party — Egypt Edition's Signature Exclusive</strong>
+                    <span data-en="A distinctive feature of the SVS Egypt sponsorship packages — unique to this edition — is the inclusion of VIP closing party invitations across all five sponsorship tiers, from Official Sponsors (10 invitations) down to Platinum Sponsors (3 invitations). The VIP closing party is the summit's signature networking event — bringing together speakers, sponsors, investors, and top attendees for an exclusive end-of-summit gala. This exclusive perk makes SVS Egypt's sponsorship packages the most premium in the SVS portfolio." data-ar="ميزة مميزة لباقات رعاية SVS مصر — حصرية لهذا الإصدار — هي تضمين دعوات حفلة الإغلاق VIP عبر جميع مستويات الرعاية الخمسة، من الرعاة الرسميين (10 دعوات) وصولاً إلى الرعاة Platinum (3 دعوات). حفلة الإغلاق VIP هي فعالية التواصل المميزة للقمة — تجمع المتحدثين والرعاة والمستثمرين وكبار الحضور لحفل خاص في نهاية القمة. هذا المزية الحصرية تجعل باقات رعاية SVS مصر الأكثر فخامة في محفظة SVS.">A distinctive feature of SVS Egypt's sponsorship packages — unique to this edition — is the inclusion of VIP closing party invitations across all five sponsorship tiers, from Official Sponsors (10 invitations) down to Platinum Sponsors (3 invitations). The VIP closing party is the summit's signature networking event — bringing together speakers, sponsors, investors, and top attendees for an exclusive end-of-summit gala. This exclusive perk makes SVS Egypt's sponsorship packages the most premium in the SVS portfolio.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Multi Media Section — 8 Editions of Past Event Content" data-ar="قسم Multi Media — 8 إصدارات من محتوى الفعاليات السابقة">Multi Media Section — 8 Editions of Past Event Content</strong>
+                    <span data-en="The SVS Egypt website includes a Multi Media section with promo videos, event teasers, and highlight reels — backed by 8 full previous Egypt editions of past event photo gallery content. For an established 9th edition summit, this rich library of past event media is a powerful credibility and conversion tool — showing prospective sponsors, speakers, and attendees exactly what to expect from one of the region's most established investment and financial markets summits." data-ar="يتضمن موقع SVS مصر قسم Multi Media مع مقاطع فيديو ترويجية ومقاطع إعلانية للفعالية ولقطات إبراز — مدعومة بـ 8 إصدارات مصرية سابقة كاملة من محتوى معرض صور الفعاليات السابقة. لقمة راسخة في طبعتها التاسعة، تُعدّ هذه المكتبة الغنية من ميديا الفعاليات السابقة أداة مصداقية وتحويل قوية — تُظهر للرعاة والمتحدثين والحضور المحتملين بالضبط ما يمكن توقعه من أحد أكثر قمم الاستثمار والأسواق المالية رسوخاً في المنطقة.">The SVS Egypt website includes a Multi Media section with promo videos, event teasers, and highlight reels — backed by 8 full previous Egypt editions of past event gallery content. For an established 9th edition summit, this rich library of past event media is a powerful credibility and conversion tool — showing prospective sponsors, speakers, and attendees exactly what to expect from one of the region's most established investment and financial markets summits.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="SEO for Egypt's Premier Financial &amp; AI Conference Market" data-ar="SEO لسوق مؤتمرات AI والمالية الرائدة في مصر">SEO for Egypt's Premier Financial &amp; AI Conference Market</strong>
+                    <span data-en="Full technical SEO implementation on the SVS Egypt platform — meta titles and descriptions targeting Egypt's investment conference and AI in finance keywords, H1-H3 hierarchy, semantic HTML5, JSON-LD event schema for Google rich results, XML sitemap, canonical URLs, Open Graph social tags, and bilingual (English/Arabic) content. The 9th edition's SEO strategy also leverages Smart Vision's established domain authority from years of smartvisionexpo.com operation to rank for Egypt's financial summit search queries." data-ar="تطبيق SEO تقني كامل على منصة SVS مصر — عناوين meta وأوصاف تستهدف كلمات مفتاحية لمؤتمرات الاستثمار وAI في المالية في مصر وتسلسل هرمي H1-H3 وHTML5 دلالي ومخطط JSON-LD للفعاليات لنتائج Google الغنية وخريطة موقع XML وروابط URL قانونية وعلامات Open Graph الاجتماعية ومحتوى ثنائي اللغة (إنجليزي/عربي). تستفيد أيضاً استراتيجية SEO للإصدار التاسع من سلطة النطاق الراسخة لـ Smart Vision من سنوات تشغيل smartvisionexpo.com للتصنيف لاستعلامات بحث القمة المالية في مصر.">Full technical SEO implementation on the SVS Egypt platform — meta titles/descriptions targeting Egypt's investment conference and AI in finance keywords, H1-H3 hierarchy, semantic HTML5, JSON-LD event schema for Google rich results, XML sitemap, canonical URLs, Open Graph social tags, and bilingual (English/Arabic) content. The 9th edition's SEO strategy also leverages Smart Vision's established domain authority from years of smartvisionexpo.com operation to rank for Egypt's financial summit search queries.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>9th</strong>
+                  <span data-en="SVS Egypt Edition · Flagship" data-ar="إصدار SVS مصر · رائد">SVS Egypt Edition · Flagship</span>
+                </div>
+                <div class="result-card">
+                  <strong>5</strong>
+                  <span data-en="Sponsor Tiers · VIP Closing Party" data-ar="مستويات رعاة · حفلة إغلاق VIP">Sponsor Tiers · VIP Closing Party</span>
+                </div>
+                <div class="result-card">
+                  <strong>🏨</strong>
+                  <span data-en="Nile Ritz-Carlton · Cairo" data-ar="النيل ريتز كارلتون · القاهرة">Nile Ritz-Carlton · Cairo</span>
+                </div>
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="In Production · Dec 5–6" data-ar="في الإنتاج · 5-6 ديسمبر">In Production · Dec 5–6</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Managing a 9th Edition's Scale — High-Volume Registrations &amp; Established Sponsor Pipeline" data-ar="إدارة حجم الإصدار التاسع — تسجيلات عالية الحجم وخط أنابيب رعاة راسخ">Managing a 9th Edition's Scale — High-Volume Registrations &amp; Established Sponsor Pipeline</strong>
+                  <p data-en="A 9th-edition summit brings significantly larger operational scale than a new-country launch. The SVS Egypt platform must handle the highest attendee registration volumes in the SVS portfolio, manage the most active sponsor pipeline across all five tiers simultaneously, process the highest volume of QR ticket generation and email delivery, and handle peak-load door scanning at the Nile Ritz-Carlton on event day — while the admin dashboard maintains real-time visibility across all operations for the Smart Vision team." data-ar="قمة الإصدار التاسع تجلب حجماً تشغيلياً أكبر بكثير من إطلاق دولة جديدة. يجب أن تتعامل منصة SVS مصر مع أعلى أحجام تسجيل الحضور في محفظة SVS، وإدارة أنشط خط أنابيب رعاة عبر جميع المستويات الخمسة في آن واحد، ومعالجة أعلى حجم من توليد تذاكر QR وتسليم البريد الإلكتروني، والتعامل مع مسح الباب تحت الحمل الذروة في النيل ريتز كارلتون يوم الفعالية — بينما تحافظ لوحة التحكم الإدارية على رؤية آنية عبر جميع العمليات لفريق Smart Vision.">A 9th-edition summit brings significantly larger operational scale than a new-country launch. The SVS Egypt platform must handle the highest attendee registration volumes in the SVS portfolio, manage the most active sponsor pipeline across all five tiers simultaneously, process the highest volume of QR ticket generation and email delivery, and handle peak-load door scanning at the Nile Ritz-Carlton on event day — while the admin dashboard maintains real-time visibility across all operations.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="8 Editions of Past Event Data — Content History &amp; Gallery Management" data-ar="8 إصدارات من بيانات الفعاليات السابقة — إدارة تاريخ المحتوى والمعرض">8 Editions of Past Event Data — Content History &amp; Gallery Management</strong>
+                  <p data-en="With 8 previous SVS Egypt editions, the platform must manage a large library of past event media — photo galleries, promo videos, and highlight reels — displayed across the website's Past Event Photos gallery and Multi Media sections. This requires organized media storage with optimized delivery for web performance, appropriate categorization and filtering of content from different years, and content management tools in the admin dashboard to easily add new media from the current edition while preserving the historical archive." data-ar="مع 8 إصدارات SVS مصر السابقة، يجب أن تدير المنصة مكتبة كبيرة من ميديا الفعاليات السابقة — معارض صور ومقاطع فيديو ترويجية ولقطات إبراز — معروضة عبر أقسام معرض صور الفعاليات السابقة وMulti Media في الموقع. يتطلب هذا تخزيناً منظماً للوسائط مع تسليم محسّن لأداء الويب وتصنيفاً وفلترة مناسبة للمحتوى من سنوات مختلفة وأدوات إدارة محتوى في لوحة التحكم الإدارية لإضافة وسائط جديدة بسهولة من الإصدار الحالي مع الحفاظ على الأرشيف التاريخي.">With 8 previous SVS Egypt editions, the platform must manage a large library of past event media — photo galleries, promo videos, and highlight reels — across the website's Past Event Photos gallery and Multi Media sections. This requires organized media storage with optimized delivery for web performance, appropriate categorization and filtering of content from different years, and content management tools in the admin dashboard to easily add new media while preserving the historical archive.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Consistency Across the Entire SVS Multi-Edition Platform Ecosystem" data-ar="الاتساق عبر نظام منصة SVS متعدد الإصدارات بالكامل">Consistency Across the Entire SVS Multi-Edition Platform Ecosystem</strong>
+                  <p data-en="SVS Egypt operates as part of the broader SVS multi-country platform ecosystem — alongside editions in Kuwait, Bahrain, Oman, Morocco, and other countries. As the home-country flagship edition, SVS Egypt serves as the reference implementation for the SVS platform architecture. Maintaining consistent functionality, security standards, and UX patterns across all active SVS editions while allowing each country edition's website to have its own unique content, branding, SEO, venue, dates, and admin configuration is the core architectural challenge of the SVS platform as a whole." data-ar="يعمل SVS مصر كجزء من نظام منصة SVS متعدد الدول الأشمل — إلى جانب إصدارات في الكويت والبحرين وعُمان والمغرب ودول أخرى. بوصفه الإصدار الرائد للدولة الأم، يعمل SVS مصر كالتطبيق المرجعي لبنية منصة SVS. الحفاظ على وظائف متسقة ومعايير أمان وأنماط UX عبر جميع إصدارات SVS النشطة مع السماح لموقع كل إصدار دولة بمحتواه وعلامته التجارية وSEO ومكانه وتواريخه وتكوين إداريه الفريدة هو التحدي المعماري الجوهري لمنصة SVS ككل.">SVS Egypt operates as part of the broader SVS multi-country platform ecosystem — alongside editions in Kuwait, Bahrain, Oman, Morocco, and other countries. As the home-country flagship edition, SVS Egypt serves as the reference implementation for the SVS platform architecture. Maintaining consistent functionality, security standards, and UX patterns across all active SVS editions while allowing each country edition to have its own unique content, branding, SEO, venue, dates, and admin configuration is the core architectural challenge of the SVS platform as a whole.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-svs-oman.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="SVS Oman 2027 — Muscat" data-ar="SVS Oman 2027 — مسقط">SVS Oman 2027 — Muscat</strong>
+              </a>
+              <a href="index.html#contact" class="btn-red" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Smart Vision Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Event" data-ar="الفعالية">Event</span>
+                <span class="meta-val" style="font-size:11px;text-align:right;max-width:150px;">SVS Egypt 2026 — Smart Vision Summit</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Edition" data-ar="الإصدار">Edition</span>
+                <span class="edition-val">🏆 9th Edition · Flagship</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇪🇬 Egypt — Cairo</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Venue" data-ar="المكان">Venue</span>
+                <span class="meta-val" style="font-size:11px;text-align:right;max-width:140px;">Nile Ritz-Carlton, Cairo</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Date" data-ar="التاريخ">Date</span>
+                <span class="meta-val" style="font-size:11px;">5–6 December 2026</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Duration" data-ar="المدة">Duration</span>
+                <span class="meta-val" style="font-size:11px;" data-en="2 Days · 10 AM – 6 PM" data-ar="يومان · 10 ص – 6 م">2 Days · 10 AM – 6 PM</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Focus" data-ar="التركيز">Focus</span>
+                <span class="meta-val" style="font-size:11px;" data-en="AI &amp; Financial Markets" data-ar="AI والأسواق المالية">AI &amp; Financial Markets</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live · Registrations Open" data-ar="منتج · التسجيل مفتوح">Live · Registrations Open</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">QR Code</span>
+                <span class="tech-chip">PDF Gen</span>
+                <span class="tech-chip">SMTP</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">SEO</span>
+                <span class="tech-chip">YouTube Embed</span>
+                <span class="tech-chip">JSON-LD</span>
+                <span class="tech-chip">CDN</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://smartvisionexpo.com/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#d2232a,#b01c22);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🌐 Visit SVS Egypt" data-ar="🌐 زيارة SVS مصر">🌐 Visit SVS Egypt</a>
+              <a href="https://smartvisionexpo.com/register" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(210,35,42,.07);color:#b01c22;border:1px solid rgba(210,35,42,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="📋 View Registration System" data-ar="📋 شاهد نظام التسجيل">📋 View Registration System</a>
+              <a href="https://smartvisionexpo.com/package" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(210,35,42,.07);color:#b01c22;border:1px solid rgba(210,35,42,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🤝 See Sponsorship Packages" data-ar="🤝 شاهد باقات الرعاية">🤝 See Sponsorship Packages</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(210,35,42,.05);color:#b01c22;border:1px solid rgba(210,35,42,.2);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'SVS Egypt 2026 — منصة قمة الرؤية الذكية القاهرة الإصدار التاسع | أحمد نور'
+        : 'SVS Egypt 2026 — Smart Vision Summit Cairo 9th Edition Event Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
