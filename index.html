@@ -33,9 +33,24 @@
           <span id="langLabel">العربية</span>
         </button>
         <a href="#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile sidebar -->
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <button class="mobile-nav-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+    <a href="#projects" data-en="Projects" data-ar="المشاريع">Projects</a>
+    <a href="#countries" data-en="Countries" data-ar="الدول">Countries</a>
+    <a href="#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+    <a href="#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+    <a href="#contact" class="btn btn-primary mobile-nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+  </nav>
 
   <main>
     <section class="hero section-pad">

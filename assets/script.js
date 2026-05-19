@@ -229,6 +229,38 @@ async function loadCountries() {
 
 loadCountries();
 
+// ===== MOBILE SIDEBAR =====
+(function () {
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const overlay = document.getElementById('mobileOverlay');
+  const closeBtn = document.getElementById('mobileClose');
+  if (!hamburger || !mobileNav) return;
+
+  function openNav() {
+    mobileNav.classList.add('open');
+    overlay.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav() {
+    mobileNav.classList.remove('open');
+    overlay.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', openNav);
+  closeBtn?.addEventListener('click', closeNav);
+  overlay.addEventListener('click', closeNav);
+  mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+})();
+
 // ===== ACTIVE NAV LINK =====
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
