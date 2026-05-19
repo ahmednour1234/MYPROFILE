@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVS Kuwait 2026 — Smart Vision Summit Event Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--svs-red:#d2232a;--svs-red2:#b01c22;--svs-dark:#0f0f0f;--svs-charcoal:#1a1a1a;--svs-mid:#2a2a2a;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0f0f0f 0%,#1a1a1a 60%,#220a0b 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 40%,rgba(210,35,42,.18) 0%,transparent 65%),radial-gradient(ellipse 35% 45% at 5% 80%,rgba(210,35,42,.08) 0%,transparent 55%);}
+    .red-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#d2232a,#ff5a5f,#d2232a,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(210,35,42,.4);margin-bottom:20px;}
+    .brand-mark img{height:26px;object-fit:contain;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#ff6b6b;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(210,35,42,.18);color:#ff8080;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,40px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#ff6b6b,#d2232a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:510px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.red{background:rgba(210,35,42,.18);border-color:rgba(210,35,42,.5);color:#ff8080;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-red{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#d2232a,#b01c22);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;border:1px solid rgba(255,107,107,.15);}
+    .btn-red:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(210,35,42,.5);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:270px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(210,35,42,.3),0 -1px 0 rgba(255,107,107,.2);display:block;object-fit:cover;height:230px;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(210,35,42,.2);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(210,35,42,.15);border-color:rgba(210,35,42,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(210,35,42,.08);color:#b01c22;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.website::before{background:linear-gradient(90deg,#d2232a,#ff6b6b);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#b01c22,#d2232a);}
+    .component-card.registration::before{background:linear-gradient(90deg,#8b1017,#b01c22);}
+    .component-card.qr::before{background:linear-gradient(90deg,#5a0a0d,#8b1017);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.r{background:rgba(210,35,42,.1);color:#b01c22;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#d2232a,#b01c22);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d2232a,#ff8080);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a1a1a,#d2232a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* SEO section */
+    .seo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+    .seo-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:center;box-shadow:var(--shadow);}
+    .seo-card .seo-icon{font-size:28px;margin-bottom:8px;}
+    .seo-card h3{font-size:13px;font-weight:800;color:var(--navy);margin:0 0 6px;}
+    .seo-card p{font-size:11.5px;color:var(--muted);line-height:1.6;margin:0;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #d2232a;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#d2232a;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .seo-grid{grid-template-columns:1fr;}
+      .platform-inner{flex-direction:column;align-items:stretch;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="red-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>SVS Kuwait 2026</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark"><img src="assets/projects/svs-kuwait/svs-logo.png" alt="SVS Kuwait" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:14px;color:#ff6b6b;\'>SVS</span>'" /></div>
+          <span><em>Smart Vision Summit</em> &nbsp;— KUWAIT 2026 EVENT PLATFORM · KUWAIT</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Events · Summit · QR Ticketing · SEO</span>
+            <h1 data-en="SVS Kuwait 2026 — <em>Smart Vision Summit</em> Event Platform" data-ar="SVS Kuwait 2026 — منصة فعاليات <em>قمة الرؤية الذكية</em>">SVS Kuwait 2026 — <em>Smart Vision Summit</em> Event Platform</h1>
+            <p data-en="A full-stack event management platform for the Smart Vision Summit Kuwait 2026 — a major two-day business summit at the Crowne Plaza Kuwait Al Thuraya City by IHG. Built with Laravel & PHP, the system covers the public summit website with SEO optimization, online attendee registration, sponsorship packages, QR ticket generation, and a real-time door scanner for seamless entry on event day." data-ar="منصة إدارة فعاليات متكاملة لقمة الرؤية الذكية الكويت 2026 — قمة أعمال كبرى لمدة يومين في فندق كراون بلازا الكويت مدينة الثريا من IHG. مبنية بـ Laravel وPHP، يغطي النظام موقع القمة العام مع تحسين محركات البحث (SEO)، والتسجيل الإلكتروني للحاضرين، وباقات الرعاية، وتوليد تذاكر QR، وماسح دخول آني ليوم الفعالية.">A full-stack event management platform for the Smart Vision Summit Kuwait 2026 — a major two-day business summit at Crowne Plaza Kuwait Al Thuraya City by IHG. Built with Laravel & PHP, covering the summit website with SEO, attendee registration, sponsorship packages, QR ticket generation, and a real-time door scanner.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇰🇼 Kuwait</span>
+              <span class="hero-badge red">✓ Live in Production</span>
+              <span class="hero-badge red">🏢 Business Summit</span>
+              <span class="hero-badge">📲 QR Ticketing</span>
+              <span class="hero-badge">🔍 SEO Optimized</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://kuwait.smartvisionsummit.com/" target="_blank" rel="noopener noreferrer" class="btn-red" data-en="Visit SVS Kuwait →" data-ar="زيارة موقع SVS الكويت →">Visit SVS Kuwait →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/svs-kuwait/svs-hero.jpg" alt="SVS Kuwait 2026 Summit" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Public Summit Website" data-ar="موقع القمة العام">Public Summit Website</strong><span data-en="About, packages, media &amp; contact" data-ar="حول وباقات وميديا وتواصل">About, packages, media &amp; contact</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📋</span>
+              <div class="pp-text"><strong data-en="Registration System" data-ar="نظام التسجيل">Registration System</strong><span data-en="Online attendee registration &amp; management" data-ar="تسجيل وإدارة الحضور إلكترونياً">Online attendee registration &amp; management</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Attendees, sponsors &amp; event operations" data-ar="الحضور والرعاة وعمليات الفعالية">Attendees, sponsors &amp; event operations</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎟️</span>
+              <div class="pp-text"><strong data-en="QR Tickets &amp; Door Scanner" data-ar="تذاكر QR وماسح الباب">QR Tickets &amp; Door Scanner</strong><span data-en="Generate, email &amp; scan at entry" data-ar="توليد وإرسال ومسح عند الدخول">Generate, email &amp; scan at entry</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🔍</span>
+              <div class="pp-text"><strong data-en="SEO Optimization" data-ar="تحسين محركات البحث">SEO Optimization</strong><span data-en="Ranking on Google for Kuwait summit keywords" data-ar="تصنيف على جوجل لكلمات قمة الكويت">Ranking on Google for Kuwait summit keywords</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="SVS Kuwait 2026 (Smart Vision Summit Kuwait) is a major two-day business and investment summit held on 14–15 October 2026 at the Crowne Plaza Kuwait Al Thuraya City by IHG — one of Kuwait's premier 5-star venues. The event brings together business leaders, investors, and industry figures from the GCC region for two full days of talks, networking, and award ceremonies." data-ar="SVS Kuwait 2026 (قمة الرؤية الذكية الكويت) هي قمة أعمال واستثمار كبرى لمدة يومين تُعقد في 14-15 أكتوبر 2026 في فندق كراون بلازا الكويت مدينة الثريا من IHG — أحد أبرز مواقع 5 نجوم في الكويت. يجمع الحدث قادة الأعمال والمستثمرين وشخصيات الصناعة من منطقة الخليج العربي ليومين كاملين من المحادثات والتواصل وحفلات تسليم الجوائز.">SVS Kuwait 2026 (Smart Vision Summit Kuwait) is a major two-day business summit on 14–15 October 2026 at the Crowne Plaza Kuwait Al Thuraya City by IHG. The event brings together business leaders, investors, and industry figures from the GCC region for two days of talks, networking, and awards.</p>
+              <p data-en="The platform built for SVS Kuwait is a complete end-to-end event management system: a public summit website with full SEO optimization to rank on Google for Kuwait summit and business event keywords, an online attendee registration flow, a sponsorship packages system, an admin dashboard for the organizing team, and a QR ticketing system with both generation and door-scanning capabilities. The platform is built on Laravel and PHP with a MySQL database." data-ar="المنصة المبنية لـ SVS Kuwait هي نظام إدارة فعاليات شامل من البداية إلى النهاية: موقع قمة عام مع تحسين SEO كامل للتصنيف على جوجل لكلمات قمة الكويت والفعاليات التجارية، وتدفق تسجيل الحضور إلكترونياً، ونظام باقات الرعاية، ولوحة تحكم إدارية لفريق التنظيم، ونظام تذاكر QR بإمكانيات التوليد والمسح عند الباب. المنصة مبنية على Laravel وPHP مع قاعدة بيانات MySQL.">The platform is a complete end-to-end event management system: a public summit website with full SEO optimization to rank on Google for Kuwait summit keywords, attendee registration, sponsorship packages, admin dashboard, and a QR ticketing system with generation and door-scanning. Built on Laravel, PHP, and MySQL.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card website">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Public Summit Website" data-ar="موقع القمة العام">Public Summit Website</div>
+                  <div class="comp-sub">kuwait.smartvisionsummit.com</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">About &amp; Agenda</span>
+                    <span class="comp-tag r">Packages</span>
+                    <span class="comp-tag b">Media Gallery</span>
+                    <span class="comp-tag t">Countdown Timer</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full summit showcase website — event details, date, venue info, live countdown, sponsorship packages, media gallery, and contact page. Designed for maximum SEO performance and fast page load." data-ar="موقع عرض القمة الكامل — تفاصيل الفعالية والتاريخ ومعلومات المكان وعداد تنازلي حي وباقات الرعاية وصالة الميديا وصفحة التواصل. مصمم لأقصى أداء SEO وسرعة تحميل الصفحة.">Full summit showcase website — event details, date, venue info, live countdown, sponsorship packages, media gallery, and contact. Designed for maximum SEO performance and fast load speed.</p>
+                </div>
+                <div class="component-card registration">
+                  <div class="comp-icon">📋</div>
+                  <div class="comp-name" data-en="Attendee Registration System" data-ar="نظام تسجيل الحضور">Attendee Registration System</div>
+                  <div class="comp-sub" data-en="Online sign-up &amp; confirmation" data-ar="تسجيل إلكتروني وتأكيد">Online sign-up &amp; confirmation</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Registration Form</span>
+                    <span class="comp-tag b">Email Confirm</span>
+                    <span class="comp-tag t">Auto QR Issue</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Attendees register online through the summit website — fill in details, choose their package tier, submit, and automatically receive a confirmation email with their unique QR ticket attached as a branded PDF." data-ar="يسجل الحضور إلكترونياً عبر موقع القمة — يملؤون التفاصيل ويختارون مستوى الباقة ويرسلون النموذج، ويتلقون تلقائياً إيميل تأكيد مع تذكرة QR الفريدة الخاصة بهم مرفقة كـ PDF ذي علامة تجارية.">Attendees register online — fill in details, choose package tier, submit, and automatically receive a confirmation email with their unique QR ticket as a branded PDF.</p>
+                </div>
+                <div class="component-card dashboard">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Full event operations control" data-ar="تحكم كامل في عمليات الفعالية">Full event operations control</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Attendee Mgmt</span>
+                    <span class="comp-tag r">Sponsors</span>
+                    <span class="comp-tag b">Reports</span>
+                    <span class="comp-tag t">RBAC</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The organizing team manages everything from the admin dashboard — view and manage registrations, review sponsor applications, issue QR tickets manually, monitor event-day entry scanning, and generate attendee reports." data-ar="يدير فريق التنظيم كل شيء من لوحة التحكم الإدارية — عرض وإدارة التسجيلات ومراجعة طلبات الرعاية وإصدار تذاكر QR يدوياً ومراقبة مسح الدخول يوم الفعالية وإنشاء تقارير الحضور.">The organizing team manages everything from the admin dashboard — registrations, sponsor applications, manual QR ticket issuance, event-day entry scanning monitoring, and attendee reports.</p>
+                </div>
+                <div class="component-card qr">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="QR Ticketing &amp; Door Scanner" data-ar="تذاكر QR وماسح الباب">QR Ticketing &amp; Door Scanner</div>
+                  <div class="comp-sub" data-en="Generate, email &amp; scan at entry" data-ar="توليد وإرسال ومسح عند الدخول">Generate, email &amp; scan at entry</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Unique QR / Attendee</span>
+                    <span class="comp-tag b">Anti-Duplicate</span>
+                    <span class="comp-tag t">Real-Time Scan</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Every registered attendee receives a unique QR code. On summit day, door staff use the scanner app to validate tickets in real time — green for valid, red for invalid or already scanned. Prevents duplicate entry and logs all scans with timestamps." data-ar="يتلقى كل حاضر مسجل رمز QR فريداً. يوم القمة، يستخدم الطاقم عند الباب تطبيق الماسح للتحقق من التذاكر آنياً — أخضر للصالح، أحمر للغير صالح أو المسحوب مسبقاً. يمنع الدخول المكرر ويسجل جميع عمليات المسح مع طوابع زمنية.">Every registered attendee gets a unique QR code. On summit day, door staff validate tickets in real time — green valid, red invalid or already scanned. Prevents duplicate entry, logs all scans.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="SEO Strategy" data-ar="استراتيجية SEO">SEO Strategy</h2>
+              <p data-en="SEO was a critical requirement for SVS Kuwait — the summit needed to be discoverable on Google for Kuwait-market business and event keywords. A full technical SEO implementation was built into the platform from day one." data-ar="كان SEO متطلباً حاسماً لـ SVS Kuwait — كانت القمة بحاجة لأن تكون قابلة للاكتشاف على جوجل لكلمات أعمال وفعاليات سوق الكويت. تم بناء تطبيق SEO تقني كامل في المنصة من اليوم الأول.">SEO was a critical requirement for SVS Kuwait — the summit needed to rank on Google for Kuwait-market business and event keywords. Full technical SEO was built into the platform from day one.</p>
+              <div class="seo-grid">
+                <div class="seo-card">
+                  <div class="seo-icon">📄</div>
+                  <h3 data-en="On-Page SEO" data-ar="SEO داخل الصفحة">On-Page SEO</h3>
+                  <p data-en="Optimized meta titles, descriptions, H1-H3 heading hierarchy, semantic HTML5 markup, keyword-targeted content, alt text for all images, and structured internal linking across all pages." data-ar="عناوين meta وأوصاف محسّنة، وتسلسل هرمي H1-H3، وترميز HTML5 دلالي، ومحتوى مستهدف بالكلمات المفتاحية، ونص بديل لجميع الصور، وربط داخلي منظم عبر جميع الصفحات.">Optimized meta titles, descriptions, H1-H3 hierarchy, semantic HTML5, keyword-targeted content, alt text for all images, structured internal linking across all pages.</p>
+                </div>
+                <div class="seo-card">
+                  <div class="seo-icon">⚡</div>
+                  <h3 data-en="Technical SEO &amp; Performance" data-ar="SEO تقني والأداء">Technical SEO &amp; Performance</h3>
+                  <p data-en="Canonical URLs, XML sitemap, robots.txt, structured data (JSON-LD) for events, Open Graph tags for social sharing, fast page load via image compression and caching, and mobile-first responsive design." data-ar="روابط URL قانونية وخريطة موقع XML وrobots.txt وبيانات منظمة (JSON-LD) للفعاليات وعلامات Open Graph للمشاركة الاجتماعية وتحميل سريع للصفحة عبر ضغط الصور والتخزين المؤقت وتصميم متجاوب mobile-first.">Canonical URLs, XML sitemap, robots.txt, JSON-LD structured data for events, Open Graph tags, fast load via image compression &amp; caching, and mobile-first responsive design.</p>
+                </div>
+                <div class="seo-card">
+                  <div class="seo-icon">🌍</div>
+                  <h3 data-en="Local &amp; Regional SEO" data-ar="SEO محلي وإقليمي">Local &amp; Regional SEO</h3>
+                  <p data-en="Geo-targeted content and keywords for the Kuwait and GCC market, Arabic language SEO support, Google Business optimization, and event schema markup to appear in Google's rich results for event searches." data-ar="محتوى وكلمات مفتاحية جغرافية مستهدفة لسوق الكويت والخليج، ودعم SEO للغة العربية، وتحسين Google Business، وترميز مخطط الفعالية للظهور في نتائج جوجل الغنية لبحوث الفعاليات.">Geo-targeted keywords for Kuwait and GCC markets, Arabic language SEO support, Google Business optimization, and event schema markup for Google rich results on event searches.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Live Countdown Timer" data-ar="عداد تنازلي حي">Live Countdown Timer</strong>
+                    <span data-en="A JavaScript-powered live countdown on the website homepage ticks down to the summit opening hour — creating urgency and driving registrations. Visible on all pages via the sticky bar." data-ar="عداد تنازلي حي مدعوم بـ JavaScript على الصفحة الرئيسية للموقع يُحصي الوقت حتى ساعة افتتاح القمة — يخلق إلحاحاً ويدفع التسجيلات. مرئي في جميع الصفحات عبر الشريط الثابت.">A live countdown ticks down to the summit opening hour on the homepage, creating urgency and driving registrations — visible across all pages in the sticky bar.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Online Attendee Registration" data-ar="تسجيل الحضور إلكترونياً">Online Attendee Registration</strong>
+                    <span data-en="Attendees register directly through the website. The registration form collects all required details, validates inputs, and sends an automatic confirmation email with the QR ticket PDF — no manual steps needed." data-ar="يسجل الحضور مباشرة عبر الموقع. يجمع نموذج التسجيل جميع التفاصيل المطلوبة ويتحقق من المدخلات ويرسل إيميل تأكيد تلقائياً مع PDF تذكرة QR — لا حاجة لخطوات يدوية.">Attendees register directly through the website. The form collects details, validates inputs, and auto-sends a confirmation email with the QR ticket PDF — no manual steps required.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Sponsorship Packages System" data-ar="نظام باقات الرعاية">Sponsorship Packages System</strong>
+                    <span data-en="Multiple sponsorship tiers are displayed on the website with full package details and benefits. Companies apply online via a Become Sponsor form — all applications flow into the admin dashboard for review and follow-up." data-ar="تُعرض مستويات رعاية متعددة على الموقع مع تفاصيل الباقة والمزايا الكاملة. تتقدم الشركات إلكترونياً عبر نموذج 'كن راعياً' — جميع الطلبات تصب في لوحة التحكم الإدارية للمراجعة والمتابعة.">Multiple sponsorship tiers with full benefits displayed on the website. Companies apply online — all applications flow to the admin dashboard for review and follow-up.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="QR Code Generation &amp; Scanning" data-ar="توليد ومسح رمز QR">QR Code Generation &amp; Scanning</strong>
+                    <span data-en="Every registered attendee gets a unique QR code embedded in their PDF ticket and emailed automatically. On summit day, door staff scan QR codes with the scanner app — instant valid/invalid feedback, duplicate prevention, and real-time scan log in the dashboard." data-ar="يحصل كل حاضر مسجل على رمز QR فريد مضمّن في تذكرته بصيغة PDF وتُرسل تلقائياً. يوم القمة، يمسح الطاقم رموز QR بتطبيق الماسح — تغذية راجعة فورية بالصحة/الخطأ، ومنع التكرار، وسجل مسح آني في لوحة التحكم.">Every attendee gets a unique QR code in their PDF ticket. On summit day, door staff scan with the scanner app — instant valid/invalid feedback, duplicate prevention, real-time scan log in the dashboard.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="SEO Optimization for Kuwait Market" data-ar="تحسين SEO لسوق الكويت">SEO Optimization for Kuwait Market</strong>
+                    <span data-en="Full technical SEO — meta tags, structured data (JSON-LD events schema), XML sitemap, canonical URLs, fast load, Open Graph — optimized for Kuwait and GCC business event search terms on Google." data-ar="SEO تقني كامل — علامات meta وبيانات منظمة (مخطط JSON-LD للفعاليات) وخريطة موقع XML وروابط URL قانونية وتحميل سريع وOpen Graph — محسّن لمصطلحات بحث الفعاليات التجارية في الكويت والخليج على جوجل.">Full technical SEO — meta tags, JSON-LD events schema, XML sitemap, canonical URLs, fast load, Open Graph — optimized for Kuwait and GCC event search terms on Google.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Media Gallery &amp; Promo Video" data-ar="صالة الميديا وفيديو الترويج">Media Gallery &amp; Promo Video</strong>
+                    <span data-en="A full multimedia section includes a promo video player and photo gallery from previous SVS editions — building credibility and driving sponsor and attendee interest for the Kuwait 2026 edition." data-ar="يتضمن قسم الوسائط المتعددة الكامل مشغل فيديو ترويجي ومعرض صور من نسخ SVS السابقة — يبني المصداقية ويحرك اهتمام الرعاة والحضور للنسخة الكويتية 2026.">Full multimedia section with a promo video player and photo gallery from previous SVS editions — building credibility and driving sponsor and attendee interest for Kuwait 2026.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="In Production" data-ar="في الإنتاج">In Production</span>
+                </div>
+                <div class="result-card">
+                  <strong>2</strong>
+                  <span data-en="Day Summit · Oct 2026" data-ar="قمة يومين · أكتوبر 2026">Day Summit · Oct 2026</span>
+                </div>
+                <div class="result-card">
+                  <strong>QR</strong>
+                  <span data-en="Tickets + Door Scan" data-ar="تذاكر + مسح الباب">Tickets + Door Scan</span>
+                </div>
+                <div class="result-card">
+                  <strong>SEO</strong>
+                  <span data-en="Google-Ranked Kuwait" data-ar="تصنيف جوجل الكويت">Google-Ranked Kuwait</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Multi-Language SEO (Arabic &amp; English)" data-ar="SEO متعدد اللغات (عربي وإنجليزي)">Multi-Language SEO (Arabic &amp; English)</strong>
+                  <p data-en="The summit targets both English-speaking international attendees and Arabic-speaking Kuwait and GCC market audiences. Delivering proper SEO for both languages required implementing hreflang tags, separate Arabic-optimized meta content, and ensuring that Google could crawl and index both language versions cleanly without duplicate content issues." data-ar="تستهدف القمة المشاركين الدوليين الناطقين بالإنجليزية وجمهور سوق الكويت والخليج الناطق بالعربية على حد سواء. تطلب تقديم SEO مناسب للغتين تطبيق علامات hreflang ومحتوى meta محسّن للعربية بشكل منفصل وضمان إمكانية زحف جوجل وفهرسة كلا نسختي اللغة بشكل نظيف دون مشاكل المحتوى المكرر.">The summit targets both English-speaking international attendees and Arabic-speaking GCC audiences. Proper multi-language SEO required hreflang tags, separate Arabic-optimized meta content, and ensuring Google could crawl both language versions without duplicate content issues.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="High-Traffic Readiness for a Short Event Window" data-ar="جاهزية حركة مرور عالية لنافذة فعالية قصيرة">High-Traffic Readiness for a Short Event Window</strong>
+                  <p data-en="Business summit websites experience massive traffic spikes in the weeks and days before the event — then almost zero traffic immediately after. The platform needed to be optimized for high-concurrency during the registration rush and event countdown period, while keeping infrastructure costs low outside those peak windows. This was achieved through page caching, optimized database queries, and CDN-based asset delivery." data-ar="تشهد مواقع قمم الأعمال ارتفاعات هائلة في حركة المرور في الأسابيع والأيام السابقة للفعالية — ثم شبه صفر في حركة المرور فوراً بعدها. كانت المنصة بحاجة للتحسين للتزامن العالي خلال فترة اندفاع التسجيل والعد التنازلي للفعالية، مع الحفاظ على تكاليف البنية التحتية منخفضة خارج تلك النوافذ الذروة. تحقق ذلك من خلال التخزين المؤقت للصفحات واستعلامات قاعدة البيانات المحسّنة وتسليم الأصول القائم على CDN.">Summit websites experience massive traffic spikes before the event then near-zero after. The platform was optimized for high concurrency during registration rush and countdown periods, while keeping infrastructure costs low outside those peaks — achieved via page caching, optimized DB queries, and CDN-based asset delivery.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Reliable QR Validation in Crowded Entry Scenarios" data-ar="تحقق موثوق من QR في سيناريوهات الدخول المزدحمة">Reliable QR Validation in Crowded Entry Scenarios</strong>
+                  <p data-en="A two-day summit with hundreds of attendees means a large crowd of people arriving at the venue doors within a short window at the start of each day. The QR scanner system needed to handle rapid sequential scans without performance degradation — and needed to work reliably even if hotel Wi-Fi at the entry point was intermittent, using a local sync cache as a fallback to avoid any attendee being wrongly denied entry." data-ar="قمة لمدة يومين مع مئات الحضور تعني حشداً كبيراً من الناس يصلون إلى أبواب المكان في نافذة قصيرة في بداية كل يوم. كان نظام ماسح QR بحاجة للتعامل مع عمليات المسح المتسلسلة السريعة دون تدهور في الأداء — وكان بحاجة للعمل بشكل موثوق حتى لو كان واي فاي الفندق عند نقطة الدخول متقطعاً، باستخدام ذاكرة تخزين مزامنة محلية كخطة احتياطية لتجنب رفض أي حاضر خطأً.">A two-day summit means large crowds arriving at the doors in a short window each morning. The QR scanner needed to handle rapid sequential scans without performance degradation — and work reliably even with intermittent hotel Wi-Fi at the entry point, using a local sync cache to avoid any attendee being wrongly denied entry.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-gfma.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="GFMA London — Awards Gala" data-ar="GFMA London — حفل الجوائز">GFMA London — Awards Gala</strong>
+              </a>
+              <a href="index.html#contact" class="btn-red" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Smart Vision Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Event" data-ar="الفعالية">Event</span>
+                <span class="meta-val">SVS Kuwait 2026</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇰🇼 Kuwait</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Venue" data-ar="المكان">Venue</span>
+                <span class="meta-val" style="font-size:10.5px;text-align:right;max-width:155px;">Crowne Plaza Kuwait Al Thuraya City</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Dates" data-ar="التواريخ">Dates</span>
+                <span class="meta-val" style="font-size:11px;">14–15 Oct 2026</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Events · Business Summit" data-ar="فعاليات · قمة أعمال">Events · Business Summit</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">QR Code</span>
+                <span class="tech-chip">SEO</span>
+                <span class="tech-chip">JSON-LD</span>
+                <span class="tech-chip">PDF Gen</span>
+                <span class="tech-chip">SMTP</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://kuwait.smartvisionsummit.com/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#d2232a,#b01c22);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🌐 Visit SVS Kuwait Website" data-ar="🌐 زيارة موقع SVS الكويت">🌐 Visit SVS Kuwait Website</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(210,35,42,.07);color:#b01c22;border:1px solid rgba(210,35,42,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language switcher
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'SVS Kuwait 2026 — منصة فعاليات قمة الرؤية الذكية | أحمد نور'
+        : 'SVS Kuwait 2026 — Smart Vision Summit Event Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
