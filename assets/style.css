@@ -50,11 +50,13 @@ body {
 #webgl { position:fixed; inset:0; z-index:-1; opacity:0.32; }
 
 .bg-orb {
-  position:absolute;
+  position:fixed;
   border-radius:50%;
   pointer-events:none;
   z-index:-1;
   filter:blur(80px);
+  max-width:100vw;
+  overflow:hidden;
 }
 .orb-1 {
   width:600px; height:600px;
@@ -180,14 +182,14 @@ body {
   display:flex;
   flex-direction:column;
   gap:2px;
-  transform:translateX(105%);
+  transform:translateX(100%);
   transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
   box-shadow:-6px 0 50px rgba(37,99,235,0.13);
   overflow-y:auto;
 }
 [dir="rtl"] .mobile-nav {
   right:auto; left:0;
-  transform:translateX(-105%);
+  transform:translateX(-100%);
   box-shadow:6px 0 50px rgba(37,99,235,0.13);
 }
 .mobile-nav.open { transform:translateX(0); }
