@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zewail Academy — زويل أكاديمي Website, CRM &amp; Mobile App Egypt | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--zw-blue:#1565c0;--zw-navy:#0c2d6b;--zw-gold:#f59e0b;--zw-dark:#081428;--zw-light:#e8f4fd;}
+
+    /* ── Hero ── */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#081428 0%,#0c2d6b 55%,#1a3a8a 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 35%,rgba(21,101,192,.22) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 5% 85%,rgba(245,158,11,.08) 0%,transparent 55%);}
+    .zw-accent-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#1565c0,#f59e0b,#1565c0,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(21,101,192,.4);margin-bottom:20px;}
+    .brand-mark{width:34px;height:34px;border-radius:9px;overflow:hidden;flex-shrink:0;background:white;display:flex;align-items:center;justify-content:center;}
+    .brand-mark img{width:100%;height:100%;object-fit:contain;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#93c5fd;}
+    .zw-type-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);margin-left:8px;}
+    .zw-type-badge span{font-size:11px;font-weight:800;color:#fcd34d;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(21,101,192,.25);color:#93c5fd;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(24px,2.8vw,40px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#93c5fd,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:520px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.blue{background:rgba(21,101,192,.2);border-color:rgba(21,101,192,.5);color:#93c5fd;}
+    .hero-badge.gold{background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.4);color:#fcd34d;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-blue{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#1565c0,#0c2d6b);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-blue:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(21,101,192,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    /* Logo strip */
+    .logo-strip{background:rgba(21,101,192,.06);border-top:1px solid rgba(21,101,192,.2);border-bottom:1px solid rgba(21,101,192,.1);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    .logo-strip-pill{padding:6px 16px;border-radius:999px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:#fcd34d;font-size:12px;font-weight:700;}
+    /* Stats bar */
+    .stats-strip{background:rgba(21,101,192,.06);border-bottom:1px solid rgba(21,101,192,.12);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    /* Platform strip */
+    .platform-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(21,101,192,.15);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(21,101,192,.15);border-color:rgba(21,101,192,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(21,128,61,.12);color:#15803d;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(21,101,192,.1);color:#1565c0;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Screens gallery */
+    .screens-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px;}
+    .gallery-screen{border-radius:10px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);}
+    .gallery-screen img{display:block;width:100%;height:auto;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.website::before{background:linear-gradient(90deg,#1565c0,#42a5f5);}
+    .component-card.crm::before{background:linear-gradient(90deg,#f59e0b,#fcd34d);}
+    .component-card.mobile::before{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+    .component-card.lms::before{background:linear-gradient(90deg,#0c2d6b,#1565c0);}
+    .component-card.payment::before{background:linear-gradient(90deg,#15803d,#4ade80);}
+    .component-card.admin::before{background:linear-gradient(90deg,#be123c,#fb7185);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.b{background:rgba(21,101,192,.1);color:#1565c0;}
+    .comp-tag.g{background:rgba(21,128,61,.1);color:#15803d;}
+    .comp-tag.y{background:rgba(245,158,11,.1);color:#b45309;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .comp-tag.r{background:rgba(190,18,60,.1);color:#be123c;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#1565c0,#0c2d6b);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1565c0,#f59e0b);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a1a1a,#1565c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #1565c0;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Accreditations */
+    .accred-strip{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;}
+    .accred-card{display:flex;align-items:center;gap:10px;padding:12px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);flex:1;min-width:200px;}
+    .accred-icon{font-size:22px;}
+    .accred-card strong{display:block;font-size:12.5px;font-weight:700;color:var(--navy);}
+    .accred-card span{display:block;font-size:11px;color:var(--muted);}
+    /* Courses grid */
+    .courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .course-chip{padding:12px 14px;background:white;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);}
+    .course-chip strong{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .course-chip span{font-size:11px;color:var(--muted);}
+    .course-chip .cc-price{font-size:11px;font-weight:700;color:#1565c0;margin-top:4px;}
+    /* Locations */
+    .locations-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+    .loc-badge{display:flex;align-items:center;gap:8px;padding:10px 14px;background:white;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);}
+    .loc-badge strong{font-size:12.5px;font-weight:700;color:var(--navy);}
+    .loc-badge span{font-size:11px;color:var(--muted);}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#1565c0;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .courses-grid{grid-template-columns:1fr 1fr;}
+      .stat-item{padding:8px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="zw-accent-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Zewail Academy</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark"><img src="assets/projects/zewail/zewail-logo.png" alt="Zewail Academy" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:18px;color:#1565c0;\'>ز</span>'" /></div>
+            <span><em>زويل أكاديمي</em> &nbsp;— Zewail Academy · Egypt</span>
+          </div>
+          <div class="zw-type-badge">
+            <span>🏥 WEBSITE · CRM · MOBILE APP · LMS</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Education · Healthcare Training · Egypt · Laravel · CRM · Flutter</span>
+            <h1 data-en="Zewail Academy — <em>زويل أكاديمي</em> Digital Ecosystem" data-ar="زويل أكاديمي — <em>Zewail Academy</em> المنظومة الرقمية">Zewail Academy — <em>زويل أكاديمي</em> Digital Ecosystem</h1>
+            <p data-en="A full digital ecosystem for Egypt's leading medical and health training academy — featuring a modern Laravel website with course catalog and student enrollment, a CRM for lead and student management, a mobile app for on-the-go course access, and an integrated online learning management system. Three locations across Egypt: Giza, Alexandria, and Tanta." data-ar="منظومة رقمية متكاملة لأكاديمية التدريب الطبي والصحي الرائدة في مصر — تشمل موقع Laravel حديث بكتالوج الكورسات وتسجيل الطلاب، ونظام CRM لإدارة العملاء المحتملين والطلاب، وتطبيق موبايل للوصول إلى الكورسات في أي مكان، ونظام إدارة تعلم إلكتروني متكامل. ثلاثة فروع في مصر: الجيزة والإسكندرية وطنطا.">A full digital ecosystem for Egypt's leading medical and health training academy — featuring a modern Laravel website with course catalog and student enrollment, a CRM for lead and student management, a mobile app for on-the-go course access, and an integrated online learning management system. Three locations across Egypt: Giza, Alexandria, and Tanta.</p>
+            <div class="hero-badges">
+              <span class="hero-badge gold">🇪🇬 Egypt — 3 Locations</span>
+              <span class="hero-badge blue">🌐 Laravel Website</span>
+              <span class="hero-badge blue">🗂️ Custom CRM</span>
+              <span class="hero-badge blue">📱 Mobile App</span>
+              <span class="hero-badge gold">🏆 أقوى اعتماد في مصر</span>
+              <span class="hero-badge">💳 Online Payments</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://www.zewailacademy.com" target="_blank" rel="noopener noreferrer" class="btn-blue" data-en="🌐 Visit Website" data-ar="🌐 زيارة الموقع">🌐 Visit Website</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar System" data-ar="ابنِ نظاماً مماثلاً">Build Similar System</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual" style="display:flex;align-items:flex-end;justify-content:center;">
+            <div style="display:flex;gap:8px;align-items:flex-end;">
+              <div style="border-radius:12px 12px 0 0;overflow:hidden;box-shadow:0 -12px 40px rgba(21,101,192,.25);width:120px;opacity:.8;">
+                <img src="assets/projects/zewail/zewail-screen2.jpg" alt="Zewail App" loading="eager" style="display:block;width:100%;height:auto;" />
+              </div>
+              <div style="border-radius:12px 12px 0 0;overflow:hidden;box-shadow:0 -12px 40px rgba(21,101,192,.3);width:160px;">
+                <img src="assets/projects/zewail/zewail-screen1.jpg" alt="Zewail Academy Website" loading="eager" style="display:block;width:100%;height:auto;" />
+              </div>
+              <div style="border-radius:12px 12px 0 0;overflow:hidden;box-shadow:0 -12px 40px rgba(21,101,192,.25);width:120px;opacity:.8;">
+                <img src="assets/projects/zewail/zewail-screen3.jpg" alt="Zewail CRM" loading="eager" style="display:block;width:100%;height:auto;" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <span class="logo-strip-text">ZEWAIL ACADEMY · زويل أكاديمي · EGYPT 🇪🇬</span>
+            <span class="logo-strip-pill">🏆 أقوى اعتماد في مصر</span>
+            <span class="logo-strip-pill" style="background:rgba(21,101,192,.12);border-color:rgba(21,101,192,.3);color:#93c5fd;">9+ Years Experience</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num">4</span>
+              <span class="stat-label" data-en="Digital Systems" data-ar="أنظمة رقمية">Digital Systems</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">9+</span>
+              <span class="stat-label" data-en="Years Academy" data-ar="سنوات الأكاديمية">Years Academy</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">3</span>
+              <span class="stat-label" data-en="Egypt Locations" data-ar="فروع في مصر">Egypt Locations</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">10+</span>
+              <span class="stat-label" data-en="Certified Courses" data-ar="كورسات معتمدة">Certified Courses</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🇪🇬</span>
+              <span class="stat-label" data-en="Egypt Market" data-ar="السوق المصري">Egypt Market</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Academy Website" data-ar="موقع الأكاديمية">Academy Website</strong><span data-en="zewailacademy.com · Laravel" data-ar="zewailacademy.com · Laravel">zewailacademy.com · Laravel</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🗂️</span>
+              <div class="pp-text"><strong data-en="Student CRM" data-ar="CRM الطلاب">Student CRM</strong><span data-en="Leads · Follow-up · Enrollment" data-ar="عملاء محتملون · متابعة · تسجيل">Leads · Follow-up · Enrollment</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Mobile App" data-ar="تطبيق الموبايل">Mobile App</strong><span data-en="Courses · Content · Notifications" data-ar="كورسات · محتوى · إشعارات">Courses · Content · Notifications</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎓</span>
+              <div class="pp-text"><strong data-en="LMS &amp; Exams" data-ar="نظام التعلم والامتحانات">LMS &amp; Exams</strong><span data-en="Online courses · Certifications" data-ar="كورسات إلكترونية · شهادات">Online courses · Certifications</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">💳</span>
+              <div class="pp-text"><strong data-en="Payments" data-ar="المدفوعات">Payments</strong><span data-en="Enrollment fees · Egypt gateways" data-ar="رسوم التسجيل · بوابات مصرية">Enrollment fees · Egypt gateways</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Zewail Academy (زويل أكاديمي) is one of Egypt's leading medical and health training academies — holding the country's strongest accreditations from the National Training Council for Education and the Ministry of Social Solidarity. With 9+ years of operating experience and three branch locations (Giza, Alexandria, and Tanta/Gharbia), the academy offers a wide portfolio of certified medical, nutrition, and health training programs." data-ar="أكاديمية زويل (زويل أكاديمي) هي إحدى أبرز أكاديميات التدريب الطبي والصحي في مصر — وتحمل أقوى الاعتمادات في البلاد من المجلس القومي للتدريب والتعليم ووزارة التضامن الاجتماعي. مع 9+ سنوات من الخبرة التشغيلية وثلاثة فروع (الجيزة والإسكندرية وطنطا/الغربية)، تقدم الأكاديمية محفظة واسعة من برامج التدريب الطبي والتغذية والصحة المعتمدة.">Zewail Academy (زويل أكاديمي) is one of Egypt's leading medical and health training academies — holding the country's strongest accreditations from the National Training Council for Education and the Ministry of Social Solidarity. With 9+ years of operating experience and three branch locations (Giza, Alexandria, and Tanta/Gharbia), the academy offers a wide portfolio of certified medical, nutrition, and health training programs.</p>
+              <p data-en="The project covers the complete digital transformation of Zewail Academy — delivering a professional Laravel-powered public website with course catalog, instructor profiles, blog, student registration, and appointment booking; a custom-built CRM for managing student leads, enrollment pipelines, and follow-up workflows; a mobile application for students to access course content and notifications on the go; and a full learning management system with online exams, progress tracking, and certificate issuance." data-ar="يغطي المشروع التحول الرقمي الكامل لأكاديمية زويل — يقدم موقعاً عاماً احترافياً مدعوماً بـ Laravel مع كتالوج الكورسات وملفات المحاضرين والمدونة وتسجيل الطلاب وحجز المواعيد؛ ونظام CRM مخصص لإدارة العملاء المحتملين وخطوط التسجيل وسير عمل المتابعة؛ وتطبيق موبايل للطلاب للوصول إلى محتوى الكورسات والإشعارات أثناء التنقل؛ ونظام إدارة تعلم كامل مع امتحانات إلكترونية وتتبع التقدم وإصدار الشهادات.">The project covers the complete digital transformation of Zewail Academy — delivering a professional Laravel-powered public website with course catalog, instructor profiles, blog, student registration, and appointment booking; a custom-built CRM for managing student leads, enrollment pipelines, and follow-up workflows; a mobile application for students to access course content and notifications on the go; and a full learning management system with online exams, progress tracking, and certificate issuance.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Academy Courses &amp; Programs" data-ar="كورسات وبرامج الأكاديمية">Academy Courses &amp; Programs</h2>
+              <p data-en="All courses are accredited and certifiable. The course catalog is managed through the admin dashboard and displayed dynamically on the public website." data-ar="جميع الكورسات معتمدة وقابلة للحصول على شهادة. يُدار كتالوج الكورسات من خلال لوحة التحكم الإدارية ويُعرض ديناميكياً على الموقع العام.">All courses are accredited and certifiable. The course catalog is managed through the admin dashboard and displayed dynamically on the public website.</p>
+              <div class="courses-grid">
+                <div class="course-chip">
+                  <strong data-en="Food Safety &amp; Quality Diploma" data-ar="دبلومة سلامة وجودة الغذاء">Food Safety &amp; Quality Diploma</strong>
+                  <span data-en="3 Months · 27 Lessons · Certified" data-ar="3 أشهر · 27 درس · معتمد">3 Months · 27 Lessons · Certified</span>
+                  <div class="cc-price">3,500 EGP</div>
+                </div>
+                <div class="course-chip">
+                  <strong data-en="Nutrition Diploma — Holistic" data-ar="دبلومة التغذية الشاملة">Nutrition Diploma — Holistic</strong>
+                  <span data-en="3 Months · 24 Lessons · Certified" data-ar="3 أشهر · 24 درس · معتمد">3 Months · 24 Lessons · Certified</span>
+                  <div class="cc-price">4,000 EGP</div>
+                </div>
+                <div class="course-chip">
+                  <strong data-en="Medical Analysis Course" data-ar="كورس التحاليل الطبية">Medical Analysis Course</strong>
+                  <span data-en="1 Month · 12 Lessons · Certified" data-ar="شهر · 12 درس · معتمد">1 Month · 12 Lessons · Certified</span>
+                  <div class="cc-price">1,800 EGP</div>
+                </div>
+                <div class="course-chip">
+                  <strong data-en="Psychological Health &amp; Family Counseling" data-ar="الصحة النفسية والإرشاد الأسري">Psychological Health &amp; Family Counseling</strong>
+                  <span data-en="Certified · Online &amp; On-site" data-ar="معتمد · أونلاين وحضوري">Certified · Online &amp; On-site</span>
+                  <div class="cc-price">—</div>
+                </div>
+                <div class="course-chip">
+                  <strong data-en="Data Analysis Diploma" data-ar="دبلومة تحليل البيانات">Data Analysis Diploma</strong>
+                  <span data-en="Advanced · Excel + Tools" data-ar="متقدم · Excel وأدوات">Advanced · Excel + Tools</span>
+                  <div class="cc-price">—</div>
+                </div>
+                <div class="course-chip">
+                  <strong data-en="Hair Care Diploma" data-ar="دبلومة العناية بالشعر">Hair Care Diploma</strong>
+                  <span data-en="Practical · Certified" data-ar="تطبيقي · معتمد">Practical · Certified</span>
+                  <div class="cc-price">—</div>
+                </div>
+                <div class="course-chip">
+                  <strong data-en="Category Management Program" data-ar="برنامج إدارة الفئات">Category Management Program</strong>
+                  <span data-en="Professional · Retail &amp; Healthcare" data-ar="احترافي · تجزئة وصحة">Professional · Retail &amp; Healthcare</span>
+                  <div class="cc-price">—</div>
+                </div>
+                <div class="course-chip">
+                  <strong data-en="Cosmetics &amp; Dermatology" data-ar="التجميل والجلدية">Cosmetics &amp; Dermatology</strong>
+                  <span data-en="Non-Surgical Procedures · Certified" data-ar="إجراءات غير جراحية · معتمد">Non-Surgical Procedures · Certified</span>
+                  <div class="cc-price">—</div>
+                </div>
+                <div class="course-chip" style="border-color:#1565c0;">
+                  <strong style="color:#1565c0;" data-en="+ Online &amp; On-site Options" data-ar="+ خيارات أونلاين وحضورية">+ Online &amp; On-site Options</strong>
+                  <span data-en="All courses available in both formats" data-ar="جميع الكورسات متاحة بالصيغتين">All courses available in both formats</span>
+                  <div class="cc-price" style="color:#f59e0b;">Flexible Schedules</div>
+                </div>
+              </div>
+              <div style="margin-top:16px;">
+                <strong style="font-size:13px;font-weight:700;color:var(--navy);" data-en="Academy Locations" data-ar="فروع الأكاديمية">Academy Locations</strong>
+                <div class="locations-row">
+                  <div class="loc-badge"><span>🏙️</span><div><strong>Giza</strong><span>101 Nasr El-Deen St.</span></div></div>
+                  <div class="loc-badge"><span>🌊</span><div><strong>Alexandria</strong><span>Sidi Gaber — Mustafa Kamel St.</span></div></div>
+                  <div class="loc-badge"><span>🌾</span><div><strong>Tanta — Gharbia</strong><span>Al-Marad Street</span></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card website">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Academy Website — zewailacademy.com" data-ar="موقع الأكاديمية — zewailacademy.com">Academy Website — zewailacademy.com</div>
+                  <div class="comp-sub" data-en="Laravel · PHP · Full public-facing platform" data-ar="Laravel · PHP · منصة عامة متكاملة">Laravel · PHP · Full public-facing platform</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">Course Catalog</span>
+                    <span class="comp-tag b">Instructor Profiles</span>
+                    <span class="comp-tag g">Student Register</span>
+                    <span class="comp-tag t">Blog / News</span>
+                    <span class="comp-tag y">Appointment Booking</span>
+                    <span class="comp-tag p">FAQ System</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The main public website serves as the academy's digital front — displaying the full course catalog with pricing, duration, and accreditation details; instructor profiles for the medical and health faculty; a blog section for health and nutrition content; student registration and inquiry forms; appointment booking for consultations; and a FAQ section. The site is bilingual (Arabic/English) and optimized for both desktop and mobile audiences across Egypt's three locations." data-ar="الموقع العام الرئيسي يمثل الواجهة الرقمية للأكاديمية — يعرض كتالوج الكورسات الكامل مع التسعير والمدة وتفاصيل الاعتمادات؛ وملفات المحاضرين الطبيين والصحيين؛ وقسم مدونة للمحتوى الصحي والتغذوي؛ ونماذج تسجيل الطلاب والاستفسار؛ وحجز المواعيد للاستشارات؛ وقسم الأسئلة الشائعة. الموقع ثنائي اللغة (عربي/إنجليزي) ومُحسَّن لجمهور سطح المكتب والهاتف عبر فروع مصر الثلاثة.">The main public website serves as the academy's digital front — displaying the full course catalog with pricing, duration, and accreditation details; instructor profiles for the medical and health faculty; a blog section for health and nutrition content; student registration and inquiry forms; appointment booking for consultations; and a FAQ section. The site is bilingual (Arabic/English) and optimized for both desktop and mobile audiences across Egypt's three locations.</p>
+                </div>
+                <div class="component-card crm">
+                  <div class="comp-icon">🗂️</div>
+                  <div class="comp-name" data-en="Student CRM — Lead &amp; Enrollment Management" data-ar="CRM الطلاب — إدارة العملاء والتسجيل">Student CRM — Lead &amp; Enrollment Management</div>
+                  <div class="comp-sub" data-en="Custom CRM for the academy's sales &amp; admin team" data-ar="CRM مخصص لفريق المبيعات والإدارة">Custom CRM for the academy's sales &amp; admin team</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag y">Lead Pipeline</span>
+                    <span class="comp-tag b">Follow-up Tasks</span>
+                    <span class="comp-tag g">Enrollment Status</span>
+                    <span class="comp-tag t">Payment Tracking</span>
+                    <span class="comp-tag r">Branch Management</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The CRM is the operational backbone of the academy's student acquisition and enrollment process. When a prospective student submits an inquiry (via the website or WhatsApp), the lead is automatically captured in the CRM and assigned to the relevant branch team for follow-up. The team can track lead status through the enrollment pipeline (new → contacted → enrolled → paid), log communication history, schedule follow-up tasks, assign students to specific courses and batches, and track payment status for each enrollment. The CRM provides per-branch visibility so that managers at Giza, Alexandria, and Tanta each have their own dashboard view." data-ar="CRM هو العمود الفقري التشغيلي لعملية اكتساب الطلاب وتسجيلهم في الأكاديمية. عندما يقدم طالب محتمل استفساراً (عبر الموقع أو واتساب)، يتم التقاط العميل تلقائياً في CRM وتعيينه لفريق الفرع المعني للمتابعة. يمكن للفريق تتبع حالة العميل عبر خط التسجيل (جديد ← تم التواصل ← مسجل ← مدفوع)، وتسجيل تاريخ التواصل، وجدولة مهام المتابعة، وتعيين الطلاب لكورسات ودفعات محددة، وتتبع حالة الدفع لكل تسجيل. يوفر CRM رؤية لكل فرع حتى يكون لمديري الجيزة والإسكندرية وطنطا كل واحد منهم عرض لوحة التحكم الخاصة به.">The CRM is the operational backbone of the academy's student acquisition and enrollment process. When a prospective student submits an inquiry (via the website or WhatsApp), the lead is automatically captured in the CRM and assigned to the relevant branch team for follow-up. The team tracks lead status through the enrollment pipeline (new → contacted → enrolled → paid), logs communication history, schedules follow-up tasks, assigns students to specific courses and batches, and tracks payment status. The CRM provides per-branch visibility so managers at Giza, Alexandria, and Tanta each have their own dashboard view.</p>
+                </div>
+                <div class="component-card mobile">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="Student Mobile App — Zewail Academy" data-ar="تطبيق الطلاب — زويل أكاديمي">Student Mobile App — Zewail Academy</div>
+                  <div class="comp-sub" data-en="Cross-platform mobile access for enrolled students" data-ar="وصول موبايل متعدد المنصات للطلاب المسجلين">Cross-platform mobile access for enrolled students</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag p">Course Access</span>
+                    <span class="comp-tag b">Video Lessons</span>
+                    <span class="comp-tag y">Push Notifications</span>
+                    <span class="comp-tag g">Progress Tracking</span>
+                    <span class="comp-tag t">Exam Taking</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The Zewail Academy mobile application extends the learning experience to students' smartphones — enabling enrolled students to access their purchased course content from anywhere, watch video lessons, download study materials, take online exams, track their learning progress, and receive push notifications for new content releases, exam schedules, announcements from instructors, and academy news. The app connects to the Laravel REST API backend for real-time data sync with the web platform." data-ar="يمتد تطبيق موبايل أكاديمية زويل لتجربة التعلم إلى هواتف الطلاب الذكية — يُمكّن الطلاب المسجلين من الوصول إلى محتوى كورساتهم المشتراة من أي مكان ومشاهدة دروس الفيديو وتحميل مواد الدراسة وأداء الامتحانات الإلكترونية وتتبع تقدمهم في التعلم وتلقي الإشعارات الدفعية للمحتوى الجديد وجداول الامتحانات والإعلانات من المحاضرين وأخبار الأكاديمية. يتصل التطبيق بواجهة Laravel REST API الخلفية للمزامنة الفورية مع منصة الويب.">The Zewail Academy mobile application extends the learning experience to students' smartphones — enabling enrolled students to access their purchased course content from anywhere, watch video lessons, download study materials, take online exams, track their learning progress, and receive push notifications for new content releases, exam schedules, announcements from instructors, and academy news. The app connects to the Laravel REST API backend for real-time data sync with the web platform.</p>
+                </div>
+                <div class="component-card lms">
+                  <div class="comp-icon">🎓</div>
+                  <div class="comp-name" data-en="LMS — Online Learning &amp; Exam System" data-ar="LMS — نظام التعلم والامتحانات الإلكترونية">LMS — Online Learning &amp; Exam System</div>
+                  <div class="comp-sub" data-en="Online exams · Certificates · Progress tracking" data-ar="امتحانات إلكترونية · شهادات · تتبع التقدم">Online exams · Certificates · Progress tracking</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">Online Exams</span>
+                    <span class="comp-tag g">Certificate Generation</span>
+                    <span class="comp-tag y">Instructor Dashboard</span>
+                    <span class="comp-tag t">Student Progress</span>
+                    <span class="comp-tag p">Batch Management</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The integrated LMS powers the academy's online and blended learning offerings. Instructors upload course content (video lessons, PDFs, presentations), build online exam question banks, and manage their enrolled student groups. Students complete their coursework online or in-person, take assessments through the platform, and receive auto-generated certificates upon course completion. The system tracks per-student progress, exam scores, and attendance — giving the academy full visibility into learning outcomes across all branches and course types." data-ar="يشغّل نظام LMS المتكامل عروض التعلم الإلكتروني والمختلط للأكاديمية. يرفع المحاضرون محتوى الكورسات (دروس فيديو وPDFs وعروض تقديمية)، وينشئون بنوك أسئلة الامتحانات الإلكترونية، ويديرون مجموعات طلابهم المسجلين. يكمل الطلاب دراستهم أونلاين أو حضورياً، ويجرون التقييمات عبر المنصة، ويتلقون شهادات آلية عند إكمال الكورس. يتتبع النظام تقدم كل طالب ودرجات الامتحانات والحضور — منحاً الأكاديمية رؤية كاملة لنتائج التعلم عبر جميع الفروع وأنواع الكورسات.">The integrated LMS powers the academy's online and blended learning offerings. Instructors upload course content (video lessons, PDFs, presentations), build online exam question banks, and manage their enrolled student groups. Students complete coursework online or in-person, take assessments through the platform, and receive auto-generated certificates upon course completion. The system tracks per-student progress, exam scores, and attendance — giving the academy full visibility into learning outcomes across all branches and course types.</p>
+                </div>
+                <div class="component-card payment" style="grid-column:span 2;">
+                  <div class="comp-icon">💳</div>
+                  <div class="comp-name" data-en="Payment &amp; Enrollment System — Egypt Gateways" data-ar="نظام الدفع والتسجيل — بوابات مصرية">Payment &amp; Enrollment System — Egypt Gateways</div>
+                  <div class="comp-sub" data-en="Online course enrollment · Installment plans · Egypt payment methods" data-ar="تسجيل كورسات أونلاين · خطط تقسيط · طرق دفع مصرية">Online course enrollment · Installment plans · Egypt payment methods</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">EGP Payments</span>
+                    <span class="comp-tag b">Secure Checkout</span>
+                    <span class="comp-tag t">Auto Enrollment</span>
+                    <span class="comp-tag y">Installments</span>
+                    <span class="comp-tag p">Payment History</span>
+                    <span class="comp-tag r">Revenue Reports</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The payment system handles course enrollment fees in Egyptian Pounds (EGP) with support for local Egyptian payment methods. Students can pay for course enrollment directly through the website or mobile app — with options for full payment or installment plans for higher-priced diploma programs. Successful payment automatically unlocks course access for the student, generates a payment receipt, updates the CRM enrollment status, and notifies the relevant branch team. All revenue data is aggregated in the admin dashboard with per-course, per-branch, and time-period financial reports for academy management." data-ar="يتعامل نظام الدفع مع رسوم تسجيل الكورسات بالجنيه المصري مع دعم طرق الدفع المصرية المحلية. يمكن للطلاب الدفع مقابل تسجيل الكورسات مباشرةً من خلال الموقع أو تطبيق الموبايل — مع خيارات الدفع الكامل أو خطط التقسيط لبرامج الدبلوم ذات الأسعار الأعلى. يفتح الدفع الناجح تلقائياً وصول الكورس للطالب ويولد إيصال دفع ويحدث حالة تسجيل CRM ويُخطر فريق الفرع المعني. يتم تجميع جميع بيانات الإيرادات في لوحة التحكم الإدارية مع تقارير مالية لكل كورس ولكل فرع وحسب الفترة الزمنية لإدارة الأكاديمية.">The payment system handles course enrollment fees in Egyptian Pounds (EGP) with support for local Egyptian payment methods. Students can pay for course enrollment directly through the website or mobile app — with options for full payment or installment plans for higher-priced diploma programs. Successful payment automatically unlocks course access, generates a payment receipt, updates the CRM enrollment status, and notifies the relevant branch team. All revenue data is aggregated in the admin dashboard with per-course, per-branch, and time-period financial reports for academy management.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Accreditations &amp; Credentials" data-ar="الاعتمادات والمؤهلات">Accreditations &amp; Credentials</h2>
+              <p data-en="Zewail Academy holds Egypt's strongest educational accreditations — making the academy's certificates recognized and valued by employers across the medical and health sector." data-ar="تحمل أكاديمية زويل أقوى الاعتمادات التعليمية في مصر — مما يجعل شهادات الأكاديمية معترفاً بها وذات قيمة من قِبَل أصحاب العمل في قطاع الصحة والطب.">Zewail Academy holds Egypt's strongest educational accreditations — making the academy's certificates recognized and valued by employers across the medical and health sector.</p>
+              <div class="accred-strip">
+                <div class="accred-card">
+                  <div class="accred-icon">🏛️</div>
+                  <div>
+                    <strong data-en="National Training Council for Education" data-ar="المجلس القومي للتدريب والتعليم">National Training Council for Education</strong>
+                    <span data-en="Official national accreditation authority" data-ar="الجهة الوطنية الرسمية للاعتماد">Official national accreditation authority</span>
+                  </div>
+                </div>
+                <div class="accred-card">
+                  <div class="accred-icon">🏥</div>
+                  <div>
+                    <strong data-en="Ministry of Social Solidarity — 2017" data-ar="وزارة التضامن الاجتماعي — 2017">Ministry of Social Solidarity — 2017</strong>
+                    <span data-en="Government-recognized training provider" data-ar="مزود تدريب معترف به حكومياً">Government-recognized training provider</span>
+                  </div>
+                </div>
+                <div class="accred-card">
+                  <div class="accred-icon">🏆</div>
+                  <div>
+                    <strong data-en="أقوى اعتماد في مصر" data-ar="أقوى اعتماد في مصر">أقوى اعتماد في مصر</strong>
+                    <span data-en="9+ years of excellence in medical training" data-ar="9+ سنوات من التميز في التدريب الطبي">9+ years of excellence in medical training</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Multi-Branch CRM — Giza, Alexandria &amp; Tanta" data-ar="CRM متعدد الفروع — الجيزة والإسكندرية وطنطا">Multi-Branch CRM — Giza, Alexandria &amp; Tanta</strong>
+                    <span data-en="The CRM is designed around Zewail Academy's three-branch structure. Each branch has its own lead pool, enrollment pipeline, and team assignment. Branch managers get branch-specific dashboards while academy management gets a consolidated view across all three locations — giving a complete picture of student acquisition, enrollment conversions, and revenue for each branch independently and as a whole." data-ar="تم تصميم CRM حول هيكل الأكاديمية ذي الثلاثة فروع. لكل فرع مجموعة عملاء محتملين خاصة به وخط تسجيل وتعيين فريق. يحصل مديرو الفروع على لوحات بيانات خاصة بالفروع بينما تحصل إدارة الأكاديمية على عرض موحد عبر الفروع الثلاثة — مما يعطي صورة كاملة عن اكتساب الطلاب وتحويلات التسجيل والإيرادات لكل فرع بشكل مستقل وككل.">The CRM is designed around Zewail Academy's three-branch structure. Each branch has its own lead pool, enrollment pipeline, and team assignment. Branch managers get branch-specific dashboards while academy management gets a consolidated view across all three locations — giving a complete picture of student acquisition, enrollment conversions, and revenue for each branch independently and as a whole.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Online &amp; On-Site Learning — Blended Education" data-ar="تعلم أونلاين وحضوري — تعليم مختلط">Online &amp; On-Site Learning — Blended Education</strong>
+                    <span data-en="Zewail Academy offers both in-person (at branch locations) and fully online course delivery. The platform supports both modes — students who attend in-person at a branch location and students who enroll in the online version of the same course access the same LMS content, take the same online exams, and receive the same accredited certificate. This blended model allows the academy to scale beyond its physical locations and serve students across all of Egypt." data-ar="تقدم أكاديمية زويل كلاً من التدريس الحضوري (في مواقع الفروع) والتسليم الإلكتروني الكامل للكورسات. تدعم المنصة كلا الوضعين — الطلاب الذين يحضرون شخصياً في موقع فرع والطلاب المسجلين في النسخة الإلكترونية من نفس الكورس يصلون إلى نفس محتوى LMS، ويجرون نفس الامتحانات الإلكترونية، ويتلقون نفس الشهادة المعتمدة. يتيح هذا النموذج المختلط للأكاديمية التوسع إلى ما هو أبعد من مواقعها الجغرافية وخدمة الطلاب في جميع أنحاء مصر.">Zewail Academy offers both in-person (at branch locations) and fully online course delivery. The platform supports both modes — students who attend in-person at a branch and students who enroll online access the same LMS content, take the same online exams, and receive the same accredited certificate. This blended model allows the academy to scale beyond its physical locations and serve students across all of Egypt.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="WhatsApp &amp; Social Media Lead Capture Integration" data-ar="تكامل التقاط العملاء من واتساب ووسائل التواصل">WhatsApp &amp; Social Media Lead Capture Integration</strong>
+                    <span data-en="Zewail Academy drives student inquiries through WhatsApp (01286666584) and social media channels (Facebook, TikTok, YouTube, LinkedIn, Telegram). The CRM integrates with these channels to capture incoming inquiries automatically — when a student sends a WhatsApp message or fills a website contact form, a new lead record is created in the CRM and routed to the appropriate branch team for immediate follow-up. This eliminates missed inquiries and ensures every potential student receives a timely response." data-ar="تجذب أكاديمية زويل استفسارات الطلاب من خلال واتساب (01286666584) وقنوات التواصل الاجتماعي (فيسبوك وتيك توك ويوتيوب ولينكدإن وتيليغرام). يتكامل CRM مع هذه القنوات لالتقاط الاستفسارات الواردة تلقائياً — عندما يرسل طالب رسالة واتساب أو يملأ نموذج اتصال الموقع، يتم إنشاء سجل عميل جديد في CRM وتوجيهه لفريق الفرع المناسب للمتابعة الفورية. هذا يلغي الاستفسارات الفائتة ويضمن أن كل طالب محتمل يتلقى رداً في الوقت المناسب.">Zewail Academy drives student inquiries through WhatsApp and social media channels (Facebook, TikTok, YouTube, LinkedIn, Telegram). The CRM integrates with these channels to capture incoming inquiries automatically — when a student sends a WhatsApp message or fills a website contact form, a new lead record is created in the CRM and routed to the appropriate branch team for immediate follow-up. This eliminates missed inquiries and ensures every potential student receives a timely response.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Instructor Portal — Medical Faculty Management" data-ar="بوابة المحاضرين — إدارة الكادر الطبي">Instructor Portal — Medical Faculty Management</strong>
+                    <span data-en="Zewail Academy's faculty includes licensed medical professionals — nutritionists, medical analysts, family counselors, and cosmetic specialists. Each instructor has a portal to manage their assigned courses, upload content, create exam assessments, track student performance in their courses, and communicate announcements. The instructor directory is also published on the public website, building trust through transparent faculty credentials and specializations." data-ar="يضم الكادر الأكاديمي لأكاديمية زويل متخصصين طبيين مرخصين — أخصائيو تغذية ومحللون طبيون ومستشارون أسريون وأخصائيو تجميل. لكل محاضر بوابة لإدارة كورساته المعينة ورفع المحتوى وإنشاء تقييمات الامتحانات وتتبع أداء الطلاب في كورساته وإرسال الإعلانات. يتم نشر دليل المحاضرين أيضاً على الموقع العام، مما يبني الثقة من خلال الشفافية في مؤهلات الكادر وتخصصاتهم.">Zewail Academy's faculty includes licensed medical professionals — nutritionists, medical analysts, family counselors, and cosmetic specialists. Each instructor has a portal to manage their assigned courses, upload content, create exam assessments, track student performance, and communicate announcements. The instructor directory is also published on the public website, building trust through transparent faculty credentials and specializations.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Certificate Issuance — Accredited Digital &amp; Physical Certificates" data-ar="إصدار الشهادات — شهادات رقمية وورقية معتمدة">Certificate Issuance — Accredited Digital &amp; Physical Certificates</strong>
+                    <span data-en="Upon completing a course and passing the required assessments, the system automatically generates an accredited digital certificate for the student — branded with Zewail Academy's logos, the course name, the student's name, completion date, and the relevant accreditation seals (National Training Council / Ministry of Social Solidarity). Certificates are available for download in the student's profile and via mobile app, and the academy can also produce physical printed certificates for graduates." data-ar="عند إكمال الكورس واجتياز التقييمات المطلوبة، يولد النظام تلقائياً شهادة رقمية معتمدة للطالب — مُعَلَّمة بشعارات أكاديمية زويل واسم الكورس واسم الطالب وتاريخ الإكمال وأختام الاعتماد ذات الصلة (المجلس القومي للتدريب / وزارة التضامن الاجتماعي). الشهادات متاحة للتحميل في ملف الطالب وعبر تطبيق الموبايل، ويمكن للأكاديمية أيضاً إنتاج شهادات مطبوعة فيزيائية للخريجين.">Upon completing a course and passing the required assessments, the system automatically generates an accredited digital certificate for the student — branded with Zewail Academy's logos, the course name, the student's name, completion date, and the relevant accreditation seals (National Training Council / Ministry of Social Solidarity). Certificates are available for download in the student's profile and via mobile app, and the academy can also produce physical printed certificates for graduates.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Blog &amp; Student Feedback System" data-ar="نظام المدونة وآراء الطلاب">Blog &amp; Student Feedback System</strong>
+                    <span data-en="The academy's website includes an actively managed blog publishing health, nutrition, and medical education content — supporting SEO growth and positioning Zewail Academy as a thought leader in Egyptian health education. A student feedback system collects and publishes verified testimonials from graduates, building social proof and trust for prospective students researching the academy online. Both the blog and feedback sections are managed through the admin dashboard." data-ar="يتضمن موقع الأكاديمية مدونة نشطة تنشر محتوى الصحة والتغذية والتعليم الطبي — تدعم نمو SEO وتضع أكاديمية زويل كمرجع فكري في مجال التعليم الصحي المصري. يجمع نظام آراء الطلاب ويُنشر شهادات موثقة من الخريجين، مما يبني إثباتاً اجتماعياً وثقة للطلاب المحتملين الذين يبحثون عن الأكاديمية أونلاين. تُدار كل من المدونة وأقسام التغذية الراجعة من خلال لوحة التحكم الإدارية.">The academy's website includes an actively managed blog publishing health, nutrition, and medical education content — supporting SEO growth and positioning Zewail Academy as a thought leader in Egyptian health education. A student feedback system collects and publishes verified testimonials from graduates, building social proof and trust for prospective students researching the academy online. Both the blog and feedback sections are managed through the admin dashboard.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>4</strong>
+                  <span data-en="Digital Systems Delivered" data-ar="أنظمة رقمية مُسلَّمة">Digital Systems Delivered</span>
+                </div>
+                <div class="result-card">
+                  <strong>3</strong>
+                  <span data-en="Egypt Branches Unified" data-ar="فروع مصرية موحدة">Egypt Branches Unified</span>
+                </div>
+                <div class="result-card">
+                  <strong>10+</strong>
+                  <span data-en="Courses Online" data-ar="كورسات أونلاين">Courses Online</span>
+                </div>
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="In Production · Egypt" data-ar="في الإنتاج · مصر">In Production · Egypt</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Multi-Branch CRM Architecture — Unified Data, Branch-Level Isolation" data-ar="هيكل CRM متعدد الفروع — بيانات موحدة وعزل على مستوى الفرع">Multi-Branch CRM Architecture — Unified Data, Branch-Level Isolation</strong>
+                  <p data-en="Designing a CRM that serves three geographically distributed branches (Giza, Alexandria, Tanta) with a single Laravel backend requires careful data architecture. Each branch needs its own isolated view of leads, students, and enrollment records — with team members only able to see and manage their own branch's data. At the same time, the academy's management team needs a consolidated cross-branch dashboard. This is implemented through a multi-tenant RBAC structure — branch staff roles are scoped to their branch_id, while academy admin roles have unrestricted cross-branch access. All database queries are filtered by branch scope at the middleware level." data-ar="تصميم CRM يخدم ثلاثة فروع موزعة جغرافياً (الجيزة والإسكندرية وطنطا) بواجهة Laravel خلفية واحدة يتطلب بنية بيانات دقيقة. يحتاج كل فرع إلى عرضه المعزول للعملاء والطلاب وسجلات التسجيل — مع قدرة أعضاء الفريق على رؤية وإدارة بيانات فرعهم فقط. في الوقت ذاته، تحتاج إدارة الأكاديمية إلى لوحة تحكم موحدة عبر الفروع. يُنفَّذ هذا من خلال هيكل RBAC متعدد المستأجرين — تقتصر أدوار موظفي الفروع على branch_id الخاص بهم، بينما تمتلك أدوار مسؤول الأكاديمية وصولاً غير مقيد عبر الفروع. جميع استعلامات قاعدة البيانات مُفلتَرة حسب نطاق الفرع على مستوى الوسيط.">Designing a CRM that serves three geographically distributed branches (Giza, Alexandria, Tanta) with a single Laravel backend requires careful data architecture. Each branch needs its own isolated view of leads, students, and enrollment records — with team members only able to see and manage their own branch's data. At the same time, the academy's management team needs a consolidated cross-branch dashboard. This is implemented through a multi-tenant RBAC structure — branch staff roles are scoped to their branch_id, while academy admin roles have unrestricted cross-branch access. All database queries are filtered by branch scope at the middleware level.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Integrating WhatsApp Leads into CRM — Real-Time Lead Capture" data-ar="دمج عملاء واتساب في CRM — التقاط عملاء فوري">Integrating WhatsApp Leads into CRM — Real-Time Lead Capture</strong>
+                  <p data-en="Zewail Academy's primary inquiry channel is WhatsApp — with thousands of prospective students reaching out through the academy's business number. Connecting WhatsApp Business API to the CRM to automatically create lead records from incoming messages, route them to the correct branch based on the student's message content or selected branch, and trigger follow-up task assignments for the sales team requires a webhook integration with the WhatsApp Business API, real-time event processing through Laravel queues, and an intelligent routing layer that maps incoming contacts to the appropriate branch." data-ar="قناة الاستفسار الرئيسية لأكاديمية زويل هي واتساب — مع آلاف الطلاب المحتملين الذين يتواصلون من خلال رقم الأعمال الخاص بالأكاديمية. يتطلب ربط واجهة WhatsApp Business API بـ CRM لإنشاء سجلات عملاء تلقائياً من الرسائل الواردة وتوجيهها للفرع الصحيح بناءً على محتوى رسالة الطالب أو الفرع المختار وتشغيل تعيينات مهام المتابعة لفريق المبيعات — تكاملاً بـ webhook مع WhatsApp Business API ومعالجة أحداث فورية عبر قوائم انتظار Laravel وطبقة توجيه ذكية تربط جهات الاتصال الواردة بالفرع المناسب.">Zewail Academy's primary inquiry channel is WhatsApp — with thousands of prospective students reaching out through the academy's business number. Connecting WhatsApp Business API to the CRM to automatically create lead records from incoming messages, route them to the correct branch, and trigger follow-up task assignments for the sales team requires a webhook integration with the WhatsApp Business API, real-time event processing through Laravel queues, and an intelligent routing layer that maps incoming contacts to the appropriate branch.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Accreditation-Compliant Certificate Generation — Digital Trust" data-ar="إصدار شهادات متوافق مع الاعتمادات — ثقة رقمية">Accreditation-Compliant Certificate Generation — Digital Trust</strong>
+                  <p data-en="Zewail Academy's certificates carry the seals of Egypt's National Training Council for Education and the Ministry of Social Solidarity — meaning they must be generated with exact visual compliance to the official certificate design requirements. The system generates PDF certificates using Laravel's PDF generation pipeline, embedding the student's name (in both Arabic and English), course name, completion date, certificate serial number, instructor name, and the official accreditation seals. Each certificate is also assigned a unique verification URL so employers or universities can verify the certificate's authenticity online." data-ar="تحمل شهادات أكاديمية زويل أختام المجلس القومي للتدريب والتعليم ووزارة التضامن الاجتماعي في مصر — مما يعني أنه يجب توليدها بتوافق بصري دقيق مع متطلبات تصميم الشهادات الرسمية. يولد النظام شهادات PDF باستخدام خط أنابيب توليد PDF الخاص بـ Laravel، يتضمن اسم الطالب (بالعربية والإنجليزية) واسم الكورس وتاريخ الإكمال والرقم التسلسلي للشهادة واسم المحاضر وأختام الاعتماد الرسمية. يُعيَّن أيضاً لكل شهادة URL تحقق فريد حتى يتمكن أصحاب العمل أو الجامعات من التحقق من أصالة الشهادة أونلاين.">Zewail Academy's certificates carry the seals of Egypt's National Training Council for Education and the Ministry of Social Solidarity — meaning they must be generated with exact visual compliance to official certificate design requirements. The system generates PDF certificates embedding the student's name (in both Arabic and English), course name, completion date, certificate serial number, instructor name, and official accreditation seals. Each certificate is also assigned a unique verification URL so employers or universities can verify its authenticity online.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-madarek.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Madarek LMS — مدارك Learning Platform" data-ar="مدارك LMS — منصة تعلم عُمان">Madarek LMS — مدارك Learning Platform</strong>
+              </a>
+              <a href="index.html#contact" class="btn-blue" data-en="Build Similar System →" data-ar="ابنِ نظاماً مماثلاً →">Build Similar System →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Zewail Academy · زويل أكاديمي</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Website" data-ar="الموقع">Website</span>
+                <span class="meta-val" style="font-size:11px;">zewailacademy.com</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Website · CRM · App · LMS" data-ar="موقع · CRM · تطبيق · LMS">Website · CRM · App · LMS</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇪🇬 Egypt</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Locations" data-ar="المواقع">Locations</span>
+                <span class="meta-val" style="font-size:11px;">Giza · Alexandria · Tanta</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" style="font-size:11px;" data-en="Medical Training · Health Education" data-ar="تدريب طبي · تعليم صحي">Medical Training · Health Education</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Founded" data-ar="التأسيس">Founded</span>
+                <span class="meta-val">2017 · 9+ Years</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live · In Production" data-ar="منتج · في الإنتاج">Live · In Production</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">Firebase FCM</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">WhatsApp API</span>
+                <span class="tech-chip">Payment API</span>
+                <span class="tech-chip">PDF Generator</span>
+                <span class="tech-chip">SMTP</span>
+                <span class="tech-chip">CRM</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://www.zewailacademy.com" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:#1565c0;color:white;border-radius:12px;text-decoration:none;font-size:13px;font-weight:700;margin-bottom:8px;">
+                <span style="font-size:18px;">🌐</span>
+                <div>
+                  <div style="font-size:10px;opacity:.8;">LIVE WEBSITE</div>
+                  <div>zewailacademy.com</div>
+                </div>
+              </a>
+              <a href="https://wa.me/201286666584" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:rgba(37,211,102,.08);color:#128c7e;border:1px solid rgba(37,211,102,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;">📲 WhatsApp — 01286666584</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(21,101,192,.05);color:#1565c0;border:1px solid rgba(21,101,192,.2);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;">💬 Build Similar System</a>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Accreditations" data-ar="الاعتمادات">Accreditations</h4>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;">
+                  <span>🏆</span><span style="font-size:12px;font-weight:700;color:var(--navy);" data-en="أقوى اعتماد في مصر" data-ar="أقوى اعتماد في مصر">أقوى اعتماد في مصر</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(21,101,192,.05);border:1px solid rgba(21,101,192,.15);border-radius:8px;">
+                  <span>🏛️</span><span style="font-size:11px;font-weight:600;color:var(--muted);" data-en="National Training Council" data-ar="المجلس القومي للتدريب">National Training Council</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(21,101,192,.05);border:1px solid rgba(21,101,192,.15);border-radius:8px;">
+                  <span>🏥</span><span style="font-size:11px;font-weight:600;color:var(--muted);" data-en="Ministry of Social Solidarity" data-ar="وزارة التضامن الاجتماعي">Ministry of Social Solidarity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'زويل أكاديمي — موقع وCRM وتطبيق موبايل مصر | أحمد نور'
+        : 'Zewail Academy — زويل أكاديمي Website, CRM & Mobile App Egypt | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
