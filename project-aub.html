@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AUB — University Digital Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--aub-green:#166534;--aub-dark:#052e16;--aub-mid:#14532d;--aub-gold:#a16207;--aub-light:#dcfce7;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#052e16 0%,#083c1c 55%,#0f4f28 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 45%,rgba(22,101,52,.30) 0%,transparent 65%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(161,98,7,.12) 0%,transparent 60%);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(22,101,52,.5);margin-bottom:20px;}
+    .brand-mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,#166534,#14532d);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:900;flex-shrink:0;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#86efac;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(22,101,52,.22);color:#86efac;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,42px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;color:#86efac;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:520px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.green{background:rgba(22,101,52,.22);border-color:rgba(22,101,52,.55);color:#86efac;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-green{padding:11px 24px;border-radius:12px;background:linear-gradient(135deg,#166534,#14532d);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;border:1px solid rgba(255,255,255,.15);}
+    .btn-green:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(22,101,52,.55);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;position:relative;}
+    .proj-hero-visual img{width:100%;max-width:320px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(22,101,52,.35),0 -1px 0 rgba(134,239,172,.3);display:block;object-fit:cover;height:220px;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;gap:1px;justify-content:center;}
+    .platform-pill{padding:10px 24px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 6px;}
+    .platform-pill .pp-icon{font-size:20px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(22,101,52,.18);border-color:rgba(22,101,52,.45);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(22,101,52,.12);color:#166534;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(22,101,52,.09);color:#052e16;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Portals */
+    .portals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .portal-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .portal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .portal-card.student::before{background:linear-gradient(90deg,#166534,#22c55e);}
+    .portal-card.faculty::before{background:linear-gradient(90deg,#14532d,#166534);}
+    .portal-card.admin::before{background:linear-gradient(90deg,#052e16,#14532d);}
+    .portal-card.medical::before{background:linear-gradient(90deg,#a16207,#d97706);}
+    .portal-icon{font-size:26px;margin-bottom:10px;}
+    .portal-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .portal-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .portal-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .portal-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .portal-tag.g{background:rgba(22,101,52,.1);color:#166534;}
+    .portal-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .portal-tag.o{background:rgba(161,98,7,.1);color:#a16207;}
+    /* Stats */
+    .aub-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:4px;}
+    .aub-stat{background:white;border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;box-shadow:var(--shadow);}
+    .aub-stat strong{display:block;font-size:22px;font-weight:900;background:linear-gradient(135deg,#052e16,#166534);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
+    .aub-stat span{font-size:11px;color:var(--muted);font-weight:600;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#166534,#14532d);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#166534,#a16207);}
+    .result-card strong{display:block;font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#052e16,#166534);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:12px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #166534;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#166534;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .portals-grid{grid-template-columns:1fr 1fr;}
+      .aub-stats{grid-template-columns:1fr 1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .platform-inner{flex-direction:column;align-items:stretch;gap:8px;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>AUB</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark">AUB</div>
+          <span><em>American University of Beirut</em> &nbsp;— UNIVERSITY DIGITAL PLATFORM · LEBANON</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Education · Higher Ed · Web Platform</span>
+            <h1 data-en="AUB — <em>University Digital</em> Services Platform" data-ar="AUB — منصة الخدمات <em>الجامعية الرقمية</em>">AUB — <em>University Digital</em> Services Platform</h1>
+            <p data-en="A comprehensive web-based digital services platform for the American University of Beirut — one of the Middle East's most prestigious institutions. The system unifies student, faculty, and administrative portals under one scalable ecosystem, serving thousands of users across AUB's faculties and the AUBMC medical center." data-ar="منصة خدمات رقمية متكاملة قائمة على الويب للجامعة الأمريكية في بيروت — إحدى أعرق المؤسسات في الشرق الأوسط. يوحّد النظام بوابات الطلاب والأساتذة والإداريين تحت منظومة واحدة قابلة للتوسع، تخدم آلاف المستخدمين عبر كليات AUB والمركز الطبي AUBMC.">A comprehensive web-based digital platform for one of the Middle East's most prestigious universities. The system unifies student, faculty, and admin portals under one scalable ecosystem serving thousands of users across AUB's faculties and the AUBMC medical center.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇱🇧 Lebanon</span>
+              <span class="hero-badge green">✓ Live in Production</span>
+              <span class="hero-badge green">🎓 Est. 1866</span>
+              <span class="hero-badge">🏥 Incl. AUBMC</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://aub.edu.lb/" target="_blank" rel="noopener noreferrer" class="btn-green" data-en="Visit AUB Website →" data-ar="زيارة موقع AUB →">Visit AUB Website →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/aub/aub-hero.jpg" alt="American University of Beirut Campus" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🎓</span>
+              <div class="pp-text"><strong data-en="Student Portal" data-ar="بوابة الطلاب">Student Portal</strong><span data-en="Grades, schedules &amp; registration" data-ar="الدرجات والجداول والتسجيل">Grades, schedules &amp; registration</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">👨‍🏫</span>
+              <div class="pp-text"><strong data-en="Faculty Portal" data-ar="بوابة الأساتذة">Faculty Portal</strong><span data-en="Courses, grading &amp; management" data-ar="المقررات والتقييم والإدارة">Courses, grading &amp; management</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🏛️</span>
+              <div class="pp-text"><strong data-en="Admin &amp; Registrar" data-ar="الإدارة والتسجيل">Admin &amp; Registrar</strong><span data-en="Admissions, records &amp; operations" data-ar="القبول والسجلات والعمليات">Admissions, records &amp; operations</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🏥</span>
+              <div class="pp-text"><strong data-en="AUBMC Services" data-ar="خدمات AUBMC">AUBMC Services</strong><span data-en="Medical center digital services" data-ar="الخدمات الرقمية للمركز الطبي">Medical center digital services</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="The American University of Beirut (AUB), founded in 1866, is one of the oldest and most respected universities in the Arab world — hosting thousands of students across multiple faculties including medicine, engineering, arts and sciences, business, and public health. This project delivered a modern, unified digital services platform built to handle the complexity and scale of AUB's academic and administrative operations." data-ar="الجامعة الأمريكية في بيروت (AUB)، المؤسسة عام 1866، هي إحدى أقدم وأرقى الجامعات في العالم العربي — تستضيف آلاف الطلاب عبر كليات متعددة تشمل الطب والهندسة والفنون والعلوم والأعمال والصحة العامة. قدّم هذا المشروع منصة خدمات رقمية موحدة وحديثة مبنية للتعامل مع تعقيد وحجم عمليات AUB الأكاديمية والإدارية.">The American University of Beirut (AUB), founded in 1866, is one of the oldest and most respected universities in the Arab world — hosting thousands of students across multiple faculties including medicine, engineering, arts and sciences, business, and public health. This project delivered a modern unified digital services platform built to handle AUB's scale and complexity.</p>
+              <p data-en="The platform spans four core portals — student, faculty, administrative, and medical — all integrated through a shared backend API and a consistent design system. The result is a seamless digital experience for every member of the AUB community: students managing their academic journey, faculty running their courses, admins handling registrar operations, and patients accessing AUBMC services." data-ar="تمتد المنصة عبر أربع بوابات أساسية — الطلاب والأساتذة والإداريين والطبية — كلها متكاملة عبر API خلفي مشترك ونظام تصميم متسق. والنتيجة تجربة رقمية سلسة لكل عضو في مجتمع AUB: طلاب يديرون مسيرتهم الأكاديمية، وأساتذة يديرون مقرراتهم، وإداريون يتعاملون مع عمليات التسجيل، ومرضى يصلون لخدمات AUBMC.">The platform spans four core portals — student, faculty, administrative, and medical — all integrated through a shared backend API and consistent design system, delivering a seamless digital experience for every member of the AUB community.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="About AUB" data-ar="عن AUB">About AUB</h2>
+              <div class="aub-stats">
+                <div class="aub-stat"><strong>1866</strong><span data-en="Founded" data-ar="تأسست">Founded</span></div>
+                <div class="aub-stat"><strong>8</strong><span data-en="Faculties &amp; Schools" data-ar="كليات ومدارس">Faculties &amp; Schools</span></div>
+                <div class="aub-stat"><strong>AUBMC</strong><span data-en="Medical Center" data-ar="مركز طبي">Medical Center</span></div>
+                <div class="aub-stat"><strong>🇱🇧</strong><span data-en="Beirut, Lebanon" data-ar="بيروت، لبنان">Beirut, Lebanon</span></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Platform Portals" data-ar="بوابات المنصة">Platform Portals</h2>
+              <div class="portals-grid">
+                <div class="portal-card student">
+                  <div class="portal-icon">🎓</div>
+                  <div class="portal-name" data-en="Student Portal" data-ar="بوابة الطلاب">Student Portal</div>
+                  <div class="portal-sub" data-en="Academic self-service" data-ar="الخدمة الذاتية الأكاديمية">Academic self-service</div>
+                  <div class="portal-tags">
+                    <span class="portal-tag g">Course Registration</span>
+                    <span class="portal-tag g">Grades</span>
+                    <span class="portal-tag b">Schedules</span>
+                    <span class="portal-tag b">Transcripts</span>
+                  </div>
+                </div>
+                <div class="portal-card faculty">
+                  <div class="portal-icon">👨‍🏫</div>
+                  <div class="portal-name" data-en="Faculty Portal" data-ar="بوابة الأساتذة">Faculty Portal</div>
+                  <div class="portal-sub" data-en="Teaching &amp; course tools" data-ar="أدوات التدريس والمقررات">Teaching &amp; course tools</div>
+                  <div class="portal-tags">
+                    <span class="portal-tag g">Course Management</span>
+                    <span class="portal-tag g">Grading</span>
+                    <span class="portal-tag b">Attendance</span>
+                  </div>
+                </div>
+                <div class="portal-card admin">
+                  <div class="portal-icon">🏛️</div>
+                  <div class="portal-name" data-en="Admin &amp; Registrar" data-ar="الإدارة والتسجيل">Admin &amp; Registrar</div>
+                  <div class="portal-sub" data-en="Operations &amp; records" data-ar="العمليات والسجلات">Operations &amp; records</div>
+                  <div class="portal-tags">
+                    <span class="portal-tag g">Admissions</span>
+                    <span class="portal-tag g">Records</span>
+                    <span class="portal-tag o">Reports</span>
+                  </div>
+                </div>
+                <div class="portal-card medical">
+                  <div class="portal-icon">🏥</div>
+                  <div class="portal-name" data-en="AUBMC Portal" data-ar="بوابة AUBMC">AUBMC Portal</div>
+                  <div class="portal-sub" data-en="Medical center services" data-ar="خدمات المركز الطبي">Medical center services</div>
+                  <div class="portal-tags">
+                    <span class="portal-tag o">Appointments</span>
+                    <span class="portal-tag o">Telehealth</span>
+                    <span class="portal-tag b">Records</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Course Registration &amp; Management" data-ar="تسجيل المقررات وإدارتها">Course Registration &amp; Management</strong>
+                    <span data-en="Students browse available courses, check prerequisites, register for semesters, and manage their academic schedule — all from one authenticated portal with real-time seat availability." data-ar="يتصفح الطلاب المقررات المتاحة ويتحققون من المتطلبات المسبقة ويسجلون للفصول ويديرون جدولهم الأكاديمي — كل ذلك من بوابة واحدة مُعتمدة مع توفر مقاعد آنياً.">Students browse available courses, check prerequisites, register for semesters, and manage their academic schedule with real-time seat availability.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Grades &amp; Transcript Access" data-ar="الدرجات والوصول للكشوف">Grades &amp; Transcript Access</strong>
+                    <span data-en="Students access their grades per course and per semester, view GPA history, and request or download official transcripts — eliminating the need to visit the registrar's office for routine records." data-ar="يطلع الطلاب على درجاتهم لكل مقرر وكل فصل ويشاهدون تاريخ المعدل التراكمي ويطلبون أو ينزّلون الكشوف الرسمية — مما يلغي الحاجة لزيارة مكتب التسجيل لاستخراج السجلات الروتينية.">Students access grades per course and semester, view GPA history, and request or download official transcripts — no need to visit the registrar for routine records.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Faculty Course &amp; Grading Tools" data-ar="أدوات إدارة المقررات والتقييم للأساتذة">Faculty Course &amp; Grading Tools</strong>
+                    <span data-en="Faculty members manage their assigned courses, publish materials and announcements, record attendance, enter grades, and communicate with enrolled students — all through a dedicated faculty interface." data-ar="يدير أعضاء هيئة التدريس مقرراتهم المسندة وينشرون المواد والإعلانات ويسجلون الحضور ويدخلون الدرجات ويتواصلون مع الطلاب المسجلين — كل ذلك عبر واجهة مخصصة لأعضاء الهيئة التدريسية.">Faculty manage assigned courses, publish materials and announcements, record attendance, enter grades, and communicate with students — all through a dedicated faculty interface.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Admissions &amp; Registrar Operations" data-ar="عمليات القبول والتسجيل">Admissions &amp; Registrar Operations</strong>
+                    <span data-en="The admin portal gives the registrar's office full control over student records, enrollment status, degree audits, academic calendars, and admissions workflows — replacing fragmented manual processes with one unified system." data-ar="تمنح بوابة الإدارة مكتب التسجيل سيطرة كاملة على سجلات الطلاب وحالة التسجيل وتدقيق الشهادات والتقاويم الأكاديمية وسير عمل القبول — استبدال العمليات اليدوية المتفرقة بنظام موحد واحد.">The admin portal gives the registrar full control over student records, enrollment, degree audits, academic calendars, and admissions workflows — replacing fragmented manual processes with one unified system.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="AUBMC Appointment &amp; Telehealth" data-ar="مواعيد AUBMC والرعاية الصحية عن بُعد">AUBMC Appointment &amp; Telehealth</strong>
+                    <span data-en="Patients book appointments, access medical records, and connect with AUBMC physicians through telehealth video consultations — all integrated into the broader AUB digital platform with secure authentication." data-ar="يحجز المرضى المواعيد ويطلعون على السجلات الطبية ويتواصلون مع أطباء AUBMC عبر استشارات الفيديو للرعاية الصحية عن بُعد — كل ذلك مدمج في منصة AUB الرقمية الأشمل مع مصادقة آمنة.">Patients book appointments, access medical records, and connect with AUBMC physicians through telehealth video consultations — all integrated into the platform with secure authentication.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Bilingual Arabic &amp; English" data-ar="ثنائي اللغة عربي وإنجليزي">Bilingual Arabic &amp; English</strong>
+                    <span data-en="The entire platform — student portal, faculty portal, admin panel, and AUBMC services — is fully bilingual, with complete Arabic RTL and English LTR support across every screen and workflow." data-ar="المنصة بأكملها — بوابة الطلاب وبوابة الأساتذة ولوحة الإدارة وخدمات AUBMC — ثنائية اللغة بالكامل، مع دعم كامل للعربية RTL والإنجليزية LTR عبر كل شاشة وسير عمل.">The entire platform is fully bilingual with complete Arabic RTL and English LTR support across every portal and workflow.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="In Production at AUB" data-ar="في الإنتاج بـ AUB">In Production at AUB</span>
+                </div>
+                <div class="result-card">
+                  <strong>4</strong>
+                  <span data-en="Integrated Portals" data-ar="بوابات متكاملة">Integrated Portals</span>
+                </div>
+                <div class="result-card">
+                  <strong>8+</strong>
+                  <span data-en="Faculties &amp; Schools Served" data-ar="كليات ومدارس مخدومة">Faculties &amp; Schools Served</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Enterprise-Scale User Management" data-ar="إدارة المستخدمين على نطاق مؤسسي">Enterprise-Scale User Management</strong>
+                  <p data-en="AUB serves thousands of students, hundreds of faculty members, and dozens of administrative staff — all with different roles, permissions, and data access needs. Building a robust RBAC (role-based access control) system that correctly isolates student data, faculty course management, and admin operations — while keeping the authentication flow seamless — required careful architecture design from the ground up." data-ar="تخدم AUB آلاف الطلاب ومئات أعضاء هيئة التدريس وعشرات من الموظفين الإداريين — كلهم بأدوار وصلاحيات واحتياجات وصول للبيانات مختلفة. بناء نظام RBAC قوي يعزل بشكل صحيح بيانات الطلاب وإدارة المقررات وعمليات الإدارة — مع الحفاظ على تدفق المصادقة سلساً — تطلّب تصميماً معمارياً دقيقاً من الصفر.">AUB serves thousands of students, hundreds of faculty, and dozens of admin staff — all with different roles and permissions. Building a robust RBAC system isolating student data, faculty management, and admin operations while keeping authentication seamless required careful architecture design.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Integration Across Four Portals" data-ar="التكامل عبر أربع بوابات">Integration Across Four Portals</strong>
+                  <p data-en="Student, faculty, admin, and AUBMC portals all needed to share a single source of truth for user accounts and academic records — while exposing only the data relevant to each role. Designing a shared REST API that served four fundamentally different interfaces without duplicating business logic or creating data integrity issues was one of the core technical challenges of the project." data-ar="احتاجت بوابات الطلاب والأساتذة والإداريين و AUBMC جميعها إلى مشاركة مصدر واحد للحقيقة لحسابات المستخدمين والسجلات الأكاديمية — مع كشف البيانات ذات الصلة لكل دور فقط. تصميم REST API مشترك يخدم أربع واجهات مختلفة جوهرياً دون تكرار منطق الأعمال أو خلق مشاكل في تكامل البيانات كان أحد التحديات التقنية الأساسية للمشروع.">All four portals needed to share a single source of truth for user accounts and academic records — while exposing only role-relevant data. Designing a shared REST API serving four fundamentally different interfaces without duplicating business logic was one of the core technical challenges.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="High Availability During Peak Academic Periods" data-ar="التوافر العالي خلال فترات الذروة الأكاديمية">High Availability During Peak Academic Periods</strong>
+                  <p data-en="University systems experience extreme traffic spikes during course registration periods, grade release dates, and admissions deadlines — when thousands of users hit the platform simultaneously. Ensuring the platform remained responsive and available during these peaks required a well-designed caching strategy, database query optimization, and load-balanced deployment infrastructure." data-ar="تشهد أنظمة الجامعة ارتفاعات حادة في حركة المرور خلال فترات تسجيل المقررات ومواعيد إطلاق الدرجات ومواعيد آخر تقديم للقبول — عندما يصل آلاف المستخدمين للمنصة في وقت واحد. ضمان بقاء المنصة مستجيبة ومتاحة خلال هذه الذروات تطلّب استراتيجية تخزين مؤقت مصممة جيداً وتحسين استعلامات قاعدة البيانات وبنية نشر متوازنة الحمل.">University systems experience extreme traffic spikes during course registration, grade release, and admissions deadlines — when thousands of users hit the platform simultaneously. Ensuring availability during peaks required careful caching, query optimization, and load-balanced deployment.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-jinan.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Jinan University System" data-ar="نظام جامعة الجنان">Jinan University System</strong>
+              </a>
+              <a href="index.html#contact" class="btn-green" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">AUB</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Full Name" data-ar="الاسم الكامل">Full Name</span>
+                <span class="meta-val" style="font-size:11px;text-align:right;max-width:160px;" data-en="American University of Beirut" data-ar="الجامعة الأمريكية في بيروت">American University of Beirut</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇱🇧 Lebanon</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Higher Education" data-ar="تعليم عالٍ">Higher Education</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="meta-val" data-en="Web Platform" data-ar="منصة ويب">Web Platform</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Portals" data-ar="البوابات">Portals</span>
+                <span class="meta-val">4</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">Bootstrap</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">Firebase FCM</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://aub.edu.lb/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(135deg,#166534,#14532d);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🌐 Visit AUB Website" data-ar="🌐 زيارة موقع AUB">🌐 Visit AUB Website</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(22,101,52,.07);color:#166534;border:1px solid rgba(22,101,52,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language switcher
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'AUB — منصة الخدمات الجامعية الرقمية | أحمد نور'
+        : 'AUB — University Digital Services Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
