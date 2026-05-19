@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GFMA London — Luxury Awards Event Platform | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--gfma-gold:#c48127;--gfma-light:#ffe986;--gfma-dark:#1a120b;--gfma-rich:#0d0900;--gfma-mid:#2c1e0f;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0d0900 0%,#1a120b 50%,#2c1e0f 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 70% 45%,rgba(196,129,39,.20) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 5% 85%,rgba(255,233,134,.07) 0%,transparent 60%);}
+    .gold-line{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#c48127,#ffe986,#c48127,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(196,129,39,.4);margin-bottom:20px;}
+    .brand-mark{height:28px;display:flex;align-items:center;justify-content:center;}
+    .brand-mark img{height:26px;object-fit:contain;filter:brightness(1.3);}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#ffe986;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(196,129,39,.18);color:#ffe986;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(26px,3vw,40px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#ffe986,#c48127);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:510px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.gold{background:rgba(196,129,39,.2);border-color:rgba(196,129,39,.5);color:#ffe986;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-gold{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#c48127,#a06a1a);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;border:1px solid rgba(255,233,134,.2);}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(196,129,39,.5);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .proj-hero-visual img{width:100%;max-width:270px;border-radius:20px 20px 0 0;box-shadow:0 -16px 60px rgba(196,129,39,.3),0 -1px 0 rgba(255,233,134,.3);display:block;object-fit:cover;height:230px;}
+    .platform-strip{background:rgba(255,255,255,.04);border-top:1px solid rgba(196,129,39,.2);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(196,129,39,.15);border-color:rgba(196,129,39,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(196,129,39,.09);color:#1a120b;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.website::before{background:linear-gradient(90deg,#c48127,#ffe986);}
+    .component-card.dashboard::before{background:linear-gradient(90deg,#a06a1a,#c48127);}
+    .component-card.qr-gen::before{background:linear-gradient(90deg,#7c5112,#a06a1a);}
+    .component-card.qr-scan::before{background:linear-gradient(90deg,#5a3a0d,#7c5112);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.g{background:rgba(196,129,39,.1);color:#a06a1a;}
+    .comp-tag.b{background:rgba(37,99,235,.1);color:#2563eb;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    /* QR Section */
+    .qr-showcase{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .qr-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);text-align:center;}
+    .qr-card .qr-icon{font-size:40px;margin-bottom:12px;}
+    .qr-card h3{font-size:15px;font-weight:800;color:var(--navy);margin:0 0 8px;}
+    .qr-card p{font-size:12.5px;color:var(--muted);line-height:1.7;margin:0 0 14px;}
+    .qr-card .qr-steps{display:flex;flex-direction:column;gap:6px;text-align:left;}
+    .qr-step{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+    .qr-step-num{width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#c48127,#a06a1a);color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#c48127,#a06a1a);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#c48127,#ffe986);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a120b,#c48127);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #c48127;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#c48127;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .qr-showcase{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .platform-inner{flex-direction:column;align-items:stretch;}
+      .platform-pill{margin:0;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="gold-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>GFMA London</span>
+        </div>
+        <div class="brand-badge">
+          <div class="brand-mark"><img src="assets/projects/gfma/gfma-logo.png" alt="GFMA" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:13px;color:#ffe986;\'>GFMA</span>'" /></div>
+          <span><em>GFMA London</em> &nbsp;— LUXURY AWARDS EVENT PLATFORM · UNITED KINGDOM</span>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Events · Awards Ceremony · QR Ticketing</span>
+            <h1 data-en="GFMA London — <em>Global Financial Markets Awards</em> Platform" data-ar="GFMA London — منصة <em>جوائز الأسواق المالية العالمية</em>">GFMA London — <em>Global Financial Markets Awards</em> Platform</h1>
+            <p data-en="A full-stack luxury awards event management platform for the Global Financial Markets Awards London — a prestigious black-tie gala at a 5-star venue in Central London. The system covers the public event website, sponsorship packages, nominee voting, QR code ticket generation, and a real-time entry scanner for the door." data-ar="منصة إدارة فعاليات جوائز فاخرة متكاملة لجوائز الأسواق المالية العالمية في لندن — حفل غالا رسمي مرموق في مكان 5 نجوم في وسط لندن. يغطي النظام موقع الفعالية العام وباقات الرعاية والتصويت على المرشحين وتوليد تذاكر QR وماسح دخول آني عند الباب.">A full-stack luxury awards event platform for the Global Financial Markets Awards London — a prestigious black-tie gala at a 5-star venue in Central London. The system covers the public website, sponsorship packages, nominee voting, QR ticket generation, and a real-time QR scanner at the door.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇬🇧 United Kingdom</span>
+              <span class="hero-badge gold">✓ Live in Production</span>
+              <span class="hero-badge gold">🏆 Black-Tie Gala</span>
+              <span class="hero-badge">📲 QR Ticketing</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://gfmalondon.com/" target="_blank" rel="noopener noreferrer" class="btn-gold" data-en="Visit GFMA Website →" data-ar="زيارة موقع GFMA →">Visit GFMA Website →</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar Platform" data-ar="ابنِ منصة مماثلة">Build Similar Platform</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <img src="assets/projects/gfma/gfma-event.jpg" alt="GFMA London Awards Event" loading="eager" />
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🌐</span>
+              <div class="pp-text"><strong data-en="Public Event Website" data-ar="موقع الفعالية العام">Public Event Website</strong><span data-en="Packages, voting, awards &amp; media" data-ar="باقات وتصويت وجوائز وميديا">Packages, voting, awards &amp; media</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</strong><span data-en="Attendees, sponsors &amp; operations" data-ar="الحضور والرعاة والعمليات">Attendees, sponsors &amp; operations</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🎟️</span>
+              <div class="pp-text"><strong data-en="QR Ticket Generation" data-ar="توليد تذاكر QR">QR Ticket Generation</strong><span data-en="Unique QR per attendee — auto email" data-ar="QR فريد لكل حاضر — إيميل تلقائي">Unique QR per attendee — auto email</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="QR Scanner App" data-ar="تطبيق ماسح QR">QR Scanner App</strong><span data-en="Instant entry validation at the door" data-ar="تحقق دخول فوري عند الباب">Instant entry validation at the door</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="GFMA London (Global Financial Markets Awards London) is an annual prestige awards ceremony celebrating excellence in global finance — hosted at a 5-star luxury venue in Central London. The platform built for this event is a complete end-to-end event management system: a public-facing website for attendees and sponsors, an admin dashboard for the organizing team, and a full QR-code-based ticketing system that covers generation, distribution, and real-time door scanning." data-ar="GFMA London (جوائز الأسواق المالية العالمية في لبنان) هو حفل توزيع جوائز سنوي مرموق يحتفل بالتميز في المالية العالمية — يُقام في مكان فاخر بـ 5 نجوم في وسط لندن. المنصة المبنية لهذه الفعالية هي نظام إدارة فعاليات شامل من البداية إلى النهاية: موقع للجمهور وللرعاة، ولوحة تحكم إدارية لفريق التنظيم، ونظام تذاكر QR كامل يغطي التوليد والتوزيع والمسح الآني عند الباب.">GFMA London (Global Financial Markets Awards) is an annual prestige awards ceremony celebrating excellence in global finance — hosted at a 5-star luxury venue in Central London. The platform is a complete end-to-end event management system: a public website for attendees and sponsors, an admin dashboard for the organizing team, and a full QR ticketing system covering generation, distribution, and real-time door scanning.</p>
+              <p data-en="The public website showcases the event, allows potential sponsors to browse and apply for sponsorship packages, lets the public vote for nominees, and displays the awards and media gallery. On the operations side, the admin dashboard gives the organizing team full control over attendees, packages, voting results, and event logistics — all integrated with the QR ticketing system for seamless entry on the night." data-ar="يعرض الموقع العام الفعالية ويتيح للرعاة المحتملين تصفح باقات الرعاية والتقديم عليها ويسمح للجمهور بالتصويت للمرشحين ويعرض الجوائز وصالة الميديا. على الجانب التشغيلي، تمنح لوحة التحكم الإدارية فريق التنظيم سيطرة كاملة على الحضور والباقات ونتائج التصويت واللوجستيات — كلها متكاملة مع نظام تذاكر QR لدخول سلس ليلة الفعالية.">The public website showcases the event, lets sponsors browse and apply for packages, allows voting for nominees, and displays awards and media. The admin dashboard gives the team full control over attendees, packages, voting results, and logistics — all integrated with the QR ticketing system for seamless entry on the night.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="System Components" data-ar="مكونات النظام">System Components</h2>
+              <div class="components-grid">
+                <div class="component-card website">
+                  <div class="comp-icon">🌐</div>
+                  <div class="comp-name" data-en="Public Event Website" data-ar="موقع الفعالية العام">Public Event Website</div>
+                  <div class="comp-sub" data-en="gfmalondon.com" data-ar="gfmalondon.com">gfmalondon.com</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">About &amp; Packages</span>
+                    <span class="comp-tag g">Voting</span>
+                    <span class="comp-tag b">Awards</span>
+                    <span class="comp-tag t">Media Gallery</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full event showcase website with hero video, sponsorship packages, nominee voting, prize categories, media gallery, luxury section and sponsor application." data-ar="موقع عرض كامل للفعالية مع فيديو الغلاف وباقات الرعاية والتصويت على المرشحين وفئات الجوائز وصالة الميديا والقسم الفاخر ونموذج التقديم للرعاية.">Full event showcase site with hero video, sponsorship packages, nominee voting, prize categories, media gallery, luxury section, and sponsor application.</p>
+                </div>
+                <div class="component-card dashboard">
+                  <div class="comp-icon">🖥️</div>
+                  <div class="comp-name" data-en="Admin Dashboard" data-ar="لوحة التحكم الإدارية">Admin Dashboard</div>
+                  <div class="comp-sub" data-en="Organizer Control Panel" data-ar="لوحة تحكم المنظمين">Organizer Control Panel</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Attendee Mgmt</span>
+                    <span class="comp-tag g">Sponsors</span>
+                    <span class="comp-tag b">Voting Results</span>
+                    <span class="comp-tag t">RBAC</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full event management dashboard — register and manage attendees, review sponsor applications, monitor voting, issue QR tickets, and oversee event-night operations." data-ar="لوحة إدارة فعاليات كاملة — تسجيل وإدارة الحضور ومراجعة طلبات الرعاية ومراقبة التصويت وإصدار تذاكر QR والإشراف على عمليات ليلة الفعالية.">Full event management dashboard — manage attendees, review sponsor applications, monitor voting, issue QR tickets, and oversee event-night operations.</p>
+                </div>
+                <div class="component-card qr-gen">
+                  <div class="comp-icon">🎟️</div>
+                  <div class="comp-name" data-en="QR Ticket Generation" data-ar="توليد تذاكر QR">QR Ticket Generation</div>
+                  <div class="comp-sub" data-en="Per-attendee unique QR codes" data-ar="رموز QR فريدة لكل حاضر">Per-attendee unique QR codes</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Unique QR / Attendee</span>
+                    <span class="comp-tag g">Auto Email</span>
+                    <span class="comp-tag b">PDF Ticket</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The dashboard generates a unique QR code for every confirmed attendee. The QR ticket is embedded in a branded PDF and emailed automatically — ready to present at the venue door." data-ar="تولد لوحة التحكم رمز QR فريداً لكل حاضر مؤكد. يُضمَّن تذكرة QR في PDF ذي علامة تجارية وتُرسل بريداً إلكترونياً تلقائياً — جاهزة للعرض عند باب المكان.">The dashboard generates a unique QR code per confirmed attendee. It's embedded in a branded PDF ticket and emailed automatically — ready to present at the venue door.</p>
+                </div>
+                <div class="component-card qr-scan">
+                  <div class="comp-icon">📱</div>
+                  <div class="comp-name" data-en="QR Scanner — Door Entry" data-ar="ماسح QR — دخول الباب">QR Scanner — Door Entry</div>
+                  <div class="comp-sub" data-en="Real-time ticket validation" data-ar="تحقق فوري من التذاكر">Real-time ticket validation</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Instant Scan</span>
+                    <span class="comp-tag g">Valid / Invalid</span>
+                    <span class="comp-tag b">Anti-Duplicate</span>
+                    <span class="comp-tag t">Offline Mode</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Staff at the door use the scanner app to instantly validate QR tickets. The app shows a clear green/red result, prevents duplicate entry, logs each scan with a timestamp, and works in offline mode as a fallback." data-ar="يستخدم الطاقم عند الباب تطبيق الماسح للتحقق الفوري من تذاكر QR. يعرض التطبيق نتيجة خضراء/حمراء واضحة ويمنع الدخول المكرر ويسجل كل مسح مع طابع زمني ويعمل في وضع عدم الاتصال كخطة احتياطية.">Staff use the scanner app to instantly validate QR tickets — clear green/red result, duplicate entry prevention, timestamped scan log, and offline fallback mode.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="QR Ticketing Flow" data-ar="تدفق تذاكر QR">QR Ticketing Flow</h2>
+              <div class="qr-showcase">
+                <div class="qr-card">
+                  <div class="qr-icon">🎟️</div>
+                  <h3 data-en="Ticket Generation" data-ar="توليد التذكرة">Ticket Generation</h3>
+                  <p data-en="The admin registers an attendee, confirms their package, and the system automatically generates a unique QR code tied to that attendee's record in the database." data-ar="يسجل المشرف الحاضر ويؤكد باقته، ويولد النظام تلقائياً رمز QR فريداً مرتبطاً بسجل ذلك الحاضر في قاعدة البيانات.">Admin confirms an attendee's registration and the system auto-generates a unique QR code tied to their database record.</p>
+                  <div class="qr-steps">
+                    <div class="qr-step"><div class="qr-step-num">1</div><span data-en="Admin registers attendee &amp; confirms package" data-ar="المشرف يسجل الحاضر ويؤكد الباقة">Admin registers attendee &amp; confirms package</span></div>
+                    <div class="qr-step"><div class="qr-step-num">2</div><span data-en="System generates unique QR code (UUID-based)" data-ar="النظام يولد رمز QR فريداً (قائم على UUID)">System generates unique QR code (UUID-based)</span></div>
+                    <div class="qr-step"><div class="qr-step-num">3</div><span data-en="QR embedded in branded PDF ticket" data-ar="QR مضمّن في تذكرة PDF بعلامة تجارية">QR embedded in branded PDF ticket</span></div>
+                    <div class="qr-step"><div class="qr-step-num">4</div><span data-en="Ticket auto-emailed to attendee" data-ar="التذكرة تُرسل تلقائياً للحاضر">Ticket auto-emailed to attendee</span></div>
+                  </div>
+                </div>
+                <div class="qr-card">
+                  <div class="qr-icon">📱</div>
+                  <h3 data-en="Door Scanning" data-ar="المسح عند الباب">Door Scanning</h3>
+                  <p data-en="On the night of the event, staff at the venue door use the scanner app to validate each ticket in real-time — instantly showing whether the QR code is valid, already used, or not in the system." data-ar="ليلة الفعالية، يستخدم الطاقم عند باب المكان تطبيق الماسح للتحقق من كل تذكرة آنياً — يعرض فوراً ما إذا كان رمز QR صالحاً أو مستخدماً بالفعل أو غير موجود في النظام.">On the night, door staff use the scanner app to validate each ticket in real-time — instantly showing valid, already scanned, or invalid.</p>
+                  <div class="qr-steps">
+                    <div class="qr-step"><div class="qr-step-num">1</div><span data-en="Staff opens scanner app on phone/tablet" data-ar="الطاقم يفتح تطبيق الماسح على الهاتف/التابلت">Staff opens scanner app on phone/tablet</span></div>
+                    <div class="qr-step"><div class="qr-step-num">2</div><span data-en="Camera scans attendee's QR ticket" data-ar="الكاميرا تمسح تذكرة QR الخاصة بالحاضر">Camera scans attendee's QR ticket</span></div>
+                    <div class="qr-step"><div class="qr-step-num">3</div><span data-en="✅ Green = Valid entry / ❌ Red = Reject" data-ar="✅ أخضر = دخول صالح / ❌ أحمر = رفض">✅ Green = Valid entry / ❌ Red = Reject</span></div>
+                    <div class="qr-step"><div class="qr-step-num">4</div><span data-en="Scan logged with timestamp in dashboard" data-ar="المسح مسجل مع طابع زمني في لوحة التحكم">Scan logged with timestamp in dashboard</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Sponsorship Packages &amp; Applications" data-ar="باقات الرعاية والتقديم عليها">Sponsorship Packages &amp; Applications</strong>
+                    <span data-en="Multiple sponsorship tiers with detailed perks are displayed on the website. Interested companies submit applications directly through the platform — all managed in the admin dashboard." data-ar="تُعرض مستويات رعاية متعددة بمزايا مفصلة على الموقع. تقدم الشركات المهتمة طلباتها مباشرة عبر المنصة — كلها مدارة في لوحة التحكم الإدارية.">Multiple sponsorship tiers with perks displayed on the website. Companies apply directly through the platform — all managed in the admin dashboard.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Nominee Voting System" data-ar="نظام التصويت على المرشحين">Nominee Voting System</strong>
+                    <span data-en="The public can browse nominees across all award categories and cast votes online. The admin dashboard shows live voting results and totals — used by the organizing team to prepare for the ceremony." data-ar="يمكن للجمهور تصفح المرشحين عبر جميع فئات الجوائز والتصويت عبر الإنترنت. تعرض لوحة التحكم الإدارية نتائج التصويت المباشرة والمجاميع — تستخدمها فريق التنظيم للتحضير للحفل.">The public votes for nominees online. The admin dashboard shows live voting results — used by the organizing team to prepare for the ceremony.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Branded QR Ticket Emails" data-ar="إيميلات تذاكر QR بعلامة تجارية">Branded QR Ticket Emails</strong>
+                    <span data-en="Each confirmed attendee automatically receives a luxury-branded email containing their personalized PDF ticket with a unique QR code, event details, venue info, and dress code — no manual follow-up needed." data-ar="يتلقى كل حاضر مؤكد تلقائياً إيميلاً فاخر العلامة التجارية يحتوي على تذكرته الشخصية بصيغة PDF مع رمز QR فريد وتفاصيل الفعالية ومعلومات المكان وقواعد اللباس — لا حاجة لمتابعة يدوية.">Each confirmed attendee automatically receives a luxury-branded email with their personalized PDF ticket — unique QR, event details, venue info, and dress code. No manual follow-up needed.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Real-Time Door Entry Control" data-ar="تحكم آني في الدخول">Real-Time Door Entry Control</strong>
+                    <span data-en="The QR scanner app gives door staff instant, accurate ticket validation. Each scan is logged in the admin dashboard in real time — giving the event team a live head count and entry log for the entire night." data-ar="يمنح تطبيق ماسح QR الطاقم عند الباب تحققاً فورياً ودقيقاً من التذاكر. كل مسح مسجل في لوحة التحكم الإدارية آنياً — مما يمنح فريق الفعالية عداد حضور حياً وسجل دخول لطوال الليلة.">The scanner app gives door staff instant ticket validation. Each scan is logged in the admin dashboard in real-time — live head count and entry log all night.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Media Gallery &amp; Awards Showcase" data-ar="صالة الميديا وعرض الجوائز">Media Gallery &amp; Awards Showcase</strong>
+                    <span data-en="The website includes a full media gallery (photos and videos from previous ceremonies), an awards showcase with prize categories and past winners, and a luxury section highlighting the premium venue and event experience." data-ar="يتضمن الموقع صالة ميديا كاملة (صور وفيديوهات من الحفلات السابقة) وعرض جوائز مع فئات الجوائز والفائزين السابقين وقسم فاخر يبرز المكان المتميز وتجربة الفعالية.">Full media gallery (photos & videos from past ceremonies), awards showcase with prize categories and past winners, and a luxury section highlighting the premium venue experience.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Anti-Duplicate Entry Protection" data-ar="حماية من الدخول المكرر">Anti-Duplicate Entry Protection</strong>
+                    <span data-en="Each QR code can only be scanned once. If a ticket is presented a second time at the door, the scanner immediately shows a red alert — preventing fraudulent or duplicate entries at the event." data-ar="يمكن مسح كل رمز QR مرة واحدة فقط. إذا قُدِّمت تذكرة للمرة الثانية عند الباب، يعرض الماسح فوراً تنبيهاً أحمر — يمنع الدخول الاحتيالي أو المكرر في الفعالية.">Each QR code can only be scanned once. A second scan immediately triggers a red alert — preventing fraudulent or duplicate entries at the event.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>Live</strong>
+                  <span data-en="In Production" data-ar="في الإنتاج">In Production</span>
+                </div>
+                <div class="result-card">
+                  <strong>4</strong>
+                  <span data-en="Integrated Components" data-ar="مكونات متكاملة">Integrated Components</span>
+                </div>
+                <div class="result-card">
+                  <strong>QR</strong>
+                  <span data-en="Ticketing &amp; Door Scan" data-ar="تذاكر ومسح الباب">Ticketing &amp; Door Scan</span>
+                </div>
+                <div class="result-card">
+                  <strong>🇬🇧</strong>
+                  <span data-en="Central London Venue" data-ar="مكان في وسط لندن">Central London Venue</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="QR Code Security &amp; Anti-Fraud" data-ar="أمان رمز QR ومنع الاحتيال">QR Code Security &amp; Anti-Fraud</strong>
+                  <p data-en="A luxury event with high-profile attendees required a ticketing system that couldn't be forged or duplicated. Each QR code contains a signed, server-side UUID that can only be validated against the live database — making screenshot copies or forged tickets instantly detectable. The scanner marks each code as 'used' on first scan, preventing any second entry attempt." data-ar="فعالية فاخرة مع حضور بارز تطلبت نظام تذاكر لا يمكن تزويره أو تكراره. يحتوي كل رمز QR على UUID موقّع من جانب الخادم يمكن التحقق منه فقط في قاعدة البيانات الحية — مما يجعل نسخ لقطات الشاشة أو التذاكر المزورة قابلة للكشف فوراً. يُعلّم الماسح كل رمز 'مستخدم' عند أول مسح، مما يمنع أي محاولة دخول ثانية.">A luxury event with high-profile attendees required a tamper-proof ticketing system. Each QR contains a server-side signed UUID validated against the live database — making screenshot copies instantly detectable. The scanner marks each code 'used' on first scan, preventing any second attempt.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Offline Scanner Reliability at the Venue" data-ar="موثوقية الماسح دون اتصال في المكان">Offline Scanner Reliability at the Venue</strong>
+                  <p data-en="A live event venue in Central London can have unpredictable Wi-Fi coverage at the door. The scanner app needed to work reliably even with intermittent connectivity — using a local cache of confirmed ticket codes that syncs with the server when connection is restored, ensuring no valid attendee is ever turned away due to a connectivity issue." data-ar="مكان فعالية حية في وسط لندن قد تكون تغطية الواي فاي عند الباب غير متوقعة. كان تطبيق الماسح بحاجة للعمل بشكل موثوق حتى مع الاتصال المتقطع — باستخدام ذاكرة تخزين محلية لرموز التذاكر المؤكدة تتزامن مع الخادم عند استعادة الاتصال، مما يضمن عدم رفض أي حاضر صالح بسبب مشكلة اتصال.">A live event venue can have unpredictable Wi-Fi. The scanner needed to work reliably with intermittent connectivity — using a local cache of confirmed ticket codes that syncs when connection is restored, ensuring no valid attendee is ever turned away due to connectivity issues.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Luxury Branding Across All Touchpoints" data-ar="العلامة التجارية الفاخرة عبر جميع نقاط التواصل">Luxury Branding Across All Touchpoints</strong>
+                  <p data-en="GFMA London is a prestigious black-tie event — the digital platform needed to match that premium positioning at every touchpoint: the public website, the PDF ticket design, the confirmation email, and even the QR scanner UI. Delivering a consistent luxury look and feel across four very different interfaces (web, email, PDF, mobile scanner) required careful design coordination throughout the project." data-ar="GFMA London هي فعالية مرموقة بربطة عنق — كانت المنصة الرقمية بحاجة لمطابقة هذا الموقع المتميز في كل نقطة تواصل: الموقع العام وتصميم تذكرة PDF وإيميل التأكيد وحتى واجهة مستخدم ماسح QR. تقديم مظهر وإحساس فاخر متسق عبر أربع واجهات مختلفة جداً (ويب وإيميل وPDF وماسح موبايل) تطلّب تنسيقاً دقيقاً في التصميم طوال المشروع.">GFMA is a prestigious black-tie event — the platform needed to match that premium positioning at every touchpoint: website, PDF ticket, email, and scanner UI. Delivering a consistent luxury feel across four very different interfaces required careful design coordination throughout the project.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-eventix.html" class="proj-nav-link">
+                <small data-en="← Previous" data-ar="← السابق">← Previous</small>
+                <strong data-en="Eventix — Events Platform" data-ar="Eventix — منصة الفعاليات">Eventix — Events Platform</strong>
+              </a>
+              <a href="index.html#contact" class="btn-gold" data-en="Build Similar Platform →" data-ar="ابنِ منصة مماثلة →">Build Similar Platform →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">GFMA London</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Full Name" data-ar="الاسم الكامل">Full Name</span>
+                <span class="meta-val" style="font-size:10.5px;text-align:right;max-width:160px;">Global Financial Markets Awards</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇬🇧 United Kingdom</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Venue" data-ar="المكان">Venue</span>
+                <span class="meta-val" style="font-size:11px;" data-en="5★ Central London" data-ar="5★ وسط لندن">5★ Central London</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Events · Finance Awards" data-ar="فعاليات · جوائز مالية">Events · Finance Awards</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="منتج">Live</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Components" data-ar="المكونات">Components</span>
+                <span class="meta-val">4</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">QR Code</span>
+                <span class="tech-chip">PDF Gen</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">SMTP</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://gfmalondon.com/" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#c48127,#a06a1a);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🌐 Visit GFMA Website" data-ar="🌐 زيارة موقع GFMA">🌐 Visit GFMA Website</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:rgba(196,129,39,.07);color:#a06a1a;border:1px solid rgba(196,129,39,.25);border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Discuss a Similar Project" data-ar="💬 ناقش مشروعًا مماثلاً">💬 Discuss a Similar Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Language switcher
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'GFMA London — منصة فعاليات الجوائز الفاخرة | أحمد نور'
+        : 'GFMA London — Luxury Awards Event Platform | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
