@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kippis — The Beverage Lab App Egypt | Ahmed Nour</title>
+  <title>Kippis — The Beverage Lab App Egypt · Cairo | Ahmed Nour</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -142,6 +142,14 @@
     .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
     .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
     .proj-nav-link:hover strong{color:#9333ea;}
+    /* Scroll reveal for sections */
+    .detail-section,.component-card,.feature-item,.result-card,.challenge-item,.flow-step,.platform-pill,.stat-item{
+      opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;
+    }
+    .detail-section.active,.component-card.active,.feature-item.active,.result-card.active,
+    .challenge-item.active,.flow-step.active,.platform-pill.active,.stat-item.active{
+      opacity:1;transform:translateY(0);
+    }
     @media(max-width:960px){
       .proj-hero-layout{grid-template-columns:1fr;}
       .detail-layout{grid-template-columns:1fr;}
@@ -154,6 +162,47 @@
       .flow-step:first-child{border-radius:var(--radius) var(--radius) 0 0;}
       .flow-step:last-child{border-bottom:1px solid var(--line);border-radius:0 0 var(--radius) var(--radius);}
       .stat-item{padding:8px 20px;}
+    }
+    @media(max-width:768px){
+      .proj-detail-hero{padding:80px 0 0;}
+      .proj-hero-info h1{font-size:clamp(20px,5vw,28px);}
+      .proj-hero-visual{display:none;}
+      .proj-hero-layout{gap:24px;}
+      .proj-hero-info{padding-bottom:32px;}
+      .stats-inner{flex-wrap:wrap;}
+      .stat-item{padding:10px 16px;border-right:none;border-bottom:1px solid rgba(255,255,255,.1);width:50%;}
+      .stat-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.1);}
+      .stat-item:last-child,.stat-item:nth-last-child(2):nth-child(odd){border-bottom:none;}
+      .platform-inner{flex-direction:column;gap:6px;}
+      .platform-pill{margin:0;width:100%;}
+      .logo-strip-inner{flex-direction:column;gap:8px;text-align:center;}
+      .hero-badge{font-size:11px;padding:5px 10px;}
+      .hero-actions{flex-direction:column;gap:8px;}
+      .btn-purple,.btn-ghost-white{text-align:center;}
+      .proj-nav-footer{flex-direction:column;gap:16px;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .flow-row{flex-direction:column;}
+      .detail-layout{gap:24px;}
+      .detail-main,.detail-sidebar{gap:24px;}
+    }
+    @media(max-width:480px){
+      .proj-detail-hero{padding:70px 0 0;}
+      .proj-hero-info h1{font-size:20px;letter-spacing:-.5px;}
+      .results-grid{grid-template-columns:1fr;}
+      .stat-num{font-size:20px;}
+      .brand-badge{flex-wrap:wrap;gap:6px;}
+      .kp-type-badge{margin-left:0;margin-top:6px;}
+      .hero-badges{gap:5px;}
+      .stat-item{width:100%;border-right:none !important;}
+      .store-badge-strip{flex-direction:column;}
+      .store-badge{width:100%;}
+      .sidebar-card{padding:16px;}
+      .sidebar-card h4{font-size:10px;}
+      .meta-row{font-size:12px;}
+      .app-screens{gap:8px;}
+      .app-screen{width:130px;}
     }
   </style>
 </head>
@@ -190,19 +239,19 @@
             <div class="brand-mark">
               <img src="assets/projects/kippis/kippis-icon.png" alt="Kippis" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:16px;color:white;\'>K</span>'" />
             </div>
-            <span><em>Kippis</em> &nbsp;— The Beverage Lab · Egypt</span>
+            <span data-en="Kippis — The Beverage Lab · Egypt" data-ar="Kippis — مختبر المشروبات · القاهرة"><em>Kippis</em> &nbsp;— The Beverage Lab · Egypt</span>
           </div>
           <div class="kp-type-badge">
-            <span>🍹 BEVERAGE APP · MOBILE · EGYPT</span>
+            <span data-en="🍹 BEVERAGE APP · MOBILE · EGYPT" data-ar="🍹 تطبيق مشروبات · موبايل · القاهرة">🍹 BEVERAGE APP · MOBILE · EGYPT</span>
           </div>
         </div>
         <div class="proj-hero-layout">
           <div class="proj-hero-info">
-            <span class="pcat">Food &amp; Drink · Mobile App · Egypt · Flutter · Laravel</span>
+            <span class="pcat" data-en="Food &amp; Drink · Mobile App · Egypt · Flutter · Laravel" data-ar="أغذية ومشروبات · تطبيق موبايل · القاهرة · Flutter · Laravel">Food &amp; Drink · Mobile App · Egypt · Flutter · Laravel</span>
             <h1 data-en="Kippis — <em>The Beverage Lab</em>" data-ar="Kippis — <em>مختبر المشروبات</em>">Kippis — <em>The Beverage Lab</em></h1>
             <p data-en="A premium beverage ordering app for Egypt — built for Kippis, a specialty drinks brand. Customers can browse a curated menu, build fully custom drinks with the MoodMixer, track orders in real-time, earn loyalty points, and find the nearest Kippis store. Available on iOS and Android with full Arabic RTL support, biometric login, and integrated payments (Mastercard &amp; Apple Pay)." data-ar="تطبيق طلب مشروبات فاخرة في مصر — مبني لعلامة Kippis للمشروبات المتخصصة. يمكن للعملاء تصفح قائمة مختارة بعناية، وصنع مشروبات مخصصة بالكامل مع MoodMixer، وتتبع الطلبات آنياً، وكسب نقاط الولاء، والعثور على أقرب متجر Kippis. متاح على iOS وAndroid مع دعم كامل للعربية RTL وتسجيل دخول بيومترية ومدفوعات مدمجة (Mastercard وApple Pay).">A premium beverage ordering app for Egypt — built for Kippis, a specialty drinks brand. Customers can browse a curated menu, build fully custom drinks with the MoodMixer, track orders in real-time, earn loyalty points, and find the nearest Kippis store. Available on iOS and Android with full Arabic RTL support, biometric login, and integrated payments (Mastercard &amp; Apple Pay).</p>
             <div class="hero-badges">
-              <span class="hero-badge pink">🇪🇬 Egypt</span>
+              <span class="hero-badge pink" data-en="🇪🇬 Egypt" data-ar="🇪🇬 القاهرة">🇪🇬 Egypt</span>
               <span class="hero-badge purple">📱 iOS &amp; Android</span>
               <span class="hero-badge purple">🍹 MoodMixer</span>
               <span class="hero-badge purple">⭐ Loyalty Points</span>
@@ -230,7 +279,7 @@
       <div class="logo-strip">
         <div class="container">
           <div class="logo-strip-inner">
-            <span class="logo-strip-text">KIPPIS · THE BEVERAGE LAB · EGYPT 🇪🇬</span>
+            <span class="logo-strip-text" data-en="KIPPIS · THE BEVERAGE LAB · EGYPT 🇪🇬" data-ar="KIPPIS · مختبر المشروبات · القاهرة 🇪🇬">KIPPIS · THE BEVERAGE LAB · EGYPT 🇪🇬</span>
             <span class="logo-strip-pill">🍹 Premium Beverage Experience</span>
             <span class="logo-strip-pill" style="background:rgba(236,72,153,.1);border-color:rgba(236,72,153,.3);color:#f9a8d4;">iOS &amp; Android · Live on Play Store</span>
           </div>
@@ -550,7 +599,7 @@
               </div>
               <div class="meta-row">
                 <span class="meta-label" data-en="Market" data-ar="السوق">Market</span>
-                <span class="meta-val">🇪🇬 Egypt</span>
+                <span class="meta-val" data-en="🇪🇬 Egypt" data-ar="🇪🇬 القاهرة، مصر">🇪🇬 Egypt</span>
               </div>
               <div class="meta-row">
                 <span class="meta-label" data-en="Category" data-ar="الفئة">Category</span>
@@ -622,7 +671,7 @@
       html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
       const label = document.getElementById('langLabel');
       if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
-      document.title = lang === 'ar' ? 'Kippis — تطبيق مختبر المشروبات مصر | أحمد نور' : 'Kippis — The Beverage Lab App Egypt | Ahmed Nour';
+      document.title = lang === 'ar' ? 'Kippis — تطبيق مختبر المشروبات القاهرة | أحمد نور' : 'Kippis — The Beverage Lab App Egypt · Cairo | Ahmed Nour';
       document.querySelectorAll('[data-en]').forEach(el => {
         const text = el.getAttribute('data-' + lang);
         if (text !== null) el.innerHTML = text;
@@ -631,10 +680,16 @@
     const langBtn = document.getElementById('langToggle');
     if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
     applyLanguage(currentLang);
-    const revealEls = document.querySelectorAll('.reveal');
+    const revealEls = document.querySelectorAll('.reveal, .detail-section, .component-card, .feature-item, .result-card, .challenge-item, .flow-step, .platform-pill, .stat-item, .sidebar-card, .store-badge');
     const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
-    }, { threshold: 0.08 });
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          e.target.style.transitionDelay = (i % 4) * 0.08 + 's';
+          e.target.classList.add('active');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.06 });
     revealEls.forEach(el => io.observe(el));
   </script>
 </body>
