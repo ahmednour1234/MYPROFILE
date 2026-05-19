@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HPI ERP — Integrated Pharmaceutical ERP + Sales Rep App + Location Tracking | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--hpi-navy:#1a3a5c;--hpi-blue:#0b7ea8;--hpi-teal:#0ea5c8;--hpi-light:#e9f5f9;--hpi-green:#1a7a5c;}
+    /* Hero */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#0b1d2e 0%,#1a3a5c 55%,#0d2440 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 70% 40%,rgba(11,126,168,.22) 0%,transparent 60%),radial-gradient(ellipse 35% 45% at 0% 80%,rgba(26,58,92,.3) 0%,transparent 55%);}
+    .pharma-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#0b7ea8,#0ea5c8,#0b7ea8,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(11,126,168,.4);margin-bottom:20px;}
+    .brand-mark img{height:28px;object-fit:contain;filter:brightness(1.3);}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#7dd3f0;}
+    .erp-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(11,126,168,.25);border:1px solid rgba(11,126,168,.4);margin-left:8px;}
+    .erp-badge span{font-size:11px;font-weight:800;color:#7dd3f0;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(11,126,168,.2);color:#7dd3f0;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(22px,2.6vw,36px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#7dd3f0,#0b7ea8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:520px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.teal{background:rgba(11,126,168,.15);border-color:rgba(11,126,168,.4);color:#7dd3f0;}
+    .hero-badge.green{background:rgba(26,122,92,.15);border-color:rgba(26,122,92,.4);color:#6ee7b7;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-hpi{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#1a3a5c,#0b7ea8);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;border:1px solid rgba(11,126,168,.3);}
+    .btn-hpi:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(11,126,168,.5);}
+    .btn-teal{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#0b7ea8,#0ea5c8);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-teal:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(14,165,200,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    /* Hero visual — ERP mockup */
+    .proj-hero-visual{display:flex;align-items:flex-end;justify-content:center;}
+    .erp-mockup{width:100%;max-width:300px;background:rgba(255,255,255,.05);border:1px solid rgba(11,126,168,.3);border-radius:16px 16px 0 0;padding:20px;box-shadow:0 -12px 50px rgba(11,126,168,.2);}
+    .erp-mockup-logo{text-align:center;margin-bottom:18px;}
+    .erp-mockup-logo img{height:56px;object-fit:contain;filter:brightness(1.2);}
+    .erp-mockup-title{text-align:center;font-size:12px;font-weight:700;color:#7dd3f0;margin-bottom:16px;letter-spacing:.5px;}
+    .erp-modules-mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .mini-mod{padding:8px 10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:6px;}
+    .mini-mod span{font-size:14px;}
+    .mobile-pills{display:flex;gap:6px;margin-top:8px;}
+    .mobile-pill{flex:1;padding:6px 8px;background:rgba(26,122,92,.2);border:1px solid rgba(26,122,92,.4);border-radius:8px;font-size:10px;font-weight:700;color:#6ee7b7;text-align:center;}
+    /* Stats strip */
+    .logo-strip{background:rgba(11,126,168,.08);border-top:1px solid rgba(11,126,168,.25);border-bottom:1px solid rgba(11,126,168,.15);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
+    .logo-strip img{height:30px;object-fit:contain;filter:brightness(1.2);}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    .logo-strip-pill{padding:6px 16px;border-radius:999px;background:rgba(11,126,168,.15);border:1px solid rgba(11,126,168,.35);color:#7dd3f0;font-size:12px;font-weight:700;}
+    .stats-strip{background:rgba(26,58,92,.4);border-bottom:1px solid rgba(11,126,168,.15);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    .stat-num.blue{background:linear-gradient(135deg,#7dd3f0,#0b7ea8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .platform-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(11,126,168,.12);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(11,126,168,.12);border-color:rgba(11,126,168,.3);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(13,148,136,.12);color:#0d9488;font-size:11.5px;font-weight:700;}
+    .erp-val{padding:3px 10px;border-radius:999px;background:rgba(11,126,168,.1);border:1px solid rgba(11,126,168,.25);color:#0b7ea8;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(11,126,168,.08);color:#0b7ea8;font-size:12px;font-weight:700;}
+    /* Main content */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* ERP modules grid */
+    .modules-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .module-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .module-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .module-card.sales::before{background:linear-gradient(90deg,#0b7ea8,#0ea5c8);}
+    .module-card.inv::before{background:linear-gradient(90deg,#1a7a5c,#6ee7b7);}
+    .module-card.purch::before{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+    .module-card.fin::before{background:linear-gradient(90deg,#c9a227,#e8c84a);}
+    .module-card.mfg::before{background:linear-gradient(90deg,#dc2626,#f87171);}
+    .module-card.hr::before{background:linear-gradient(90deg,#374151,#9ca3af);}
+    .mod-icon{font-size:26px;margin-bottom:10px;}
+    .mod-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .mod-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .mod-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .mod-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .mod-tag.b{background:rgba(11,126,168,.1);color:#0b7ea8;}
+    .mod-tag.g{background:rgba(26,122,92,.1);color:#1a7a5c;}
+    .mod-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .mod-tag.o{background:rgba(201,162,39,.12);color:#7a5e00;}
+    .mod-tag.r{background:rgba(220,38,38,.1);color:#dc2626;}
+    .mod-tag.n{background:rgba(55,65,81,.1);color:#374151;}
+    /* Mobile section */
+    .mobile-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    .mobile-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .mobile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+    .mobile-card.app::before{background:linear-gradient(90deg,#0b7ea8,#0ea5c8,#1a7a5c);}
+    .mobile-card.gps::before{background:linear-gradient(90deg,#22c55e,#16a34a,#0b7ea8);}
+    .mobile-card-icon{font-size:32px;margin-bottom:12px;}
+    .mobile-card h3{font-size:15px;font-weight:800;color:var(--navy);margin:0 0 8px;}
+    .mobile-card .arabic-name{font-size:13px;color:#0b7ea8;font-weight:700;margin-bottom:12px;}
+    .mobile-features{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+    .mobile-features li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);line-height:1.6;}
+    .mobile-features li::before{content:'✓';width:18px;height:18px;border-radius:5px;background:rgba(11,126,168,.1);color:#0b7ea8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:900;margin-top:2px;}
+    .mobile-features.gps li::before{background:rgba(34,197,94,.1);color:#16a34a;}
+    /* Features grid */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#1a3a5c,#0b7ea8);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Manufacturing highlight */
+    .mfg-highlight{background:linear-gradient(135deg,#fff8f8,#fff);border:1.5px solid rgba(220,38,38,.2);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .mfg-highlight::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#dc2626,#f87171,#dc2626);}
+    .mfg-badge{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:999px;background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.25);margin-bottom:14px;}
+    .mfg-badge span{font-size:12px;font-weight:800;color:#dc2626;}
+    .mfg-highlight h3{font-size:15px;font-weight:800;color:var(--navy);margin:0 0 10px;}
+    .mfg-highlight p{font-size:13.5px;color:var(--muted);line-height:1.8;margin:0 0 16px;}
+    .mfg-steps{display:flex;flex-wrap:wrap;gap:8px;}
+    .mfg-step{padding:6px 14px;border-radius:8px;background:white;border:1px solid var(--line);font-size:11.5px;font-weight:700;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.05);}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1a3a5c,#0b7ea8);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a3a5c,#0b7ea8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #0b7ea8;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#0b7ea8;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .proj-hero-visual{display:none;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .modules-grid{grid-template-columns:1fr;}
+      .mobile-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .stat-item{padding:8px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="pharma-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>HPI ERP System</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark"><img src="assets/projects/hpi-erp/hpi-erp-logo.png" alt="HPI" onerror="this.parentElement.innerHTML='<span style=\'font-weight:900;font-size:16px;color:#7dd3f0;\'>HPI</span>'" /></div>
+            <span><em>HPI</em> — نظام ERP متكامل</span>
+          </div>
+          <div class="erp-badge">
+            <span>🏭 PHARMA ERP · erpnew.hpi-eg.com · EGYPT</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">ERP · Pharma · Contract Mfg · Sales Rep App · GPS Tracking · Egypt</span>
+            <h1 data-en="HPI <em>ERP</em> — Integrated Pharmaceutical ERP, Sales Rep App &amp; Location Tracking" data-ar="HPI <em>ERP</em> — نظام ERP صيدلاني متكامل وتطبيق المناديب وتتبع المواقع">HPI <em>ERP</em> — Integrated Pharmaceutical ERP, Sales Rep App &amp; Location Tracking</h1>
+            <p data-en="A full-stack integrated ERP system built for HPI — an Egyptian pharmaceutical manufacturing company. Covers the complete business operation end-to-end: sales management, inventory & warehouse with batch/lot/expiry tracking, purchasing, finance & accounting, contract manufacturing (تصنيع لدي الغير — third-party toll manufacturing), HR & payroll, plus a dedicated mobile app for medical sales representatives (المناديب) and a real-time GPS location tracking system for field rep visit verification and route monitoring." data-ar="نظام ERP متكامل بُني لـ HPI — شركة مصرية لتصنيع الأدوية. يغطي العملية التجارية الكاملة من البداية للنهاية: إدارة المبيعات والمخزون والمستودعات مع تتبع الدُفعات/الأرقام التسلسلية/تواريخ الانتهاء والمشتريات والمالية والمحاسبة والتصنيع لدي الغير (لأطراف ثالثة) والموارد البشرية والرواتب، بالإضافة إلى تطبيق موبايل مخصص لمناديب المبيعات الطبية ونظام تتبع GPS للتحقق من زيارات المناديب ومراقبة المسارات.">A full-stack integrated ERP system built for HPI — an Egyptian pharmaceutical manufacturing company. Covers the complete business operation end-to-end: sales management, inventory & warehouse with batch/lot/expiry tracking, purchasing, finance & accounting, contract manufacturing (تصنيع لدي الغير — third-party toll manufacturing), HR & payroll, plus a dedicated mobile app for medical sales representatives (المناديب) and a real-time GPS location tracking system for field rep visit verification and route monitoring.</p>
+            <div class="hero-badges">
+              <span class="hero-badge">🇪🇬 Egypt — HPI Pharmaceuticals</span>
+              <span class="hero-badge teal">🏭 Contract Mfg · تصنيع لدي الغير</span>
+              <span class="hero-badge green">📱 Sales Rep App · المناديب</span>
+              <span class="hero-badge">📍 GPS Location Tracking</span>
+              <span class="hero-badge">💊 Pharma Batch &amp; Expiry Tracking</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://erpnew.hpi-eg.com/admin/auth/login" target="_blank" rel="noopener noreferrer" class="btn-hpi" data-en="View ERP Login →" data-ar="شاهد تسجيل دخول ERP →">View ERP Login →</a>
+              <a href="index.html#contact" class="btn-teal" data-en="Build Custom ERP" data-ar="ابنِ ERP مخصصاً">Build Custom ERP</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual">
+            <div class="erp-mockup">
+              <div class="erp-mockup-logo">
+                <img src="assets/projects/hpi-erp/hpi-erp-logo.png" alt="HPI ERP System" onerror="this.style.display='none'" />
+              </div>
+              <div class="erp-mockup-title">نظام ERP متكامل — HPI Pharmaceuticals</div>
+              <div class="erp-modules-mini">
+                <div class="mini-mod"><span>📦</span>Inventory</div>
+                <div class="mini-mod"><span>💊</span>Pharma Batch</div>
+                <div class="mini-mod"><span>🛒</span>Sales</div>
+                <div class="mini-mod"><span>🏭</span>Mfg (Toll)</div>
+                <div class="mini-mod"><span>💰</span>Finance</div>
+                <div class="mini-mod"><span>👥</span>HR</div>
+              </div>
+              <div class="mobile-pills">
+                <div class="mobile-pill">📱 Rep App</div>
+                <div class="mobile-pill">📍 GPS Track</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <img src="assets/projects/hpi-erp/hpi-erp-logo.png" alt="HPI ERP" />
+            <span class="logo-strip-text">HPI EGYPT · erpnew.hpi-eg.com · PHARMACEUTICAL ERP</span>
+            <span class="logo-strip-pill">🏭 INTEGRATED ERP · PHARMA · MOBILE · GPS · EGYPT</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num blue">6+</span>
+              <span class="stat-label" data-en="ERP Modules" data-ar="وحدات ERP">ERP Modules</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">📱</span>
+              <span class="stat-label" data-en="Sales Rep Mobile App · المناديب" data-ar="تطبيق موبايل المناديب">Sales Rep Mobile App · المناديب</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">📍</span>
+              <span class="stat-label" data-en="GPS Rep Location Tracking" data-ar="تتبع GPS لمواقع المناديب">GPS Rep Location Tracking</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🏭</span>
+              <span class="stat-label" data-en="Contract Mfg · تصنيع لدي الغير" data-ar="تصنيع لدي الغير">Contract Mfg · تصنيع لدي الغير</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num blue">💊</span>
+              <span class="stat-label" data-en="Pharma Batch + Expiry Tracking" data-ar="تتبع دُفعات وتواريخ انتهاء الأدوية">Pharma Batch + Expiry Tracking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">🖥️</span>
+              <div class="pp-text"><strong data-en="ERP Web System" data-ar="نظام ERP الويب">ERP Web System</strong><span data-en="Full admin panel — all business modules" data-ar="لوحة إدارة كاملة — جميع الوحدات التجارية">Full admin panel — all business modules</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🏭</span>
+              <div class="pp-text"><strong data-en="Contract Manufacturing" data-ar="التصنيع لدي الغير">Contract Manufacturing</strong><span data-en="Toll mfg · BOMs · Production orders · QC" data-ar="تصنيع خارجي · مكونات · أوامر إنتاج · جودة">Toll mfg · BOMs · Production orders · QC</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Sales Rep App · تطبيق المناديب" data-ar="تطبيق المناديب">Sales Rep App · تطبيق المناديب</strong><span data-en="Orders · Visits · Catalog · Daily targets" data-ar="طلبات · زيارات · كتالوج · أهداف يومية">Orders · Visits · Catalog · Daily targets</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📍</span>
+              <div class="pp-text"><strong data-en="GPS Location Tracking" data-ar="تتبع GPS للمواقع">GPS Location Tracking</strong><span data-en="Live rep tracking · Visit proof · Route history" data-ar="تتبع آني للمناديب · إثبات الزيارة · تاريخ المسار">Live rep tracking · Visit proof · Route history</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="HPI ERP is a fully custom integrated enterprise resource planning system built for HPI — an Egyptian pharmaceutical company engaged in the production and distribution of pharmaceutical products. The system is hosted at erpnew.hpi-eg.com and covers the company's complete operational workflow: from purchasing raw materials and managing multi-warehouse inventory (with pharma-specific batch, lot, and expiry date tracking), through to sales order management, financial reporting, and human resources." data-ar="HPI ERP نظام تخطيط موارد مؤسسية متكامل مخصص بالكامل، مبني لـ HPI — شركة أدوية مصرية تعمل في إنتاج وتوزيع المنتجات الصيدلانية. النظام مستضاف على erpnew.hpi-eg.com ويغطي سير العمل التشغيلي الكامل للشركة: من شراء المواد الخام وإدارة مخزون متعدد المستودعات (مع تتبع صيدلاني محدد للدُفعات والأرقام التسلسلية وتواريخ الانتهاء)، وصولاً إلى إدارة أوامر البيع والتقارير المالية والموارد البشرية.">HPI ERP is a fully custom integrated enterprise resource planning system built for HPI — an Egyptian pharmaceutical company engaged in the production and distribution of pharmaceutical products. The system is hosted at erpnew.hpi-eg.com and covers the company's complete operational workflow: from purchasing raw materials and managing multi-warehouse inventory (with pharma-specific batch, lot, and expiry date tracking), through to sales order management, financial reporting, and human resources.</p>
+              <p data-en="A particularly specialized module is the Contract Manufacturing (تصنيع لدي الغير) component — managing HPI's outsourced pharmaceutical production with third-party manufacturers. This covers the full contract manufacturing workflow: sending raw materials to external manufacturers, tracking production orders and BOMs (bills of materials), monitoring production progress, quality control sign-off, receiving finished goods back into inventory with full batch and lot traceability." data-ar="وحدة متخصصة بشكل خاص هي مكوّن التصنيع لدي الغير — إدارة الإنتاج الصيدلاني الخارجي لـ HPI مع جهات تصنيع خارجية. هذا يغطي سير عمل التصنيع التعاقدي الكامل: إرسال المواد الخام للمصنّعين الخارجيين وتتبع أوامر الإنتاج وقوائم المكونات ومراقبة تقدم الإنتاج وتوقيع الجودة واستلام البضائع التامة مجدداً في المخزون مع تتبع كامل للدُفعات والأرقام التسلسلية.">A particularly specialized module is the Contract Manufacturing (تصنيع لدي الغير) component — managing HPI's outsourced pharmaceutical production with third-party manufacturers. This covers the full contract manufacturing workflow: sending raw materials to external manufacturers, tracking production orders and BOMs, monitoring production progress, quality control sign-off, receiving finished goods back into inventory with full batch and lot traceability.</p>
+              <p data-en="Beyond the web ERP system, the project includes two critical mobile components: (1) a Sales Rep App (تطبيق المناديب) for HPI's field medical representatives to take orders, record customer visits, access the product catalog, and track their daily sales targets — and (2) a real-time GPS Location Tracking system that allows management to monitor rep locations, verify client visits, view route histories, and ensure field team accountability without relying on manual reporting." data-ar="بعيداً عن نظام ERP الويب، يتضمن المشروع مكوّنَين موبايل حيويَين: (1) تطبيق المناديب لمندوبي المبيعات الطبية الميدانيين لـ HPI لأخذ الطلبات وتسجيل زيارات العملاء والوصول لكتالوج المنتجات وتتبع أهداف مبيعاتهم اليومية — و(2) نظام تتبع GPS للمواقع آني يتيح للإدارة مراقبة مواقع المناديب والتحقق من زيارات العملاء وعرض تواريخ المسارات وضمان مساءلة الفريق الميداني دون الاعتماد على التقارير اليدوية.">Beyond the web ERP system, the project includes two critical mobile components: (1) a Sales Rep App (تطبيق المناديب) for HPI's field medical representatives to take orders, record customer visits, access the product catalog, and track their daily sales targets — and (2) a real-time GPS Location Tracking system that allows management to monitor rep locations, verify client visits, view route histories, and ensure field team accountability without relying on manual reporting.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="ERP System Modules" data-ar="وحدات نظام ERP">ERP System Modules</h2>
+              <div class="modules-grid">
+                <div class="module-card sales">
+                  <div class="mod-icon">🛒</div>
+                  <div class="mod-name" data-en="Sales Management" data-ar="إدارة المبيعات">Sales Management</div>
+                  <div class="mod-sub" data-en="Orders · Customers · Pricing · Credit control" data-ar="الطلبات · العملاء · التسعير · التحكم في الائتمان">Orders · Customers · Pricing · Credit control</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag b">Customer Orders</span>
+                    <span class="mod-tag b">Price Lists</span>
+                    <span class="mod-tag b">Credit Limits</span>
+                    <span class="mod-tag b">Invoicing</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Manages the full pharma sales cycle — creating and processing customer orders, multi-tier pricing for pharmacies, hospitals, wholesalers and distributors, customer credit limit control (a critical requirement for pharmaceutical distribution where customers often buy on credit terms), order-to-invoice workflow, and full sales history and analytics per product, customer, and sales representative." data-ar="يدير دورة المبيعات الصيدلانية الكاملة — إنشاء ومعالجة طلبات العملاء والتسعير متعدد المستويات للصيدليات والمستشفيات وتجار الجملة والموزعين والتحكم في حدود ائتمان العملاء (متطلب حيوي لتوزيع الأدوية حيث يشتري العملاء غالباً بشروط الائتمان) وسير عمل الطلب للفاتورة وتاريخ المبيعات الكامل والتحليلات لكل منتج وعميل ومندوب مبيعات.">Manages the full pharma sales cycle — creating and processing customer orders, multi-tier pricing for pharmacies, hospitals, wholesalers and distributors, customer credit limit control (critical for pharmaceutical distribution), order-to-invoice workflow, and full sales history and analytics per product, customer, and sales representative.</p>
+                </div>
+                <div class="module-card inv">
+                  <div class="mod-icon">📦</div>
+                  <div class="mod-name" data-en="Inventory &amp; Warehouse" data-ar="المخزون والمستودعات">Inventory &amp; Warehouse</div>
+                  <div class="mod-sub" data-en="Batch · Lot · Expiry · Multi-warehouse" data-ar="الدُفعات · التسلسل · الانتهاء · متعدد المستودعات">Batch · Lot · Expiry · Multi-warehouse</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag g">Batch Tracking</span>
+                    <span class="mod-tag g">Expiry Dates</span>
+                    <span class="mod-tag g">FEFO / FIFO</span>
+                    <span class="mod-tag g">Multi-Warehouse</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Pharmaceutical inventory management is significantly more complex than standard inventory — every product must be tracked by batch number, lot number, and expiry date. The ERP enforces FEFO (First Expired, First Out) stock picking — ensuring oldest-expiring stock is always dispatched first to minimize product write-offs. Manages stock across multiple warehouses, inter-warehouse transfers, stock adjustments, minimum reorder levels, and comprehensive stock movement reports showing full batch-level traceability from receipt to dispatch." data-ar="إدارة مخزون الأدوية أكثر تعقيداً بكثير من المخزون القياسي — يجب تتبع كل منتج بحسب رقم الدفعة والرقم التسلسلي وتاريخ الانتهاء. يفرض ERP انتقاء المخزون FEFO (أول انتهاءً أول خروجاً) — ضمان إرسال المخزون الأقدم انتهاءً أولاً لتقليل الإهلاك. يدير المخزون عبر مستودعات متعددة والتحويلات بين المستودعات وتسويات المخزون وأدنى مستويات إعادة الطلب وتقارير حركة المخزون الشاملة التي تُظهر تتبعاً كاملاً على مستوى الدفعة من الاستلام للإرسال.">Pharmaceutical inventory management is significantly more complex than standard inventory — every product must be tracked by batch number, lot number, and expiry date. The ERP enforces FEFO (First Expired, First Out) stock picking — ensuring oldest-expiring stock is always dispatched first to minimize product write-offs. Manages stock across multiple warehouses, inter-warehouse transfers, stock adjustments, minimum reorder levels, and comprehensive stock movement reports with full batch-level traceability from receipt to dispatch.</p>
+                </div>
+                <div class="module-card purch">
+                  <div class="mod-icon">🛒</div>
+                  <div class="mod-name" data-en="Purchasing &amp; Procurement" data-ar="المشتريات والتوريد">Purchasing &amp; Procurement</div>
+                  <div class="mod-sub" data-en="Suppliers · POs · GRNs · Payment terms" data-ar="الموردون · أوامر الشراء · استلام البضائع · شروط الدفع">Suppliers · POs · GRNs · Payment terms</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag p">Supplier Management</span>
+                    <span class="mod-tag p">Purchase Orders</span>
+                    <span class="mod-tag p">GRN + QC</span>
+                    <span class="mod-tag p">AP Tracking</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Manages the full procurement cycle — supplier database (raw material suppliers, packaging suppliers, contract manufacturers), purchase requisitions, purchase order creation and approval workflow, goods receipt notes (GRN) with quality inspection, accounts payable tracking (outstanding supplier balances, payment due dates, payment terms), and purchase analytics (supplier performance, cost per raw material, monthly spend analysis). Especially important for managing raw material procurement for both direct production and contract manufacturing operations." data-ar="يدير دورة الشراء الكاملة — قاعدة بيانات الموردين (موردو المواد الخام وموردو التغليف والمصنّعون التعاقديون) وطلبات الشراء وإنشاء أوامر الشراء وسير عمل الموافقة ومذكرات استلام البضائع مع الفحص النوعي وتتبع الحسابات المدينة (أرصدة الموردين المعلقة ومواعيد استحقاق الدفع وشروط الدفع) وتحليلات الشراء. مهم بشكل خاص لإدارة شراء المواد الخام لكل من الإنتاج المباشر وعمليات التصنيع التعاقدي.">Manages the full procurement cycle — supplier database, purchase requisitions, purchase order creation and approval workflow, goods receipt notes with quality inspection, accounts payable tracking, and purchase analytics. Especially important for managing raw material procurement for both direct production and contract manufacturing operations.</p>
+                </div>
+                <div class="module-card fin">
+                  <div class="mod-icon">💰</div>
+                  <div class="mod-name" data-en="Finance &amp; Accounting" data-ar="المالية والمحاسبة">Finance &amp; Accounting</div>
+                  <div class="mod-sub" data-en="GL · AP · AR · Cost centers · Reports" data-ar="دفتر الأستاذ العام · ذمم دائنة · ذمم مدينة · مراكز التكلفة · التقارير">GL · AP · AR · Cost centers · Reports</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag o">General Ledger</span>
+                    <span class="mod-tag o">AR / AP</span>
+                    <span class="mod-tag o">Cost Centers</span>
+                    <span class="mod-tag o">Financial Reports</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Full double-entry accounting integrated directly with all other ERP modules — every purchase order receipt, sales invoice, payment, and manufacturing cost transaction is automatically posted to the general ledger. Covers chart of accounts, accounts receivable (customer balances, aging report, payment tracking), accounts payable (supplier balances, due payments), cost center accounting for pharma manufacturing cost allocation, P&amp;L, balance sheet, and all management financial reports needed for HPI's operations and regulatory compliance." data-ar="محاسبة مزدوجة كاملة مدمجة مباشرةً مع جميع وحدات ERP الأخرى — كل استلام لأمر شراء وفاتورة مبيعات ودفعة وحركة تكلفة تصنيع تُرحَّل تلقائياً لدفتر الأستاذ العام. تغطي دليل الحسابات والحسابات المدينة والحسابات الدائنة ومحاسبة مراكز التكلفة لتخصيص تكاليف التصنيع الصيدلاني وقائمة الدخل والميزانية العمومية وجميع التقارير المالية الإدارية اللازمة لعمليات HPI والامتثال التنظيمي.">Full double-entry accounting integrated directly with all other ERP modules — every purchase order receipt, sales invoice, payment, and manufacturing cost transaction is automatically posted to the general ledger. Covers chart of accounts, accounts receivable, accounts payable, cost center accounting for pharma manufacturing cost allocation, P&L, balance sheet, and all management financial reports needed for HPI's operations and regulatory compliance.</p>
+                </div>
+                <div class="module-card hr">
+                  <div class="mod-icon">👥</div>
+                  <div class="mod-name" data-en="HR &amp; Payroll" data-ar="الموارد البشرية والرواتب">HR &amp; Payroll</div>
+                  <div class="mod-sub" data-en="Employees · Attendance · Payroll · Leave" data-ar="الموظفون · الحضور · الرواتب · الإجازات">Employees · Attendance · Payroll · Leave</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag n">Employee Records</span>
+                    <span class="mod-tag n">Attendance</span>
+                    <span class="mod-tag n">Payroll</span>
+                    <span class="mod-tag n">Leave Management</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="Human resources and payroll management for HPI's workforce — including office staff, warehouse employees, field medical sales representatives, and management. Covers employee records and contracts, attendance tracking (integrated with the GPS system for field reps), overtime and leave management, monthly payroll calculation (base salary, commissions, allowances, deductions, social insurance), payslip generation, and HR analytics including headcount reporting and cost-per-department analysis." data-ar="إدارة الموارد البشرية والرواتب لقوى عمل HPI — بما يشمل الموظفين المكتبيين وموظفي المستودعات ومندوبي المبيعات الطبية الميدانيين والإدارة. تغطي سجلات الموظفين والعقود وتتبع الحضور (مدمج مع نظام GPS لمندوبي الميدان) وإدارة الإضافي والإجازات وحساب الرواتب الشهرية (الراتب الأساسي والعمولات والبدلات والخصومات والتأمينات الاجتماعية) وإنشاء قسائم الراتب وتحليلات الموارد البشرية.">Human resources and payroll management for HPI's full workforce — office staff, warehouse employees, field medical sales representatives, and management. Covers employee records, attendance tracking (integrated with the GPS system for field reps), leave management, monthly payroll calculation (base salary, commissions, allowances, deductions, social insurance), payslip generation, and HR analytics.</p>
+                </div>
+                <div class="module-card mfg">
+                  <div class="mod-icon">🏭</div>
+                  <div class="mod-name" data-en="Reports &amp; Analytics" data-ar="التقارير والتحليلات">Reports &amp; Analytics</div>
+                  <div class="mod-sub" data-en="Dashboard · KPIs · Sales · Inventory · Financial" data-ar="لوحة التحكم · مؤشرات KPI · مبيعات · مخزون · مالية">Dashboard · KPIs · Sales · Inventory · Financial</div>
+                  <div class="mod-tags">
+                    <span class="mod-tag r">Executive Dashboard</span>
+                    <span class="mod-tag r">Sales Analytics</span>
+                    <span class="mod-tag r">Inventory Reports</span>
+                    <span class="mod-tag r">Rep Performance</span>
+                  </div>
+                  <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7;" data-en="The ERP analytics and reporting module provides management with a comprehensive view of all HPI business operations — executive dashboard with key KPIs (daily sales value, outstanding receivables, low-stock alerts, production order status), sales reports (by product, by customer, by rep, by period), inventory reports (stock levels, batch expiry calendar showing upcoming expirations, stock movement history), purchasing analytics, financial reports (P&amp;L, balance sheet, cash flow), and field rep performance reports (visits completed, orders taken, targets achieved — integrated with the GPS tracking data)." data-ar="يوفر وحدة التحليلات والتقارير في ERP للإدارة نظرة شاملة لجميع عمليات HPI التجارية — لوحة تحكم تنفيذية بمؤشرات KPI رئيسية (قيمة المبيعات اليومية والمستحقات المعلقة وتنبيهات نقص المخزون وحالة أوامر الإنتاج) وتقارير المبيعات وتقارير المخزون (مستويات المخزون وتقويم انتهاء الدُفعات يُظهر الانتهاءات القادمة وتاريخ حركة المخزون) وتحليلات الشراء والتقارير المالية وتقارير أداء مندوبي الميدان (الزيارات المنجزة والطلبات المأخوذة والأهداف المحققة — مدمجة مع بيانات تتبع GPS).">The ERP analytics module provides management a comprehensive view of all HPI business operations — executive dashboard with key KPIs (daily sales, outstanding receivables, low-stock alerts, production order status), sales reports, inventory reports (stock levels, batch expiry calendar), financial reports (P&L, balance sheet), and field rep performance reports (visits, orders, targets — integrated with GPS tracking data).</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Contract Manufacturing — تصنيع لدي الغير" data-ar="التصنيع لدي الغير">Contract Manufacturing — تصنيع لدي الغير</h2>
+              <div class="mfg-highlight">
+                <div class="mfg-badge"><span>🏭 CONTRACT MANUFACTURING · تصنيع لدي الغير</span></div>
+                <h3 data-en="Outsourced Pharmaceutical Production — Full Workflow Management" data-ar="الإنتاج الصيدلاني الخارجي — إدارة سير العمل الكامل">Outsourced Pharmaceutical Production — Full Workflow Management</h3>
+                <p data-en="HPI operates a contract manufacturing (تصنيع لدي الغير) model — outsourcing some or all of its pharmaceutical production to specialized third-party manufacturers while retaining the brand, regulatory licenses, and distribution rights. This is common in the Egyptian pharmaceutical industry and requires sophisticated tracking to maintain full product traceability and regulatory compliance. The ERP's Contract Manufacturing module manages this complete outsourced production workflow from raw material dispatch to finished goods receipt." data-ar="تعمل HPI بنموذج التصنيع لدي الغير — تفويض بعض أو كل إنتاجها الصيدلاني لمصنّعين خارجيين متخصصين مع الاحتفاظ بالعلامة التجارية والتراخيص التنظيمية وحقوق التوزيع. هذا شائع في صناعة الأدوية المصرية ويتطلب تتبعاً متطوراً للحفاظ على التتبع الكامل للمنتج والامتثال التنظيمي. تدير وحدة التصنيع التعاقدي في ERP سير العمل الكامل للإنتاج الخارجي من إرسال المواد الخام حتى استلام البضائع التامة.">HPI operates a contract manufacturing (تصنيع لدي الغير) model — outsourcing some or all of its pharmaceutical production to specialized third-party manufacturers while retaining the brand, regulatory licenses, and distribution rights. This is common in the Egyptian pharmaceutical industry and requires sophisticated tracking to maintain full product traceability and regulatory compliance. The ERP's Contract Manufacturing module manages this complete outsourced production workflow from raw material dispatch to finished goods receipt.</p>
+                <div class="mfg-steps">
+                  <span class="mfg-step">📋 BOM Management</span>
+                  <span class="mfg-step">📦 Raw Material Dispatch</span>
+                  <span class="mfg-step">🏭 Production Order Tracking</span>
+                  <span class="mfg-step">🔬 Quality Control Sign-off</span>
+                  <span class="mfg-step">📥 Finished Goods Receipt</span>
+                  <span class="mfg-step">🏷️ Batch &amp; Lot Assignment</span>
+                  <span class="mfg-step">💰 Manufacturing Cost Allocation</span>
+                  <span class="mfg-step">📊 Yield &amp; Waste Tracking</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Mobile Components" data-ar="مكوّنات الموبايل">Mobile Components</h2>
+              <div class="mobile-grid">
+                <div class="mobile-card app">
+                  <div class="mobile-card-icon">📱</div>
+                  <h3 data-en="Sales Rep App — تطبيق المناديب" data-ar="تطبيق المناديب">Sales Rep App — تطبيق المناديب</h3>
+                  <div class="arabic-name">تطبيق مناديب المبيعات الطبية</div>
+                  <ul class="mobile-features">
+                    <li data-en="Take customer orders from the field — pharmacies, hospitals, distributors — with full product catalog and real-time stock availability" data-ar="استلام طلبات العملاء من الميدان — صيدليات ومستشفيات وموزعون — مع كتالوج منتجات كامل وتوفر المخزون آنياً">Take customer orders from the field — pharmacies, hospitals, distributors — with full product catalog and real-time stock availability</li>
+                    <li data-en="Record client visit check-ins with timestamp and location — creates a verified visit log synced to the ERP and GPS tracking system" data-ar="تسجيل تسجيل دخول زيارة العميل مع الوقت والموقع — ينشئ سجل زيارة موثّق متزامن مع ERP ونظام تتبع GPS">Record client visit check-ins with timestamp and location — creates a verified visit log synced to the ERP and GPS tracking system</li>
+                    <li data-en="Daily target tracking — rep can see their daily/monthly sales target vs. achieved, number of visits completed vs. target, and open order status" data-ar="تتبع الأهداف اليومية — المندوب يرى هدفه اليومي/الشهري مقابل المحقق وعدد الزيارات المنجزة مقابل الهدف وحالة الطلبات المفتوحة">Daily target tracking — rep can see their daily/monthly sales target vs. achieved, number of visits completed vs. target, and open order status</li>
+                    <li data-en="Offline-capable — orders and visits recorded offline and synced to the ERP server when connectivity is restored (critical for areas with poor mobile coverage)" data-ar="يعمل بدون اتصال — الطلبات والزيارات مسجّلة بدون اتصال ومتزامنة مع خادم ERP عند استعادة الاتصال (حيوي للمناطق ذات تغطية موبايل ضعيفة)">Offline-capable — orders and visits recorded offline and synced to the ERP server when connectivity is restored (critical for areas with poor mobile coverage)</li>
+                    <li data-en="Product photo catalog with pricing tiers — rep can show customers product images, pricing, and promotional offers directly from the app" data-ar="كتالوج صور المنتجات مع مستويات الأسعار — المندوب يعرض للعملاء صور المنتجات والأسعار والعروض الترويجية مباشرةً من التطبيق">Product photo catalog with pricing tiers — rep can show customers product images, pricing, and promotional offers directly from the app</li>
+                    <li data-en="Real-time order status — rep can check if previously placed orders have been processed, packed, shipped or delivered — reducing customer inquiry calls to the office" data-ar="حالة الطلبات آنياً — المندوب يفحص إذا كانت الطلبات السابقة قد عولجت أو عُبّئت أو شُحنت أو سُلّمت — مما يقلل مكالمات استفسار العملاء للمكتب">Real-time order status — rep can check if previously placed orders have been processed, packed, shipped, or delivered — reducing customer inquiry calls to the office</li>
+                  </ul>
+                </div>
+                <div class="mobile-card gps">
+                  <div class="mobile-card-icon">📍</div>
+                  <h3 data-en="GPS Location Tracking — تتبع أماكن المناديب" data-ar="تتبع أماكن المناديب">GPS Location Tracking — تتبع أماكن المناديب</h3>
+                  <div class="arabic-name" style="color:#16a34a;">تتبع المواقع الجغرافية للفريق الميداني</div>
+                  <ul class="mobile-features gps">
+                    <li data-en="Real-time GPS tracking of all field medical representatives — management can see a live map view of where every rep is at any point during working hours" data-ar="تتبع GPS آني لجميع مندوبي المبيعات الطبية الميدانيين — الإدارة ترى عرض خريطة مباشراً لمكان كل مندوب في أي وقت خلال ساعات العمل">Real-time GPS tracking of all field medical representatives — management can see a live map view of where every rep is at any point during working hours</li>
+                    <li data-en="Visit verification — when a rep checks in at a customer location in the mobile app, the GPS coordinates are verified against the expected customer address to confirm the visit is genuine" data-ar="التحقق من الزيارة — عندما يسجّل المندوب حضوره في موقع عميل في تطبيق الموبايل، تُتحقق إحداثيات GPS مع عنوان العميل المتوقع لتأكيد أن الزيارة حقيقية">Visit verification — when a rep checks in at a customer location in the mobile app, the GPS coordinates are verified against the expected customer address to confirm the visit is genuine</li>
+                    <li data-en="Route history — full movement history for each rep for any given day, showing the sequence of client visits, travel routes, stop durations, and time at each location" data-ar="تاريخ المسار — تاريخ التنقل الكامل لكل مندوب لأي يوم معطى، يُظهر تسلسل زيارات العملاء ومسارات التنقل ومدد التوقف والوقت في كل موقع">Route history — full movement history for each rep for any given day, showing the sequence of client visits, travel routes, stop durations, and time at each location</li>
+                    <li data-en="Attendance by location — reps can clock-in and clock-out from the field using GPS-verified location, replacing manual attendance systems for field staff" data-ar="الحضور بالموقع — المناديب يسجّلون دخولهم وخروجهم من الميدان باستخدام موقع GPS موثَّق، مستبدلاً أنظمة الحضور اليدوية للموظفين الميدانيين">Attendance by location — reps can clock-in and clock-out from the field using GPS-verified location, replacing manual attendance systems for field staff</li>
+                    <li data-en="Alerts for deviations — if a rep is not in an expected area during working hours or visits are not being logged, management receives an alert" data-ar="تنبيهات للانحرافات — إذا لم يكن المندوب في منطقة متوقعة خلال ساعات العمل أو لم تُسجَّل الزيارات، تتلقى الإدارة تنبيهاً">Alerts for deviations — if a rep is not in an expected area during working hours or visits are not being logged, management receives an alert</li>
+                    <li data-en="Monthly reports — visit count per rep, time spent per customer, coverage map showing which areas are being serviced and which are under-covered" data-ar="التقارير الشهرية — عدد الزيارات لكل مندوب والوقت المُنفَق مع كل عميل وخريطة التغطية تُظهر المناطق المخدومة وغير المخدومة">Monthly reports — visit count per rep, time spent per customer, coverage map showing which areas are being serviced and which are under-covered</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Pharma-Specific: Batch, Lot &amp; Expiry Date Tracking Throughout" data-ar="خاص بالصيدلة: تتبع الدُفعات والأرقام التسلسلية وتواريخ الانتهاء في كل مكان">Pharma-Specific: Batch, Lot &amp; Expiry Date Tracking Throughout</strong>
+                    <span data-en="Unlike generic ERP systems, the HPI ERP is built with pharmaceutical compliance at its core — every product movement (receipt, transfer, dispatch, return, destruction) is tracked at the batch and lot level with full expiry date visibility. The system enforces FEFO picking rules and provides an expiry calendar showing which product batches are expiring in the next 30/60/90 days — enabling proactive management of near-expiry stock to minimize write-offs and comply with Egyptian pharmaceutical authority (CAPA/NODCAR) traceability requirements." data-ar="على عكس أنظمة ERP العامة، يُبنى HPI ERP مع الامتثال الصيدلاني في جوهره — كل حركة منتج (استلام ونقل وإرسال وإرجاع وإتلاف) تُتتبع على مستوى الدفعة والرقم التسلسلي مع رؤية كاملة لتواريخ الانتهاء. يفرض النظام قواعد انتقاء FEFO ويوفر تقويم انتهاء يُظهر دُفعات المنتجات التي تنتهي في 30/60/90 يوماً القادمة — مما يتيح الإدارة الاستباقية للمخزون القريب من الانتهاء لتقليل الإهلاك والامتثال لمتطلبات تتبع هيئة الدواء المصرية.">Unlike generic ERP systems, the HPI ERP is built with pharmaceutical compliance at its core — every product movement is tracked at the batch and lot level with full expiry date visibility. The system enforces FEFO picking rules and provides an expiry calendar showing which batches expire in the next 30/60/90 days — enabling proactive management of near-expiry stock to minimize write-offs and comply with Egyptian pharmaceutical authority traceability requirements.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Fully Integrated — No Data Silos Between ERP Modules" data-ar="متكامل بالكامل — لا صوامع بيانات بين وحدات ERP">Fully Integrated — No Data Silos Between ERP Modules</strong>
+                    <span data-en="All ERP modules are fully integrated — when a sales order is created, inventory is reserved and availability is checked in real time; when goods are dispatched, inventory is automatically reduced and the sales invoice is generated; when a payment is received, accounts receivable is updated and the GL is posted — automatically, without manual data re-entry. The mobile rep app orders feed directly into the ERP sales module. GPS visit data feeds into the HR attendance module. Contract manufacturing receipts automatically update inventory batch records. This end-to-end integration eliminates double-entry errors and gives management a single source of truth for all HPI operations." data-ar="جميع وحدات ERP متكاملة بالكامل — عند إنشاء أمر بيع، يُحجز المخزون وتُفحص التوفرية آنياً؛ عند إرسال البضائع، يُخفَّض المخزون تلقائياً وتُنشأ فاتورة المبيعات؛ عند استلام الدفعة، تُحدَّث الحسابات المدينة وتُرحَّل لدفتر الأستاذ العام — تلقائياً دون إعادة إدخال بيانات يدوية. طلبات تطبيق المندوب تغذي مباشرةً وحدة مبيعات ERP. بيانات زيارات GPS تغذي وحدة حضور الموارد البشرية. استلامات التصنيع التعاقدي تُحدّث تلقائياً سجلات دُفعات المخزون. يقضي هذا التكامل الشامل على أخطاء الإدخال المزدوج ويمنح الإدارة مصدر حقيقة واحداً لجميع عمليات HPI.">All ERP modules are fully integrated — sales orders reserve inventory in real time; dispatches automatically reduce inventory and generate invoices; payments automatically update AR and post to GL. The mobile rep app orders feed directly into the ERP sales module. GPS visit data feeds into HR attendance. Contract manufacturing receipts automatically update inventory batch records. This end-to-end integration eliminates double-entry errors and gives management a single source of truth for all HPI operations.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Field Force Management — Mobile App + GPS = Full Rep Accountability" data-ar="إدارة القوة الميدانية — تطبيق موبايل + GPS = مساءلة كاملة للمندوب">Field Force Management — Mobile App + GPS = Full Rep Accountability</strong>
+                    <span data-en="HPI's medical sales representatives are the company's primary revenue-generating asset in the field — their productivity, visit quality, and order-taking effectiveness directly determines HPI's market penetration and sales performance. The combination of the Sales Rep Mobile App (order taking, visit logging, target tracking) and GPS Location Tracking (visit verification, route monitoring, attendance) gives HPI management unprecedented visibility into field operations. Managers can see exactly what each rep is doing, where they are, which customers they've visited today, what orders they've taken, and whether they're on track to hit their monthly targets — all in real time." data-ar="مناديب المبيعات الطبية لـ HPI هم أصل توليد الإيرادات الأساسي للشركة في الميدان — إنتاجيتهم وجودة زياراتهم وفعالية أخذ الطلبات تحدد مباشرةً اختراق السوق وأداء مبيعات HPI. يجمع تطبيق المناديب (أخذ الطلبات وتسجيل الزيارات وتتبع الأهداف) وتتبع GPS (التحقق من الزيارات ومراقبة المسارات والحضور) لمنح إدارة HPI رؤية غير مسبوقة للعمليات الميدانية. يرى المديرون بالضبط ما يفعله كل مندوب وأين هو وأي العملاء زارهم اليوم وما الطلبات التي أخذها وما إذا كان في مساره لتحقيق أهدافه الشهرية — كل ذلك آنياً.">HPI's medical sales representatives are the company's primary revenue-generating asset — their productivity, visit quality, and order-taking effectiveness directly determines HPI's market penetration and sales performance. The combination of the Sales Rep Mobile App (order taking, visit logging, target tracking) and GPS Location Tracking (visit verification, route monitoring, attendance) gives management unprecedented visibility into field operations — seeing exactly what each rep is doing, where they are, which customers they've visited, what orders they've taken, and whether they're on track for monthly targets.</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Contract Manufacturing Module — Unique to Pharma Operations" data-ar="وحدة التصنيع لدي الغير — فريدة للعمليات الصيدلانية">Contract Manufacturing Module — Unique to Pharma Operations</strong>
+                    <span data-en="The تصنيع لدي الغير (contract/toll manufacturing) module is a specialized capability that goes well beyond what generic ERP systems offer. It manages the full outsourced production lifecycle: creating and approving contract manufacturing orders, sending raw material quantity requirements to the external manufacturer, tracking raw material dispatch from HPI's warehouse to the manufacturer's facility, monitoring production progress against scheduled completion dates, recording quality control inspection results for each produced batch, receiving the finished goods back into HPI inventory with full batch and lot number assignment, and calculating the total manufacturing cost (materials cost + manufacturing fee) for accounting purposes." data-ar="وحدة التصنيع لدي الغير قدرة متخصصة تتجاوز بكثير ما تقدمه أنظمة ERP العامة. تدير دورة حياة الإنتاج الخارجي الكاملة: إنشاء والموافقة على أوامر التصنيع التعاقدي وإرسال متطلبات كميات المواد الخام للمصنّع الخارجي وتتبع إرسال المواد الخام من مستودع HPI لمنشأة المصنّع ومراقبة تقدم الإنتاج مقابل تواريخ الإنجاز المجدولة وتسجيل نتائج فحص الجودة لكل دفعة منتجة واستلام البضائع التامة في مخزون HPI مع تعيين كامل لأرقام الدفعة والأرقام التسلسلية وحساب إجمالي تكلفة التصنيع لأغراض المحاسبة.">The تصنيع لدي الغير (contract/toll manufacturing) module is a specialized capability that goes well beyond generic ERP systems. It manages the full outsourced production lifecycle: creating contract manufacturing orders, tracking raw material dispatch to the manufacturer's facility, monitoring production progress, recording quality control inspection results for each produced batch, receiving finished goods back into HPI inventory with full batch/lot assignment, and calculating total manufacturing cost for accounting purposes.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Outcomes" data-ar="النتائج">Outcomes</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>6+</strong>
+                  <span data-en="Integrated ERP Modules" data-ar="وحدات ERP متكاملة">Integrated ERP Modules</span>
+                </div>
+                <div class="result-card">
+                  <strong>📱</strong>
+                  <span data-en="Mobile Sales Rep App" data-ar="تطبيق موبايل المناديب">Mobile Sales Rep App</span>
+                </div>
+                <div class="result-card">
+                  <strong>📍</strong>
+                  <span data-en="Real-Time GPS Tracking" data-ar="تتبع GPS آني">Real-Time GPS Tracking</span>
+                </div>
+                <div class="result-card">
+                  <strong>🏭</strong>
+                  <span data-en="Contract Mfg Tracked" data-ar="تصنيع لدي الغير مُتتبَّع">Contract Mfg Tracked</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Technical Challenges" data-ar="التحديات التقنية">Technical Challenges</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Pharma Compliance: Batch Traceability &amp; FEFO Enforcement Across All Modules" data-ar="الامتثال الصيدلاني: تتبع الدُفعات وتطبيق FEFO عبر جميع الوحدات">Pharma Compliance: Batch Traceability &amp; FEFO Enforcement Across All Modules</strong>
+                  <p data-en="The most technically demanding requirement of the HPI ERP is the need to track every pharmaceutical product at the individual batch level through every transaction — not just in inventory, but in sales orders, purchase receipts, contract manufacturing orders, returns, and the GL cost allocation. The database schema had to be designed to carry batch and lot references through the full transaction chain, and the application logic had to enforce FEFO automatically in all stock picking scenarios (order dispatch, contract manufacturing raw material issue) while still allowing authorized override when needed for operational reasons." data-ar="المتطلب الأكثر تعقيداً تقنياً في HPI ERP هو الحاجة لتتبع كل منتج صيدلاني على مستوى الدفعة الفردية عبر كل حركة — ليس فقط في المخزون، بل في أوامر البيع وإيصالات الشراء وأوامر التصنيع التعاقدي والمرتجعات وتخصيص تكلفة دفتر الأستاذ العام. يجب تصميم مخطط قاعدة البيانات لحمل مراجع الدفعة والرقم التسلسلي عبر سلسلة الحركات الكاملة، ويجب أن يطبّق منطق التطبيق FEFO تلقائياً في جميع سيناريوهات انتقاء المخزون مع السماح بالتجاوز المرخّص عند الحاجة.">The most technically demanding requirement of the HPI ERP is tracking every pharmaceutical product at the individual batch level through every transaction — not just in inventory, but in sales orders, purchase receipts, contract manufacturing orders, returns, and GL cost allocation. The database schema had to be designed to carry batch and lot references through the full transaction chain, and the application logic had to enforce FEFO automatically in all stock picking scenarios while still allowing authorized override when needed for operational reasons.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Mobile App Offline Sync — Field Reps in Low-Connectivity Environments" data-ar="مزامنة تطبيق الموبايل بدون اتصال — المناديب في بيئات ضعيفة الاتصال">Mobile App Offline Sync — Field Reps in Low-Connectivity Environments</strong>
+                  <p data-en="HPI's medical sales reps visit pharmacies and clinics across Egypt — including areas with poor or intermittent mobile connectivity. The Sales Rep App had to be built with robust offline-first capabilities: orders taken without connectivity are stored locally on the device, and a reliable background sync mechanism uploads them to the ERP server when connectivity is restored — with conflict resolution logic to handle cases where the same product's stock is depleted by another rep's order before the offline order syncs. The GPS tracking system also had to handle connectivity gaps gracefully, buffering location data locally and flushing to the server when online." data-ar="يزور مناديب HPI الطبيون صيدليات وعيادات في أنحاء مصر — بما يشمل مناطق ذات اتصال موبايل ضعيف أو متقطع. يجب بناء تطبيق المناديب بقدرات قوية لأولوية العمل بدون اتصال: الطلبات المأخوذة بدون اتصال تُخزَّن محلياً على الجهاز، وآلية مزامنة خلفية موثوقة ترفعها لخادم ERP عند استعادة الاتصال — مع منطق حل التعارض للتعامل مع حالات نفاد مخزون منتج بأمر مندوب آخر قبل مزامنة الأمر غير المتصل. يجب أيضاً على نظام تتبع GPS التعامل مع انقطاعات الاتصال بسلاسة، مؤقتاً بيانات الموقع محلياً وتفريغها على الخادم عند الاتصال.">HPI's medical sales reps visit pharmacies and clinics across Egypt — including areas with poor or intermittent mobile connectivity. The Sales Rep App had to be built with robust offline-first capabilities: orders taken without connectivity are stored locally on the device, and a reliable background sync mechanism uploads them to the ERP server when connectivity is restored — with conflict resolution logic for stock depletion scenarios. The GPS tracking system also had to handle connectivity gaps gracefully, buffering location data locally and flushing to the server when online.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Contract Manufacturing Data Model — Dual Inventory Impact (Out + In) with Cost Allocation" data-ar="نموذج بيانات التصنيع التعاقدي — تأثير مزدوج على المخزون (خروج + دخول) مع تخصيص التكلفة">Contract Manufacturing Data Model — Dual Inventory Impact (Out + In) with Cost Allocation</strong>
+                  <p data-en="Contract manufacturing (تصنيع لدي الغير) creates a complex inventory accounting scenario: raw materials go OUT of HPI's inventory to the third-party manufacturer's facility, and finished goods come IN to HPI's inventory — but the raw materials sent out should NOT be treated as a sale (no revenue), and the finished goods received should NOT be treated as a purchase from a supplier (they were produced from HPI's own materials). The ERP had to implement a dedicated contract manufacturing inventory accounting model that correctly handles this dual movement with proper cost build-up (materials cost + manufacturing service fee = finished goods cost), batch assignment for the finished goods, and full GL entries that accurately reflect the economic substance of toll manufacturing operations." data-ar="التصنيع لدي الغير يخلق سيناريو محاسبة مخزون معقداً: المواد الخام تخرج من مخزون HPI إلى منشأة المصنّع الخارجي، والبضائع التامة تدخل مخزون HPI — لكن المواد الخام المرسلة يجب ألا تُعامَل كبيع (لا إيرادات)، والبضائع التامة المستلمة يجب ألا تُعامَل كشراء من مورد (أُنتجت من مواد HPI الخاصة). يجب أن ينفّذ ERP نموذج محاسبة مخزون التصنيع التعاقدي المخصص الذي يتعامل صحيحاً مع هذه الحركة المزدوجة مع بناء التكلفة المناسب (تكلفة المواد + رسم خدمة التصنيع = تكلفة البضائع التامة) وتعيين الدفعة للبضائع التامة وقيود دفتر الأستاذ العام الكاملة التي تعكس بدقة الجوهر الاقتصادي لعمليات التصنيع التعاقدي.">Contract manufacturing (تصنيع لدي الغير) creates a complex inventory accounting scenario: raw materials go OUT of HPI's inventory to the third-party manufacturer, and finished goods come IN — but the raw materials sent out should NOT be treated as a sale, and the finished goods received should NOT be treated as a supplier purchase. The ERP had to implement a dedicated contract manufacturing inventory accounting model that correctly handles this dual movement with proper cost build-up (materials cost + manufacturing service fee = finished goods cost), batch assignment for finished goods, and full GL entries that accurately reflect the economic substance of toll manufacturing operations.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="projects.html" class="proj-nav-link">
+                <small data-en="← Back" data-ar="← رجوع">← Back</small>
+                <strong data-en="All Projects" data-ar="جميع المشاريع">All Projects</strong>
+              </a>
+              <a href="index.html#contact" class="btn-teal" data-en="Build Custom ERP →" data-ar="ابنِ ERP مخصصاً →">Build Custom ERP →</a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="جميع المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">HPI Egypt</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Sector" data-ar="القطاع">Sector</span>
+                <span class="meta-val">🏥 Pharmaceuticals</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="System" data-ar="النظام">System</span>
+                <span class="erp-val">Custom ERP</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="URL" data-ar="الرابط">URL</span>
+                <span class="meta-val" style="font-size:10px;">erpnew.hpi-eg.com</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Country" data-ar="الدولة">Country</span>
+                <span class="meta-val">🇪🇬 Egypt</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Access" data-ar="الوصول">Access</span>
+                <span class="meta-val" style="font-size:11px;">🔐 Internal Only</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live · In Use" data-ar="منتج · قيد الاستخدام">Live · In Use</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP 8.2</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Google Maps API</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">FCM Push</span>
+                <span class="tech-chip">GPS Tracking</span>
+                <span class="tech-chip">Offline Sync</span>
+                <span class="tech-chip">RBAC</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="System Components" data-ar="مكوّنات النظام">System Components</h4>
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div style="padding:8px 12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;font-size:12px;font-weight:700;color:#0369a1;">🖥️ ERP Web System</div>
+                <div style="padding:8px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-weight:700;color:#15803d;">📱 Sales Rep Mobile App</div>
+                <div style="padding:8px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-weight:700;color:#15803d;">📍 GPS Location Tracking</div>
+                <div style="padding:8px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-weight:700;color:#b91c1c;">🏭 Contract Mfg Module</div>
+                <div style="padding:8px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-weight:700;color:#92400e;">💊 Pharma Batch Tracking</div>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="ERP Modules" data-ar="وحدات ERP">ERP Modules</h4>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="padding:7px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">🛒 Sales Management</div>
+                <div style="padding:7px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">📦 Inventory &amp; Warehouse</div>
+                <div style="padding:7px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">🛒 Purchasing</div>
+                <div style="padding:7px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">💰 Finance &amp; Accounting</div>
+                <div style="padding:7px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">🏭 Contract Manufacturing</div>
+                <div style="padding:7px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">👥 HR &amp; Payroll</div>
+                <div style="padding:7px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;font-weight:700;color:#374151;">📊 Reports &amp; Analytics</div>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+              <a href="https://erpnew.hpi-eg.com/admin/auth/login" target="_blank" rel="noopener noreferrer" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#1a3a5c,#0b7ea8);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;margin-bottom:8px;" data-en="🔐 View ERP Login" data-ar="🔐 شاهد تسجيل دخول ERP">🔐 View ERP Login</a>
+              <a href="index.html#contact" style="display:block;padding:10px 14px;background:linear-gradient(90deg,#0b7ea8,#0ea5c8);color:white;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;text-align:center;" data-en="💬 Build a Custom ERP" data-ar="💬 ابنِ ERP مخصصاً">💬 Build a Custom ERP</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar'
+        ? 'HPI ERP — نظام ERP صيدلاني متكامل وتطبيق المناديب وتتبع المواقع | أحمد نور'
+        : 'HPI ERP — Integrated Pharmaceutical ERP + Sales Rep App + Location Tracking | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
