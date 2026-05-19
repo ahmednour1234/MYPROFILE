@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ellaithy Auto Group — Employee App Egypt | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl{display:none;}.bg-orb{display:none;}
+    :root{--el-orange:#f97316;--el-dark-orange:#ea580c;--el-dark:#1a0a00;--el-navy:#111827;--el-light:#fff7ed;--el-amber:#fbbf24;}
+
+    /* ── Hero ── */
+    .proj-detail-hero{padding:110px 0 0;background:linear-gradient(150deg,#1a0a00 0%,#7c2d12 45%,#c2410c 100%);color:white;position:relative;overflow:hidden;}
+    .proj-detail-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 35%,rgba(249,115,22,.18) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 5% 85%,rgba(251,191,36,.06) 0%,transparent 55%);}
+    .el-accent-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#f97316,#fbbf24,#f97316,transparent);}
+    .brand-badge{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(249,115,22,.35);margin-bottom:20px;}
+    .brand-mark{width:34px;height:34px;border-radius:9px;overflow:hidden;flex-shrink:0;background:white;display:flex;align-items:center;justify-content:center;}
+    .brand-mark img{width:100%;height:100%;object-fit:contain;}
+    .brand-badge span{font-size:13px;font-weight:700;color:rgba(255,255,255,.9);}
+    .brand-badge em{font-style:normal;color:#fdba74;}
+    .el-type-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.35);margin-left:8px;}
+    .el-type-badge span{font-size:11px;font-weight:800;color:#fde68a;letter-spacing:.5px;}
+    .hero-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:22px;}
+    .hero-breadcrumb a{color:rgba(255,255,255,.65);text-decoration:none;font-weight:600;}
+    .proj-hero-layout{display:grid;grid-template-columns:1fr 360px;gap:48px;align-items:end;position:relative;}
+    .proj-hero-info{padding-bottom:52px;}
+    .proj-hero-info .pcat{font-size:12px;margin-bottom:14px;display:inline-block;background:rgba(249,115,22,.25);color:#fdba74;padding:5px 12px;border-radius:999px;font-weight:700;}
+    .proj-hero-info h1{font-size:clamp(24px,2.8vw,40px);font-weight:900;letter-spacing:-1.4px;color:white;margin:0 0 16px;line-height:1.15;}
+    .proj-hero-info h1 em{font-style:normal;background:linear-gradient(90deg,#fdba74,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .proj-hero-info>p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;max-width:520px;margin:0 0 26px;}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;}
+    .hero-badge{padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;}
+    .hero-badge.orange{background:rgba(249,115,22,.2);border-color:rgba(249,115,22,.5);color:#fdba74;}
+    .hero-badge.amber{background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.4);color:#fde68a;}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    .btn-orange{padding:11px 24px;border-radius:12px;background:linear-gradient(90deg,#f97316,#c2410c);color:white;font-size:13.5px;font-weight:900;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-orange:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(249,115,22,.45);}
+    .btn-ghost-white{padding:11px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);color:white;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .22s;display:inline-block;}
+    .btn-ghost-white:hover{background:rgba(255,255,255,.1);}
+    /* Logo strip */
+    .logo-strip{background:rgba(249,115,22,.07);border-top:1px solid rgba(249,115,22,.2);border-bottom:1px solid rgba(249,115,22,.1);padding:12px 0;}
+    .logo-strip-inner{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;}
+    .logo-strip-text{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+    .logo-strip-pill{padding:6px 16px;border-radius:999px;background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.35);color:#fdba74;font-size:12px;font-weight:700;}
+    /* Stats bar */
+    .stats-strip{background:rgba(249,115,22,.06);border-bottom:1px solid rgba(249,115,22,.12);padding:16px 0;}
+    .stats-inner{display:flex;justify-content:center;flex-wrap:wrap;}
+    .stat-item{padding:8px 36px;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+    .stat-item:last-child{border-right:none;}
+    .stat-num{display:block;font-size:24px;font-weight:900;color:white;letter-spacing:-1px;line-height:1;}
+    .stat-label{font-size:10.5px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;display:block;}
+    /* Platform strip */
+    .platform-strip{background:rgba(255,255,255,.03);border-top:1px solid rgba(249,115,22,.15);padding:18px 0;}
+    .platform-inner{display:flex;align-items:stretch;justify-content:center;flex-wrap:wrap;gap:8px;}
+    .platform-pill{padding:10px 22px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;align-items:center;gap:10px;margin:0 4px;}
+    .platform-pill .pp-icon{font-size:18px;}
+    .platform-pill .pp-text strong{display:block;font-size:13px;font-weight:800;color:white;}
+    .platform-pill .pp-text span{font-size:11px;color:rgba(255,255,255,.45);}
+    .platform-pill.active{background:rgba(249,115,22,.15);border-color:rgba(249,115,22,.4);}
+    /* Body */
+    .proj-detail-body{padding:64px 0 80px;}
+    .detail-layout{display:grid;grid-template-columns:1fr 310px;gap:48px;align-items:start;}
+    /* Sidebar */
+    .detail-sidebar{display:flex;flex-direction:column;gap:20px;}
+    .sidebar-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);}
+    .sidebar-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:0 0 16px;}
+    .meta-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+    .meta-row:last-child{border-bottom:none;padding-bottom:0;}
+    .meta-label{color:var(--muted);font-weight:600;}
+    .meta-val{font-weight:700;color:var(--navy);}
+    .status-live{padding:3px 10px;border-radius:999px;background:rgba(21,128,61,.12);color:#15803d;font-size:11.5px;font-weight:700;}
+    .tech-list{display:flex;flex-wrap:wrap;gap:8px;}
+    .tech-chip{padding:5px 11px;border-radius:8px;background:rgba(249,115,22,.1);color:#c2410c;font-size:12px;font-weight:700;}
+    /* Main */
+    .detail-main{display:flex;flex-direction:column;gap:44px;}
+    .detail-section h2{font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.4px;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+    .detail-section h2::after{content:'';flex:1;height:1px;background:var(--line);}
+    .detail-section p{color:var(--muted);font-size:14px;line-height:1.85;margin:0 0 12px;}
+    /* Screens gallery */
+    .screens-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;}
+    .gallery-screen{border-radius:10px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);}
+    .gallery-screen img{display:block;width:100%;height:auto;}
+    /* Components */
+    .components-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .component-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .component-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .component-card.sales::before{background:linear-gradient(90deg,#f97316,#fbbf24);}
+    .component-card.leads::before{background:linear-gradient(90deg,#ea580c,#f97316);}
+    .component-card.inventory::before{background:linear-gradient(90deg,#7c3aed,#a78bfa);}
+    .component-card.attendance::before{background:linear-gradient(90deg,#15803d,#4ade80);}
+    .component-card.reports::before{background:linear-gradient(90deg,#0369a1,#38bdf8);}
+    .component-card.admin::before{background:linear-gradient(90deg,#be123c,#fb7185);}
+    .comp-icon{font-size:26px;margin-bottom:10px;}
+    .comp-name{font-size:13.5px;font-weight:800;color:var(--navy);margin-bottom:4px;}
+    .comp-sub{font-size:11px;color:var(--muted);margin-bottom:10px;}
+    .comp-tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .comp-tag{padding:3px 8px;border-radius:6px;font-size:10.5px;font-weight:700;}
+    .comp-tag.b{background:rgba(249,115,22,.1);color:#c2410c;}
+    .comp-tag.g{background:rgba(21,128,61,.1);color:#15803d;}
+    .comp-tag.p{background:rgba(124,58,237,.1);color:#7c3aed;}
+    .comp-tag.r{background:rgba(190,18,60,.1);color:#be123c;}
+    .comp-tag.t{background:rgba(13,148,136,.1);color:#0d9488;}
+    .comp-tag.sky{background:rgba(3,105,161,.1);color:#0369a1;}
+    /* Features */
+    .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .feature-item{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;background:white;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+    .feat-check{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#f97316,#c2410c);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:white;font-weight:700;margin-top:1px;}
+    .feature-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:2px;}
+    .feature-item span{font-size:12px;color:var(--muted);line-height:1.6;}
+    /* Results */
+    .results-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+    .result-card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:18px 12px;text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+    .result-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f97316,#fbbf24);}
+    .result-card strong{display:block;font-size:22px;font-weight:900;letter-spacing:-1px;background:linear-gradient(135deg,#1a1a1a,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+    .result-card span{font-size:11px;color:var(--muted);font-weight:600;line-height:1.4;display:block;}
+    /* Challenges */
+    .challenge-list{display:flex;flex-direction:column;gap:12px;}
+    .challenge-item{padding:16px 20px;background:white;border:1px solid var(--line);border-left:3px solid #f97316;border-radius:0 var(--radius) var(--radius) 0;box-shadow:var(--shadow);}
+    .challenge-item strong{display:block;font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .challenge-item p{font-size:13px;color:var(--muted);margin:0;line-height:1.7;}
+    /* Brands grid */
+    .brands-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px;}
+    .brand-chip{padding:10px;background:white;border:1px solid var(--line);border-radius:10px;text-align:center;box-shadow:var(--shadow);}
+    .brand-chip strong{display:block;font-size:12px;font-weight:700;color:var(--navy);}
+    /* Nav footer */
+    .proj-nav-footer{margin-top:16px;padding-top:36px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .proj-nav-link{display:flex;flex-direction:column;gap:4px;text-decoration:none;}
+    .proj-nav-link small{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+    .proj-nav-link strong{font-size:14px;font-weight:800;color:var(--navy);transition:color .2s;}
+    .proj-nav-link:hover strong{color:#f97316;}
+    @media(max-width:960px){
+      .proj-hero-layout{grid-template-columns:1fr;}
+      .detail-layout{grid-template-columns:1fr;}
+      .detail-sidebar{order:-1;}
+      .components-grid{grid-template-columns:1fr;}
+      .features-grid{grid-template-columns:1fr;}
+      .results-grid{grid-template-columns:1fr 1fr;}
+      .screens-gallery{grid-template-columns:1fr 1fr;}
+      .brands-grid{grid-template-columns:repeat(3,1fr);}
+      .stat-item{padding:8px 20px;}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="webgl"></canvas>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" /></a>
+      <nav class="nav-links">
+        <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+        <a href="projects.html" data-en="Projects" data-ar="المشاريع" style="color:var(--blue)">Projects</a>
+        <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+        <a href="index.html#stack" data-en="Stack" data-ar="التقنيات">Stack</a>
+        <a href="index.html#contact" data-en="Contact" data-ar="تواصل">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language"><span class="lang-icon">🌐</span><span id="langLabel">العربية</span></button>
+        <a href="index.html#contact" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="proj-detail-hero">
+      <div class="el-accent-line"></div>
+      <div class="container">
+        <div class="hero-breadcrumb">
+          <a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a><span>›</span>
+          <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a><span>›</span>
+          <span>Ellaithy Auto Group</span>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:20px;">
+          <div class="brand-badge" style="margin-bottom:0;">
+            <div class="brand-mark" style="background:#f97316;display:flex;align-items:center;justify-content:center;">
+              <span style="font-weight:900;font-size:15px;color:white;">E</span>
+            </div>
+            <span><em>اللايثي أوتو جروب</em> &nbsp;— Ellaithy Auto Group · Egypt</span>
+          </div>
+          <div class="el-type-badge">
+            <span>🚗 AUTOMOTIVE · EMPLOYEE APP</span>
+          </div>
+        </div>
+        <div class="proj-hero-layout">
+          <div class="proj-hero-info">
+            <span class="pcat">Automotive · Employee App · Egypt · Laravel · Flutter</span>
+            <h1 data-en="Ellaithy Auto Group — <em>Employee App</em>" data-ar="اللايثي أوتو جروب — <em>تطبيق الموظفين</em>">Ellaithy Auto Group — <em>Employee App</em></h1>
+            <p data-en="A dedicated internal employee mobile application for Ellaithy Auto Group — Egypt's leading car dealership group (ellaithy.com.eg). The app empowers sales reps and showroom staff with a full digital toolkit: lead management, car inventory browser, sales pipeline, customer follow-up, attendance check-in, and team performance dashboards — all tailored for the automotive sales environment." data-ar="تطبيق موبايل داخلي مخصص للموظفين في اللايثي أوتو جروب — مجموعة السيارات الرائدة في مصر (ellaithy.com.eg). يمكّن التطبيق مناديب المبيعات وموظفي الصالة من مجموعة أدوات رقمية كاملة: إدارة العملاء المحتملين، عرض مخزون السيارات، خط مبيعات، متابعة العملاء، تسجيل الحضور، ولوحات أداء الفريق — كل ذلك مصمم خصيصاً لبيئة مبيعات السيارات.">A dedicated internal employee mobile application for Ellaithy Auto Group — Egypt's leading car dealership group (ellaithy.com.eg). The app empowers sales reps and showroom staff with a full digital toolkit: lead management, car inventory browser, sales pipeline, customer follow-up, attendance check-in, and team performance dashboards — all tailored for the automotive sales environment.</p>
+            <div class="hero-badges">
+              <span class="hero-badge amber">🇪🇬 Egypt</span>
+              <span class="hero-badge orange">📱 Employee Mobile App</span>
+              <span class="hero-badge orange">🚗 Car Sales CRM</span>
+              <span class="hero-badge orange">📦 Inventory Browser</span>
+              <span class="hero-badge">✅ Attendance System</span>
+              <span class="hero-badge">📊 Sales Dashboard</span>
+            </div>
+            <div class="hero-actions">
+              <a href="https://ellaithy.com.eg" target="_blank" rel="noopener noreferrer" class="btn-orange" data-en="🌐 Visit Ellaithy Website" data-ar="🌐 زيارة موقع اللايثي">🌐 Visit Ellaithy Website</a>
+              <a href="index.html#contact" class="btn-ghost-white" data-en="Build Similar App" data-ar="ابنِ تطبيقاً مماثلاً">Build Similar App</a>
+            </div>
+          </div>
+          <div class="proj-hero-visual" style="display:flex;align-items:flex-end;justify-content:center;">
+            <div style="border-radius:12px 12px 0 0;overflow:hidden;box-shadow:0 -12px 40px rgba(249,115,22,.3);width:280px;">
+              <img src="assets/projects/ellaithy/ellaithy-screen1.png" alt="Ellaithy Auto Group Website" loading="eager" style="display:block;width:100%;height:auto;" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-strip">
+        <div class="container">
+          <div class="logo-strip-inner">
+            <span class="logo-strip-text">ELLAITHY AUTO GROUP · اللايثي أوتو جروب · EGYPT 🇪🇬</span>
+            <span class="logo-strip-pill">🚗 الشريك في طموحك المهني</span>
+            <span class="logo-strip-pill" style="background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.3);color:#fde68a;">Employee Mobile App</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="container">
+          <div class="stats-inner">
+            <div class="stat-item">
+              <span class="stat-num">6+</span>
+              <span class="stat-label" data-en="App Modules" data-ar="وحدات التطبيق">App Modules</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">20+</span>
+              <span class="stat-label" data-en="Car Brands" data-ar="ماركات سيارات">Car Brands</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">📱</span>
+              <span class="stat-label" data-en="Mobile First" data-ar="موبايل أولاً">Mobile First</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">🇪🇬</span>
+              <span class="stat-label" data-en="Egypt Market" data-ar="السوق المصري">Egypt Market</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-strip">
+        <div class="container">
+          <div class="platform-inner">
+            <div class="platform-pill active">
+              <span class="pp-icon">📱</span>
+              <div class="pp-text"><strong data-en="Flutter Mobile App" data-ar="تطبيق Flutter">Flutter Mobile App</strong><span data-en="iOS &amp; Android · Employee Tool" data-ar="iOS وAndroid · أداة الموظفين">iOS &amp; Android · Employee Tool</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🗂️</span>
+              <div class="pp-text"><strong data-en="Lead Management" data-ar="إدارة العملاء">Lead Management</strong><span data-en="Follow-up · Pipeline · Conversion" data-ar="متابعة · خط مبيعات · تحويل">Follow-up · Pipeline · Conversion</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">🚗</span>
+              <div class="pp-text"><strong data-en="Car Inventory" data-ar="مخزون السيارات">Car Inventory</strong><span data-en="Browse models · Specs · Availability" data-ar="تصفح الموديلات · المواصفات · التوافر">Browse models · Specs · Availability</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">✅</span>
+              <div class="pp-text"><strong data-en="Attendance &amp; HR" data-ar="الحضور والموارد البشرية">Attendance &amp; HR</strong><span data-en="Check-in · Leaves · Schedule" data-ar="تسجيل حضور · إجازات · جدول">Check-in · Leaves · Schedule</span></div>
+            </div>
+            <div class="platform-pill active">
+              <span class="pp-icon">📊</span>
+              <div class="pp-text"><strong data-en="Sales Dashboard" data-ar="لوحة المبيعات">Sales Dashboard</strong><span data-en="KPIs · Targets · Commission" data-ar="مؤشرات · أهداف · عمولات">KPIs · Targets · Commission</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proj-detail-body">
+      <div class="container">
+        <div class="detail-layout">
+          <div class="detail-main reveal">
+
+            <div class="detail-section">
+              <h2 data-en="Project Overview" data-ar="نظرة عامة">Project Overview</h2>
+              <p data-en="Ellaithy Auto Group (اللايثي أوتو جروب) is one of Egypt's leading car dealership groups, operating through ellaithy.com.eg — offering an extensive inventory of new cars from over 20 international brands including BYD, MG, Audi, Kia, Renault, JAC, Jeep, and more. The group provides instant delivery options, flexible installment plans (up to 8 years), and instant financing approvals for Egyptian customers." data-ar="اللايثي أوتو جروب هي إحدى مجموعات وكلاء السيارات الرائدة في مصر، تعمل عبر ellaithy.com.eg — تقدم مخزوناً واسعاً من السيارات الجديدة من أكثر من 20 ماركة دولية تشمل BYD وMG وأودي وكيا ورينو وJAC وجيب وغيرها. تقدم المجموعة خيارات تسليم فوري وخطط تقسيط مرنة (حتى 8 سنوات) وموافقات تمويل فورية للعملاء المصريين.">Ellaithy Auto Group (اللايثي أوتو جروب) is one of Egypt's leading car dealership groups, operating through ellaithy.com.eg — offering an extensive inventory of new cars from over 20 international brands including BYD, MG, Audi, Kia, Renault, JAC, Jeep, and more. The group provides instant delivery options, flexible installment plans (up to 8 years), and instant financing approvals for Egyptian customers.</p>
+              <p data-en="To support their large salesforce and showroom staff, I developed a dedicated internal employee mobile application. The app gives every employee — from sales reps to showroom managers — a single, purpose-built tool to manage their daily workflow: tracking customer leads, browsing the full car inventory with specs, recording and following up on customer interactions, submitting attendance and leave requests, viewing their sales targets and commission progress, and receiving team announcements and updates." data-ar="لدعم فريق المبيعات الكبير وموظفي الصالات، قمت بتطوير تطبيق موبايل داخلي مخصص للموظفين. يمنح التطبيق كل موظف — من مناديب المبيعات إلى مديري الصالات — أداة واحدة مصممة خصيصاً لإدارة سير العمل اليومي: تتبع العملاء المحتملين، تصفح مخزون السيارات الكامل مع المواصفات، تسجيل تفاعلات العملاء ومتابعتها، تقديم طلبات الحضور والإجازات، عرض أهداف المبيعات وتقدم العمولات، واستقبال إعلانات وتحديثات الفريق.">To support their large salesforce and showroom staff, I developed a dedicated internal employee mobile application. The app gives every employee — from sales reps to showroom managers — a single, purpose-built tool to manage their daily workflow: tracking customer leads, browsing the full car inventory with specs, recording and following up on customer interactions, submitting attendance and leave requests, viewing their sales targets and commission progress, and receiving team announcements and updates.</p>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Website Preview" data-ar="معاينة الموقع">Website Preview</h2>
+              <div class="screens-gallery">
+                <div class="gallery-screen">
+                  <img src="assets/projects/ellaithy/ellaithy-screen1.png" alt="Ellaithy Auto Group Homepage" loading="lazy" />
+                </div>
+                <div class="gallery-screen">
+                  <img src="assets/projects/ellaithy/ellaithy-hero.png" alt="Ellaithy Cars Inventory" loading="lazy" />
+                </div>
+                <div class="gallery-screen">
+                  <img src="assets/projects/ellaithy/ellaithy-screen1.png" alt="Ellaithy Auto Group" loading="lazy" style="filter:hue-rotate(5deg) saturate(1.1);" />
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Car Brands Covered" data-ar="الماركات المشمولة">Car Brands Covered</h2>
+              <p data-en="The inventory browser in the employee app covers all brands sold by Ellaithy Auto Group — giving reps instant access to specs, colors, pricing, and stock availability per model." data-ar="يغطي متصفح المخزون في التطبيق جميع الماركات التي تبيعها اللايثي أوتو جروب — مما يتيح للمناديب الوصول الفوري إلى المواصفات والألوان والأسعار وتوافر المخزون لكل موديل.">The inventory browser in the employee app covers all brands sold by Ellaithy Auto Group — giving reps instant access to specs, colors, pricing, and stock availability per model.</p>
+              <div class="brands-grid">
+                <div class="brand-chip"><strong>BYD</strong></div>
+                <div class="brand-chip"><strong>MG</strong></div>
+                <div class="brand-chip"><strong>Audi</strong></div>
+                <div class="brand-chip"><strong>Kia</strong></div>
+                <div class="brand-chip"><strong>Renault</strong></div>
+                <div class="brand-chip"><strong>JAC</strong></div>
+                <div class="brand-chip"><strong>Jeep</strong></div>
+                <div class="brand-chip"><strong>Fiat</strong></div>
+                <div class="brand-chip"><strong>Cupra</strong></div>
+                <div class="brand-chip"><strong>Seat</strong></div>
+                <div class="brand-chip"><strong>Alfa Romeo</strong></div>
+                <div class="brand-chip"><strong>+ More</strong></div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="App Modules" data-ar="وحدات التطبيق">App Modules</h2>
+              <div class="components-grid">
+                <div class="component-card sales">
+                  <div class="comp-icon">📊</div>
+                  <div class="comp-name" data-en="Sales Dashboard" data-ar="لوحة المبيعات">Sales Dashboard</div>
+                  <div class="comp-sub" data-en="Real-time KPIs, targets & commission tracking" data-ar="مؤشرات آنية وأهداف وتتبع عمولات">Real-time KPIs, targets &amp; commission tracking</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">KPIs</span>
+                    <span class="comp-tag b">Targets</span>
+                    <span class="comp-tag b">Commission</span>
+                    <span class="comp-tag g">Charts</span>
+                  </div>
+                </div>
+                <div class="component-card leads">
+                  <div class="comp-icon">🗂️</div>
+                  <div class="comp-name" data-en="Lead & Customer CRM" data-ar="CRM العملاء والعملاء المحتملين">Lead &amp; Customer CRM</div>
+                  <div class="comp-sub" data-en="Manage leads, follow-ups, and deal pipeline" data-ar="إدارة العملاء المحتملين والمتابعات وخط الصفقات">Manage leads, follow-ups, and deal pipeline</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag b">Leads</span>
+                    <span class="comp-tag b">Pipeline</span>
+                    <span class="comp-tag b">Follow-up</span>
+                    <span class="comp-tag r">Notes</span>
+                  </div>
+                </div>
+                <div class="component-card inventory">
+                  <div class="comp-icon">🚗</div>
+                  <div class="comp-name" data-en="Car Inventory Browser" data-ar="متصفح مخزون السيارات">Car Inventory Browser</div>
+                  <div class="comp-sub" data-en="Browse all models with specs, colors & availability" data-ar="تصفح جميع الموديلات بمواصفاتها وألوانها وتوافرها">Browse all models with specs, colors &amp; availability</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag p">Stock</span>
+                    <span class="comp-tag p">Specs</span>
+                    <span class="comp-tag p">Pricing</span>
+                    <span class="comp-tag p">Colors</span>
+                  </div>
+                </div>
+                <div class="component-card attendance">
+                  <div class="comp-icon">✅</div>
+                  <div class="comp-name" data-en="Attendance & HR" data-ar="الحضور والموارد البشرية">Attendance &amp; HR</div>
+                  <div class="comp-sub" data-en="Daily check-in, leave requests & schedule" data-ar="تسجيل حضور يومي وطلبات إجازة وجدول عمل">Daily check-in, leave requests &amp; schedule</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag g">Check-in</span>
+                    <span class="comp-tag g">Leaves</span>
+                    <span class="comp-tag g">Schedule</span>
+                  </div>
+                </div>
+                <div class="component-card reports">
+                  <div class="comp-icon">📈</div>
+                  <div class="comp-name" data-en="Reports & Analytics" data-ar="التقارير والتحليلات">Reports &amp; Analytics</div>
+                  <div class="comp-sub" data-en="Performance reports, sales summaries & trends" data-ar="تقارير أداء وملخصات مبيعات واتجاهات">Performance reports, sales summaries &amp; trends</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag sky">Monthly</span>
+                    <span class="comp-tag sky">Weekly</span>
+                    <span class="comp-tag sky">Export</span>
+                  </div>
+                </div>
+                <div class="component-card admin">
+                  <div class="comp-icon">🔔</div>
+                  <div class="comp-name" data-en="Announcements & Notifications" data-ar="الإعلانات والإشعارات">Announcements &amp; Notifications</div>
+                  <div class="comp-sub" data-en="Push notifications, team news & manager broadcasts" data-ar="إشعارات فورية وأخبار الفريق وبث المديرين">Push notifications, team news &amp; manager broadcasts</div>
+                  <div class="comp-tags">
+                    <span class="comp-tag r">Push</span>
+                    <span class="comp-tag r">FCM</span>
+                    <span class="comp-tag r">Broadcast</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Key Features" data-ar="المميزات الرئيسية">Key Features</h2>
+              <div class="features-grid">
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Full Lead Lifecycle" data-ar="دورة حياة العميل الكاملة">Full Lead Lifecycle</strong>
+                    <span data-en="From initial contact through test drive, quote, and deal closure" data-ar="من الاتصال الأول عبر التجربة والعرض وإتمام الصفقة">From initial contact through test drive, quote, and deal closure</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Live Car Stock" data-ar="مخزون السيارات الحي">Live Car Stock</strong>
+                    <span data-en="Real-time inventory synced with the backend — models, variants, colors & units available" data-ar="مخزون حي متزامن مع الخادم — الموديلات والمتغيرات والألوان والوحدات المتاحة">Real-time inventory synced with backend — models, variants, colors &amp; units available</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Installment Calculator" data-ar="حاسبة الأقساط">Installment Calculator</strong>
+                    <span data-en="Built-in car installment calculator matching Ellaithy's financing options (up to 8 years)" data-ar="حاسبة أقساط مدمجة تتوافق مع خيارات التمويل في اللايثي (حتى 8 سنوات)">Built-in car installment calculator matching Ellaithy's financing options (up to 8 years)</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Attendance Geo-Verification" data-ar="التحقق الجغرافي للحضور">Attendance Geo-Verification</strong>
+                    <span data-en="Location-based attendance check-in verified against showroom coordinates" data-ar="تسجيل حضور مرتبط بالموقع الجغرافي ومتحقق من إحداثيات الصالة">Location-based attendance check-in verified against showroom coordinates</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Role-Based Access (RBAC)" data-ar="صلاحيات قائمة على الأدوار">Role-Based Access (RBAC)</strong>
+                    <span data-en="Different views and permissions for sales reps, team leads & showroom managers" data-ar="واجهات وصلاحيات مختلفة للمناديب والمشرفين ومديري الصالات">Different views and permissions for sales reps, team leads &amp; showroom managers</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Arabic RTL Native" data-ar="عربي RTL أصيل">Arabic RTL Native</strong>
+                    <span data-en="Fully Arabic-first interface with RTL layout — designed for the Egyptian market" data-ar="واجهة عربية بالكامل مع تخطيط RTL — مصممة للسوق المصري">Fully Arabic-first interface with RTL layout — designed for the Egyptian market</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Firebase Push Notifications" data-ar="إشعارات Firebase الفورية">Firebase Push Notifications</strong>
+                    <span data-en="Manager broadcasts, lead alerts, and system announcements via FCM" data-ar="بث المديرين وتنبيهات العملاء والإعلانات عبر FCM">Manager broadcasts, lead alerts, and system announcements via FCM</span>
+                  </div>
+                </div>
+                <div class="feature-item">
+                  <div class="feat-check">✓</div>
+                  <div>
+                    <strong data-en="Secure Laravel Backend" data-ar="خادم Laravel آمن">Secure Laravel Backend</strong>
+                    <span data-en="REST API with JWT authentication, request validation & audit logging" data-ar="REST API مع توثيق JWT والتحقق من الطلبات وسجل المراجعة">REST API with JWT authentication, request validation &amp; audit logging</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Results & Impact" data-ar="النتائج والأثر">Results &amp; Impact</h2>
+              <div class="results-grid">
+                <div class="result-card">
+                  <strong>100%</strong>
+                  <span data-en="Paperless attendance workflow" data-ar="سير عمل حضور بلا ورق">Paperless attendance workflow</span>
+                </div>
+                <div class="result-card">
+                  <strong>6+</strong>
+                  <span data-en="Integrated app modules" data-ar="وحدات تطبيق متكاملة">Integrated app modules</span>
+                </div>
+                <div class="result-card">
+                  <strong>20+</strong>
+                  <span data-en="Car brands in inventory" data-ar="ماركات سيارات في المخزون">Car brands in inventory</span>
+                </div>
+                <div class="result-card">
+                  <strong>🚗</strong>
+                  <span data-en="Egypt's leading dealership" data-ar="وكيل رائد في مصر">Egypt's leading dealership</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <h2 data-en="Challenges & Solutions" data-ar="التحديات والحلول">Challenges &amp; Solutions</h2>
+              <div class="challenge-list">
+                <div class="challenge-item">
+                  <strong data-en="Live inventory sync" data-ar="مزامنة المخزون الحي">Live inventory sync</strong>
+                  <p data-en="Car stock changes constantly — new arrivals, sold units, color variants going out of stock. Solved with a caching layer on the Laravel backend and pull-to-refresh in the Flutter app, ensuring employees always see accurate, up-to-date availability." data-ar="مخزون السيارات يتغير باستمرار — وصول سيارات جديدة ووحدات مبيعة وألوان نافدة. تم الحل بطبقة تخزين مؤقت في خادم Laravel وتحديث بالسحب في تطبيق Flutter، مما يضمن للموظفين رؤية التوافر الدقيق والمحدث دائماً.">Car stock changes constantly — new arrivals, sold units, color variants going out of stock. Solved with a caching layer on the Laravel backend and pull-to-refresh in the Flutter app, ensuring employees always see accurate, up-to-date availability.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Multi-role access control" data-ar="التحكم في الوصول متعدد الأدوار">Multi-role access control</strong>
+                  <p data-en="Sales reps, team supervisors, and showroom managers each need a different view of data and different permissions. Implemented full RBAC at the API level — each token carries role claims, and the Flutter app renders appropriate screens and hides restricted actions dynamically." data-ar="مناديب المبيعات والمشرفون ومديرو الصالات يحتاجون كل منهم إلى عرض مختلف للبيانات وصلاحيات مختلفة. تم تطبيق RBAC كامل على مستوى API — كل رمز مميز يحمل بيانات الدور، ويعرض تطبيق Flutter الشاشات المناسبة ويخفي الإجراءات المقيدة ديناميكياً.">Sales reps, team supervisors, and showroom managers each need a different view of data and different permissions. Implemented full RBAC at the API level — each token carries role claims, and the Flutter app renders appropriate screens and hides restricted actions dynamically.</p>
+                </div>
+                <div class="challenge-item">
+                  <strong data-en="Arabic-first mobile UX" data-ar="تجربة موبايل عربية أولاً">Arabic-first mobile UX</strong>
+                  <p data-en="The entire workforce communicates in Arabic, and standard LTR UI patterns feel unnatural. Designed the app with RTL layout from the ground up — Arabic typography, right-aligned navigation, Arabic date formats, and localized number formatting for Egyptian audiences." data-ar="القوى العاملة بأكملها تتواصل بالعربية، وأنماط واجهة المستخدم LTR القياسية تبدو غير طبيعية. تم تصميم التطبيق بتخطيط RTL من الصفر — خط عربي وتنقل محاذى لليمين وتنسيقات تواريخ عربية وتنسيق أرقام محلي للجمهور المصري.">The entire workforce communicates in Arabic, and standard LTR UI patterns feel unnatural. Designed the app with RTL layout from the ground up — Arabic typography, right-aligned navigation, Arabic date formats, and localized number formatting for Egyptian audiences.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-nav-footer">
+              <a href="project-zewail.html" class="proj-nav-link">
+                <small data-en="← Previous Project" data-ar="→ المشروع السابق">← Previous Project</small>
+                <strong>Zewail Academy</strong>
+              </a>
+              <a href="projects.html" class="proj-nav-link" style="text-align:right;">
+                <small data-en="All Projects →" data-ar="كل المشاريع →">All Projects →</small>
+                <strong data-en="View Portfolio" data-ar="عرض المعرض">View Portfolio</strong>
+              </a>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="detail-sidebar reveal">
+            <div class="sidebar-card">
+              <h4 data-en="Project Info" data-ar="معلومات المشروع">Project Info</h4>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Client" data-ar="العميل">Client</span>
+                <span class="meta-val">Ellaithy Auto Group</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Type" data-ar="النوع">Type</span>
+                <span class="meta-val" data-en="Employee Mobile App" data-ar="تطبيق موبايل للموظفين">Employee Mobile App</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Market" data-ar="السوق">Market</span>
+                <span class="meta-val">🇪🇬 Egypt</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Industry" data-ar="القطاع">Industry</span>
+                <span class="meta-val" data-en="Automotive" data-ar="السيارات">Automotive</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Platform" data-ar="المنصة">Platform</span>
+                <span class="meta-val">iOS &amp; Android</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-label" data-en="Status" data-ar="الحالة">Status</span>
+                <span class="status-live" data-en="Live" data-ar="مباشر">Live</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Tech Stack" data-ar="التقنيات المستخدمة">Tech Stack</h4>
+              <div class="tech-list">
+                <span class="tech-chip">Flutter</span>
+                <span class="tech-chip">Dart</span>
+                <span class="tech-chip">Laravel</span>
+                <span class="tech-chip">PHP</span>
+                <span class="tech-chip">MySQL</span>
+                <span class="tech-chip">REST API</span>
+                <span class="tech-chip">JWT Auth</span>
+                <span class="tech-chip">Firebase FCM</span>
+                <span class="tech-chip">RBAC</span>
+                <span class="tech-chip">Geolocator</span>
+              </div>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Company Website" data-ar="موقع الشركة">Company Website</h4>
+              <a href="https://ellaithy.com.eg" target="_blank" rel="noopener noreferrer" class="btn-orange" style="width:100%;text-align:center;display:block;font-size:13px;" data-en="🌐 ellaithy.com.eg" data-ar="🌐 ellaithy.com.eg">🌐 ellaithy.com.eg</a>
+            </div>
+
+            <div class="sidebar-card">
+              <h4 data-en="Build Something Similar?" data-ar="تريد مشروعاً مشابهاً؟">Build Something Similar?</h4>
+              <p style="font-size:13px;color:var(--muted);margin:0 0 14px;line-height:1.7;" data-en="Need an employee app, sales CRM, or internal tool for your company? Let's talk." data-ar="هل تحتاج تطبيق موظفين أو CRM مبيعات أو أداة داخلية لشركتك؟ لنتحدث.">Need an employee app, sales CRM, or internal tool for your company? Let's talk.</p>
+              <a href="index.html#contact" class="btn-orange" style="width:100%;text-align:center;display:block;font-size:13px;" data-en="Contact Me" data-ar="تواصل معي">Contact Me</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy" data-en="© 2026 Software Engineer Portfolio" data-ar="© 2026 معرض مهندس البرمجيات">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="mailto:ahmednour5999@gmail.com" data-en="Email" data-ar="البريد">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = localStorage.getItem('ahmed-portfolio-lang') || 'en';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('ahmed-portfolio-lang', lang);
+      const html = document.documentElement;
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      const label = document.getElementById('langLabel');
+      if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
+      document.title = lang === 'ar' ? 'اللايثي أوتو جروب — تطبيق الموظفين | أحمد نور' : 'Ellaithy Auto Group — Employee App Egypt | Ahmed Nour';
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute('data-' + lang);
+        if (text !== null) el.innerHTML = text;
+      });
+    }
+    const langBtn = document.getElementById('langToggle');
+    if (langBtn) langBtn.addEventListener('click', () => applyLanguage(currentLang === 'en' ? 'ar' : 'en'));
+    applyLanguage(currentLang);
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
