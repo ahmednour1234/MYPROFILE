@@ -1146,7 +1146,7 @@ body {
 .logo-marquee:hover .marquee-inner { animation-play-state:paused; }
 @keyframes logoScroll {
   from { transform:translateX(0); }
-  to   { transform:translateX(-50%); }
+  to   { transform:translateX(-25%); }
 }
 /* Client tile — pure CSS, no images needed */
 .client-tile {
