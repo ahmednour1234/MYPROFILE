@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl { display:none; }
+    .bg-orb { display:none; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 130px 0 64px;
+      background: linear-gradient(135deg, #f0f5ff 0%, #eef0ff 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .breadcrumb {
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .breadcrumb a { color: var(--blue); font-weight: 600; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .page-hero h1 {
+      font-size: clamp(32px, 4.5vw, 56px);
+      font-weight: 900; letter-spacing: -1.5px;
+      color: var(--navy); margin: 0 0 14px; line-height: 1.1;
+    }
+    .page-hero h1 span {
+      background: var(--grad-text);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .page-hero .sub { font-size: 16px; color: var(--muted); max-width: 560px; line-height: 1.75; }
+
+    /* CONTACT LAYOUT */
+    .contact-wrap { padding: 72px 0 96px; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* LEFT SIDEBAR */
+    .contact-sidebar { display: flex; flex-direction: column; gap: 22px; }
+
+    .contact-info-card {
+      background: white; border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+      box-shadow: var(--shadow);
+    }
+    .contact-info-card h3 {
+      font-size: 17px; font-weight: 800; color: var(--navy);
+      margin: 0 0 20px;
+    }
+    .contact-info-list { display: flex; flex-direction: column; gap: 16px; }
+    .contact-info-item {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .cii-icon {
+      width: 40px; height: 40px; border-radius: 11px;
+      background: rgba(37,99,235,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+    .cii-body { display: flex; flex-direction: column; gap: 2px; }
+    .cii-label { font-size: 11.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .cii-value { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .cii-value a { color: var(--blue); }
+    .cii-value a:hover { text-decoration: underline; }
+
+    /* Quick contact buttons */
+    .quick-btns { display: flex; flex-direction: column; gap: 11px; }
+    .qbtn {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 18px; border-radius: 13px;
+      font-size: 14px; font-weight: 700;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .qbtn-icon {
+      width: 36px; height: 36px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .qbtn-email { background: rgba(37,99,235,0.07); color: var(--navy); border: 1px solid rgba(37,99,235,0.12); }
+    .qbtn-email:hover { background: var(--blue); color: white; }
+    .qbtn-email .qbtn-icon { background: var(--blue); }
+    .qbtn-wa1 { background: rgba(37,211,102,0.07); color: var(--navy); border: 1px solid rgba(37,211,102,0.15); }
+    .qbtn-wa1:hover { background: #25d366; color: white; }
+    .qbtn-wa1 .qbtn-icon { background: #25d366; }
+    .qbtn-wa2 { background: rgba(37,211,102,0.07); color: var(--navy); border: 1px solid rgba(37,211,102,0.15); }
+    .qbtn-wa2:hover { background: #1ebe5d; color: white; }
+    .qbtn-wa2 .qbtn-icon { background: #1ebe5d; }
+    .qbtn-github { background: rgba(26,26,46,0.06); color: var(--navy); border: 1px solid rgba(26,26,46,0.1); }
+    .qbtn-github:hover { background: #1a1a2e; color: white; }
+    .qbtn-github .qbtn-icon { background: #1a1a2e; }
+    .qbtn-linkedin { background: rgba(0,119,181,0.07); color: var(--navy); border: 1px solid rgba(0,119,181,0.12); }
+    .qbtn-linkedin:hover { background: #0077b5; color: white; }
+    .qbtn-linkedin .qbtn-icon { background: #0077b5; }
+
+    .avail-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(34,197,94,0.1); color: #16a34a;
+      border: 1px solid rgba(34,197,94,0.2);
+      padding: 10px 18px; border-radius: 999px;
+      font-size: 13px; font-weight: 700;
+    }
+    .avail-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #16a34a;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* RIGHT: Contact Form */
+    .contact-form-card {
+      background: white; border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 40px 36px;
+      box-shadow: var(--shadow);
+    }
+    .contact-form-card h3 {
+      font-size: 22px; font-weight: 800; color: var(--navy);
+      margin: 0 0 8px;
+    }
+    .contact-form-card .form-sub {
+      font-size: 14px; color: var(--muted); margin: 0 0 30px; line-height: 1.6;
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group label {
+      font-size: 13px; font-weight: 700; color: var(--navy);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 13px 16px;
+      border: 1.5px solid rgba(37,99,235,0.15);
+      border-radius: 12px;
+      font-size: 14px; font-family: inherit;
+      color: var(--navy);
+      background: #fafcff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .form-group textarea { min-height: 130px; }
+
+    .form-submit {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .btn-submit {
+      padding: 15px 36px;
+      background: var(--grad); color: white;
+      border: none; border-radius: 13px;
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+      font-family: inherit;
+    }
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .form-note { font-size: 12.5px; color: var(--muted); }
+
+    /* Success message */
+    .form-success {
+      display: none;
+      align-items: center; gap: 12px;
+      background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 12px; padding: 16px 20px;
+      font-size: 14px; font-weight: 600; color: #16a34a;
+    }
+    .form-success.show { display: flex; }
+
+    /* FAQ */
+    .faq-section { margin-top: 72px; }
+    .faq-section h2 {
+      font-size: 28px; font-weight: 900; color: var(--navy);
+      letter-spacing: -0.6px; margin: 0 0 32px; text-align: center;
+    }
+    .faq-section h2 span {
+      background: var(--grad-text);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .faq-card {
+      background: white; border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 26px 24px;
+      box-shadow: var(--shadow);
+    }
+    .faq-card h4 { font-size: 15px; font-weight: 800; color: var(--navy); margin: 0 0 8px; }
+    .faq-card p { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .contact-form-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" />
+      </a>
+      <nav class="nav-links">
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html#capabilities">Capabilities</a>
+        <a href="index.html#countries">Countries</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="contact.html" class="nav-cta">Start Project</a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <button class="mobile-nav-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#capabilities">Capabilities</a>
+    <a href="index.html#countries">Countries</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-primary mobile-nav-cta">Start Project</a>
+  </nav>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span>›</span>
+          <span>Contact</span>
+        </div>
+        <h1>Let's Build <span>Something Powerful</span></h1>
+        <p class="sub">Have a project in mind? Send a message and I'll get back to you within 24 hours.</p>
+      </div>
+    </section>
+
+    <div class="contact-wrap">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- SIDEBAR -->
+          <div class="contact-sidebar">
+            <div class="avail-badge">
+              <span class="avail-dot"></span>
+              Available for new projects
+            </div>
+
+            <div class="contact-info-card">
+              <h3>Contact Info</h3>
+              <div class="contact-info-list">
+                <div class="contact-info-item">
+                  <div class="cii-icon">✉️</div>
+                  <div class="cii-body">
+                    <span class="cii-label">Email</span>
+                    <span class="cii-value"><a href="mailto:ahmednour5999@gmail.com">ahmednour5999@gmail.com</a></span>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="cii-icon">📞</div>
+                  <div class="cii-body">
+                    <span class="cii-label">WhatsApp — Saudi Arabia</span>
+                    <span class="cii-value"><a href="https://wa.me/966575899784">+966 575 899 784</a></span>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="cii-icon">📞</div>
+                  <div class="cii-body">
+                    <span class="cii-label">WhatsApp — Egypt</span>
+                    <span class="cii-value"><a href="https://wa.me/2001276845745">+20 012 768 45745</a></span>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="cii-icon">📍</div>
+                  <div class="cii-body">
+                    <span class="cii-label">Location</span>
+                    <span class="cii-value">Saudi Arabia &amp; Egypt (Remote)</span>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="cii-icon">⏱️</div>
+                  <div class="cii-body">
+                    <span class="cii-label">Response Time</span>
+                    <span class="cii-value">Within 24 hours</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="quick-btns">
+              <a href="mailto:ahmednour5999@gmail.com" class="qbtn qbtn-email">
+                <span class="qbtn-icon">✉️</span>
+                Send Email
+              </a>
+              <a href="https://wa.me/966575899784" class="qbtn qbtn-wa1">
+                <span class="qbtn-icon">💬</span>
+                WhatsApp 🇸🇦 Saudi Arabia
+              </a>
+              <a href="https://wa.me/2001276845745" class="qbtn qbtn-wa2">
+                <span class="qbtn-icon">💬</span>
+                WhatsApp 🇪🇬 Egypt
+              </a>
+              <a href="https://github.com/ahmednour1234" class="qbtn qbtn-github">
+                <span class="qbtn-icon">🐙</span>
+                GitHub Profile
+              </a>
+              <a href="https://linkedin.com/in/ahmed-nour-698758242" class="qbtn qbtn-linkedin">
+                <span class="qbtn-icon">💼</span>
+                LinkedIn Profile
+              </a>
+            </div>
+          </div>
+
+          <!-- FORM -->
+          <div class="contact-form-card">
+            <h3>Send a Message</h3>
+            <p class="form-sub">Tell me about your project — what you're building, what problem you're solving, and what you need from a software engineer.</p>
+
+            <form class="contact-form" id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Full Name *</label>
+                  <input type="text" id="name" name="name" placeholder="Ahmed Al-Rashid" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" placeholder="you@company.com" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="company">Company / Organization</label>
+                  <input type="text" id="company" name="company" placeholder="Your Company Name" />
+                </div>
+                <div class="form-group">
+                  <label for="country">Country</label>
+                  <input type="text" id="country" name="country" placeholder="Saudi Arabia, UAE, Egypt…" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="project_type">Project Type *</label>
+                <select id="project_type" name="project_type" required>
+                  <option value="" disabled selected>Select a project type…</option>
+                  <option>ERP System</option>
+                  <option>Payment Gateway Integration</option>
+                  <option>Executive Dashboard</option>
+                  <option>CRM / Customer Management</option>
+                  <option>SAP / API Integration</option>
+                  <option>Event & Conference Platform</option>
+                  <option>Workflow Automation (n8n)</option>
+                  <option>Backend API Development</option>
+                  <option>SaaS Platform</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="budget">Estimated Budget</label>
+                <select id="budget" name="budget">
+                  <option value="" disabled selected>Select budget range…</option>
+                  <option>Under $5,000</option>
+                  <option>$5,000 – $15,000</option>
+                  <option>$15,000 – $30,000</option>
+                  <option>$30,000 – $60,000</option>
+                  <option>$60,000+</option>
+                  <option>Let's discuss</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Project Details *</label>
+                <textarea id="message" name="message" placeholder="Describe your project — what does your business do, what problem are you trying to solve, what features do you need?" required></textarea>
+              </div>
+
+              <div class="form-success" id="formSuccess">
+                ✅ Message sent! I'll get back to you within 24 hours.
+              </div>
+
+              <div class="form-submit">
+                <button type="submit" class="btn-submit">Send Message →</button>
+                <span class="form-note">Or reach out directly via WhatsApp for a faster response.</span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-section">
+          <h2>Frequently Asked <span>Questions</span></h2>
+          <div class="faq-grid">
+            <div class="faq-card">
+              <h4>What kind of projects do you take?</h4>
+              <p>I specialize in backend-heavy projects: ERP systems, payment integrations, dashboards, CRMs, SaaS platforms, and enterprise automation. I work with businesses of all sizes across Saudi Arabia, Egypt, and the GCC.</p>
+            </div>
+            <div class="faq-card">
+              <h4>How long does a typical project take?</h4>
+              <p>It depends on scope. A focused integration or dashboard can take 2–4 weeks. A full ERP system typically runs 3–6 months. I provide detailed timelines after understanding your requirements.</p>
+            </div>
+            <div class="faq-card">
+              <h4>Do you work remotely?</h4>
+              <p>Yes, fully remote. I have successfully delivered 40+ projects across 9 countries without on-site presence. Communication is handled via WhatsApp, email, and regular calls.</p>
+            </div>
+            <div class="faq-card">
+              <h4>What technologies do you use?</h4>
+              <p>Primarily Laravel (PHP), PostgreSQL, MySQL, Redis, Docker, Vue.js, and Python. I integrate with Stripe, URWAY, SAP, WhatsApp API, n8n, and any REST API your business needs.</p>
+            </div>
+            <div class="faq-card">
+              <h4>Do you provide ongoing support?</h4>
+              <p>Yes. Most of my clients have ongoing maintenance and support agreements. I provide bug fixes, feature additions, performance tuning, and server monitoring post-launch.</p>
+            </div>
+            <div class="faq-card">
+              <h4>Can you work with an existing codebase?</h4>
+              <p>Absolutely. I regularly take over existing Laravel or PHP systems, audit the code, fix issues, and add new features. Just share the project details and I can assess it quickly.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="https://wa.me/966575899784">WhatsApp 🇸🇦</a>
+        <a href="https://wa.me/2001276845745">WhatsApp 🇪🇬</a>
+        <a href="mailto:ahmednour5999@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+  <script>
+    // Mobile hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const mobileClose = document.getElementById('mobileClose');
+    function openNav() {
+      hamburger.classList.add('open'); mobileNav.classList.add('open');
+      mobileOverlay.classList.add('open'); hamburger.setAttribute('aria-expanded','true');
+    }
+    function closeNav() {
+      hamburger.classList.remove('open'); mobileNav.classList.remove('open');
+      mobileOverlay.classList.remove('open'); hamburger.setAttribute('aria-expanded','false');
+    }
+    hamburger.addEventListener('click', openNav);
+    mobileClose.addEventListener('click', closeNav);
+    mobileOverlay.addEventListener('click', closeNav);
+
+    // Form submission (mailto fallback)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const project = document.getElementById('project_type').value;
+
+      if (!name || !email || !message || !project) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      const subject = encodeURIComponent('Project Inquiry from ' + name);
+      const body = encodeURIComponent(
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Company: ' + document.getElementById('company').value + '\n' +
+        'Country: ' + document.getElementById('country').value + '\n' +
+        'Project Type: ' + project + '\n' +
+        'Budget: ' + document.getElementById('budget').value + '\n\n' +
+        'Message:\n' + message
+      );
+
+      window.location.href = 'mailto:ahmednour5999@gmail.com?subject=' + subject + '&body=' + body;
+
+      document.getElementById('formSuccess').classList.add('show');
+      document.getElementById('contactForm').reset();
+    });
+  </script>
+</body>
+</html>

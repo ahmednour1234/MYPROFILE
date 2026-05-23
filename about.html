@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Ahmed Nour</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    canvas#webgl { display:none; }
+    .bg-orb { display:none; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 130px 0 64px;
+      background: linear-gradient(135deg, #f0f5ff 0%, #eef0ff 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .breadcrumb {
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .breadcrumb a { color: var(--blue); font-weight: 600; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .page-hero h1 {
+      font-size: clamp(32px, 4.5vw, 56px);
+      font-weight: 900; letter-spacing: -1.5px;
+      color: var(--navy); margin: 0 0 14px;
+      line-height: 1.1;
+    }
+    .page-hero h1 span {
+      background: var(--grad-text);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .page-hero .sub {
+      font-size: 16px; color: var(--muted);
+      max-width: 580px; line-height: 1.75;
+    }
+
+    /* ABOUT GRID */
+    .about-wrap { padding: 72px 0 96px; }
+
+    .about-intro {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 56px;
+      align-items: start;
+      margin-bottom: 72px;
+    }
+
+    /* Avatar card */
+    .about-avatar-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      box-shadow: var(--shadow);
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      text-align: center;
+      position: sticky; top: 110px;
+    }
+    .avatar-circle {
+      width: 100px; height: 100px; border-radius: 50%;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 38px; font-weight: 900; color: white;
+      flex-shrink: 0;
+    }
+    .about-avatar-card h2 { font-size: 20px; font-weight: 800; color: var(--navy); margin: 0; }
+    .about-avatar-card .role {
+      font-size: 13px; color: var(--muted); font-weight: 600;
+      line-height: 1.5;
+    }
+    .about-avatar-card .location {
+      font-size: 13px; color: var(--muted);
+      background: rgba(37,99,235,0.06);
+      padding: 6px 14px; border-radius: 999px;
+    }
+    .about-social-links {
+      display: flex; flex-direction: column; gap: 10px; width: 100%;
+      margin-top: 4px;
+    }
+    .about-social-links a {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-size: 13.5px; font-weight: 700;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .social-email { background: var(--grad); color: white; }
+    .social-email:hover { opacity: 0.88; }
+    .social-wa { background: #25d366; color: white; }
+    .social-wa:hover { opacity: 0.88; }
+    .social-github { background: #1a1a2e; color: white; }
+    .social-github:hover { opacity: 0.85; }
+    .social-li { background: #0077b5; color: white; }
+    .social-li:hover { opacity: 0.85; }
+
+    /* Bio section */
+    .about-bio { display: flex; flex-direction: column; gap: 28px; }
+    .about-bio h3 {
+      font-size: 22px; font-weight: 800; color: var(--navy);
+      letter-spacing: -0.5px; margin: 0 0 10px;
+    }
+    .about-bio p { font-size: 15.5px; color: #374151; line-height: 1.85; margin: 0; }
+
+    /* Stats row */
+    .about-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 18px; margin-bottom: 72px;
+    }
+    .astat-card {
+      background: white; border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 28px 24px;
+      box-shadow: var(--shadow); text-align: center;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .astat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .astat-card .num {
+      font-size: 36px; font-weight: 900; letter-spacing: -1px;
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1; margin-bottom: 6px;
+    }
+    .astat-card .label { font-size: 13px; color: var(--muted); font-weight: 600; }
+
+    /* Experience timeline */
+    .section-heading {
+      font-size: 26px; font-weight: 900; color: var(--navy);
+      letter-spacing: -0.6px; margin: 0 0 32px;
+    }
+    .section-heading span {
+      background: var(--grad-text);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; margin-bottom: 72px; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 180px 40px 1fr;
+      gap: 0 0;
+      position: relative;
+    }
+    .tl-date {
+      font-size: 13px; font-weight: 700; color: var(--blue);
+      padding-top: 4px; text-align: right; padding-right: 24px;
+    }
+    .tl-line {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .tl-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--grad); flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .tl-connector {
+      width: 2px; background: var(--line);
+      flex: 1; min-height: 20px;
+      margin-top: 4px;
+    }
+    .tl-item:last-child .tl-connector { display: none; }
+    .tl-content {
+      padding: 0 0 36px 24px;
+    }
+    .tl-content h4 { font-size: 16px; font-weight: 800; color: var(--navy); margin: 0 0 4px; }
+    .tl-content .tl-company { font-size: 13px; font-weight: 600; color: var(--blue); margin: 0 0 8px; }
+    .tl-content p { font-size: 14px; color: var(--muted); line-height: 1.7; margin: 0; }
+
+    /* Skills grid */
+    .skills-section { margin-bottom: 72px; }
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .skill-block {
+      background: white; border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 26px 22px;
+      box-shadow: var(--shadow);
+    }
+    .skill-block h4 {
+      font-size: 14px; font-weight: 800; color: var(--navy);
+      margin: 0 0 14px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tags span {
+      font-size: 12.5px; font-weight: 600;
+      background: rgba(37,99,235,0.07); color: var(--blue);
+      padding: 5px 12px; border-radius: 999px;
+      border: 1px solid rgba(37,99,235,0.12);
+    }
+
+    /* Values row */
+    .values-section { margin-bottom: 72px; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .value-card {
+      background: white; border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 32px 26px;
+      box-shadow: var(--shadow); transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .value-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .value-icon { font-size: 32px; margin-bottom: 14px; }
+    .value-card h4 { font-size: 16px; font-weight: 800; color: var(--navy); margin: 0 0 8px; }
+    .value-card p { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
+
+    /* CTA */
+    .about-cta {
+      background: var(--grad); border-radius: var(--radius-lg);
+      padding: 52px 48px; color: white; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .about-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3C/svg%3E") center/200px repeat;
+    }
+    .about-cta h3 { font-size: 28px; font-weight: 900; margin: 0 0 12px; position: relative; }
+    .about-cta p { font-size: 16px; opacity: 0.88; margin: 0 0 28px; position: relative; }
+    .about-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .btn-white {
+      background: white; color: var(--blue);
+      padding: 14px 30px; border-radius: 12px;
+      font-size: 14px; font-weight: 700;
+      transition: opacity 0.2s;
+    }
+    .btn-white:hover { opacity: 0.9; }
+    .btn-outline-white {
+      border: 2px solid rgba(255,255,255,0.5); color: white;
+      padding: 12px 28px; border-radius: 12px;
+      font-size: 14px; font-weight: 700;
+      transition: border-color 0.2s;
+    }
+    .btn-outline-white:hover { border-color: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .about-intro { grid-template-columns: 1fr; }
+      .about-avatar-card { position: static; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .values-grid { grid-template-columns: 1fr; }
+      .tl-item { grid-template-columns: 110px 32px 1fr; }
+    }
+    @media (max-width: 600px) {
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .tl-item { grid-template-columns: 0px 28px 1fr; }
+      .tl-date { display: none; }
+      .about-cta { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="Ahmed Nour" class="nav-logo" />
+      </a>
+      <nav class="nav-links">
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html#capabilities">Capabilities</a>
+        <a href="index.html#countries">Countries</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="contact.html" class="nav-cta">Start Project</a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile sidebar -->
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <button class="mobile-nav-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#capabilities">Capabilities</a>
+    <a href="index.html#countries">Countries</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="btn btn-primary mobile-nav-cta">Start Project</a>
+  </nav>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span>›</span>
+          <span>About</span>
+        </div>
+        <h1>About <span>Ahmed Nour</span></h1>
+        <p class="sub">Senior Backend Engineer with 3+ years building ERP, fintech, and healthcare systems in Saudi Arabia — specializing in SAP integrations, payment gateways, and high-volume transaction systems.</p>
+      </div>
+    </section>
+
+    <div class="about-wrap">
+      <div class="container">
+
+        <!-- Intro grid: avatar card + bio -->
+        <div class="about-intro">
+          <div class="about-avatar-card">
+            <div class="avatar-circle">AN</div>
+            <h2>Ahmed Mohamed Nour</h2>
+            <p class="role">Senior Backend Engineer<br>ERP &amp; Payment Integrations</p>
+            <p class="location">📍 Riyadh, Saudi Arabia</p>
+            <div class="about-social-links">
+              <a href="mailto:ahmednour5999@gmail.com" class="social-email">✉ Email Me</a>
+              <a href="https://wa.me/966575899784" class="social-wa">💬 WhatsApp 🇸🇦</a>
+              <a href="https://github.com/ahmednour1234" class="social-github">GitHub</a>
+              <a href="https://linkedin.com/in/ahmed-nour-698758242" class="social-li">LinkedIn</a>
+            </div>
+          </div>
+
+          <div class="about-bio">
+            <div>
+              <h3>Who I Am</h3>
+              <p>I'm Ahmed Mohamed Nour, a Senior Backend Engineer with 3+ years of experience building ERP, fintech, and healthcare systems in Saudi Arabia. Born 2002, Egyptian nationality, based in Riyadh with a valid transferable Iqama. I hold a B.Sc. in Information Technology from the Faculty of Computer Science, Damnhour University (2020–2024).</p>
+            </div>
+            <div>
+              <h3>What I Do</h3>
+              <p>I specialize in SAP integrations, payment gateways (URWAY, Stripe), and high-volume transaction systems handling 500+ daily orders and SAR 2M+ monthly payments. My work spans the full lifecycle — from architecture and API design to webhook systems, financial reconciliation pipelines, and automation workflows that improve business efficiency and data accuracy.</p>
+            </div>
+            <div>
+              <h3>My Mission</h3>
+              <p>To build scalable backend systems that solve real business problems. I've led integrations between SAP ERP, payment gateways, and logistics systems; built healthcare ERP supporting 100+ daily patient visits; and automated 10,000+ WhatsApp messages per month. I don't just write code — I deliver production-grade systems that businesses depend on.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="about-stats">
+          <div class="astat-card">
+            <div class="num">500+</div>
+            <div class="label">Daily Orders Processed</div>
+          </div>
+          <div class="astat-card">
+            <div class="num">SAR 2M+</div>
+            <div class="label">Monthly Payments Handled</div>
+          </div>
+          <div class="astat-card">
+            <div class="num">3+</div>
+            <div class="label">Years of Experience</div>
+          </div>
+          <div class="astat-card">
+            <div class="num">10K+</div>
+            <div class="label">Automated Messages / Month</div>
+          </div>
+        </div>
+
+        <!-- Experience Timeline -->
+        <div class="section-heading">Experience <span>Timeline</span></div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-date">06/2025 — 01/2026</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+            <div class="tl-content">
+              <h4>Full-Stack Engineer (Laravel)</h4>
+              <p class="tl-company">Smart Vision · Cairo</p>
+              <p>Developed multiple production-grade web applications and customer platforms. Integrated payment gateways and third-party APIs, implemented multilingual systems, and set up CI/CD pipelines. Tech: Laravel, PHP 8, Blade, Tailwind CSS, MySQL, REST APIs, CI/CD.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">05/2025 — 02/2026</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+            <div class="tl-content">
+              <h4>Senior Backend &amp; Integration Engineer</h4>
+              <p class="tl-company">Muntajat · Riyadh</p>
+              <p>Led backend integrations between SAP ERP, payment gateways, and logistics systems. Processed 500+ daily orders and SAR 2M+ monthly payments. Built webhook-based payment system, developed financial reconciliation pipelines, and automated 10,000+ WhatsApp notifications/month. Tech: Laravel, SAP, URWAY, MySQL, Redis, Webhooks.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">01/2025 — Present</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+            <div class="tl-content">
+              <h4>Backend Engineer — ERP &amp; Business Systems</h4>
+              <p class="tl-company">IQBRANDX · Riyadh</p>
+              <p>Developed and maintained a full ERP platform covering finance, inventory, HR, and sales. Built RESTful APIs for high-volume business operations and designed reporting systems and dashboards for improved data visibility. Tech: Laravel, MySQL, REST APIs, ERP Architecture.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">08/2024 — Present</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+            <div class="tl-content">
+              <h4>ERP &amp; CRM Consultant</h4>
+              <p class="tl-company">Raqimix · Remote</p>
+              <p>Developed and maintained a full ERP system covering finance, HR, inventory, and sales. Automated business workflows, designed RESTful APIs, and optimized database queries for large datasets. Tech: Laravel, Python, PostgreSQL, MySQL, Docker, REST APIs.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">05/2024 — 09/2024</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+            <div class="tl-content">
+              <h4>Backend Engineer — Healthcare ERP</h4>
+              <p class="tl-company">Alhayat Medical International · Riyadh</p>
+              <p>Built a healthcare ERP system supporting 100+ daily patient visits across clinics. Developed modules for billing, scheduling, patient records, and reporting. Integrated WhatsApp and SMS APIs for automated patient notifications. Tech: Laravel, MySQL, REST APIs, WhatsApp API, SMS Gateways, Queue Jobs.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">01/2024 — 05/2024</div>
+            <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+            <div class="tl-content">
+              <h4>Full-Stack Engineer — Business Applications</h4>
+              <p class="tl-company">Bidayatk Company · Alexandria, Egypt</p>
+              <p>Built and maintained internal business applications and management systems. Developed RESTful APIs and integrated frontend systems using Vue.js. Delivered end-to-end features from requirements to deployment. Tech: Laravel, Vue.js, MySQL, REST APIs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="skills-section">
+          <div class="section-heading">Technical <span>Skills</span></div>
+          <div class="skills-grid">
+            <div class="skill-block">
+              <h4>Backend Development</h4>
+              <div class="skill-tags">
+                <span>Laravel</span><span>PHP</span><span>.NET</span><span>Python</span>
+              </div>
+            </div>
+            <div class="skill-block">
+              <h4>Databases</h4>
+              <div class="skill-tags">
+                <span>MySQL</span><span>PostgreSQL</span><span>Redis</span>
+              </div>
+            </div>
+            <div class="skill-block">
+              <h4>System Architecture</h4>
+              <div class="skill-tags">
+                <span>Queues</span><span>Microservices</span><span>Event-driven</span>
+              </div>
+            </div>
+            <div class="skill-block">
+              <h4>API Development</h4>
+              <div class="skill-tags">
+                <span>REST APIs</span><span>Webhooks</span><span>Third-party Integrations</span>
+              </div>
+            </div>
+            <div class="skill-block">
+              <h4>ERP &amp; Integrations</h4>
+              <div class="skill-tags">
+                <span>SAP ERP</span><span>URWAY</span><span>Stripe</span><span>Payment Gateways</span>
+              </div>
+            </div>
+            <div class="skill-block">
+              <h4>DevOps &amp; Tools</h4>
+              <div class="skill-tags">
+                <span>Docker</span><span>CI/CD</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="skills-section">
+          <div class="section-heading">Education</div>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-date">10/2020 — 06/2024</div>
+              <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector" style="display:none"></div></div>
+              <div class="tl-content">
+                <h4>B.Sc. in Information Technology</h4>
+                <p class="tl-company">Faculty of Computer Science, Damnhour University · Damnhour, Egypt</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Values -->
+        <div class="values-section">
+          <div class="section-heading">My <span>Values</span></div>
+          <div class="values-grid">
+            <div class="value-card">
+              <div class="value-icon">⚙️</div>
+              <h4>Engineering First</h4>
+              <p>I build systems for production, not demos. Every decision — from schema design to caching strategy — is made with real-world scale and reliability in mind.</p>
+            </div>
+            <div class="value-card">
+              <div class="value-icon">🎯</div>
+              <h4>Business Focused</h4>
+              <p>I understand that software exists to solve business problems. I work closely with stakeholders to make sure the technical solution matches the operational reality.</p>
+            </div>
+            <div class="value-card">
+              <div class="value-icon">🚀</div>
+              <h4>Delivery Driven</h4>
+              <p>500+ daily orders processed and SAR 2M+ monthly payments handled in production systems. I deliver on time, communicate clearly, and take full ownership of every system I build.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="about-cta">
+          <h3>Ready to Build Something Powerful?</h3>
+          <p>Let's turn your business requirements into a production-grade system.</p>
+          <div class="about-cta-btns">
+            <a href="contact.html" class="btn-white">Get in Touch</a>
+            <a href="projects.html" class="btn-outline-white">View Projects</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-brand">Ahmed <strong>Nour</strong></span>
+      <span class="footer-copy">© 2026 Software Engineer Portfolio</span>
+      <div class="footer-links">
+        <a href="https://github.com/ahmednour1234">GitHub</a>
+        <a href="https://linkedin.com/in/ahmed-nour-698758242">LinkedIn</a>
+        <a href="https://wa.me/966575899784">WhatsApp 🇸🇦</a>
+        <a href="https://wa.me/2001276845745">WhatsApp 🇪🇬</a>
+        <a href="mailto:ahmednour5999@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+  <script>
+    // Mobile hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const mobileClose = document.getElementById('mobileClose');
+    function openNav() {
+      hamburger.classList.add('open');
+      mobileNav.classList.add('open');
+      mobileOverlay.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+    }
+    function closeNav() {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+    hamburger.addEventListener('click', openNav);
+    mobileClose.addEventListener('click', closeNav);
+    mobileOverlay.addEventListener('click', closeNav);
+  </script>
+</body>
+</html>
