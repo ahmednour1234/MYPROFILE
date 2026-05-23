@@ -296,3 +296,29 @@ window.addEventListener('scroll', () => {
     }
   });
 })();
+
+// ===== WHATSAPP BUTTONS WITH AUTO MESSAGE =====
+function getWhatsAppMsg(lang) {
+  return lang === 'ar'
+    ? encodeURIComponent('مرحباً، أريد بناء مشروع جديد وأحتاج تفاصيل أكثر.')
+    : encodeURIComponent('Hello, I want to build a new project and need more details.');
+}
+
+function setupWhatsAppBtns() {
+  const waBtnSA = document.getElementById('waBtnSA');
+  const waBtnEG = document.getElementById('waBtnEG');
+  if (!waBtnSA || !waBtnEG) return;
+  function updateLinks() {
+    const lang = currentLang || 'en';
+    const msg = getWhatsAppMsg(lang);
+    waBtnSA.setAttribute('href', 'https://wa.me/966575899784?text=' + msg);
+    waBtnEG.setAttribute('href', 'https://wa.me/2001276845745?text=' + msg);
+  }
+  updateLinks();
+  // Update links on language change
+  if (window.MutationObserver) {
+    const observer = new MutationObserver(updateLinks);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  }
+}
+setupWhatsAppBtns();
