@@ -1136,12 +1136,14 @@ body {
   -webkit-mask-image:linear-gradient(to right,transparent,black 100px,black calc(100% - 100px),transparent);
   mask-image:linear-gradient(to right,transparent,black 100px,black calc(100% - 100px),transparent);
   padding:12px 0 8px;
+  direction:ltr;
 }
 .marquee-inner {
   display:flex;
   gap:18px;
   width:max-content;
   animation:logoScroll 44s linear infinite;
+  direction:ltr;
 }
 .logo-marquee:hover .marquee-inner { animation-play-state:paused; }
 @keyframes logoScroll {
