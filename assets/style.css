@@ -1183,7 +1183,7 @@ body {
   display:block;
 }
 .client-icon.dark {
-  background:#111827;
+  background:#111827 !important;
   padding:10px 16px;
 }
 .client-icon.colored {
