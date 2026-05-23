@@ -1337,6 +1337,51 @@ footer {
   .pv2-row { grid-template-columns:1fr 1fr; gap:14px; }
   .pv2-screen { min-height:160px; }
   .pv2-top h3 { font-size:14px; }
+
+  /* ── Capabilities mobile layout ── */
+  .cap-hero-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .cap-hero-card {
+    flex-direction: column;
+    padding: 20px 16px;
+    gap: 0;
+    align-items: flex-start;
+  }
+  /* stagger: even card drops down */
+  .cap-hero-row .cap-hero-card:nth-child(even) { margin-top: 40px; }
+  .cap-hero-img { display: none; }
+  .cap-hero-body { width: 100%; }
+  .cap-hero-body h3 { font-size: 15px; margin-top: 18px; }
+  .cap-hero-body p  { font-size: 12.5px; margin-bottom: 16px; }
+  .cap-detail-btn   { font-size: 12px; padding: 9px 16px; }
+
+  .cap-four-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  /* stagger: even sm cards drop down */
+  .cap-four-row .cap-sm-card:nth-child(even) { margin-top: 28px; }
+  .cap-sm-card { padding: 18px 14px; }
+  .cap-sm-card h4 { font-size: 13.5px; }
+  .cap-sm-card p  { font-size: 12px; }
+
+  .cap-three-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  /* stagger: even bot cards drop down; last card spans full width */
+  .cap-three-row .cap-bot-card:nth-child(even) { margin-top: 28px; }
+  .cap-three-row .cap-bot-card:nth-child(3) { grid-column: 1 / -1; margin-top: 0; }
+  .cap-bot-card { padding: 18px 14px; }
+  .cap-bot-card h4 { font-size: 13.5px; }
+  .cap-bot-card p  { font-size: 12px; }
+
+  .cap-quality-bar { gap: 18px; }
 }
 @media (max-width:680px) {
   .pv2-row { grid-template-columns:1fr; }
@@ -1351,4 +1396,15 @@ footer {
   .pv2-top { padding:16px 16px 12px; }
   .pv2-foot { padding:10px 16px; }
   .pv2-top h3 { font-size:14px; }
+
+  /* ── Capabilities: very small screens → single column ── */
+  .cap-hero-row,
+  .cap-four-row,
+  .cap-three-row { grid-template-columns: 1fr; gap: 10px; }
+  .cap-hero-row .cap-hero-card:nth-child(even),
+  .cap-four-row .cap-sm-card:nth-child(even),
+  .cap-three-row .cap-bot-card:nth-child(even),
+  .cap-three-row .cap-bot-card:nth-child(3) { margin-top: 0; grid-column: auto; }
+  .cap-hero-body h3 { font-size: 16px; }
+  .cap-sm-card h4, .cap-bot-card h4 { font-size: 14px; }
 }
