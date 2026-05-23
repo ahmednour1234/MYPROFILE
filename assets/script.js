@@ -92,8 +92,8 @@ function applyLanguage(lang) {
   if (label) label.textContent = lang === 'ar' ? 'English' : 'العربية';
 
   document.title = lang === 'ar'
-    ? 'أحمد نور | مهندس برمجيات'
-    : 'Ahmed Nour | Software Engineer';
+    ? (document.documentElement.dataset.titleAr || 'أحمد نور | مهندس برمجيات')
+    : (document.documentElement.dataset.titleEn || 'Ahmed Nour | Software Engineer');
 
   document.querySelectorAll('[data-en]').forEach(el => {
     const text = el.getAttribute('data-' + lang);

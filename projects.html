@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-title-en="Projects | Ahmed Nour — Backend &amp; ERP Work" data-title-ar="المشاريع | أحمد نور">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -200,10 +200,28 @@
         <a href="contact.html" data-en="Contact" data-ar="تواصل">Contact</a>
       </nav>
       <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle" aria-label="Toggle Language">
+          <span class="lang-icon">🌐</span>
+          <span id="langLabel">العربية</span>
+        </button>
         <a href="contact.html" class="nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <button class="mobile-nav-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="about.html" data-en="About" data-ar="عني">About</a>
+    <a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a>
+    <a href="index.html#capabilities" data-en="Capabilities" data-ar="الإمكانيات">Capabilities</a>
+    <a href="index.html#countries" data-en="Countries" data-ar="الدول">Countries</a>
+    <a href="contact.html" data-en="Contact" data-ar="تواصل">Contact</a>
+    <a href="contact.html" class="btn btn-primary mobile-nav-cta" data-en="Start Project" data-ar="ابدأ مشروعاً">Start Project</a>
+  </nav>
 
   <main>
     <!-- Page Hero -->
@@ -984,5 +1002,23 @@
       });
     }
   </script>
+  <script src="assets/script.js"></script>
+  <script>
+    // Mobile hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const mobileClose = document.getElementById('mobileClose');
+    function openNav() {
+      hamburger.classList.add('open'); mobileNav.classList.add('open');
+      mobileOverlay.classList.add('open'); hamburger.setAttribute('aria-expanded','true');
+    }
+    function closeNav() {
+      hamburger.classList.remove('open'); mobileNav.classList.remove('open');
+      mobileOverlay.classList.remove('open'); hamburger.setAttribute('aria-expanded','false');
+    }
+    hamburger.addEventListener('click', openNav);
+    mobileClose.addEventListener('click', closeNav);
+    mobileOverlay.addEventListener('click', closeNav);
 </body>
 </html>
